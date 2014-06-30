@@ -1,0 +1,16 @@
+{
+  "bin": { "jslint-lite": "jslint-lite.js" },
+  "contributors": [{ "name": "kai zhu", "email": "kaizhu256@gmail.com" }],
+  "description": "jslint with no external package dependencies",
+  "devDependencies": {
+    "istanbul": "0.2.x"
+  },
+	"license": "MIT",
+  "main": "jslint-lite.js",
+  "name": "jslint-lite",
+  "os": ["darwin", "linux"],
+  "scripts": {
+    "test": "./jslint-lite.sh shNpmTest"
+  },
+  "version": "2014.6.23-2"
+}
