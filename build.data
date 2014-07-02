@@ -1,0 +1,200 @@
+/* MODULE_BEGIN { "actionList": ["trim", "install"], "file": ".git-config" } */
+[branch "master"]
+  remote = origin
+  merge = refs/heads/master
+[branch "unstable"]
+  remote = origin
+  merge = refs/heads/unstable
+[core]
+  bare = false
+  filemode = true
+  ignorecase = true
+  logallrefupdates = true
+  repositoryformatversion = 0
+[receive]
+  denyCurrentBranch = warn
+[remote "origin"]
+  fetch = +refs/heads/*:refs/remotes/origin/*
+  url = git@github.com:kaizhu256/node-jslint-lite.git
+/* MODULE_END */
+
+
+
+/* MODULE_BEGIN { "actionList": ["trim", "install"], "file": ".gitignore" } */
+*.bak
+*.log
+*.min.*
+*.pid
+*.swp
+*decrypted*
+.DS_Store
+._*
+.build
+.env
+.git*
+.hg
+.install
+.lock-wscript
+.npmrc
+.src
+.svn
+.vim
+.wafpickle-*
+CVS
+Procfile
+README.*
+artifacts
+bower_components
+node_modules
+log
+logs
+tmp
+/* MODULE_END */
+
+
+
+/* MODULE_BEGIN { "actionList": ["trim"], "file": "https%3A%2F%2Fimg.shields.io%2Fbadge%2Fcoverage-100.0%25-00dd00.svg%3Fstyle%3Dflat" } */
+<svg xmlns="http://www.w3.org/2000/svg" width="117" height="20">
+<linearGradient id="a" x2="0" y2="100%">
+  <stop offset="0" stop-color="#fff" stop-opacity=".1"/>
+  <stop offset=".1" stop-color="#fff" stop-opacity=".1"/>
+  <stop offset=".9" stop-color="#fff" stop-opacity=".1"/>
+  <stop offset="1" stop-color="#fff" stop-opacity=".1"/>
+</linearGradient>
+<path fill="#555" d="M0 0h117v20h-117z"/>
+<path fill="#0d0" d="M63 0h54v20h-54zM63 0h4v20h-4z"/>
+<path fill="url(#a)" d="M0 0h117v20h-117z"/>
+<g fill="#fff" text-anchor="middle" font-family="arial" font-size="11">
+  <text x="32.5" y="13">coverage</text><text x="89" y="13">100.0%</text>
+</g>
+</svg>
+/* MODULE_END */
+
+
+
+/* MODULE_BEGIN { "actionList": ["trim"], "file": "https%3A%2F%2Fimg.shields.io%2Fbadge%2Ftests_failed-999-dd0000.svg%3Fstyle%3Dflat" } */
+<svg xmlns="http://www.w3.org/2000/svg" width="103" height="20">
+<linearGradient id="a" x2="0" y2="100%">
+  <stop offset="0" stop-color="#fff" stop-opacity=".1"/>
+  <stop offset=".1" stop-color="#fff" stop-opacity=".1"/>
+  <stop offset=".9" stop-color="#fff" stop-opacity=".1"/>
+  <stop offset="1" stop-color="#fff" stop-opacity=".1"/>
+</linearGradient><path fill="#555" d="M0 0h103v20h-103z"/>
+<path fill="#d00" d="M72 0h31v20h-31zM72 0h4v20h-4z"/>
+<path fill="url(#a)" d="M0 0h103v20h-103z"/>
+<g fill="#fff" text-anchor="middle" font-family="arial" font-size="11">
+  <text x="37" y="13">tests failed</text><text x="86.5" y="13">999</text>
+</g>
+</svg>
+/* MODULE_END */
+
+
+
+/* MODULE_BEGIN { "actionList": ["trim"], "file": "/public/testReport.html.template" } */
+<style>
+.testReportPlatformDiv {
+  border: 1px solid;
+  border-radius: 5px;
+  font-family: arial;
+  margin: 20px 0 0 0;
+  padding: 0 10px 10px 10px;
+  text-align: left;
+}
+.testReportPlatformPre {
+  background-color: #fdd;
+  border: 1px;
+  border-radius: 0 0 5px 5px;
+  border-top-style: solid;
+  margin-bottom: 0px;
+  padding: 10px;
+}
+.testReportPlatformPreHidden {
+  display: none;
+}
+.testReportPlatformSpan {
+  display: inline-block;
+  width: 7em;
+}
+.testReportPlatformTable {
+  border: 1px;
+  border-top-style: solid;
+  text-align: left;
+  width: 100%;
+}
+.testReportSummaryDiv {
+  background-color: #bfb;
+}
+.testReportSummarySpan {
+  display: inline-block;
+  width: 6.5em;
+}
+tr:nth-child(odd).testReportPlatformTr {
+  background-color: #bfb;
+}
+.testReportTestFailed {
+  background-color: #f99;
+}
+.testReportTestPending {
+  background-color: #99f;
+}
+</style>
+
+<div class="testReportPlatformDiv testReportSummaryDiv">
+<h2>test report summary</h2>
+<h4>
+  <span class="testReportSummarySpan">build date</span>- {{date}}<br>
+  <span class="testReportSummarySpan">build id</span>- {{CI_BUILD_NUMBER}}<br>
+  <span class="testReportSummarySpan">commit info</span>- {{CI_COMMIT_INFO}}<br>
+</h4>
+<table class="testReportPlatformTable">
+<thead><tr>
+  <th>total time</th>
+  <th>total tests failed</th>
+  <th>total tests passed</th>
+  <th>platforms failed</th>
+  <th>platforms passed</th>
+</tr></thead>
+<tbody><tr>
+  <td>{{totalTime}} ms</td>
+  <td class="{{testsFailedClass}}">{{testsFailed}}</td>
+  <td class="testReportTestPassed">{{testsPassed}}</td>
+  <td class="{{testsFailedClass}}">{{platformsFailed}}</td>
+  <td class="testReportTestPassed">{{platformsPassed}}</td>
+</tr></tbody>
+</table>
+</div>
+
+{{@testPlatformList}}
+<div class="testReportPlatformDiv">
+<h4>
+  {{testPlatformNumber}}. {{name}}<br>
+  <span class="testReportPlatformSpan">total time</span>- {{totalTime}} ms<br>
+  <span class="testReportPlatformSpan">tests failed</span>- {{testsFailed}}<br>
+  <span class="testReportPlatformSpan">tests passed</span>- {{testsPassed}}<br>
+</h4>
+<table class="testReportPlatformTable">
+<thead><tr>
+  <th>#</th>
+  <th>time</th>
+  <th>status</th>
+  <th>test case</th>
+</tr></thead>
+<tbody>
+{{@testCaseList}}
+<tr class="testReportPlatformTr">
+  <td>{{testCaseNumber}}</td>
+  <td>{{time}} ms</td>
+  <td class="{{testReportTestStatusClass}}">{{status}}</td>
+  <td>{{name}}</td>
+</tr>
+{{/@testCaseList}}
+</tbody>
+</table>
+<pre class="{{testReportPlatformPreClass}}">
+{{@errorMessageList}}
+{{errorMessage}}
+{{/@errorMessageList}}
+</pre>
+</div>
+{{/@testPlatformList}}
+/* MODULE_END */
