@@ -13,6 +13,9 @@
   repositoryformatversion = 0
 [receive]
   denyCurrentBranch = warn
+[remote "heroku"]
+  fetch = +refs/heads/*:refs/remotes/heroku/*
+  url = git@heroku.com:hrku01-node-jslint-lite.git
 [remote "origin"]
   fetch = +refs/heads/*:refs/remotes/origin/*
   url = git@github.com:kaizhu256/node-jslint-lite.git
@@ -49,6 +52,19 @@ node_modules
 log
 logs
 tmp
+/* MODULE_END */
+
+
+
+/* MODULE_BEGIN { "actionList": ["trim", "install"], "file": ".install/git-ssh.sh" } */
+#!/bin/sh
+exec ssh -i $GIT_SSH_KEY_FILE -o CheckHostIP=no -o StrictHostKeychecking=no -- "$@"
+/* MODULE_END */
+
+
+
+/* MODULE_BEGIN { "actionList": ["trim", "install"], "file": "Procfile" } */
+web: npm start --server-port=$PORT
 /* MODULE_END */
 
 
@@ -149,17 +165,17 @@ tr:nth-child(odd).testReportPlatformTr {
 <table class="testReportPlatformTable">
 <thead><tr>
   <th>total time</th>
-  <th>total tests failed</th>
-  <th>total tests passed</th>
   <th>platforms failed</th>
   <th>platforms passed</th>
+  <th>total tests failed</th>
+  <th>total tests passed</th>
 </tr></thead>
 <tbody><tr>
-  <td>{{totalTime}} ms</td>
-  <td class="{{testsFailedClass}}">{{testsFailed}}</td>
-  <td class="testReportTestPassed">{{testsPassed}}</td>
+  <td>{{time}} ms</td>
   <td class="{{testsFailedClass}}">{{platformsFailed}}</td>
   <td class="testReportTestPassed">{{platformsPassed}}</td>
+  <td class="{{testsFailedClass}}">{{testsFailed}}</td>
+  <td class="testReportTestPassed">{{testsPassed}}</td>
 </tr></tbody>
 </table>
 </div>
@@ -168,7 +184,7 @@ tr:nth-child(odd).testReportPlatformTr {
 <div class="testReportPlatformDiv">
 <h4>
   {{testPlatformNumber}}. {{name}}<br>
-  <span class="testReportPlatformSpan">total time</span>- {{totalTime}} ms<br>
+  <span class="testReportPlatformSpan">total time</span>- {{time}} ms<br>
   <span class="testReportPlatformSpan">tests failed</span>- {{testsFailed}}<br>
   <span class="testReportPlatformSpan">tests passed</span>- {{testsPassed}}<br>
 </h4>
