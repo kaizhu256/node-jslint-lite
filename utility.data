@@ -15,7 +15,7 @@
   denyCurrentBranch = warn
 [remote "heroku"]
   fetch = +refs/heads/*:refs/remotes/heroku/*
-  url = git@heroku.com:hrku01-node-jslint-lite.git
+  url = git@heroku.com:hrku01-jslint-lite.git
 [remote "origin"]
   fetch = +refs/heads/*:refs/remotes/origin/*
   url = git@github.com:kaizhu256/node-jslint-lite.git
@@ -56,19 +56,6 @@ tmp
 
 
 
-/* MODULE_BEGIN { "actionList": ["trim", "install"], "file": ".install/git-ssh.sh" } */
-#!/bin/sh
-exec ssh -i $GIT_SSH_KEY_FILE -o CheckHostIP=no -o StrictHostKeychecking=no -- "$@"
-/* MODULE_END */
-
-
-
-/* MODULE_BEGIN { "actionList": ["trim", "install"], "file": "Procfile" } */
-web: npm start --server-port=$PORT
-/* MODULE_END */
-
-
-
 /* MODULE_BEGIN { "actionList": ["trim"], "file": "https%3A%2F%2Fimg.shields.io%2Fbadge%2Fcoverage-100.0%25-00dd00.svg%3Fstyle%3Dflat" } */
 <svg xmlns="http://www.w3.org/2000/svg" width="117" height="20">
 <linearGradient id="a" x2="0" y2="100%">
@@ -102,6 +89,42 @@ web: npm start --server-port=$PORT
   <text x="37" y="13">tests failed</text><text x="86.5" y="13">999</text>
 </g>
 </svg>
+/* MODULE_END */
+
+
+
+/* MODULE_BEGIN { "actionList": ["trim", "install"], "file": ".install/git-ssh.sh" } */
+#!/bin/sh
+exec ssh -i $GIT_SSH_KEY_FILE -o CheckHostIP=no -o StrictHostKeychecking=no -- "$@"
+/* MODULE_END */
+
+
+
+/* MODULE_BEGIN { "actionList": ["lint", "trim", "install"], "file": ".install/saucelabs-test-platforms-list.json" } */
+{
+  "platformsList": [
+    [
+      ["linux", "android", "4.3"],
+      ["linux", "googlechrome", "34"],
+      ["linux", "firefox", "29"],
+      ["linux", "opera", "12"],
+      ["osx 10.9", "ipad", "7.1"],
+      ["osx 10.9", "iphone", "7.1"],
+      ["osx 10.9", "safari", "7"],
+      ["windows 8.1", "iexplore", "11"]
+    ]
+  ],
+  "stateOverride": {
+    "timeoutDefault": 200000
+  },
+  "url": "https://utility2.herokuapp.com/test/test.html#modeTest=1&timeoutDefault={{timeoutDefault}}"
+}
+/* MODULE_END */
+
+
+
+/* MODULE_BEGIN { "actionList": ["trim", "install"], "file": "Procfile" } */
+web: npm start --server-port=$PORT
 /* MODULE_END */
 
 
@@ -164,11 +187,11 @@ tr:nth-child(odd).testReportPlatformTr {
 </h4>
 <table class="testReportPlatformTable">
 <thead><tr>
-  <th>total time</th>
+  <th>time</th>
   <th>platforms failed</th>
   <th>platforms passed</th>
-  <th>total tests failed</th>
-  <th>total tests passed</th>
+  <th>tests failed</th>
+  <th>tests passed</th>
 </tr></thead>
 <tbody><tr>
   <td>{{time}} ms</td>
@@ -184,7 +207,7 @@ tr:nth-child(odd).testReportPlatformTr {
 <div class="testReportPlatformDiv">
 <h4>
   {{testPlatformNumber}}. {{name}}<br>
-  <span class="testReportPlatformSpan">total time</span>- {{time}} ms<br>
+  <span class="testReportPlatformSpan">time</span>- {{time}} ms<br>
   <span class="testReportPlatformSpan">tests failed</span>- {{testsFailed}}<br>
   <span class="testReportPlatformSpan">tests passed</span>- {{testsPassed}}<br>
 </h4>
@@ -213,4 +236,106 @@ tr:nth-child(odd).testReportPlatformTr {
 </pre>
 </div>
 {{/@testPlatformList}}
+/* MODULE_END */
+
+
+
+/* MODULE_BEGIN { "actionList": ["lint"], "file": "/public/utility.css" } */
+.ajaxProgressBarDiv {
+  animation: 2s linear 0s normal none infinite ajaxProgressBarDivAnimation;
+  -o-animation: 2s linear 0s normal none infinite ajaxProgressBarDivAnimation;
+  -webkit-animation: 2s linear 0s normal none infinite ajaxProgressBarDivAnimation;
+  background-image: linear-gradient(
+    45deg,rgba(255,255,255,.25) 25%,
+    transparent 25%,
+    transparent 50%,
+    rgba(255,255,255,.25) 50%,
+    rgba(255,255,255,.25) 75%,
+    transparent 75%,
+    transparent
+  );
+  background-size: 40px 40px;
+  color: #fff;
+  font-family: arial;
+  font-size: 12px;
+  padding: 2px 0 2px 0;
+  text-align: center;
+  transition: width .5s ease;
+  width: 0%;
+}
+.ajaxProgressBarDivError {
+  background-color: #d33;
+}
+.ajaxProgressBarDivLoading {
+  background-color: #37b;
+}
+.ajaxProgressBarDivSuccess {
+  background-color: #3b3;
+}
+#ajaxProgressDiv {
+  background-color: #fff;
+  border: 1px solid;
+  cursor: pointer;
+  display: none;
+  left: 50%;
+  margin: 0 0 0 -50px;
+  padding: 5px 5px 5px 5px;
+  position: fixed;
+  top: 49%;
+  width: 100px;
+  z-index: 9999;
+}
+@keyframes ajaxProgressBarDivAnimation {
+  from { background-position: 40px 0; }
+  to { background-position: 0 0; }
+}
+@-o-keyframes ajaxProgressBarDivAnimation {
+  from { background-position: 40px 0; }
+  to { background-position: 0 0; }
+}
+@-webkit-keyframes ajaxProgressBarDivAnimation {
+  from { background-position: 40px 0; }
+  to { background-position: 0 0; }
+}
+/* MODULE_END */
+
+
+
+/* MODULE_BEGIN { "actionList": ["trim"], "file": "/test/test.html" } */
+<!DOCTYPE html><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+<title>{{name}} test page</title>
+<style>
+body {
+  font-family: arial;
+}
+#testRunButton {
+  background-color: #37b;
+  border: 0px solid;
+  border-radius: 4px;
+  color: #fff;
+  cursor: pointer;
+  font-size: medium;
+  padding: 5px 10px;
+}
+</style>
+<link href="/public/utility.css" rel="stylesheet"/>
+</head>
+<body>
+<h1>{{name}} test page</h1>
+<div id="ajaxProgressDiv"></div>
+<button id="testRunButton">run tests</button>
+<div id="testReportDiv"></div>
+<script>
+  /* enable tests for utility2 namespace */
+  document.getElementById('testRunButton').addEventListener('click', function () {
+    location.hash = '#modeTest=1';
+    location.reload();
+  });
+</script>
+<script src="/public/utility.js"></script>
+<script src="/public/main.js"></script>
+</body>
+</html>
 /* MODULE_END */

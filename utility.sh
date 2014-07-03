@@ -226,7 +226,7 @@ shBuildNpmPublish() {
   ## cleanup /tmp
   cd /tmp && rm -fr node_modules $NODEJS_PACKAGE_JSON_NAME || return $?
   ## npm install app
-  npm install $NODEJS_PACKAGE_JSON_NAME
+  npm install $NODEJS_PACKAGE_JSON_NAME || return $?
   ## cd into app
   cd node_modules/$NODEJS_PACKAGE_JSON_NAME || return $?
   ## copy previous test-report.json into .build dir
@@ -235,6 +235,7 @@ shBuildNpmPublish() {
     "npm testing published app $NODEJS_PACKAGE_JSON_NAME ..." || return $?
   ## npm test app and merge result into previous test-report.json
   npm test --mode-test-report-merge || return $?
+  cp .build/test-report.* $CWD/.build
   ## restore $CWD
   cd $CWD
 }
@@ -276,6 +277,8 @@ shNpmInstall() {
 }
 
 shNpmStart() {
+  ## jslint utility.js and $MAIN_JS
+  jslint-lite utility.js $MAIN_JS
   ## this function runs npm start
   node $MAIN_JS --mode-repl --server-port=$npm_config_server_port
 }
@@ -283,6 +286,8 @@ shNpmStart() {
 shNpmTest() {
   ## this function runs npm test
   shBuildPrint npmTestLocal "npm testing $CWD ..." || return $?
+  ## npm install dev dependencies
+  npm install || return $?
   ## jslint utility.js and $MAIN_JS
   jslint-lite utility.js $MAIN_JS
   ## run example.js
@@ -298,13 +303,14 @@ shNpmTest() {
   ARGS="$ARGS --mode-cli=npmTest" || return $?
   ARGS="$ARGS --mode-repl" || return $?
   ARGS="$ARGS --server-port=random" || return $?
+  ## disable code coverage
   if [ "$npm_config_disable_coverage" ]
   then
     istanbul test $ARGS || return $?
     return $?
   fi
   ## npm test with coverage
-  istanbul cover $ARGS
+  istanbul cover $ARGS --mode-coverage
   ## save $EXIT_CODE
   EXIT_CODE=$? || return $?
   ## create coverage badge

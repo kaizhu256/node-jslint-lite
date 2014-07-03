@@ -1,7 +1,6 @@
 /*jslint bitwise: true, browser: true, indent:2, node: true, nomen: true, regexp: true, stupid: true*/
-/*global required, state*/
 /* declare module vars */
-var exports;
+var exports, required, state;
 
 
 
@@ -17,12 +16,18 @@ var exports;
       /*
         this function inits the sub-module
       */
+      /* export global object */
+      if (typeof window === 'object') {
+        window.global = window;
+      }
+      /* init module object */
+      global.module = global.module || {};
       /* init _debug_print */
       global[['debug', 'Print'].join('')] = local._debug_print;
       /* init exports object */
       exports = module.exports = {};
       /* init state object */
-      global.state = global.state || {};
+      state = exports.state = exports.state || {};
       /* init nodejs mode */
       state.modeNodejs = global.process && process.versions && process.versions.node;
       local.setDefault(state, {
@@ -30,8 +35,6 @@ var exports;
         errorDefault: new Error(),
         /* cached dict of files */
         fileDict: {},
-        /* dict that keeps track of sub-module init */
-        initOnceDict: {},
         /* dict of cli commands */
         modeCliDict: {},
         /* test report object */
@@ -46,12 +49,6 @@ var exports;
             testCaseList: []
           }]
         },
-        /* ascii character reference */
-        textExampleAscii: '\x00\x01\x02\x03\x04\x05\x06\x07\b\t\n\x0b\f\r\x0e\x0f' +
-          '\x10\x11\x12\x13\x14\x15\x16\x17\x18\x19\x1a\x1b\x1c\x1d\x1e\x1f' +
-          ' !"#$%&\'()*+,-./0123456789:;<=>?' +
-          '@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_' +
-          '`abcdefghijklmnopqrstuvwxyz{|}~\x7f',
         /* default timeout for http request and other async io */
         timeoutDefault: 30000
       });
@@ -87,13 +84,6 @@ var exports;
           exports[key] = local[key];
         }
       });
-      /* init local._initOnce */
-      if (!state.initOnceDict[local._name]) {
-        state.initOnceDict[local._name] = true;
-        if (local._initOnce) {
-          local._initOnce();
-        }
-      }
     },
 
     _initLocal_default_test: function (onEventError) {
@@ -102,8 +92,8 @@ var exports;
       */
       var data, local2;
       exports.testMock(onEventError, [
-        [global, { state: { initOnceDict: {} } }]
       ], function (onEventError) {
+        state = {};
         local2 = {
           /* test dict handling behavior */
           _aaDict_bb: true,
@@ -113,10 +103,7 @@ var exports;
         exports.initLocal(local2);
         /* validate state */
         data = exports.jsonStringifyOrdered(state);
-        exports.assert(data === JSON.stringify({
-          "_aaDict": { "bb": true },
-          "initOnceDict": { "_initLocal_default_test": true }
-        }), data);
+        exports.assert(data === '{"_aaDict":{"bb":true}}', data);
         onEventError();
       });
     },
@@ -568,7 +555,7 @@ var exports;
       /*
         this function mocks the state given in the mockList while running the test callback
       */
-      var onEventError2;
+      var onEventError2, state2;
       /* prepend mandatory mocks for async / unsafe functions */
       mockList = [
         /* suppress console.log */
@@ -579,6 +566,7 @@ var exports;
       ].concat(mockList);
       onEventError2 = function (error) {
         /* restore state */
+        state = state2;
         mockList.reverse().forEach(function (mock) {
           exports.setOverride(mock[0], mock[2], null, 1);
         });
@@ -591,6 +579,7 @@ var exports;
           mock[2] = {};
           exports.setOverride(mock[0], mock[1], mock[2], 1);
         });
+        state2 = state;
         /* run test */
         test(onEventError2);
       } catch (error) {
@@ -935,6 +924,13 @@ var exports;
       onEventError();
     },
 
+    /* ascii character reference */
+    textExampleAscii: '\x00\x01\x02\x03\x04\x05\x06\x07\b\t\n\x0b\f\r\x0e\x0f' +
+      '\x10\x11\x12\x13\x14\x15\x16\x17\x18\x19\x1a\x1b\x1c\x1d\x1e\x1f' +
+      ' !"#$%&\'()*+,-./0123456789:;<=>?' +
+      '@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_' +
+      '`abcdefghijklmnopqrstuvwxyz{|}~\x7f',
+
     textFormat: function (template, dict) {
       /*
         this function replaces the keys in given text template
@@ -1025,7 +1021,7 @@ var exports;
         this function tests textWordwrap's default handling behavior
       */
       var data;
-      data = exports.textWordwrap(state.textExampleAscii, 16);
+      data = exports.textWordwrap(exports.textExampleAscii, 16);
       /* validate data */
       exports.assert(data ===
         "\x00\x01\x02\x03\x04\x05\x06\x07\b\t\n" +
@@ -1058,6 +1054,31 @@ var exports;
 
 
 
+(function subModuleUtilityBrowser() {
+  /*
+    this browser sub-module exports useful utilities
+  */
+  'use strict';
+  var local = {
+    _name: 'utility.subModuleUtilityBrowser',
+
+    _init: function () {
+      /*
+        this function inits the sub-module
+      */
+      if (state.modeNodejs) {
+        return;
+      }
+      /* init local object */
+      exports.initLocal(local);
+    }
+
+  };
+  local._init();
+}());
+
+
+
 (function subModuleUtilityNodejs() {
   /*
     this nodejs sub-module exports useful utilities
@@ -1075,14 +1096,9 @@ var exports;
       }
       /* init local object */
       exports.initLocal(local);
-    },
-
-    _initOnce: function () {
-      /*
-        this function inits the sub-module once
-      */
       /* init required object */
-      global.required = global.required || {};
+      required = exports.required = exports.required || {};
+      /* require builtin modules */
       [
         'child_process',
         'fs',
@@ -1093,20 +1109,39 @@ var exports;
       ].forEach(function (module) {
         required[module] = required[module] || require(module);
       });
+      /* require external modules */
+      [
+        'jslint-lite'
+      ].forEach(function (module) {
+        try {
+          required[module.replace((/-/g), '_')] = require(module);
+        } catch (error) {
+          console.log('module ' + module + ' not loaded');
+        }
+      });
+      /* load package.json file */
+      state.packageJson = state.packageJson || {};
+      state.packageJson = JSON.parse(required.fs.readFileSync(process.cwd()
+        + '/package.json'));
       /* init builtin files */
-      local._initOnceFile();
+      local._initFile();
+      /* run the following code only if this module is in the root directory */
       if (__dirname !== process.cwd()) {
         return;
       }
       /* init cli */
-      local._initOnceCli(process.argv);
+      local._initCli(process.argv);
+      /* init coverage */
+      local._initCoverage();
       /* init repl */
-      local._initOnceRepl(process.argv);
+      local._initRepl();
       /* init server */
-      local._initOnceServer(process.argv);
+      local._initServer();
+      /* init watch */
+      local._initWatch();
     },
 
-    _initOnceCli: function (argv) {
+    _initCli: function (argv) {
       /*
         this function inits the cli
       */
@@ -1139,15 +1174,15 @@ var exports;
       });
     },
 
-    __initOnceCli_default_test: function (onEventError) {
+    __initCli_default_test: function (onEventError) {
       /*
-        this function tests _initOnceCli's default handling behavior
+        this function tests _initCli's default handling behavior
       */
       var data;
       exports.testMock(onEventError, [
-        [global, { state: { modeCliDict: {} } }]
       ], function (onEventError) {
-        local._initOnceCli(['aa', '--bb', '--cc=dd']);
+        state = { modeCliDict: {} };
+        local._initCli(['aa', '--bb', '--cc=dd']);
         data = exports.jsonStringifyOrdered(state);
         /* validate state */
         exports.assert(data === '{"bb":true,"cc":"dd","modeCliDict":{}}', data);
@@ -1155,7 +1190,18 @@ var exports;
       });
     },
 
-    _initOnceFile: function () {
+    _initCoverage: function () {
+      /*
+        this function inits the coverage api
+      */
+      var istanbul;
+      if (state.modeCoverage) {
+        istanbul = require('istanbul');
+        required.istanbul_instrumenter = new istanbul.Instrumenter();
+      }
+    },
+
+    _initFile: function () {
       /*
         this function inits builtin files
       */
@@ -1178,12 +1224,19 @@ var exports;
       );
     },
 
-    _initOnceRepl: function () {
+    _initRepl: function () {
+      /*
+        this function inits the ropl debugger
+      */
       if (!state.modeRepl) {
         return;
       }
       /* export exports */
       global.exports = exports;
+      /* export required */
+      global.required = required;
+      /* export state */
+      global.state = state;
       /* start repl */
       require('repl').start({
         eval: function (script, __, file, onEventError) {
@@ -1198,7 +1251,10 @@ var exports;
       });
     },
 
-    _initOnceServer: function () {
+    _initServer: function () {
+      /*
+        this function inits the server
+      */
       if (!state.serverPort || state.serverPort === true) {
         return;
       }
@@ -1210,6 +1266,9 @@ var exports;
         0 < state.serverPort && state.serverPort <= 0xffff,
         'invalid state.serverPort ' + state.serverPort
       );
+      /* init state.localhost */
+      state.localhost = 'http://localhost:' + state.serverPort;
+      console.log('starting server on port ' + state.serverPort);
       /* init server with exports.serverMiddleware */
       required.http.createServer(function (request, response) {
         exports.serverMiddleware(request, response, function (error) {
@@ -1217,9 +1276,21 @@ var exports;
         });
       })
         /* listen on state.serverPort */
-        .listen(state.serverPort, function () {
-          console.log('server started on port ' + state.serverPort);
-        });
+        .listen(state.serverPort);
+    },
+
+    _initWatch: function () {
+      /*
+        this function inits file watching
+      */
+      required.fs.watchFile(__dirname + '/utility.data', {
+        interval: 1000,
+        persistent: false
+      }, function (stat2, stat1) {
+        if (stat2.mtime >= stat1.mtime) {
+          local._initFile();
+        }
+      });
     },
 
     ajax: function (options, onEventError) {
@@ -1369,14 +1440,63 @@ var exports;
       onEventError2();
     },
 
+    _ajax_default_test: function (onEventError) {
+      /*
+        this function tests ajax's default handling behavior
+      */
+      exports.ajax({
+        url: state.localhost + '/test/hello.json'
+      }, function (error, data, response) {
+        exports.testTryCatch(function () {
+          /* assert no error occurred */
+          exports.assert(!error, error);
+          /* validate data */
+          exports.assert(data === '"hello"', data);
+          /* validate response */
+          data = JSON.stringify({
+            headers: {
+              'connection': response.headers.connection,
+              'content-type': response.headers['content-type'],
+              'transfer-encoding': response.headers['transfer-encoding']
+            },
+            httpVersion: response.httpVersion,
+            statusCode: response.statusCode
+          });
+          exports.assert(data === JSON.stringify({
+            headers: {
+              'connection': 'close',
+              'content-type': 'application/json',
+              'transfer-encoding': 'chunked'
+            },
+            httpVersion: '1.1',
+            statusCode: 200
+          }), data);
+          onEventError();
+        }, onEventError);
+      });
+    },
+
     fileActionDict_install: function (options) {
       /*
         this function installs the file
       */
-      if (__dirname !== process.cwd()) {
-        return;
+      if (state.modeCli === 'npmInstall' && __dirname === process.cwd()) {
+        required.fs.writeFileSync(options.file, options.content);
       }
-      required.fs.writeFileSync(options.file, options.content);
+    },
+
+    fileActionDict_lint: function (options) {
+      /*
+        this function lints the file
+      */
+      switch (required.path.extname(options.file)) {
+      case '.js':
+      case '.json':
+        if (required.jslint_lite && required.jslint_lite.jslint) {
+          required.jslint_lite.jslint(options.content, options.file);
+        }
+        break;
+      }
     },
 
     fileActionDict_trim: function (options) {
@@ -1558,10 +1678,25 @@ var exports;
       });
     },
 
+    modeCliDict_npmInstall: function () {
+      /*
+        this function runs after npm install
+      */
+      /* re-init builtin files with the install flag */
+      local._initFile();
+    },
+
     modeCliDict_npmTest: function () {
       /*
         this function runs npm test
       */
+      /* merge previous test report into current test */
+      if (state.modeTestReportMerge) {
+        exports.testReportMerge(
+          state.testReport,
+          JSON.parse(required.fs.readFileSync('.build/test-report.json'))
+        );
+      }
       exports.testRun(state.testReport);
     },
 
@@ -1617,9 +1752,37 @@ var exports;
       next();
     },
 
+    'serverHandlerDict_/public/main.js': function (_, response, next) {
+      exports.nop(_);
+      exports.serverRespondScript(response, 200, next, exports.__filename);
+    },
+
+    'serverHandlerDict_/public/utility.css': function (_, response) {
+      exports.nop(_);
+      exports.serverRespondData(
+        response,
+        200,
+        'text/css',
+        state.fileDict['/public/utility.css'].content
+      );
+    },
+
+    'serverHandlerDict_/public/utility.js': function (_, response, next) {
+      exports.nop(_);
+      exports.serverRespondScript(response, 200, next, __dirname + '/utility.js');
+    },
+
     'serverHandlerDict_/test/hello.json': function (_, response) {
       exports.nop(_);
-      exports.serverRespondData(response, 200, 'application/json', '"hello world"');
+      exports.serverRespondData(response, 200, 'application/json', '"hello"');
+    },
+
+    'serverHandlerDict_/test/test.html': function (_, response) {
+      exports.nop(_);
+      exports.serverRespondData(response, 200, 'text/html', exports.textFormat(
+        state.fileDict['/test/test.html'].content,
+        { name: state.packageJson.name }
+      ));
     },
 
     serverMiddleware: function (request, response, next) {
@@ -1690,21 +1853,55 @@ var exports;
         this function responds with a default message or error stack for the given statusCode
       */
       /* set response / statusCode / contentType */
-      exports.serverRespondWriteHead(response, statusCode, { 'Content-Type': 'text/plain' });
+      exports.serverRespondWriteHead(response, statusCode, { 'content-type': 'text/plain' });
       /* end response with error stack */
-      response.end(error ? exports.errorStack(error)
-        /* end response with default statusCode message */
-        : statusCode + ' ' + (required.http.STATUS_CODES[statusCode] || 'Unknown Status Code'));
+      if (error) {
+        exports.onEventErrorDefault(error);
+        response.end(exports.errorStack(error));
+        return;
+      }
+      /* end response with default statusCode message */
+      response.end(statusCode + ' ' +
+        (required.http.STATUS_CODES[statusCode] || 'Unknown Status Code'));
     },
 
     serverRespondData: function (response, statusCode, contentType, data) {
       /*
-        this function responds with application/json Content-Type
+        this function responds with the given data
       */
       /* set response / statusCode / contentType */
-      exports.serverRespondWriteHead(response, statusCode, { 'Content-Type': contentType });
+      exports.serverRespondWriteHead(response, statusCode, { 'content-type': contentType });
       /* end response with data */
       response.end(data);
+    },
+
+    serverRespondScript: function (response, statusCode, next, file) {
+      /*
+        this function responds with javascript file parsed for the browser
+      */
+      required.fs.readFile(file, 'utf8', function (error, script) {
+        if (error) {
+          next(error);
+          return;
+        }
+        script = script
+          /* remove hashbang */
+          .replace((/^#!/), '//#!')
+          /* remove nodejs modules */
+          .replace(
+            (/^\(function subModule\w*Nodejs\(\) \{[\S\s]*?^\}\(\)\);$/gm),
+            function (match) {
+              /* preserve lineno */
+              return match.replace((/.*/g), '');
+            }
+          )
+          .trimRight();
+        /* instrument script */
+        if (required.istanbul_instrumenter) {
+          script = required.istanbul_instrumenter.instrumentSync(script, file);
+        }
+        exports.serverRespondData(response, statusCode, 'application/javascript', script);
+      });
     },
 
     serverRespondWriteHead: function (response, statusCode, headers) {

@@ -1,8 +1,7 @@
 #!/usr/bin/env node
 /*jslint bitwise: true, browser: true, indent:2, node: true, nomen: true, regexp: true, stupid: true*/
-/*global required, state*/
 /* declare module vars */
-var exports;
+var exports, required, state;
 
 
 
@@ -18,62 +17,65 @@ var exports;
       /*
         this function inits the sub-module
       */
-      /* init utility.js */
+      /* init export object */
       exports = module.exports = require(__dirname + '/utility.js');
+      /* export __dirname */
+      exports.__dirname = __dirname;
+      /* export __filename */
+      exports.__filename = __filename;
       /* init local object */
       exports.initLocal(local);
-    },
-
-    _initOnce: function () {
-      /*
-        this function inits the sub-module once
-      */
+      /* init required object */
+      required = exports.required;
+      /* init state object */
+      state = exports.state;
       /* init jslint */
       required.vm.runInNewContext(
-        required.fs.readFileSync(__dirname + '/external-jslint.js', 'utf8'),
+        required.fs.readFileSync(__dirname + '/external-jslint.js'),
         local,
         'external-jslint.js'
       );
+      /* init required.jslint_lite */
+      required.jslint_lite = exports;
       /* init cli */
-      local._initOnceCli(process.argv);
+      local._initCli(process.argv);
     },
 
-    _initOnceCli: function (argv) {
+    _initCli: function (argv) {
       /*
         this function inits the cli
       */
-      if (module !== require.main || state.modeCli) {
-        return;
+      if (module === require.main && !state.modeCli) {
+        /* lint files in argv */
+        argv.slice(2).forEach(function (file) {
+          if (file[0] !== '-') {
+            exports.jslint(required.fs.readFileSync(file, 'utf8'), file);
+          }
+        });
       }
-      /* lint files */
-      argv.slice(2).forEach(function (file) {
-        if (file[0] !== '-') {
-          exports.jslint(required.fs.readFileSync(file, 'utf8'), file);
-        }
-      });
     },
 
-    __initOnceCli_default_test: function (onEventError) {
+    __initCli_default_test: function (onEventError) {
       /*
-        this function tests _initOnceCli's default handling behavior
+        this function tests _initCli's default handling behavior
       */
       var message;
       exports.testMock(onEventError, [
         [console, { error: function (_) {
           message += _;
         } }],
-        [global, { state: { modeCliDict: null } }],
         [require, { main: module }],
         [required, { fs: { readFileSync: exports.echo } }]
       ], function (onEventError) {
+        state = {};
         /* test jslint passed handling behavior */
         message = '';
-        local._initOnceCli(['', '', 'var aa = 1;']);
+        local._initCli(['', '', 'var aa = 1;']);
         /* assert no error occurred */
         exports.assert(message === '', message);
         /* test jslint failed handling behavior */
         message = '';
-        local._initOnceCli(['', '', 'syntax error']);
+        local._initCli(['', '', 'syntax error']);
         /* assert error occurred */
         exports.assert(message, message);
         onEventError();
@@ -84,25 +86,20 @@ var exports;
       /*
         this function jslint's the script and prints any errors to stderr
       */
-      var tmp, passed;
+      var passed;
       passed = local.JSLINT(script
         /* comment out hashbang */
         .replace(/(^#!)/, '//$1'));
       if (passed) {
         return passed;
       }
-      console.error('\n_scriptLintJs\n\u001b[1m' + file + '\u001b[22m');
-      local.JSLINT.errors.forEach(function (error, ii) {
-        tmp = '#' + String(ii + 1) + ' ';
-        while (tmp.length < 4) {
-          tmp = ' ' + tmp;
-        }
-        console.error(tmp + '\u001b[33m' + error.reason + '\u001b[39m\n    ' +
-          (error.evidence).trim() + '\u001b[90m \/\/ Line ' +
-            error.line + ', Pos ' + error.character + '\u001b[39m');
-      });
-      console.error();
-      return passed;
+      console.error('\n\u001b[1m' + file + '\n\u001b[22m' +
+        local.JSLINT.errors.filter(exports.echo).map(function (error, ii) {
+          return (' #' + String(ii + 1) + ' ').slice(-4) +
+            '\u001b[33m' + error.reason + '\u001b[39m\n    ' +
+            (error.evidence || '').trim() +
+            '\u001b[90m \/\/ Line ' + error.line + ', Pos ' + error.character + '\u001b[39m';
+        }).join('\n') + '\n');
     },
 
     _jslint_default_test: function (onEventError) {
