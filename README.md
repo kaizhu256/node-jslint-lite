@@ -27,7 +27,7 @@ jslint-lite foo.js
   /* require fs */
   fs = require('fs');
   /* require jslint_lite */
-  jslint_lite = require('./node-jslint-lite.js');
+  jslint_lite = require('./main.js');
   jslint_lite.jslint(fs.readFileSync('example.js', 'utf8'), 'example.js');
 }());
 ```
@@ -38,8 +38,12 @@ npm test
 ```
 
 ## todo
+- add html test page
 
 ## changelog
+#### 2014.7.17
+- upgrade to utility2 2014.7.12
+
 #### 2014.7.2
 - automate npm publish
 - migrate from build.js to utility.js

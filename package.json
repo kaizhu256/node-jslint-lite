@@ -1,13 +1,15 @@
 {
-  "bin": { "jslint-lite": "node-jslint-lite.js" },
+  "bin": { "jslint-lite": "main.js" },
   "contributors": [{ "name": "kai zhu", "email": "kaizhu256@gmail.com" }],
   "description": "lightweight nodejs jslint module with no external dependencies",
   "devDependencies": {
     "istanbul": "0.2.x",
-    "jslint-lite": "2014.x.x"
+    "jslint-lite": "2014.x.x",
+    "phantomjs": "1.9.x",
+    "slimerjs": "0.9.x"
   },
   "engines": { "node": ">=0.10.x" },
-  "main": "node-jslint-lite.js",
+  "main": "main.js",
   "name": "jslint-lite",
   "os": ["darwin", "linux"],
   "repository" : {
@@ -15,9 +17,9 @@
     "url" : "https://github.com/kaizhu256/node-jslint-lite.git"
   },
   "scripts": {
-    "install": "./utility.sh shNpmInstall",
-    "start": "./utility.sh shNpmStart",
-    "test": "./utility.sh shNpmTest"
+    "install": "./utility2.sh shNpmInstall",
+    "start": "./utility2.sh shNpmStart",
+    "test": "./utility2.sh shNpmTest"
   },
-  "version": "2014.7.2-13"
+  "version": "2014.7.17-5"
 }

@@ -71,7 +71,7 @@ shBuild() {
   ## this function builds the package
   ## decrypt and exec encrypted data
   eval "$(shAesDecryptTravis)" || return $?
-  ## init travis-ci.org env
+  ## try to init travis-ci.org env
   if [ "$TRAVIS" ]
   then
     ## init xvfb
@@ -81,7 +81,7 @@ shBuild() {
     export CI_BRANCH=$TRAVIS_BRANCH || return $?
     export CI_BUILD_NUMBER=$TRAVIS_BUILD_NUMBER || return $?
     export CI_COMMIT_ID=$TRAVIS_COMMIT || return $?
-  ## init default env
+  ## else init default env
   else
     export CI_BUILD_DIR=build.local || return $?
     export CI_BRANCH=local || return $?
@@ -90,10 +90,15 @@ shBuild() {
   fi
   export CI_COMMIT_MESSAGE="$(git log -1 --pretty=%s)" || return $?
   export CI_COMMIT_INFO="$CI_COMMIT_ID - $CI_COMMIT_MESSAGE" || return $?
-  ## npm test app
+  ## run local npm test
+  shBuildPrint npmTestLocal "npm testing $CWD ..." || return $?
   npm test || shBuildExit
   ## deploy app to heroku
   shBuildHerokuDeploy || shBuildExit
+  ## run saucelabs test
+  shBuildPrint saucelabsTest "running saucelabs tests ..." || shBuildExit
+  export CI_BUILD_NUMBER_SAUCELABS=$CI_BUILD_NUMBER.$(openssl rand -hex 8) || shBuildExit
+  node main.js --mode-cli=saucelabsTest --modeTestReportMerge || shBuildExit
   ## npm publish app if its version is greater than the published version
   shBuildNpmPublish || shBuildExit
   ## gracefully exit build
@@ -125,7 +130,7 @@ shBuildExit() {
     do
       for FILE in $(find .build -type f)
       do
-        node utility.js --mode-cli=githubContentsFilePush $FILE .build $DIR || exit $?
+        node utility2.js --mode-cli=githubContentsFilePush $FILE .build $DIR || exit $?
         ## throttle github file push
         sleep 1 || exit $?
       done
@@ -145,7 +150,7 @@ shBuildHerokuDeploy() {
     return
   fi
   ## init $HEROKU_URL
-  local HEROKU_URL=http://$HEROKU_REPO.herokuapp.com || return $?
+  export HEROKU_URL=https://$HEROKU_REPO.herokuapp.com || return $?
   ## this function deploys the app to heroku
   shBuildPrint herokuDeploy "deploying $HEROKU_URL ..." || return $?
   ## export $GIT_SSH
@@ -254,7 +259,7 @@ shGithubContentsDirPush() {
   local FILE1 || return $?
   for FILE1 in $(find $DIR1 -type f)
   do
-    node utility.js --mode-cli=githubContentsFilePush $FILE1 $DIR1 $DIR2 || return $?
+    node utility2.js --mode-cli=githubContentsFilePush $FILE1 $DIR1 $DIR2 || return $?
     ## throttle github file updates
     sleep 1 || return $?
   done
@@ -271,31 +276,28 @@ shNpmInstall() {
   ## init .build .install dir
   mkdir -p .build .install || return $?
   ## install files from utility
-  node utility.js --mode-cli=npmInstall || return $?
+  node utility2.js --mode-cli=npmInstall || return $?
   ## make .install/git-ssh.sh executable
   chmod 755 .install/git-ssh.sh || return $?
 }
 
 shNpmStart() {
-  ## jslint utility.js and $MAIN_JS
-  jslint-lite utility.js $MAIN_JS
+  ## jslint example.js / main.js / utility2.js
+  jslint-lite example.js main.js utility2.js
   ## this function runs npm start
-  node $MAIN_JS --mode-repl --server-port=$npm_config_server_port
+  node main.js --mode-repl --server-port=$npm_config_server_port
 }
 
 shNpmTest() {
   ## this function runs npm test
-  shBuildPrint npmTestLocal "npm testing $CWD ..." || return $?
+  ## jslint example.js / main.js / utility2.js
+  jslint-lite example.js main.js utility2.js
   ## npm install dev dependencies
   npm install || return $?
-  ## jslint utility.js and $MAIN_JS
-  jslint-lite utility.js $MAIN_JS
   ## run example.js
   node example.js || return $?
-  ## remove old coverage report
-  rm -fr .build/coverage-report || return $?
   ## init $ARGS
-  local ARGS="$MAIN_JS" || return $?
+  local ARGS="main.js" || return $?
   ARGS="$ARGS --dir=.build/coverage-report" || return $?
   ARGS="$ARGS --print=detail" || return $?
   ARGS="$ARGS --report=html" || return $?
@@ -303,18 +305,22 @@ shNpmTest() {
   ARGS="$ARGS --mode-cli=npmTest" || return $?
   ARGS="$ARGS --mode-repl" || return $?
   ARGS="$ARGS --server-port=random" || return $?
+  ## create random authentication string for uploading test reports
+  export MODE_TEST_REPORT_UPLOAD=$(openssl rand -hex 64) || return $?
   ## disable code coverage
   if [ "$npm_config_disable_coverage" ]
   then
     istanbul test $ARGS || return $?
     return $?
   fi
+  ## remove old coverage report
+  rm -fr .build/coverage-report || return $?
   ## npm test with coverage
   istanbul cover $ARGS --mode-coverage
   ## save $EXIT_CODE
   EXIT_CODE=$? || return $?
   ## create coverage badge
-  node utility.js --mode-cli=coverageReportBadgeCreate || return $?
+  node utility2.js --mode-cli=coverageReportBadgeCreate || return $?
   ## re-run npm test without coverage if tests failed,
   ## so we can debug line numbers in stack trace
   if [ "$EXIT_CODE" != 0 ]
@@ -385,6 +391,19 @@ shSemverGreaterThan() {
   fi
 }
 
+shSshkeygen() {
+  ## this function generates a ssh key
+  ssh-keygen -C "git" -f $TMPFILE -N "" -t rsa && base64 < $TMPFILE | tr -d "\n" || return $?
+  ## cleanup $TMPFILE.pub
+  rm -f /tmp/$TMPFILE.pub
+}
+
+shSshkeygenPublic() {
+  ## this function prints the public key generated from $GIT_SSH_KEY
+  printf $GIT_SSH_KEY | base64 --decode > $TMPFILE && chmod 600 $TMPFILE || return $?
+  ssh-keygen -y -f $TMPFILE || return $?
+}
+
 shTravisEncrypt() {
   ## this function travis-encrypts github repo $1's secret $2
   local GITHUB_REPO=$1 || return $?
@@ -407,17 +426,15 @@ shMain() {
   then
     return
   fi
-  ## save current dir to $CWD
+  ## save $CWD
   CWD=$(pwd) || return $?
   ## init $GITHUB_REPO
   export GITHUB_REPO=$(git config --file .git-config --get remote.origin.url |\
     perl -ne "print \$1 if /([^:]+)\.git$/") || return $?
   ## init $PATH with $CWD/node_modules
   export PATH=$CWD/node_modules/.bin:$PATH || return $?
-  ## init $MAIN_JS
-  MAIN_JS=$(shPackageJsonGetItem main) || return $?
   ## init $TMPFILE
-  TMPFILE=/tmp/tmpfile.$(openssl rand -hex 8) || return $?
+  export TMPFILE=/tmp/tmpfile.$(openssl rand -hex 8) || return $?
   ## init $EXIT_CODE
   EXIT_CODE=0 || return $?
   ## eval argv
