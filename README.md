@@ -2,12 +2,14 @@ jslint-lite
 ===========
 lightweight nodejs jslint module with no external dependencies
 
+[![heroku.com test server](https://kaizhu256.github.io/node-jslint-lite-data/build.travis-ci.org/latest.unstable/test-report.screenshot.heroku.png)](https://hrku01-jslint-lite.herokuapp.com/test/test.html)
+
 ## build status
 [![saucelabs.com selenium test status](https://saucelabs.com/browser-matrix/sclb01-jslint-lite.svg)](https://saucelabs.com/u/sclb01-jslint-lite)
 
  test server | test report | coverage report | build log | build artifact
 :-----------:|:-----------:|:---------------:|:---------:|:--------------:
-[![heroku.com test server](https://kaizhu256.github.io/public/heroku-logo-light-88x31.png)](https://hrku01-jslint-lite.herokuapp.com/test/test.html) | [![test report](https://kaizhu256.github.io/node-jslint-lite-data/build.travis-ci.org/latest.unstable/test-report.badge.svg)](https://kaizhu256.github.io/node-jslint-lite-data/build.travis-ci.org/latest.unstable/test-report.html) | [![istanbul coverage report](https://kaizhu256.github.io/node-jslint-lite-data/build.travis-ci.org/latest.unstable/coverage-report/coverage-report.badge.svg)](https://kaizhu256.github.io/node-jslint-lite-data/build.travis-ci.org/latest.unstable/coverage-report/node-jslint-lite/index.html) | [![travis.ci-org build status](https://api.travis-ci.org/kaizhu256/node-jslint-lite.svg?branch=unstable)](https://travis-ci.org/kaizhu256/node-jslint-lite?branch=unstable) | [![build artifacts](https://kaizhu256.github.io/public/glyphicons_free/glyphicons/png/glyphicons_144_folder_open.png)](https://github.com/kaizhu256/node-jslint-lite-data/tree/gh-pages/build.travis-ci.org/latest.unstable)
+[![heroku.com test server](https://kaizhu256.github.io/public/heroku-logo-light-88x31.png)](https://hrku01-jslint-lite.herokuapp.com/test/test.html) | [![test report](https://kaizhu256.github.io/node-jslint-lite-data/build.travis-ci.org/latest.unstable/test-report.badge.svg)](https://kaizhu256.github.io/node-jslint-lite-data/build.travis-ci.org/latest.unstable/test-report.html) | [![istanbul coverage report](https://kaizhu256.github.io/node-jslint-lite-data/build.travis-ci.org/latest.unstable/coverage-report/coverage-report.badge.svg)](https://kaizhu256.github.io/node-jslint-lite-data/build.travis-ci.org/latest.unstable/coverage-report/node-jslint-lite/index.html) | [![travis.ci-org build status](https://api.travis-ci.org/kaizhu256/node-jslint-lite.svg)](https://travis-ci.org/kaizhu256/node-jslint-lite) | [![build artifacts](https://kaizhu256.github.io/public/glyphicons_free/glyphicons/png/glyphicons_144_folder_open.png)](https://github.com/kaizhu256/node-jslint-lite-data/tree/gh-pages/build.travis-ci.org/latest.unstable)
 
 ## quickstart
 ```

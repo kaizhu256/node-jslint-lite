@@ -5,13 +5,13 @@ var exports, required, state;
 
 
 
-(function submoduleJslintLiteNodejs() {
+(function submoduleMainNodejs() {
   /*
-    this nodejs submodule exports the jslint-lite api
+    this nodejs submodule exports the main api
   */
   'use strict';
   var local = {
-    _name: 'jslint-lite.submoduleJslintLiteNodejs',
+    _name: 'main.submoduleMainNodejs',
 
     _init: function () {
       /*
@@ -111,13 +111,13 @@ var exports, required, state;
 
 
 
-(function submoduleJslintLiteBrowser() {
+(function submoduleMainBrowser() {
   /*
-    this browser submodule exports the jslint-lite api
+    this browser submodule exports the main api
   */
   'use strict';
   var local = {
-    _name: 'utility2.submoduleJslintLiteBrowser',
+    _name: 'main.submoduleMainBrowser',
 
     _init: function () {
       /*
@@ -147,13 +147,13 @@ var exports, required, state;
 
 
 
-(function submoduleJslintLiteShared() {
+(function submoduleMainShared() {
   /*
-    this nodejs submodule exports the jslint-lite api
+    this nodejs submodule exports the main api
   */
   'use strict';
   var local = {
-    _name: 'jslint-lite.submoduleJslintLiteShared',
+    _name: 'main.submoduleMainShared',
 
     _init: function () {
       /*
