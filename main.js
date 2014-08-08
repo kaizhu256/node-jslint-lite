@@ -1,7 +1,22 @@
 #!/usr/bin/env node
-/*jslint bitwise: true, browser: true, indent:2, node: true, nomen: true, regexp: true, stupid: true*/
+/*jslint
+  bitwise: true, browser: true,
+  indent: 2,
+  maxerr: 8,
+  node: true, nomen: true,
+  regexp: true,
+  stupid: true,
+  todo: true
+*/
 // declare module vars
-var exports, required, state;
+var exports, required, state, stateRestore;
+stateRestore = function (state2) {
+  /*
+    this function is used by testMock to restore the local state var
+  */
+  'use strict';
+  state = state2;
+};
 
 
 
@@ -29,12 +44,6 @@ var exports, required, state;
       required = exports.required;
       // init state object
       state = exports.state;
-      // init jslint
-      required.vm.runInNewContext(
-        state.fileDict['/public/jslint.js'].content,
-        exports,
-        'jslint.js'
-      );
       // init required.jslint_lite
       required.jslint_lite = exports;
       // init cli
@@ -62,7 +71,7 @@ var exports, required, state;
         this function tests _initCli's default handling behavior
       */
       var message;
-      exports.testMock(onEventError, [
+      exports.testMock(onEventError, stateRestore, [
         [console, { error: function (_) {
           message += _;
         } }],
@@ -73,73 +82,16 @@ var exports, required, state;
         // test jslint passed handling behavior
         message = '';
         local._initCli(['', '', 'var aa = 1;']);
-        // assert no error occurred
+        // validate no error occurred
         exports.assert(message === '', message);
         // test jslint failed handling behavior
         message = '';
         local._initCli(['', '', 'syntax error']);
-        // assert error occurred
+        // validate error occurred
         exports.assert(message, message);
         onEventError();
       });
-    },
-
-    _jslint_default_test: function (onEventError) {
-      /*
-        this function tests jslint's default handling behavior
-      */
-      var errorMessage;
-      exports.testMock(onEventError, [
-        [console, { error: exports.nop }]
-      ], function (onEventError) {
-        // test jslint passed handling behavior
-        errorMessage =
-          exports.jslint(required.fs.readFileSync('example.js', 'utf8'), 'example.js');
-        // assert no error occurred
-        exports.assert(!errorMessage, errorMessage);
-        // test jslint failed handling behavior
-        errorMessage = exports.jslint('aa=1', 'error.js');
-        // assert error occurred
-        exports.assert(errorMessage, errorMessage);
-        onEventError();
-      });
     }
-
-  };
-  local._init();
-}());
-
-
-
-(function submoduleMainBrowser() {
-  /*
-    this browser submodule exports the main api
-  */
-  'use strict';
-  var local = {
-    _name: 'main.submoduleMainBrowser',
-
-    _init: function () {
-      /*
-        this function inits the submodule
-      */
-      if (state.modeNodejs) {
-        return;
-      }
-      // init this submodule
-      exports.initSubmodule(local);
-      // init JSLINT
-      exports.JSLINT = global.JSLINT;
-    },
-
-    myApp_ngApp_controller_MyController: ['$scope', function ($scope) {
-      $scope.contacts = ["hi@email.com", "hello@email.com"];
-      $scope.add = function () {
-        console.log('foo');
-        $scope.contacts.push($scope.jslintInput);
-        $scope.jslintInput = "";
-      };
-    }]
 
   };
   local._init();
@@ -163,24 +115,42 @@ var exports, required, state;
       exports.initSubmodule(local);
     },
 
+    echo: function (arg) {
+      /*
+        this function returns the arg
+      */
+      return arg;
+    },
+
     jslint: function (script, file) {
       /*
         this function jslint's the script and prints any errors to stderr
       */
-      var passed;
-      passed = exports.JSLINT(script
-        // comment out hashbang
-        .replace(/(^#!)/, '//$1'));
-      if (passed) {
+      var tmp;
+      // if exports.JSLINT does not exist, then return empty error message
+      if (!exports.JSLINT) {
         return '';
       }
-      return '\n\u001b[1m' + file + '\n\u001b[22m' +
+      // jslint script
+      tmp = exports.JSLINT(script
+        // comment out shebang
+        .replace(/(^#!)/, '//$1'));
+      // if no error occurred, then return empty error message
+      if (tmp) {
+        return '';
+      }
+      // create error message
+      tmp = '\n\u001b[1m' + file + '\n\u001b[22m' +
         exports.JSLINT.errors.filter(exports.echo).map(function (error, ii) {
           return (' #' + String(ii + 1) + ' ').slice(-4) +
             '\u001b[33m' + error.reason + '\u001b[39m\n    ' +
             (error.evidence || '').trim() +
             '\u001b[90m \/\/ Line ' + error.line + ', Pos ' + error.character + '\u001b[39m';
-        }).join('\n') + '\n';
+        }).join('\n');
+      // if in nodejs, then return colorized text
+      return state.modeNodejs ? tmp
+        // else if in browser, then return plaintext
+        : tmp.replace((/\u001b\[\d+m/g), '');
     },
 
     jslintPrint: function (script, file) {
@@ -192,6 +162,43 @@ var exports, required, state;
       if (errorMessage) {
         console.error(errorMessage);
       }
+    },
+
+    _jslintPrint_default_test: function (onEventError) {
+      /*
+        this function tests jslintPrint's default handling behavior
+      */
+      var errorMessage;
+      exports.testMock(onEventError, stateRestore, [
+        [console, { error: function (_) {
+          errorMessage = _;
+        } }],
+        [exports, { JSLINT: exports.JSLINT }]
+      ], function (onEventError) {
+        // test jslint passed handling behavior
+        errorMessage = null;
+        exports.jslintPrint(state.fileDict['example.js'].data, 'example.js');
+        // validate no error message was printed
+        exports.assert(errorMessage === null, errorMessage);
+        // test jslint failed handling behavior
+        errorMessage = null;
+        exports.jslintPrint('/*jslint maxerr:1*/\n1;2;\n', 'error.js');
+        // remove color metadata from error message
+        errorMessage = errorMessage.replace((/\u001b\[\d+m/g), '');
+        // validate error message
+        exports.assert(errorMessage === '\nerror.js' +
+          '\n #1 Expected an assignment or function call and instead saw an expression.' +
+          '\n    1;2; // Line 2, Pos 1' +
+          '\n #2 Too many errors. (66% scanned).' +
+          '\n     // Line 2, Pos 1', errorMessage);
+        // test missing exports.JSLINT handling behavior
+        errorMessage = null;
+        exports.JSLINT = null;
+        exports.jslintPrint('/*jslint maxerr:1*/\n1;2;\n', 'error.js');
+        // validate no error message was printed
+        exports.assert(errorMessage === null, errorMessage);
+        onEventError();
+      });
     }
 
   };

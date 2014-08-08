@@ -32,7 +32,7 @@ shAesEncrypt() {
 shAesEncryptTravis() {
   ## this function encrypts the script $1 to $AES_ENCRYPTED_SH and stores it in .travis.yml
   ## init $FILE
-  local FILE=$1/aes-decrypted.$(echo $GITHUB_REPO | perl -pe "s/\//./").sh || return $?
+  local FILE=$1/aes-decrypted.$(printf $GITHUB_REPO | perl -pe "s/\//./").sh || return $?
   if [ ! -f "$FILE" ]
   then
     printf "## non-existent file $FILE\n" || return $?
@@ -68,45 +68,53 @@ shAesEncryptTravis() {
 }
 
 shBuild() {
-  ## this function builds the package
+  ## this function runs the main ci-build routine
   ## decrypt and exec encrypted data
   eval "$(shAesDecryptTravis)" || return $?
+  ## non-zero return on failed decryption of build credentials
+  if [ ! "$AES_256_KEY" ]
+  then
+    return 1
+  fi
   ## try to init travis-ci.org env
   if [ "$TRAVIS" ]
   then
     ## init xvfb
     ## http://docs.travis-ci.com/user/gui-and-headless-browsers/
     export DISPLAY=:99.0 && sh -e /etc/init.d/xvfb start || return $?
-    export CI_BUILD_DIR=build.travis-ci.org || return $?
-    export CI_BRANCH=$TRAVIS_BRANCH || return $?
-    export CI_BUILD_NUMBER=$TRAVIS_BUILD_NUMBER || return $?
-    export CI_COMMIT_ID=$TRAVIS_COMMIT || return $?
-  ## else init default env
-  else
-    export CI_BUILD_DIR=build.local || return $?
-    export CI_BRANCH=local || return $?
-    export CI_BUILD_NUMBER=0 || return $?
-    export CI_COMMIT_ID=$(git rev-parse --verify HEAD) || return $?
   fi
-  export CI_COMMIT_MESSAGE="$(git log -1 --pretty=%s)" || return $?
-  export CI_COMMIT_INFO="$CI_COMMIT_ID - $CI_COMMIT_MESSAGE" || return $?
+  ## merge successive test-reports
+  export MODE_TEST_REPORT_MERGE=1 || return $?
+  ## create blank test-report.json
+  printf "{}" > .build/test-report.json || return $?
+  ## run local npm test with dummy failed tests for code coverage
+  shNpmTest "--mode-test-fail" > /dev/null 2>&1 || shBuildExit
   ## run local npm test
-  shBuildPrint npmTestLocal "npm testing $CWD ..." || return $?
-  npm test || shBuildExit
-  ## deploy app to heroku
-  shBuildHerokuDeploy || shBuildExit
+  shBuildPrint npmTestLocal "npm testing $CWD ..." || shBuildExit
+  shNpmTest || shBuildExit
+  ## if $MODE_OFFLINE, then exit without running the code below which requires internet access
+  if [ "$MODE_OFFLINE" ]
+  then
+    shBuildExit
+  fi
+  ## deploy the app to heroku
+  shBuildHerokuDeploy --mode-test || shBuildExit
   ## capture browser screenshots using saucelabs
-  shBuildPrint saucelabsScreenshot "using saucelabs to capture screenshots ..." || shBuildExit
-  node main.js --mode-cli=saucelabsScreenshot --timeout-default=120000
-  ## run saucelabs test
+  shBuildPrint saucelabsScreenshot\
+    "using saucelabs to capture browser screenshots of heroku server and travis build ..." ||\
+    shBuildExit
+  istanbul cover utility2.js --dir=/tmp/coverage --\
+    --mode-cli=saucelabsScreenshot --timeout-default=120000 || shBuildExit
+  ## run browser tests using saucelabs
   shBuildPrint saucelabsTest "running saucelabs tests ..." || shBuildExit
   export CI_BUILD_NUMBER_SAUCELABS=$CI_BUILD_NUMBER.$(openssl rand -hex 8) || shBuildExit
-  node main.js --mode-cli=saucelabsTest --modeTestReportMerge || shBuildExit
-  ## npm publish app if its version is greater than the published version
+  istanbul cover utility2.js --dir=/tmp/coverage --\
+    --mode-cli=saucelabsTest || shBuildExit
+  ## npm publish the app if its version is greater than the published version
   shBuildNpmPublish || shBuildExit
-  ## re-run npm test to build latest report
+  ## re-run npm test to build latest test-report
   shBuildPrint npmTestLocal "npm testing $CWD ..." || shBuildExit
-  npm test --modeTestReportMerge || shBuildExit
+  shNpmTest || shBuildExit
   ## gracefully exit build
   shBuildExit
 }
@@ -127,30 +135,37 @@ shBuildExit() {
   cd $CWD || exit $?
   ## cleanup $TMPFILE
   rm -f $TMPFILE || exit $?
-  ## upload build to github
-  if [ "$CI_BRANCH" != local ]
+  ## if $MODE_OFFLINE, then do not upload build artifacts to github
+  if [ "$MODE_OFFLINE" ]
   then
-    for DIR in\
-      $CI_BUILD_DIR/latest.$CI_BRANCH\
-      $CI_BUILD_DIR/$CI_BUILD_NUMBER.$CI_BRANCH.$CI_COMMIT_ID
-    do
-      for FILE in $(find .build -type f)
-      do
-        node utility2.js --mode-cli=githubContentsFilePush $FILE .build $DIR || exit $?
-        ## throttle github file push
-        sleep 1 || exit $?
-      done
-    done
+    ## exit with $EXIT_CODE
+    exit $EXIT_CODE
   fi
+  ## upload build badge
+  node utility2.js --mode-cli=githubContentsFilePush .build/build.badge.svg .build\
+    $CI_BUILD_DIR || exit $?
+  ## upload build to github
+  for DIR in\
+    $CI_BUILD_DIR/$CI_BRANCH\
+    $CI_BUILD_DIR/$CI_BRANCH.$CI_BUILD_NUMBER.$CI_COMMIT_ID
+  do
+    for FILE in $(find .build -type f)
+    do
+      node utility2.js --mode-cli=githubContentsFilePush $FILE .build $DIR || exit $?
+      ## throttle github file push
+      sleep 1 || exit $?
+    done
+  done
   ## exit with $EXIT_CODE
   exit $EXIT_CODE
 }
 
 shBuildHerokuDeploy() {
   ## this function deploys the app to heroku
+  ## init $ARGS
+  local ARGS=$1
   ## init $HEROKU_REPO
-  local HEROKU_REPO=$(git config --file .git-config --get remote.heroku.url |\
-    perl -ne "print \$1 if /([^:]+)\.git$/") || return $?
+  local HEROKU_REPO=$(shPackageJsonGetItem repoHeroku)-$CI_BRANCH || return $?
   if [ ! "$GIT_SSH_KEY" ] || [ ! "$HEROKU_REPO" ]
   then
     return
@@ -164,13 +179,13 @@ shBuildHerokuDeploy() {
   ## export and create $GIT_SSH_KEY_FILE
   export GIT_SSH_KEY_FILE=$TMPFILE || return $?
   ## save $GIT_SSH_KEY to $GIT_SSH_KEY_FILE
-  echo $GIT_SSH_KEY | base64 --decode > $GIT_SSH_KEY_FILE || return $?
+  printf $GIT_SSH_KEY | base64 --decode > $GIT_SSH_KEY_FILE || return $?
   ## secure $GIT_SSH_KEY_FILE
   chmod 600 $GIT_SSH_KEY_FILE || return $?
   ## init clean repo in /tmp/app
   shBuildAppCopy && cd /tmp/app || return $?
   ## npm run-script install
-  npm run-script install
+  npm run-script install $ARGS || return $?
   ## init .git
   git init || return $?
   ## init .git/config
@@ -181,23 +196,20 @@ shBuildHerokuDeploy() {
   git add . || return $?
   ## git commit
   git commit -am "heroku deploy" || return $?
-  if [ "$CI_BRANCH" != local ]
+  ## deploy the app to heroku
+  git push -f git@heroku.com:$HEROKU_REPO.git HEAD:master || return $?
+  ## wait for deployment to finish
+  sleep 10 || return $?
+  ## check deployed webpage on heroku
+  shBuildPrint herokuDeploy "checking deployed webpage $HEROKU_URL ..." || return $?
+  curl -3fLs $HEROKU_URL > /dev/null
+  ## save $EXIT_CODE
+  EXIT_CODE=$? || return $?
+  if [ "$EXIT_CODE" = 0 ]
   then
-    ## deploy app to heroku
-    git push -f git@heroku.com:$HEROKU_REPO.git HEAD:master || return $?
-    ## wait for deployment to finish
-    sleep 10 || return $?
-    ## check deployed webpage on heroku
-    shBuildPrint herokuDeploy "checking deployed webpage $HEROKU_URL ..." || return $?
-    curl -3fLs $HEROKU_URL > /dev/null
-    ## save $EXIT_CODE
-    EXIT_CODE=$? || return $?
-    if [ "$EXIT_CODE" = 0 ]
-    then
-      shBuildPrint herokuDeploy "check passed" || return $?
-    else
-      shBuildPrint herokuDeploy "check failed" || return $?
-    fi
+    shBuildPrint herokuDeploy "check passed" || return $?
+  else
+    shBuildPrint herokuDeploy "check failed" || return $?
   fi
   ## restore $CWD
   cd $CWD || return $?
@@ -207,14 +219,18 @@ shBuildHerokuDeploy() {
 
 shBuildNpmPublish() {
   ## this function npm publishes the app if its version is greater than the published version
-  ## init $NODEJS_PACKAGE_JSON_NAME
-  local NODEJS_PACKAGE_JSON_NAME=$(shPackageJsonGetItem name) || return $?
-  ## init $NODEJS_PACKAGE_JSON_VERSION
-  local NODEJS_PACKAGE_JSON_VERSION=$(shPackageJsonGetItem version) || return $?
-  if [ "$CI_BRANCH" = local ] || [ ! "$NPM_AUTH" ]
+  ## if required npm credentials do not exist, then return without npm publishing the app
+  if [ ! "$NPM_AUTH" ]
   then
     return
   fi
+  ## init $NODEJS_PACKAGE_JSON_NAME
+  local NODEJS_PACKAGE_JSON_NAME=$(node -e\
+    "process.stdout.write(require('./package.json').name)") || return $?
+  ## init $NODEJS_PACKAGE_JSON_VERSION
+  local NODEJS_PACKAGE_JSON_VERSION=$(node -e\
+    "process.stdout.write(require('./package.json').version)") || return $?
+  ## if this app version is greater than the published app, then npm publish this app
   if shSemverGreaterThan\
     "$NODEJS_PACKAGE_JSON_VERSION"\
     "$(npm info $NODEJS_PACKAGE_JSON_NAME version 2>/dev/null)"
@@ -225,7 +241,7 @@ shBuildNpmPublish() {
     printf "_auth = $NPM_AUTH\nemail = nobody\n" > $HOME/.npmrc || return $?
     ## init clean repo in /tmp/app
     shBuildAppCopy && cd /tmp/app || return $?
-    ## npm publish app
+    ## npm publish the app
     npm publish || return $?
     shBuildPrint npmPublish "npm publish succeeded" || return $?
     ## wait for npm registry to sync
@@ -233,48 +249,45 @@ shBuildNpmPublish() {
   fi
   shBuildPrint npmPublishedInstall\
     "npm installing published app $NODEJS_PACKAGE_JSON_NAME ..." || return $?
-  ## npm install app in /tmp dir with no external npm dependencies
+  ## npm install the app in /tmp dir with no external npm dependencies
   ## cleanup /tmp
   cd /tmp && rm -fr node_modules $NODEJS_PACKAGE_JSON_NAME || return $?
-  ## npm install app
+  ## npm install the app
   npm install $NODEJS_PACKAGE_JSON_NAME || return $?
-  ## cd into app
+  ## cd into the app
   cd node_modules/$NODEJS_PACKAGE_JSON_NAME || return $?
   ## copy previous test-report.json into .build dir
   mkdir -p .build && cp $CWD/.build/test-report.json .build || return $?
   shBuildPrint npmPublishedTest\
     "npm testing published app $NODEJS_PACKAGE_JSON_NAME ..." || return $?
-  ## npm test app and merge result into previous test-report.json
-  npm test --mode-test-report-merge || return $?
-  cp .build/test-report.* $CWD/.build
+  ## npm test published app and merge result into previous test-report.json
+  npm test --mode-no-coverage || return $?
+  cp .build/test-report.* $CWD/.build || return $?
   ## restore $CWD
   cd $CWD
 }
 
 shBuildPrint() {
-  ## this function prints info about the build state
+  ## this function prints debug info about the build state
   export MODE_CI_BUILD=$1 || return $?
   local MESSAGE="$2" || return $?
   printf "\n[MODE_CI_BUILD=$MODE_CI_BUILD] - $MESSAGE\n\n" || return $?
 }
 
-shGithubContentsDirPush() {
-  ## this function pushes the local DIR1 $1 to the remote github DIR2 $2
-  local DIR1=$1 || return $?
-  local DIR2=$2 || return $?
-  local FILE1 || return $?
-  for FILE1 in $(find $DIR1 -type f)
-  do
-    node utility2.js --mode-cli=githubContentsFilePush $FILE1 $DIR1 $DIR2 || return $?
-    ## throttle github file updates
-    sleep 1 || return $?
-  done
-}
-
-shPackageJsonGetItem() {
-  ## this function prints the value for the given KEY $1 in package.json
-  local KEY=$1 || return $?
-  perl -ne "print \$1 if /  \"$KEY\": \"([^\"]+)/" package.json || return $?
+shGitSquash () {
+  ## this function squashes the HEAD to the specified commit $1
+  ## git squash
+  ## http://stackoverflow.com/questions/5189560/how-can-i-squash-my-last-x-commits-together-using-git
+  local COMMIT=$1
+  local MESSAGE=${2-squash}
+  ## commit any uncommitted data
+  git commit -am sync
+  ## reset git to previous $COMMIT
+  git reset --hard $COMMIT || return $?
+  ## reset files to current HEAD
+  git merge --squash HEAD@{1} || return $?
+  ## commit HEAD immediately after previous $COMMIT
+  git commit -am "$MESSAGE" || return $?
 }
 
 shNpmInstall() {
@@ -296,31 +309,53 @@ shNpmStart() {
 
 shNpmTest() {
   ## this function runs npm test
+  ## init ci env
+  if [ -d .git ]
+  then
+    ## init default env
+    export CI_BUILD_DIR=build.local || return $?
+    export CI_BRANCH=alpha || return $?
+    export CI_BUILD_NUMBER=0 || return $?
+    export CI_COMMIT_ID=$(git rev-parse --verify HEAD) || return $?
+    ## try to init travis-ci.org env
+    if [ "$TRAVIS" ]
+    then
+      export CI_BUILD_DIR=build.travis-ci.org || return $?
+      export CI_BRANCH=$TRAVIS_BRANCH || return $?
+      export CI_BUILD_NUMBER=$TRAVIS_BUILD_NUMBER || return $?
+      export CI_COMMIT_ID=$TRAVIS_COMMIT || return $?
+    fi
+    export CI_COMMIT_MESSAGE="$(git log -1 --pretty=%s)" || return $?
+    export CI_COMMIT_INFO="$CI_COMMIT_ID - $CI_COMMIT_MESSAGE" || return $?
+  fi
   ## jslint example.js / main.js / utility2.js
   jslint-lite example.js main.js utility2.js
   ## npm install dev dependencies
   npm install || return $?
   ## run example.js
-  node example.js || return $?
+  if [ ! "$npm_config_mode_fast" ]
+  then
+    node example.js || return $?
+  fi
   ## init $ARGS
   local ARGS="main.js" || return $?
-  ARGS="$ARGS --dir=.build/coverage-report" || return $?
+  ARGS="$ARGS --dir=.build/coverage-report.html" || return $?
   ARGS="$ARGS --print=detail" || return $?
   ARGS="$ARGS --report=html" || return $?
-  ARGS="$ARGS --" || return $?
+  ARGS="$ARGS -- $1" || return $?
   ARGS="$ARGS --mode-cli=npmTest" || return $?
   ARGS="$ARGS --mode-repl" || return $?
+  ARGS="$ARGS --mode-test" || return $?
+  ARGS="$ARGS --mode-test-report-upload" || return $?
   ARGS="$ARGS --server-port=random" || return $?
-  ## create random authentication string for uploading test reports
-  export MODE_TEST_REPORT_UPLOAD=$(openssl rand -hex 64) || return $?
   ## disable code coverage
-  if [ "$npm_config_disable_coverage" ]
+  if [ "$npm_config_mode_fast" ] || [ "$npm_config_mode_no_coverage" ]
   then
     istanbul test $ARGS || return $?
     return $?
   fi
   ## remove old coverage report
-  rm -fr .build/coverage-report || return $?
+  rm -fr .build/coverage-report.html || return $?
   ## npm test with coverage
   istanbul cover $ARGS --mode-coverage
   ## save $EXIT_CODE
@@ -338,6 +373,12 @@ shNpmTest() {
   return $EXIT_CODE
 }
 
+shPackageJsonGetItem() {
+  ## this function prints the value for the given KEY $1 in package.json
+  local KEY=$1 || return $?
+  printf $(node -e "process.stdout.write(require('./package.json').$KEY)") || return $?
+}
+
 shSandbox() {
   ## this function is for sandboxing
   ## decrypt and exec encrypted data
@@ -347,14 +388,14 @@ shSandbox() {
 shSemverGreaterThan() {
   ## function return 0 if semver $1 is greater than semver $2 or 1 otherwise
   local REGEXP="([0-9]+)\.([0-9]+)\.([0-9]+)([0-9A-Za-z-]*)" || return $?
-  MAJOR1=$(echo $1 | perl -ne "print \$1 if /$REGEXP/") || return $?
-  MINOR1=$(echo $1 | perl -ne "print \$2 if /$REGEXP/") || return $?
-  PATCH1=$(echo $1 | perl -ne "print \$3 if /$REGEXP/") || return $?
-  SPECIAL1=$(echo $1 | perl -ne "print \$4 if /$REGEXP/") || return $?
-  MAJOR2=$(echo $2 | perl -ne "print \$1 if /$REGEXP/") || return $?
-  MINOR2=$(echo $2 | perl -ne "print \$2 if /$REGEXP/") || return $?
-  PATCH2=$(echo $2 | perl -ne "print \$3 if /$REGEXP/") || return $?
-  SPECIAL2=$(echo $2 | perl -ne "print \$4 if /$REGEXP/") || return $?
+  MAJOR1=$(printf $1 | perl -ne "print \$1 if /$REGEXP/") || return $?
+  MINOR1=$(printf $1 | perl -ne "print \$2 if /$REGEXP/") || return $?
+  PATCH1=$(printf $1 | perl -ne "print \$3 if /$REGEXP/") || return $?
+  SPECIAL1=$(printf $1 | perl -ne "print \$4 if /$REGEXP/") || return $?
+  MAJOR2=$(printf $2 | perl -ne "print \$1 if /$REGEXP/") || return $?
+  MINOR2=$(printf $2 | perl -ne "print \$2 if /$REGEXP/") || return $?
+  PATCH2=$(printf $2 | perl -ne "print \$3 if /$REGEXP/") || return $?
+  SPECIAL2=$(printf $2 | perl -ne "print \$4 if /$REGEXP/") || return $?
   ## return 1 if invalid semver $1 or semver $2
   if [ ! "$MAJOR1" ] || [ ! "$MAJOR2" ]
   then
@@ -425,6 +466,11 @@ shTravisEncrypt() {
     tr -d "\n" || return $?
 }
 
+shUpdateExternal() {
+  ## this function updates external resources in main.data and utility2.data
+  node utility2.js --mode-cli=updateExternal
+}
+
 shMain() {
   ## this function is the main program and parses argv
   ## return if argv is empty
@@ -435,8 +481,7 @@ shMain() {
   ## save $CWD
   CWD=$(pwd) || return $?
   ## init $GITHUB_REPO
-  export GITHUB_REPO=$(git config --file .git-config --get remote.origin.url |\
-    perl -ne "print \$1 if /([^:]+)\.git$/") || return $?
+  export GITHUB_REPO=$(shPackageJsonGetItem repoGithub) || return $?
   ## init $PATH with $CWD/node_modules
   export PATH=$CWD/node_modules/.bin:$PATH || return $?
   ## init $TMPFILE

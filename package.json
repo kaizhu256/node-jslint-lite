@@ -9,9 +9,12 @@
     "slimerjs": "0.9.x"
   },
   "engines": { "node": ">=0.10.x" },
+  "license": "MIT",
   "main": "main.js",
   "name": "jslint-lite",
   "os": ["darwin", "linux"],
+  "repoGithub": "kaizhu256/node-jslint-lite",
+  "repoHeroku": "hrku01-jslint-lite",
   "repository" : {
     "type" : "git",
     "url" : "https://github.com/kaizhu256/node-jslint-lite.git"
@@ -21,5 +24,5 @@
     "start": "./utility2.sh shNpmStart",
     "test": "./utility2.sh shNpmTest"
   },
-  "version": "2014.7.17-8"
+  "version": "2014.7.29-16"
 }
