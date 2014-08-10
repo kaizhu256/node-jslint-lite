@@ -2,6 +2,15 @@
   "actionList": ["lint"],
   "file": "/public/main.css"
 } */
+body {
+  padding: 10px;
+}
+.jslintLiteScriptTextarea {
+  font-family: monospace;
+  margin: 10px 0 10px 0;
+  min-height: 8em;
+  width: 100%;
+}
 /* FILE_END */
 
 
@@ -15,29 +24,44 @@
 
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
-<style>
-body {
-  font-family: arial;
-}
-</style>
-<link href="{{cacheUrl.utility2.css}}" rel="stylesheet"/>
-<link href="{{cacheUrl.main.css}}" rel="stylesheet"/>
+<link href="{{/public/external/bootstrap.css}}" rel="stylesheet"/>
+<link href="{{/public/utility2.css}}" rel="stylesheet"/>
+<link href="{{/public/main.css}}" rel="stylesheet"/>
 </head>
 
 <body>
-<h1>{{name}} main page</h1>
+<!-- main app div -->
+<div
+  data-ng-app="ngApp_main"
+  data-ng-controller="MainController"
+>
+<h1>{{name}}</h1>
+<h3>{{description}}</h3>
+edit / paste script below to jslint
+<textarea
+  class="jslintLiteScriptTextarea"
+  data-ng-change="jslintLiteScriptJslint()"
+  data-ng-model="jslintLiteScriptModel"
+></textarea>
+<pre
+  class="jslintLiteErrorPre"
+  data-ng-bind="jslintLiteErrorModel"
+></pre>
+</div>
+
 <!-- enable ajax progress bar -->
 <div class="ajaxProgressDiv">
   <div class="ajaxProgressBarDiv ajaxProgressBarDivLoading">loading</div>
 </div>
+
 <!-- load scripts -->
-<script src="{{cacheUrl.utility2.data.js}}"></script>
-<script src="{{cacheUrl.utility2.js}}"></script>
+<script src="{{/public/utility2.data.js}}"></script>
+<script src="{{/public/utility2.js}}"></script>
 <!-- init state object -->
 <script>window.exports.setOverride(window.state, {{stateBrowserJson}});</script>
 <!-- run main program -->
-<script src="{{cacheUrl.main.data.js}}"></script>
-<script src="{{cacheUrl.main.js}}"></script>
+<script src="{{/public/main.data.js}}"></script>
+<script src="{{/public/main.js}}"></script>
 </body>
 
 </html>
@@ -45,69 +69,13 @@ body {
 
 
 
-/* FILE_BEGIN {
-  "actionList": ["trim"],
-  "file": "/public/jslint-lite.html"
-} */
-<!DOCTYPE html><html ng-app="myApp">
-<head>
-<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
-<title>jslint-lite test page</title>
-<style>
-body {
-  font-family: arial;
-}
-#testRunButton {
-  background-color: #37b;
-  border: 0px solid;
-  border-radius: 4px;
-  color: #fff;
-  cursor: pointer;
-  font-size: medium;
-  padding: 5px 10px;
-}
-</style>
-<link href="/public/utility2.css" rel="stylesheet"/>
-</head>
-<body ng-controller="MyController">
-
-<h1>jslint-lite test page</h1>
-<div id="ajaxProgressDiv"></div>
-
-<textarea ng-model="jslintInput"></textarea>
-<button ng-click="add()">jslint</button>
-
-    <ul>
-        <li ng-repeat="contact in contacts"> {{ contact }} </li>
-    </ul>
-
-<button ng-click="count = count + 1" ng-init="count=0">
-  Increment
-</button>
-count: {{count}}
-
-<script src="/public/angular.js"></script>
-<script src="/public/utility2.js"></script>
-<script src="/public/jslint.js"></script>
-<script src="/public/main.js"></script>
-</body>
-</html>
-/* FILE_END */
-
-
-
-/* FILE_BEGIN {
-  "actionList": ["lint"],
-  "file": "/public/main.css"
-} */
-/* FILE_END */
-
-
-
-(function () {
+(function submoduleExternalJslintShared() {
+  /*
+    this shared submodule exports the external jslint api
+  */
   'use strict';
 /* FILE_BEGIN {
-  "actionList": ["updateExternal", "trim", "lint", "exportScript"],
+  "actionList": ["updateExternal", "trim", "lint"],
   "file": "/public/jslint.js",
   "externalUrl": "https://raw.githubusercontent.com/douglascrockford/jslint/master/jslint.js"
 } */

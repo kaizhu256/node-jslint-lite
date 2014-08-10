@@ -318,7 +318,7 @@ stateRestore = function (state2) {
       /*
         this function returns the error's stack or message attribute if possible
       */
-      return (error && (error.stack || error.message || error)) || '';
+      return error.stack || error.message;
     },
 
     jsonStringifyOrdered: function (value, replacer, space) {
@@ -830,6 +830,7 @@ stateRestore = function (state2) {
           CI_BUILD_NUMBER: env.CI_BUILD_NUMBER,
           // security - sanitize '<' in text
           CI_COMMIT_INFO: String(env.CI_COMMIT_INFO).replace((/</g), '&lt;'),
+          name: state.name,
           // map testPlatformList
           testPlatformList: testReport.testPlatformList.map(function (testPlatform, ii) {
             errorMessageList = [];
@@ -954,7 +955,7 @@ stateRestore = function (state2) {
                   // edit branch name
                   .replace(
                     (/0000 00 00 00 00 00/g),
-                    new Date().toISOString().slice(0, 19).replace('T', ' ') + ' UTC'
+                    new Date().toISOString().slice(0, 19).replace('T', ' ')
                   )
                   // edit branch name
                   .replace((/- master -/g), '| ' + process.env.CI_BRANCH + ' |')
@@ -1228,13 +1229,14 @@ stateRestore = function (state2) {
       if (!(/\bmodeTest=1\b/).test(location.search)) {
         return;
       }
-      // init testReportDiv element
-      state.testReportDiv = document.getElementsByClassName('testReportDiv')[0] || {};
       // save server-side testCallbackId
       state.testCallbackId = (/\btestCallbackId=([^&]+)/).exec(location.search);
       state.testCallbackId = state.testCallbackId && state.testCallbackId[1];
-      // todo - implement proper promise
-      setTimeout(function () {
+      // run test after all external resources have been loaded
+      window.addEventListener('load', function () {
+        // init testReportDiv element
+        state.testReportDiv = document.createElement('div');
+        document.body.appendChild(state.testReportDiv);
         // run tests
         exports.testRun();
         // create initial blank test page
@@ -1405,14 +1407,7 @@ stateRestore = function (state2) {
       local._ajaxProgressBarDiv.className = local._ajaxProgressBarDiv.className
         .replace((/ajaxProgressBarDiv\w+/), type);
       local._ajaxProgressBarDiv.innerHTML = label;
-    },
-
-    // init event handling
-    ngApp_utility2_controller_TestController: ['$scope', function ($scope) {
-      $scope.runTest = function () {
-        location.search = 'modeTest=1';
-      };
-    }]
+    }
 
   };
   local._init();
@@ -1495,7 +1490,7 @@ stateRestore = function (state2) {
           argv.push('--' + tmp[1] + '=' + (process.env[key] || 'false'));
         }
       });
-      // parse commandline arguments argv and integrate it into the state dict
+      // parse cli argv and integrate it into the state dict
       argv.forEach(function (arg, ii) {
         if (arg.indexOf('--') === 0) {
           arg = arg.split('=');
@@ -1571,22 +1566,24 @@ stateRestore = function (state2) {
         /*
           this function creates a unique cache url for the file data
         */
-        var key;
+        var file, fileCache;
+        file = options.file;
         // cache only package files or /public/* files
-        if (!((/^(?:main.data|main.js|utility2.data|utility2.js)$/).test(options.file) ||
-            (/^\/public\/[^\/]+$/).test(options.file))) {
+        if ((/^(?:main.data|main.js|utility2.data|utility2.js)$/).test(file)) {
+          file = '/public/' + file;
+        }
+        if (file.indexOf('/public/') !== 0) {
           return;
         }
-        key = 'cacheUrl.' + options.file.replace('/public/', '');
         // add .js extension for main.data and utility2.data
-        if ((/^cacheUrl\.(?:main\.data|utility2\.data)$/).test(key)) {
-          key += '.js';
+        if ((/^\/public\/(?:main\.data|utility2\.data)$/).test(file)) {
+          file += '.js';
         }
         // create unique cache url for the file data using its sha256 hash
-        key = state[key] = state[key] || '/public/cache/' + key + '.' +
+        fileCache = state[file] = state[file] || file + '.' +
           required.crypto.createHash('sha256').update(options.data).digest('hex') +
-          required.path.extname(key);
-        state.fileDict[key] = options;
+          required.path.extname(file);
+        state.fileDict[fileCache] = options;
       };
       parseFile = function (file) {
         /*
@@ -1617,7 +1614,7 @@ stateRestore = function (state2) {
           break;
         case 'main.data':
         case 'utility2.data':
-          data = data.replace(
+          data.replace(
             (/^\/\* FILE_BEGIN ([\S\s]+?) \*\/$([\S\s]+?)^\/\* FILE_END \*\/$/gm),
             function (_, options, data2, ii) {
               // nop hack to pass jslint
@@ -1636,12 +1633,17 @@ stateRestore = function (state2) {
               });
               // create unique cache url for the file data
               cacheFile(options);
-              // if indicated by exportScript, then export the data to browser
-              return options.actionList.indexOf('exportScript') >= 0 ? _
-                // preserve lineno
-                : _.replace((/.*/g), '');
             }
           );
+          // cull file to only have submodules
+          data = ('}());\n\n\n\n' + data + '\n(function submoduleFooBrowser() {').replace((
+            /(^\}\(\)\);\n\n\n\n)([\S\s]+?)(^\(function submodule\w+(?:Browser|Nodejs|Shared)\(\) \{$)/gm
+          ), function (_, header, body, footer) {
+            // nop hack to pass jslint
+            exports.nop(_);
+            // preserve lineno
+            return header + body.replace((/.*/g), '') + footer;
+          }).replace('}());\n\n\n\n', '').replace((/.*$/), '').trimRight();
           // eval embedded nodejs script in data file
           // remove browser submodules from script
           required.vm.runInNewContext(removeSubmodule(data, 'Browser'), {
@@ -1654,16 +1656,18 @@ stateRestore = function (state2) {
           break;
         }
         // save file data to state.fileDict
-        state.fileDict[file].data = data;
+        state.fileDict[file].data = data.trimRight();
         // create unique cache url for the file data
         cacheFile(state.fileDict[file]);
+        // update state.stateBrowserJson
+        state.stateBrowserJson = JSON.stringify(state.stateBrowser);
       };
       removeSubmodule = function (script, mode) {
         /*
           this function removes submodules with the specified mode from the script
         */
-        return script.replace(new RegExp(
-          '^\\(function submodule\\w+' + mode + '\\(\\) \\{[\\S\\s]+?^\\}\\(\\)\\);$',
+        return (script + '\n\n\n\n').replace(new RegExp(
+          '^\\(function submodule\\w+' + mode + '\\(\\) \\{[\\S\\s]+?^\\}\\(\\)\\);\n\n\n\n',
           'gm'
         ), function (match) {
           // preserve lineno
@@ -2008,8 +2012,10 @@ stateRestore = function (state2) {
         this function exports the file to stateBrowser
       */
       state.stateBrowser.fileDict[options.file] = options;
-      // update state.stateBrowserJson
-      state.stateBrowserJson = JSON.stringify(state.stateBrowser);
+      exports.setOverride(state.stateBrowser, {
+        description: state.description,
+        name: state.name
+      });
     },
 
     fileActionDict_format: function (options) {
@@ -2256,7 +2262,7 @@ stateRestore = function (state2) {
       [
         {
           file: 'test-report.screenshot.heroku.png',
-          url: process.env.HEROKU_URL + '/test/test.html?modeTest=1'
+          url: process.env.HEROKU_URL + '/?modeTest=1'
         },
         {
           file: 'test-report.screenshot.travis.png',
@@ -2326,8 +2332,7 @@ stateRestore = function (state2) {
         file,
         '.install/phantomjs-test.js',
         new Buffer(JSON.stringify({ argv0: required.path.basename(file), url: state.localhost +
-          '/test/test.html' +
-          '?modeTest=1' +
+          '/?modeTest=1' +
           '&modeTestReportUpload=1' +
           '&testCallbackId=' + testCallbackId +
           '&timeoutDefault=' + state.timeoutDefault })).toString('base64')
@@ -2448,7 +2453,7 @@ stateRestore = function (state2) {
       }
       exports.serverRespondData(response, 200, 'text/html', exports.textFormat(
         state.fileDict['/public/main.html'].data,
-        { stateBrowserJson: JSON.stringify(state.stateBrowser) }
+        { stateBrowserJson: state.stateBrowserJson }
       ));
     },
 
@@ -2478,15 +2483,6 @@ stateRestore = function (state2) {
       // nop hack to pass jslint
       exports.nop(_);
       exports.serverRespondData(response, 200, 'application/json', '"hello"');
-    },
-
-    'serverPathHandlerDict_/test/test.html': function (_, response) {
-      // nop hack to pass jslint
-      exports.nop(_);
-      exports.serverRespondData(response, 200, 'text/html', exports.textFormat(
-        state.fileDict['/test/test.html'].data,
-        state
-      ));
     },
 
     'serverPathHandlerDict_/test/test-report-upload': function (request, response, next) {

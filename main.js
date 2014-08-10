@@ -57,7 +57,7 @@ stateRestore = function (state2) {
         this function inits the cli
       */
       if (module === require.main && !state.modeCli) {
-        // lint files in argv
+        // jslint files in argv
         argv.slice(2).forEach(function (file) {
           if (file[0] !== '-') {
             exports.jslintPrint(required.fs.readFileSync(file, 'utf8'), file);
@@ -79,18 +79,77 @@ stateRestore = function (state2) {
         [required, { fs: { readFileSync: exports.echo } }]
       ], function (onEventError) {
         state = {};
-        // test jslint passed handling behavior
+        // test passing jslint handling behavior
         message = '';
         local._initCli(['', '', 'var aa = 1;']);
         // validate no error occurred
         exports.assert(message === '', message);
-        // test jslint failed handling behavior
+        // test failing jslint handling behavior
         message = '';
         local._initCli(['', '', 'syntax error']);
         // validate error occurred
         exports.assert(message, message);
         onEventError();
       });
+    }
+
+  };
+  local._init();
+}());
+
+
+
+(function submoduleMainBrowser() {
+  /*
+    this nodejs submodule exports the main api
+  */
+  'use strict';
+  var local = {
+    _name: 'main.submoduleMainBrowser',
+
+    _init: function () {
+      /*
+        this function inits the submodule
+      */
+      if (state.modeNodejs) {
+        return;
+      }
+      // init this submodule
+      exports.initSubmodule(local);
+    },
+
+    ngApp_main_controller_MainController: ['$scope', function ($scope) {
+      /*
+        this function inits the main angularjs controller
+      */
+      // export $scope to local object for testing
+      local._$scope = $scope;
+      exports.setDefault($scope, {
+        // init jslintLiteScriptModel
+        jslintLiteScriptModel: '/*jslint devel: true*/\nconsole.log("hello");',
+        jslintLiteScriptJslint: function () {
+          /*
+            this function jslint's the script in the main textarea
+          */
+          $scope.jslintLiteErrorModel = exports.jslint(
+            $scope.jslintLiteScriptModel,
+            'input script'
+          ).trim() || 'input script ok';
+        }
+      });
+      // jslint current example script
+      $scope.jslintLiteScriptJslint();
+    }],
+
+    _ngApp_main_controller_MainController_default_test: function (onEventError) {
+      /*
+        this function tests ngApp_main_controller_MainController's default handling behavior
+      */
+      var $scope;
+      $scope = state.scope = local._$scope;
+      $scope.jslintLiteScriptModel = '/*jslint devel: true*/\nconsole.log("hello");';
+      $scope.jslintLiteScriptJslint();
+      onEventError();
     }
 
   };
@@ -164,7 +223,7 @@ stateRestore = function (state2) {
       }
     },
 
-    _jslintPrint_default_test: function (onEventError) {
+    _lintPrint_default_test: function (onEventError) {
       /*
         this function tests jslintPrint's default handling behavior
       */
@@ -175,12 +234,12 @@ stateRestore = function (state2) {
         } }],
         [exports, { JSLINT: exports.JSLINT }]
       ], function (onEventError) {
-        // test jslint passed handling behavior
+        // test passing jslint handling behavior
         errorMessage = null;
         exports.jslintPrint(state.fileDict['example.js'].data, 'example.js');
         // validate no error message was printed
         exports.assert(errorMessage === null, errorMessage);
-        // test jslint failed handling behavior
+        // test failing jslint handling behavior
         errorMessage = null;
         exports.jslintPrint('/*jslint maxerr:1*/\n1;2;\n', 'error.js');
         // remove color metadata from error message

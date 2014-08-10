@@ -328,6 +328,11 @@ shNpmTest() {
     export CI_COMMIT_MESSAGE="$(git log -1 --pretty=%s)" || return $?
     export CI_COMMIT_INFO="$CI_COMMIT_ID - $CI_COMMIT_MESSAGE" || return $?
   fi
+  if [ ! "$MODE_CI_BUILD" ]
+  then
+    ## run local npm test
+    shBuildPrint npmTestLocal "npm testing $CWD ..." || shBuildExit
+  fi
   ## jslint example.js / main.js / utility2.js
   jslint-lite example.js main.js utility2.js
   ## npm install dev dependencies
