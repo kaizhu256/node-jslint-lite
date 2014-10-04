@@ -44,8 +44,6 @@ stateRestore = function (state2) {
       required = exports.required;
       // init state object
       state = exports.state;
-      // init required.jslint_lite
-      required.jslint_lite = exports;
       // init cli
       setTimeout(function () {
         local._initCli(process.argv);
@@ -79,12 +77,17 @@ stateRestore = function (state2) {
         [required, { fs: { readFileSync: exports.echo } }]
       ], function (onEventError) {
         state = {};
-        // test passing jslint handling behavior
+        // test jslint nop handling behavior
+        message = '';
+        local._initCli(['', '', '--mode-foo']);
+        // validate no error occurred
+        exports.assert(message === '', message);
+        // test jslint passed handling behavior
         message = '';
         local._initCli(['', '', 'var aa = 1;']);
         // validate no error occurred
         exports.assert(message === '', message);
-        // test failing jslint handling behavior
+        // test jslint failed handling behavior
         message = '';
         local._initCli(['', '', 'syntax error']);
         // validate error occurred
@@ -101,7 +104,7 @@ stateRestore = function (state2) {
 
 (function submoduleMainBrowser() {
   /*
-    this nodejs submodule exports the main api
+    this browser submodule exports the main api
   */
   'use strict';
   var local = {
@@ -160,7 +163,7 @@ stateRestore = function (state2) {
 
 (function submoduleMainShared() {
   /*
-    this nodejs submodule exports the main api
+    this shared submodule exports the main api
   */
   'use strict';
   var local = {

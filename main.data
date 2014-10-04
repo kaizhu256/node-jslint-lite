@@ -1,6 +1,6 @@
 /* FILE_BEGIN {
   "actionList": ["lint"],
-  "file": "/public/main.css"
+  "file": "/public/cache/main.css"
 } */
 body {
   padding: 10px;
@@ -24,9 +24,9 @@ body {
 
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
-<link href="{{/public/external/bootstrap.css}}" rel="stylesheet"/>
-<link href="{{/public/utility2.css}}" rel="stylesheet"/>
-<link href="{{/public/main.css}}" rel="stylesheet"/>
+<link href="{{/public/cache/external/bootstrap.css}}" rel="stylesheet"/>
+<link href="{{/public/cache/utility2.css}}" rel="stylesheet"/>
+<link href="{{/public/cache/main.css}}" rel="stylesheet"/>
 </head>
 
 <body>
@@ -37,6 +37,11 @@ body {
 >
 <h1>{{name}}</h1>
 <h3>{{description}}</h3>
+<!-- enable ajax progress bar -->
+<div class="ajaxProgressDiv">
+  <div class="ajaxProgressBarDiv ajaxProgressBarDivLoading">loading</div>
+</div>
+
 edit / paste script below to jslint
 <textarea
   class="jslintLiteScriptTextarea"
@@ -49,19 +54,14 @@ edit / paste script below to jslint
 ></pre>
 </div>
 
-<!-- enable ajax progress bar -->
-<div class="ajaxProgressDiv">
-  <div class="ajaxProgressBarDiv ajaxProgressBarDivLoading">loading</div>
-</div>
-
 <!-- load scripts -->
-<script src="{{/public/utility2.data.js}}"></script>
-<script src="{{/public/utility2.js}}"></script>
+<script src="{{/public/cache/utility2.data.js}}"></script>
+<script src="{{/public/cache/utility2.js}}"></script>
 <!-- init state object -->
 <script>window.exports.setOverride(window.state, {{stateBrowserJson}});</script>
 <!-- run main program -->
-<script src="{{/public/main.data.js}}"></script>
-<script src="{{/public/main.js}}"></script>
+<script src="{{/public/cache/main.data.js}}"></script>
+<script src="{{/public/cache/main.js}}"></script>
 </body>
 
 </html>
@@ -76,7 +76,7 @@ edit / paste script below to jslint
   'use strict';
 /* FILE_BEGIN {
   "actionList": ["updateExternal", "trim", "lint"],
-  "file": "/public/jslint.js",
+  "file": "/public/cache/jslint.js",
   "externalUrl": "https://raw.githubusercontent.com/douglascrockford/jslint/master/jslint.js"
 } */
 // jslint.js

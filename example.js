@@ -4,7 +4,7 @@
   node: true,
   stupid: true
 */
-(function moduleExampleNodejs() {
+(function () {
   'use strict';
   var fs, jslint_lite;
   // require fs
