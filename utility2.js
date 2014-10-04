@@ -1792,7 +1792,7 @@ stateRestore = function (state2) {
         }, function (stat2, stat1) {
           if (stat2.mtime >= stat1.mtime) {
             // if modified, auto-jslint the file
-            if (required.jslint_lite) {
+            if (required.jslint_lite && required.jslint_lite.jslintPrint) {
               required.jslint_lite.jslintPrint(
                 required.fs.readFileSync(file, 'utf8'),
                 file
