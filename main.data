@@ -21,15 +21,17 @@ body {
 } */
 <!DOCTYPE html>
 <html>
-
 <head>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
 <link href="{{/public/cache/external/bootstrap.css}}" rel="stylesheet"/>
 <link href="{{/public/cache/utility2.css}}" rel="stylesheet"/>
 <link href="{{/public/cache/main.css}}" rel="stylesheet"/>
 </head>
-
 <body>
+<!-- enable ajax progress bar -->
+<div class="ajaxProgressDiv">
+  <div class="ajaxProgressBarDiv ajaxProgressBarDivLoading">loading</div>
+</div>
 <!-- main app div -->
 <div
   data-ng-app="ngApp_main"
@@ -37,11 +39,10 @@ body {
 >
 <h1>{{name}}</h1>
 <h3>{{description}}</h3>
-<!-- enable ajax progress bar -->
-<div class="ajaxProgressDiv">
-  <div class="ajaxProgressBarDiv ajaxProgressBarDivLoading">loading</div>
-</div>
 
+
+
+<!-- main app content -->
 edit / paste script below to jslint
 <textarea
   class="jslintLiteScriptTextarea"
@@ -52,18 +53,19 @@ edit / paste script below to jslint
   class="jslintLiteErrorPre"
   data-ng-bind="jslintLiteErrorModel"
 ></pre>
-</div>
+
+
 
 <!-- load scripts -->
 <script src="{{/public/cache/utility2.data.js}}"></script>
 <script src="{{/public/cache/utility2.js}}"></script>
-<!-- init state object -->
-<script>window.exports.setOverride(window.state, {{stateBrowserJson}});</script>
-<!-- run main program -->
+<!-- init main app -->
+<script>window.$$mainApp.setOverride(window.$$mainApp, {{stateBrowserJson}});</script>
+<!-- run main app -->
 <script src="{{/public/cache/main.data.js}}"></script>
 <script src="{{/public/cache/main.js}}"></script>
+</div>
 </body>
-
 </html>
 /* FILE_END */
 
@@ -75,7 +77,7 @@ edit / paste script below to jslint
   */
   'use strict';
 /* FILE_BEGIN {
-  "actionList": ["updateExternal", "trim", "lint"],
+  "actionList": ["trim", "lint"],
   "file": "/public/cache/jslint.js",
   "externalUrl": "https://raw.githubusercontent.com/douglascrockford/jslint/master/jslint.js"
 } */
@@ -4368,5 +4370,5 @@ klass:              do {
     return itself;
 }());
 /* FILE_END */
-  __exports__.JSLINT = JSLINT;
+  $$mainApp.JSLINT = JSLINT;
 }());

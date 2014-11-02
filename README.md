@@ -29,8 +29,8 @@ lightweight nodejs module for testing and covering browser-side code
 npm install jslint-lite && cd node_modules/jslint-lite
 ## run browser tests and create test and coverage reports on self
 npm test
-## jslint foo.js and bar.js
-jslint-lite foo.js bar.js
+## jslint example.js and main.js
+../.bin/jslint-lite example.js main.js
 ```
 
 
@@ -66,14 +66,14 @@ jslint-lite foo.js bar.js
 
 ## description of files
 - .build/
-  - auto-created directory where test and coverage reports are generated
+  - auto-created directory where tests and coverages are stored
 - .install/
-  - auto-created directory where npm postinstall files are generated
+  - auto-created directory where npm postinstall files are stored
 - .travis.yml
   - travis-ci config file
   - contains encrypted credentials used by travis-ci
 - README.md
-  - this readme file
+  - readme file
 - example.js
   - example nodejs script demonstrating how to use this app
 - main.data
