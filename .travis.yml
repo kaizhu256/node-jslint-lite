@@ -17,4 +17,11 @@ language: node_js
 node_js:
 - '0.10'
 script:
-  - ./utility2.sh shBuild
+  # test published package
+  - node_modules/utility2/cli.sh shNpmTestPublished
+  # test example.js
+  - node example.js
+  # test package
+  - npm test
+  # upload build to github
+  - GITHUB_REPO=kaizhu256/node-jslint-lite node_modules/utility2/cli.sh shBuildUploadGithub

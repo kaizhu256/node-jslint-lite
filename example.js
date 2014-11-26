@@ -11,13 +11,6 @@
   fs = require('fs');
   // require jslint_lite
   jslint_lite = require('jslint-lite');
-  // read the file example.js,
-  // jslint its contents,
-  // and print any error message to stderr
-  console.error(
-    jslint_lite.jslint(
-      fs.readFileSync('example.js', 'utf8'),
-      'example.js'
-    )
-  );
+  // jslint example.js and print any errors to stderr
+  jslint_lite.jslintPrint(fs.readFileSync('example.js', 'utf8'), 'example.js');
 }());
