@@ -65,16 +65,16 @@ cd node_modules/jslint-lite && npm install && npm test
   - external csslint script
   - copied from https://raw.githubusercontent.com/CSSLint/csslint/master/release/csslint.js
 - example.js
-  - example usage script
+  - nodejs example usage script
 - index.js
-  - the main app
+  - main nodejs app
 - jslint.js
   - external jslint script
   - copied from https://raw.githubusercontent.com/douglascrockford/JSLint/master/jslint.js
 - package.json
   - npm config file
 - test.js
-  - test script
+  - nodejs test script
 
 
 

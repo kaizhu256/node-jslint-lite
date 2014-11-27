@@ -16,7 +16,7 @@
     "url" : "https://github.com/kaizhu256/node-jslint-lite.git"
   },
   "scripts": {
-    "test": "node_modules/utility2/cli.sh shNpmTest ./test.js"
+    "test": ". node_modules/utility2/index.sh && shInit && shRun shNpmTest test.js"
   },
-  "version": "2014.11.26-13"
+  "version": "2014.11.26-14"
 }
