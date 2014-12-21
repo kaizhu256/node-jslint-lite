@@ -1,9 +1,6 @@
 jslint-lite [![NPM](https://img.shields.io/npm/v/jslint-lite.svg?style=flat-square)](https://www.npmjs.org/package/jslint-lite)
 ===========
 minimal npm installer for jslint and csslint with no external dependencies
-
-
-
 ![screenshot](https://kaizhu256.github.io/node-jslint-lite/screenshot.png)
 
 

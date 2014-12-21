@@ -28,6 +28,7 @@
             local.jslintPrint(local.fs.readFileSync(local.path.resolve(arg), 'utf8'), arg);
           }
         });
+        // if error occurred, then exit with non-zero code
         process.exit(exports.errors);
       }
     },
