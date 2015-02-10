@@ -1,13 +1,18 @@
 {
   "author": "kai zhu <kaizhu256@gmail.com>",
   "bin": { "jslint-lite": "index.js" },
-  "description": "minimal npm installer for jslint and csslint with no external dependencies",
+  "description": "lightweight, browser/nodejs version of jslint and csslint with zero dependencies",
   "devDependencies": {
-    "istanbul": "^0.3.0",
-    "jslint-lite": "^2014.11.26-11",
-    "utility2": "^2014.10.31-11"
+    "utility2": "2015.2.10-16"
   },
-  "engines": { "node": "^0.10.x" },
+  "engines": { "node": "0.10" },
+  "keywords": [
+    "browser",
+    "csslint",
+    "jshint",
+    "jslint",
+    "utility2"
+  ],
   "license": "MIT",
   "name": "jslint-lite",
   "os": ["darwin", "linux"],
@@ -16,7 +21,9 @@
     "url" : "https://github.com/kaizhu256/node-jslint-lite.git"
   },
   "scripts": {
-    "test": "node_modules/utility2/index.sh shRun shNpmTest test.js"
+    "build-ci": "node_modules/.bin/utility2 shRun shBuildCi",
+    "start": "npm_config_mode_auto_restart=1 node_modules/.bin/utility2 shRun node test.js",
+    "test": "node_modules/.bin/utility2 shRun shNpmTest test.js"
   },
-  "version": "2014.11.26-16"
+  "version": "2015.2.10-14"
 }
