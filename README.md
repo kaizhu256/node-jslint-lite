@@ -1,6 +1,6 @@
 jslint-lite [![NPM](https://img.shields.io/npm/v/jslint-lite.svg?style=flat-square)](https://www.npmjs.org/package/jslint-lite)
 ===========
-lightweight, browser/nodejs version of jslint and csslint with zero dependencies
+lightweight nodejs module for jslint and csslint with zero dependencies
 
 
 
@@ -108,7 +108,7 @@ exit $EXIT_CODE
 
 
 
-## changelog
+## recent changelog
 #### todo
 - add link to jslint documentation
 - add code-coverage for shell command
