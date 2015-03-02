@@ -3,6 +3,7 @@
   browser: true,
   indent: 2,
   maxerr: 8,
+  maxlen: 96,
   node: true, nomen: true,
   regexp: true,
   stupid: true
@@ -29,7 +30,8 @@
             ii += 1;
             console.error((' #' + String(ii) + ' ').slice(-4) +
               '\u001b[33m' + error.type + ' - ' + error.message  + '\u001b[39m\n    ' +
-              String(error.evidence).trim());
+              String(error.evidence).trim() + '\u001b[90m \/\/ line ' + error.line +
+              ', col ' + error.col + '\u001b[39m');
           });
         }
         break;
@@ -59,13 +61,7 @@
           });
         }
       }
-    };
-    exports.jslintPrint = function (script, file) {
-      /*
-        this is a legacy function that is deprecated
-      */
-      console.error('jslintPrint has been deprecated. please use jslintAndPrint instead');
-      exports.jslintAndPrint(script, file);
+      return script;
     };
   }());
   switch (local.modeJs) {
@@ -99,7 +95,7 @@
     local.modeJs = (function () {
       try {
         return module.exports && typeof process.versions.node === 'string' &&
-          typeof require('child_process').spawn === 'function' && 'node';
+          typeof require('http').createServer === 'function' && 'node';
       } catch (errorCaughtNode) {
         return typeof navigator.userAgent === 'string' &&
           typeof document.querySelector('body') === 'object' && 'browser';

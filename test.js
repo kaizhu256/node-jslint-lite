@@ -92,7 +92,7 @@
     local.modeJs = (function () {
       try {
         return module.exports && typeof process.versions.node === 'string' &&
-          typeof require('child_process').spawn === 'function' && 'node';
+          typeof require('http').createServer === 'function' && 'node';
       } catch (errorCaughtNode) {
         return typeof navigator.userAgent === 'string' &&
           typeof document.querySelector('body') === 'object' && 'browser';

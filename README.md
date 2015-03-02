@@ -1,6 +1,6 @@
 jslint-lite [![NPM](https://img.shields.io/npm/v/jslint-lite.svg?style=flat-square)](https://www.npmjs.org/package/jslint-lite)
 ===========
-lightweight nodejs module for jslint and csslint with zero dependencies
+lightweight nodejs module for jslint and csslint with zero npm dependencies
 
 
 
@@ -45,7 +45,7 @@ shQuickstartSh
 // 3. inside app directory, run the following shell command:
 //    $ npm install jslint-lite && node example.js
 /*jslint
-  indent:2,
+  indent: 2,
   node: true
 */
 (function () {
@@ -110,6 +110,7 @@ exit $EXIT_CODE
 
 ## recent changelog
 #### todo
+- update build to use utility2@2015.3.2-11
 - add link to jslint documentation
 - add code-coverage for shell command
 - add web demo page

@@ -1,7 +1,7 @@
 {
   "author": "kai zhu <kaizhu256@gmail.com>",
   "bin": { "jslint-lite": "index.js" },
-  "description": "lightweight nodejs module for jslint and csslint with zero dependencies",
+  "description": "lightweight nodejs module for jslint and csslint with zero npm dependencies",
   "devDependencies": {
     "utility2": "2015.2.10-16"
   },
