@@ -271,7 +271,6 @@ shExampleSh
 
 
 # todo
-- npm publish 2015.3.3-11
 - jslint - use 4 space indent and 80 col maxlen
 - add link to jslint documentation
 - add code-coverage for shell command
@@ -296,11 +295,11 @@ shBuild() {
   # run npm-test on published package
   shRun shNpmTestPublished || return $?
 
-  #!! # test example js script
-  #!! MODE_BUILD=testExampleJs\
-  #!! shRunScreenCapture shReadmeTestJs example.js || return $?
-  #!! # copy phantomjs screen-capture to $npm_config_dir_build
-  #!! cp /tmp/app/tmp/build/screen-capture.*.png $npm_config_dir_build || return $?
+  # test example js script
+  MODE_BUILD=testExampleJs\
+  shRunScreenCapture shReadmeTestJs example.js || return $?
+  # copy phantomjs screen-capture to $npm_config_dir_build
+  cp /tmp/app/tmp/build/screen-capture.*.png $npm_config_dir_build || return $?
 
   # test example shell script
   MODE_BUILD=testExampleSh\
