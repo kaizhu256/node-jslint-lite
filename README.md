@@ -1,6 +1,6 @@
 jslint-lite [![NPM](https://img.shields.io/npm/v/jslint-lite.svg?style=flat-square)](https://www.npmjs.org/package/jslint-lite)
 ===========
-lightweight nodejs module for jslint and csslint with zero npm dependencies
+lightweight web module for jslint and csslint with zero npm dependencies
 
 
 
@@ -234,9 +234,9 @@ shExampleSh
   "_packageJson": true,
   "author": "kai zhu <kaizhu256@gmail.com>",
   "bin": { "jslint-lite": "index.js" },
-  "description": "lightweight nodejs module for jslint and csslint with zero npm dependencies",
+  "description": "lightweight web module for jslint and csslint with zero npm dependencies",
   "devDependencies": {
-    "utility2": "2015.3.2-12",
+    "utility2": "2015.3.3-12",
     "phantomjs-lite": "^2015.1.4-103"
   },
   "engines": { "node": ">=0.10 <=0.12" },
@@ -264,13 +264,14 @@ shExampleSh
     "start": "npm_config_mode_auto_restart=1 node_modules/.bin/utility2 shRun node test.js",
     "test": "node_modules/.bin/utility2 shRun shReadmePackageJsonExport && node_modules/.bin/utility2 shRun shNpmTest test.js"
   },
-  "version": "2015.3.3-11"
+  "version": "2015.3.3-12"
 }
 ```
 
 
 
 # todo
+- npm publish 2015.3.3-12
 - jslint - use 4 space indent and 80 col maxlen
 - add link to jslint documentation
 - add code-coverage for shell command
