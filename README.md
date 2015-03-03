@@ -4,19 +4,24 @@ lightweight nodejs module for jslint and csslint with zero npm dependencies
 
 
 
-## build status [![travis-ci.org build status](https://api.travis-ci.org/kaizhu256/node-jslint-lite.svg)](https://travis-ci.org/kaizhu256/node-jslint-lite)
+# build-status [![travis-ci.org build-status](https://api.travis-ci.org/kaizhu256/node-jslint-lite.svg)](https://travis-ci.org/kaizhu256/node-jslint-lite)
 
-[![build commit status](https://kaizhu256.github.io/node-jslint-lite/build.badge.svg)](https://travis-ci.org/kaizhu256/node-jslint-lite)
+[![build commit status](https://kaizhu256.github.io/node-jslint-lite/build/build.badge.svg)](https://travis-ci.org/kaizhu256/node-jslint-lite)
 
- git branch | test-report | coverage-report | build artifact
-:----------:|:-----------:|:---------------:|:--------------:
-[master](https://github.com/kaizhu256/node-jslint-lite/tree/master) | [![test-report](https://kaizhu256.github.io/node-jslint-lite/build.travis-ci.org/master/test-report.badge.svg)](https://kaizhu256.github.io/node-jslint-lite/build.travis-ci.org/master/test-report.html) | [![istanbul-lite coverage-report](https://kaizhu256.github.io/node-jslint-lite/build.travis-ci.org/master/coverage-report.badge.svg)](https://kaizhu256.github.io/node-jslint-lite/build.travis-ci.org/master/coverage-report.html/node-jslint-lite/index.html) | [![build artifacts](https://kaizhu256.github.io/node-jslint-lite/glyphicons_144_folder_open.png)](https://github.com/kaizhu256/node-jslint-lite/tree/gh-pages/build.travis-ci.org/master)
-[beta](https://github.com/kaizhu256/node-jslint-lite/tree/beta) | [![test-report](https://kaizhu256.github.io/node-jslint-lite/build.travis-ci.org/beta/test-report.badge.svg)](https://kaizhu256.github.io/node-jslint-lite/build.travis-ci.org/beta/test-report.html) | [![istanbul-lite coverage-report](https://kaizhu256.github.io/node-jslint-lite/build.travis-ci.org/beta/coverage-report.badge.svg)](https://kaizhu256.github.io/node-jslint-lite/build.travis-ci.org/beta/coverage-report.html/node-jslint-lite/index.html) | [![build artifacts](https://kaizhu256.github.io/node-jslint-lite/glyphicons_144_folder_open.png)](https://github.com/kaizhu256/node-jslint-lite/tree/gh-pages/build.travis-ci.org/beta)
-|[alpha](https://github.com/kaizhu256/node-jslint-lite/tree/alpha) | [![test-report](https://kaizhu256.github.io/node-jslint-lite/build.travis-ci.org/alpha/test-report.badge.svg)](https://kaizhu256.github.io/node-jslint-lite/build.travis-ci.org/alpha/test-report.html) | [![istanbul-lite coverage-report](https://kaizhu256.github.io/node-jslint-lite/build.travis-ci.org/alpha/coverage-report.badge.svg)](https://kaizhu256.github.io/node-jslint-lite/build.travis-ci.org/alpha/coverage-report.html/node-jslint-lite/index.html) | [![build artifacts](https://kaizhu256.github.io/node-jslint-lite/glyphicons_144_folder_open.png)](https://github.com/kaizhu256/node-jslint-lite/tree/gh-pages/build.travis-ci.org/alpha)|
+| git-branch | test-server | test-report | coverage | build-artifacts |
+|:----------:|:-----------:|:-----------:|:--------:|:---------------:|
+|[master](https://github.com/kaizhu256/node-jslint-lite/tree/master) | [![heroku.com test-server](https://kaizhu256.github.io/node-jslint-lite/heroku-logo.75x25.png)](https://hrku01-jslint-lite-master.herokuapp.com) | [![test-report](https://kaizhu256.github.io/node-jslint-lite/build..master..travis-ci.org/test-report.badge.svg)](https://kaizhu256.github.io/node-jslint-lite/build..master..travis-ci.org/test-report.html) | [![istanbul-lite coverage](https://kaizhu256.github.io/node-jslint-lite/build..master..travis-ci.org/coverage.badge.svg)](https://kaizhu256.github.io/node-jslint-lite/build..master..travis-ci.org/coverage.html/node-jslint-lite/index.html) | [![build-artifacts](https://kaizhu256.github.io/node-jslint-lite/glyphicons_144_folder_open.png)](https://github.com/kaizhu256/node-jslint-lite/tree/gh-pages/build..master..travis-ci.org)|
+|[beta](https://github.com/kaizhu256/node-jslint-lite/tree/beta) | [![heroku.com test-server](https://kaizhu256.github.io/node-jslint-lite/heroku-logo.75x25.png)](https://hrku01-jslint-lite-beta.herokuapp.com) | [![test-report](https://kaizhu256.github.io/node-jslint-lite/build..beta..travis-ci.org/test-report.badge.svg)](https://kaizhu256.github.io/node-jslint-lite/build..beta..travis-ci.org/test-report.html) | [![istanbul-lite coverage](https://kaizhu256.github.io/node-jslint-lite/build..beta..travis-ci.org/coverage.badge.svg)](https://kaizhu256.github.io/node-jslint-lite/build..beta..travis-ci.org/coverage.html/node-jslint-lite/index.html) | [![build-artifacts](https://kaizhu256.github.io/node-jslint-lite/glyphicons_144_folder_open.png)](https://github.com/kaizhu256/node-jslint-lite/tree/gh-pages/build..beta..travis-ci.org)|
+|[alpha](https://github.com/kaizhu256/node-jslint-lite/tree/alpha) | [![heroku.com test-server](https://kaizhu256.github.io/node-jslint-lite/heroku-logo.75x25.png)](https://hrku01-jslint-lite-alpha.herokuapp.com) | [![test-report](https://kaizhu256.github.io/node-jslint-lite/build..alpha..travis-ci.org/test-report.badge.svg)](https://kaizhu256.github.io/node-jslint-lite/build..alpha..travis-ci.org/test-report.html) | [![istanbul-lite coverage](https://kaizhu256.github.io/node-jslint-lite/build..alpha..travis-ci.org/coverage.badge.svg)](https://kaizhu256.github.io/node-jslint-lite/build..alpha..travis-ci.org/coverage.html/node-jslint-lite/index.html) | [![build-artifacts](https://kaizhu256.github.io/node-jslint-lite/glyphicons_144_folder_open.png)](https://github.com/kaizhu256/node-jslint-lite/tree/gh-pages/build..alpha..travis-ci.org)|
 
 
 
-## quickstart
+# live test-server
+[![heroku.com test-server](https://kaizhu256.github.io/node-jslint-lite/build/screen-capture.herokuTest.slimerjs.png)](https://hrku01-jslint-lite-beta.herokuapp.com)
+
+
+
+# quickstart
 ```
 # quickstart.sh
 shQuickstartSh() {
@@ -36,31 +41,196 @@ shQuickstartSh
 
 
 
-## quickstart nodejs code
+# quickstart to run dynamic web-coverage
+#### follow the instruction in this script
 ```
-// example.js
-// this example nodejs code runs jslint on itself
-// 1. create a clean app directory (e.g /tmp/app)
-// 2. inside app directory, save this nodejs code as example.js
-// 3. inside app directory, run the following shell command:
-//    $ npm install jslint-lite && node example.js
+/*
+  example.js
+
+  this node script will serve a web-page with interactive jslint
+
+  instruction
+  1. save this script as example.js
+  2. run the shell command:
+     $ npm install jslint_lite && node example.js
+  3. open a browser to http://localhost:1337
+*/
 /*jslint
+  browser: true,
   indent: 2,
-  node: true
+  maxerr: 8,
+  maxlen: 80,
+  node: true, nomen: true,
+  stupid: true
 */
 (function () {
   'use strict';
-  var fs, jslint_lite;
-  // require modules
-  fs = require('fs');
-  jslint_lite = require('jslint-lite');
-  // jslint this file and print any errors to stderr
-  console.log('jslint ' + __filename);
-  jslint_lite.jslintAndPrint(fs.readFileSync(__filename, 'utf8'), __filename);
+  // run node js-env code
+  (function () {
+    // init app
+    app = {};
+    // require modules
+    app.fs = require('fs');
+    app.http = require('http');
+    app.jslint_lite = require('jslint-lite');
+    app.url = require('url');
+    // init assets
+    app['/'] =
+      (String() +
+/* jslint-ignore-begin */
+'<!DOCTYPE html>\n' +
+'<html>\n' +
+'<head>\n' +
+  '<meta charset="UTF-8">\n' +
+  '<title>\n' +
+  '{{envDict.npm_package_name}} [{{envDict.npm_package_version}}]\n' +
+  '</title>\n' +
+  '<link rel="stylesheet" href="/assets/utility2.css">\n' +
+  '<style>\n' +
+  '* {\n' +
+    'box-sizing: border-box;\n' +
+  '}\n' +
+  'body {\n' +
+    'background-color: #fff;\n' +
+    'font-family: Helvetical Neue, Helvetica, Arial, sans-serif;\n' +
+  '}\n' +
+  'body > div {\n' +
+    'margin-top: 20px;\n' +
+  '}\n' +
+  '.testReportDiv {\n' +
+    'display: none;\n' +
+  '}\n' +
+  'textarea {\n' +
+    'font-family: monospace;\n' +
+    'height: 8em;\n' +
+    'width: 100%;\n' +
+  '}\n' +
+  '</style>\n' +
+'</head>\n' +
+'<body>\n' +
+  '<div class="ajaxProgressDiv" style="display: none;">\n' +
+  '<div class="ajaxProgressBarDiv ajaxProgressBarDivLoading">loading</div>\n' +
+  '</div>\n' +
+  '<h1>{{envDict.npm_package_name}} [{{envDict.npm_package_version}}]</h1>\n' +
+  '<h3>{{envDict.npm_package_description}}</h3>\n' +
+  '<div>edit or paste script below to cover and test</div>\n' +
+'<textarea class="jslintInputTextarea">\n' +
+'/*jslint\n' +
+  'browser: true\n' +
+'*/\n' +
+'console.log("hello");\n' +
+'</textarea>\n' +
+  '<pre class="jslintOutputPre"></pre>\n' +
+  '<div class="testReportDiv"></div>\n' +
+  '<script src="/assets/jslint-lite.js"></script>\n' +
+  '<script src="/assets/utility2.js"></script>\n' +
+  '<script src="/test/test.js"></script>\n' +
+  '<script>\n' +
+  'window.utility2 = window.utility2 || {};\n' +
+  'window.utility2.envDict = {\n' +
+    'npm_package_description: "{{envDict.npm_package_description}}",\n' +
+    'npm_package_name: "{{envDict.npm_package_name}}",\n' +
+    'npm_package_version: "{{envDict.npm_package_version}}"\n' +
+  '};\n' +
+  'document.querySelector(\n' +
+    '".jslintInputTextarea"\n' +
+  ').addEventListener("keyup", window.jslint_lite.jslintAndPrintTextarea);\n' +
+  'window.jslint_lite.jslintAndPrintTextarea();\n' +
+  '</script>\n' +
+'</body>\n' +
+'</html>\n' +
+/* jslint-ignore-end */
+      String()).replace((/\{\{envDict\.\w+?\}\}/g), function (match0) {
+        switch (match0) {
+        case '{{envDict.npm_package_description}}':
+          return 'jslint demo';
+        case '{{envDict.npm_package_name}}':
+          return 'jslint-lite';
+        case '{{envDict.npm_package_version}}':
+          return '0.0.1';
+        }
+      });
+    app['/assets/jslint-lite.js'] =
+      app.jslint_lite['/assets/jslint-lite.js'];
+    app['/assets/utility2.css'] =
+      '';
+    app['/assets/utility2.js'] =
+      '';
+    app['/test/test.js'] =
+      '';
+    // create server
+    app.server = app.http.createServer(function (request, response) {
+      switch (app.url.parse(request.url).pathname) {
+      // serve assets
+      case '/':
+      case '/assets/jslint-lite.js':
+      case '/assets/utility2.css':
+      case '/assets/utility2.js':
+      case '/test/test.js':
+        response.end(app[app.url.parse(request.url).pathname]);
+        break;
+      // default to 404 Not Found
+      default:
+        response.statusCode = 404;
+        response.end('404 Not Found');
+      }
+    });
+    // start server
+    app.serverPort = 1337;
+    console.log('server starting on port ' + app.serverPort);
+    app.server.listen(app.serverPort, function () {
+      // this internal build-code will screen-capture the server and then exit
+      if (process.env.MODE_BUILD === 'testExampleJs') {
+        console.log('server stopping on port ' + app.serverPort);
+        require(
+          process.env.npm_config_dir_utility2 + '/index.js'
+        ).phantomScreenCapture({
+          url: 'http://localhost:' + app.serverPort
+        }, process.exit);
+      }
+    });
+  }());
 }());
 ```
-#### output
-![screen-capture](https://kaizhu256.github.io/node-jslint-lite/screen-capture.testExampleJs.png)
+#### output from shell
+![screen-capture](https://kaizhu256.github.io/node-jslint-lite/build/screen-capture.testExampleJs.png)
+#### output from [phantomjs-lite](https://www.npmjs.com/package/phantomjs-lite)
+![screen-capture](https://kaizhu256.github.io/node-jslint-lite/build/screen-capture.testExampleJs.slimerjs.png)
+
+
+
+# quickstart to run traditional offline-coverage
+#### follow the instruction in this script
+```
+# example.sh
+
+# this shell script will
+  # 1. npm install jslint-lite
+  # 2. create test-script foo.js
+  # 3. run offline-coverage for foo.js and create an offline-report
+
+# instruction:
+  # 1. copy and paste this entire shell script into a console and press enter
+  # 2. open ./html-report/index.html to view coverage of foo.js
+
+shExampleSh() {
+  # 1. npm install jslint-lite
+  npm install jslint_lite || return $?
+
+  # 2. create test-script foo.js
+  local SCRIPT="if (true) { console.log('hello'); }" || return $?
+  SCRIPT="$SCRIPT else { console.log('bye'); }" || return $?
+  printf "$SCRIPT" > foo.js || return $?
+
+  # 3. run offline-coverage for foo.js and create an offline-report
+  node_modules/.bin/jslint_lite cover foo.js || return $?
+}
+shExampleSh
+```
+#### output from shell
+![screen-capture](https://kaizhu256.github.io/node-jslint-lite/build/screen-capture.testExampleSh.png)
+#### output from [jslint-lite](https://www.npmjs.com/package/jslint-lite)
+![screen-capture](https://kaizhu256.github.io/node-jslint-lite//build/screen-capture.testExampleSh.slimerjs._2Ftmp_2Fapp_2Fhtml-report_2Fapp_2Ffoo.js.html.png)
 
 
 
@@ -69,77 +239,151 @@ shQuickstartSh
 
 
 
-## package content
-[![screen-capture](https://kaizhu256.github.io/node-jslint-lite/screen-capture.gitLsTree.png)](https://github.com/kaizhu256/node-jslint-lite)
+# package-listing
+[![screen-capture](https://kaizhu256.github.io/node-jslint-lite/build/screen-capture.gitLsTree.png)](https://github.com/kaizhu256/node-jslint-lite)
 
 
 
-## build script
+# package.json
 ```
-# build-ci.sh
-# this shell code runs the ci-build process for this package
-shBuildCi() {
-  # init env
-  . node_modules/.bin/utility2 && shInit && mkdir -p .tmp/build/coverage-report.html || return $?
-  # create package content listing
-  MODE_CI_BUILD=gitLsTree shRunScreenCapture git ls-tree --abbrev=8 --full-name -l -r HEAD || return $?
-  # run npm test on published package
-  shNpmTestPublished
-  # test quickstart
-  MODE_CI_BUILD=testQuickstartSh shRunScreenCapture shTestScriptSh quickstart.sh || return $?
-  # test example code
-  MODE_CI_BUILD=testExampleJs npm_config_mode_no_jslint=1\
-    shRunScreenCapture shTestScriptJs example.js || return $?
-  # run npm test
-  MODE_CI_BUILD=npmTest shRunScreenCapture npm test || return $?
+{
+  "_packageJson": true,
+  "author": "kai zhu <kaizhu256@gmail.com>",
+  "bin": { "jslint-lite": "index.js" },
+  "description": "lightweight nodejs module for jslint and csslint with zero npm dependencies",
+  "devDependencies": {
+    "utility2": "2015.3.2-11"
+  },
+  "engines": { "node": ">=0.10 <=0.12" },
+  "keywords": [
+    "browser",
+    "csslint",
+    "eshint",
+    "eslint",
+    "jshint",
+    "jslint",
+    "lightweight",
+    "lint",
+    "utility2",
+    "web"
+  ],
+  "license": "MIT",
+  "name": "jslint-lite",
+  "os": ["darwin", "linux"],
+  "repository" : {
+    "type" : "git",
+    "url" : "https://github.com/kaizhu256/node-jslint-lite.git"
+  },
+  "scripts": {
+    "build2": "node_modules/.bin/utility2 shRun shBuild",
+    "start": "npm_config_mode_auto_restart=1 node_modules/.bin/utility2 shRun node test.js",
+    "test": "node_modules/.bin/utility2 shRun shNpmTest test.js"
+  },
+  "version": "2015.2.18-10"
 }
-# run ci-build
-shBuildCi
-# save exit-code
-EXIT_CODE=$?
-# upload build artifacts to github
-if [ "$TRAVIS" ]
-then
-  shRun shBuildGithubUpload || exit $?
-fi
-# exit with $EXIT_CODE
-exit $EXIT_CODE
 ```
 
 
 
-## recent changelog
-#### todo
+# todo
 - update build to use utility2@2015.3.2-11
+- rename .tmp to tmp
+- jslint - use 4 space indent and 80 col maxlen
 - add link to jslint documentation
 - add code-coverage for shell command
 - add web demo page
 
-#### 2015.2.x
-- disable implicit jslint of example code
-- add shell quickstart
-- add /* jslint-ignore-begin */ ... /* jslint-ignore-end */ macro
-- rename jslintPrint to jslintAndPrint
 
-#### 2014.11.26
-- revamp to minimal install and include csslint
 
-#### 2014.7.29
-- upgrade to utility2 2014.10.04
-- add browser ui for jslint
-- add browser tests
-- upgrade to utility2 2014.7.29
+# changelog of last 50 commits
+![screen-capture](https://kaizhu256.github.io/node-jslint-lite/build/screen-capture.gitLog.png)
 
-#### 2014.7.2
-- automate npm publish
-- migrate from build.js to utility.js
 
-#### 2014.7.1
-- merge .git-config and .gitignore into build.data
-- add html test-report
-- generate coverage badge during build
-- add test
-- add code coverage
 
-#### 2014.6.23
-- initial commit
+# internal build-script
+```
+# build.sh
+# this shell script will run the build process for this package
+shBuild() {
+  # init env
+  export npm_config_mode_slimerjs=1 || return $?
+  . node_modules/.bin/utility2 && shInit || return $?
+
+  # run npm-test on published package
+  shRun shNpmTestPublished || return $?
+
+  # test example js script
+  MODE_BUILD=testExampleJs\
+  shRunScreenCapture shReadmeTestJs example.js || return $?
+  # copy phantomjs screen-capture to $npm_config_dir_build
+  cp /tmp/app/tmp/build/screen-capture.*.png $npm_config_dir_build || return $?
+
+  # test example shell script
+  MODE_BUILD=testExampleSh\
+  shRunScreenCapture shReadmeTestSh example.sh || return $?
+  # screen-capture example.sh coverage
+  MODE_BUILD=testExampleSh shRun shPhantomScreenCapture\
+    /tmp/app/html-report/app/foo.js.html || :
+
+  # run npm-test
+  MODE_BUILD=npmTest shRunScreenCapture npm-test || return $?
+
+  # deploy app to heroku
+  shRun shHerokuDeploy hrku01-jslint-lite-$CI_BRANCH || return $?
+
+  # test deployed app to heroku
+  if [ "$CI_BRANCH" = alpha ] ||
+    [ "$CI_BRANCH" = beta ] ||
+    [ "$CI_BRANCH" = master ]
+  then
+    local TEST_URL="https://hrku01-jslint-lite-$CI_BRANCH.herokuapp.com" ||\
+      return $?
+    TEST_URL="$TEST_URL?modeTest=phantom&_testSecret={{_testSecret}}" ||\
+      return $?
+    MODE_BUILD=herokuTest shRun shPhantomTest $TEST_URL || return $?
+  fi
+
+  # if number of commits > 1024, then squash older commits
+  shRun shGitBackupAndSquashAndPush 1024 > /dev/null || return $?
+}
+shBuild
+
+# save exit-code
+EXIT_CODE=$?
+
+shBuildCleanup() {
+  # this function will cleanup build-artifacts in local build dir
+  # init env
+  . node_modules/.bin/utility2 && shInit || return $?
+  # create package-listing
+  MODE_BUILD=gitLsTree shRunScreenCapture shGitLsTree || return $?
+  # create recent changelog of last 50 commits
+  MODE_BUILD=gitLog shRunScreenCapture git log -50 --pretty="%ai\u000a%B" ||\
+    return $?
+  # add black border around phantomjs screen-capture
+  shBuildPrint phantomScreenCapture\
+    "add black border around phantomjs screen-capture" || return $?
+  local FILE_LIST="$(ls\
+    $npm_config_dir_build/screen-capture.*.phantomjs*.png\
+    $npm_config_dir_build/screen-capture.*.slimerjs*.png\
+    2>/dev/null)" || return $?
+  if [ "$FILE_LIST" ] && (mogrify --version > /dev/null 2>&1)
+  then
+    printf "$FILE_LIST" |\
+      xargs -n 1 mogrify -frame 1 -mattecolor black || return $?
+  fi
+}
+shBuildCleanup || exit $?
+
+shBuildGithubUploadCleanup() {
+  # this function will cleanup build-artifacts in local gh-pages repo
+  return
+}
+
+# upload build-artifacts to github,
+# and if number of commits > 16, then squash older commits
+COMMIT_LIMIT=16 shRun shBuildGithubUpload || exit $?
+
+# exit with $EXIT_CODE
+exit $EXIT_CODE
+```
