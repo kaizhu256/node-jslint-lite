@@ -20,6 +20,7 @@
   /* istanbul ignore next */
   (function () {
     var CSSLint;
+    // jslint-hack
     CSSLint = null;
 // https://raw.githubusercontent.com/CSSLint/csslint/master/release/csslint.js
 /* jslint-ignore-begin */
@@ -9291,6 +9292,7 @@ return CSSLint;
   /* istanbul ignore next */
   (function () {
     var JSLINT;
+    // jslint-hack
     JSLINT = null;
 // https://raw.githubusercontent.com/douglascrockford/JSLint/master/jslint.js
 /* jslint-ignore-begin */
@@ -13599,24 +13601,24 @@ klass:              do {
           typeof document.querySelector('body') === 'object' && 'browser';
       }
     }());
-    app.jslint_lite.nop = function () {
-      /*
-        this function will perform no operation - nop
-      */
-      return;
-    };
-    // init global
-    app.jslint_lite.global = app.jslint_lite.modeJs === 'browser'
-      ? window
-      : global;
     app.jslint_lite.jslintAndPrint = function (script, file) {
       /*
         this function will jslint / csslint the script and print any errors to stderr
       */
-      var errorList, ii;
+      var errorList, lineno;
       // cleanup errorText
       app.jslint_lite.errorText = '';
-      ii = 0;
+      // init lineno
+      lineno = 0;
+      // init file and script
+      if (app.jslint_lite.modeJs === 'browser') {
+        file = typeof file === 'string'
+          ? file
+          : 'jslintInputTextarea.js';
+        script = typeof script === 'string'
+          ? script
+          : document.querySelector('.jslintInputTextarea').value;
+      }
       // csslint script
       if (file.slice(-4) === '.css') {
         errorList = app.jslint_lite.CSSLint.verify(script).messages;
@@ -13625,8 +13627,8 @@ klass:              do {
           app.jslint_lite.errorText = '\n\u001b[1m' + file + '\u001b[22m\n';
           errorList.forEach(function (error) {
             app.jslint_lite.errors += 1;
-            ii += 1;
-            app.jslint_lite.errorText += (' #' + String(ii) + ' ').slice(-4) +
+            lineno += 1;
+            app.jslint_lite.errorText += (' #' + String(lineno) + ' ').slice(-4) +
               '\u001b[33m' + error.type + ' - ' + error.message  + '\u001b[39m\n    ' +
               String(error.evidence).trim() + '\u001b[90m \/\/ line ' + error.line +
               ', col ' + error.col + '\u001b[39m\n';
@@ -13649,8 +13651,8 @@ klass:              do {
           app.jslint_lite.JSLINT.errors.forEach(function (error) {
             if (error) {
               app.jslint_lite.errors += 1;
-              ii += 1;
-              app.jslint_lite.errorText += (' #' + String(ii) + ' ').slice(-4) +
+              lineno += 1;
+              app.jslint_lite.errorText += (' #' + String(lineno) + ' ').slice(-4) +
                 '\u001b[33m' + error.reason + '\u001b[39m\n    ' +
                 String(error.evidence).trim() + '\u001b[90m \/\/ Line ' + error.line +
                 ', Pos ' + error.character + '\u001b[39m\n';
@@ -13659,14 +13661,15 @@ klass:              do {
         }
       }
       // print error to stderr
-      if (app.jslint_lite.errorText) {
-        if (app.jslint_lite.modeJs === 'browser') {
-          app.jslint_lite.errorText =
-            app.jslint_lite.errorText.replace((/\u001b\[\d+m/g), '').trim();
-        }
-        if (app.jslint_lite.modeJs === 'node') {
-          console.error(app.jslint_lite.errorText);
-        }
+      switch (app.jslint_lite.modeJs) {
+      case 'browser':
+        (
+          document.querySelector('.jslintOutputPre') || {}
+        ).textContent = app.jslint_lite.errorText.replace((/\u001b\[\d+m/g), '').trim();
+        break;
+      case 'node':
+        console.error(app.jslint_lite.errorText);
+        break;
       }
       return script;
     };
@@ -13678,36 +13681,24 @@ klass:              do {
   // run browser js-env code
   case 'browser':
     // export jslint_lite
-    app.jslint_lite.global.jslint_lite = app.jslint_lite;
-    app.jslint_lite.jslintAndPrintTextarea = function () {
-      /*
-        this function will jslint and print the textarea
-      */
-      app.jslint_lite.jslintAndPrint(
-        document.querySelector('.jslintInputTextarea').value,
-        'jslintInputTextarea.js'
-      );
-      (
-        document.querySelector('.jslintOutputPre') || {}
-      ).textContent = app.jslint_lite.errorText;
-    };
+    window.jslint_lite = app.jslint_lite;
     break;
 
 
 
   // run node js-env code
   case 'node':
+    // export jslint_lite
+    module.exports = app.jslint_lite;
     // require modules
     app.jslint_lite.fs = require('fs');
     app.jslint_lite.path = require('path');
-    app.jslint_lite.vm = require('vm');
-    // export jslint_lite
-    module.exports = app.jslint_lite;
     // init assets
     app.jslint_lite['/assets/jslint-lite.js'] =
       '//' + app.jslint_lite.fs.readFileSync(__filename, 'utf8');
-    // run main
+    // run main module
     if (module === require.main) {
+      // jslint files in command-line
       process.argv.slice(2).forEach(function (arg) {
         if (arg[0] !== '-') {
           app.jslint_lite.jslintAndPrint(

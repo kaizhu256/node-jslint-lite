@@ -44,11 +44,11 @@
         [console, { error: app.utility2.nop }]
       ], onError, function (onError) {
         // test csslint failed handling behavior
-        app.jslint_lite.jslintAndPrint('syntax-error!', 'failed.css');
+        app.jslint_lite.jslintAndPrint('syntax error', 'failed.css');
         // validate error occurred
         app.utility2.assert(app.jslint_lite.errorText, app.jslint_lite.errorText);
         // test jslint failed handling behavior
-        app.jslint_lite.jslintAndPrint('syntax-error!', 'failed.js');
+        app.jslint_lite.jslintAndPrint('syntax error', 'failed.js');
         // validate error occurred
         app.utility2.assert(app.jslint_lite.errorText, app.jslint_lite.errorText);
         // test csslint passed handling behavior
@@ -61,7 +61,7 @@
         app.utility2.assert(!app.jslint_lite.errorText, app.jslint_lite.errorText);
         // test /* jslint-ignore-begin */ ... /* jslint-ignore-end */ handling behavior
         app.jslint_lite.jslintAndPrint('/* jslint-ignore-begin */\n' +
-          'syntax-error!\n' +
+          'syntax error\n' +
           '/* jslint-ignore-end */\n', 'passed.js');
         // validate no error occurred
         app.utility2.assert(!app.jslint_lite.errorText, app.jslint_lite.errorText);
@@ -93,6 +93,23 @@
     app.path = require('path');
     app.utility2 = require('utility2');
     // init tests
+    app._ajax_404_test = function (onError) {
+      /*
+        this function will test ajax's 404 http statusCode handling behavior
+      */
+      // test '/test/undefined'
+      app.utility2.ajax({
+        url: '/test/undefined'
+      }, function (error) {
+        app.utility2.testTryCatch(function () {
+          // validate error occurred
+          app.utility2.assert(error instanceof Error, error);
+          // validate 404 http statusCode
+          app.utility2.assert(error.statusCode === 404, error.statusCode);
+          onError();
+        }, onError);
+      });
+    };
     app._testPage_default_test = function (onError) {
       /*
         this function will test the test-page's default handling behavior

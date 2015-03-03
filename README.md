@@ -21,27 +21,7 @@ lightweight nodejs module for jslint and csslint with zero npm dependencies
 
 
 
-# quickstart
-```
-# quickstart.sh
-shQuickstartSh() {
-  # npm install jslint-lite
-  npm install jslint-lite || return $?
-  # create foo.js
-  printf "console.log('hello');" > foo.js || return $?
-  # create bar.css
-  printf "body { margin: 0px; }" > bar.css || return $?
-  # jslint foo.js and bar.css
-  node_modules/.bin/jslint-lite foo.js bar.css || :
-}
-shQuickstartSh
-```
-#### output
-![screen-capture](https://kaizhu256.github.io/node-jslint-lite/screen-capture.testQuickstartSh.png)
-
-
-
-# quickstart to run dynamic web-coverage
+# quickstart web example
 #### follow the instruction in this script
 ```
 /*
@@ -52,7 +32,7 @@ shQuickstartSh
   instruction
   1. save this script as example.js
   2. run the shell command:
-     $ npm install jslint_lite && node example.js
+     $ npm install jslint-lite && node example.js
   3. open a browser to http://localhost:1337
 */
 /*jslint
@@ -65,6 +45,7 @@ shQuickstartSh
 */
 (function () {
   'use strict';
+  var app;
   // run node js-env code
   (function () {
     // init app
@@ -96,6 +77,9 @@ shQuickstartSh
   '}\n' +
   'body > div {\n' +
     'margin-top: 20px;\n' +
+  '}\n' +
+  '.jslintOutputPre {\n' +
+    'color: #f00;\n' +
   '}\n' +
   '.testReportDiv {\n' +
     'display: none;\n' +
@@ -134,8 +118,8 @@ shQuickstartSh
   '};\n' +
   'document.querySelector(\n' +
     '".jslintInputTextarea"\n' +
-  ').addEventListener("keyup", window.jslint_lite.jslintAndPrintTextarea);\n' +
-  'window.jslint_lite.jslintAndPrintTextarea();\n' +
+  ').addEventListener("keyup", window.jslint_lite.jslintAndPrint);\n' +
+  'window.jslint_lite.jslintAndPrint();\n' +
   '</script>\n' +
 '</body>\n' +
 '</html>\n' +
@@ -199,15 +183,16 @@ shQuickstartSh
 
 
 
-# quickstart to run traditional offline-coverage
+# quickstart command-line example
 #### follow the instruction in this script
 ```
 # example.sh
 
 # this shell script will
   # 1. npm install jslint-lite
-  # 2. create test-script foo.js
-  # 3. run offline-coverage for foo.js and create an offline-report
+  # 2. create foo.js
+  # 3. create bar.css
+  # 4. jslint foo.js and bar.css
 
 # instruction:
   # 1. copy and paste this entire shell script into a console and press enter
@@ -215,22 +200,21 @@ shQuickstartSh
 
 shExampleSh() {
   # 1. npm install jslint-lite
-  npm install jslint_lite || return $?
+  npm install jslint-lite || return $?
 
-  # 2. create test-script foo.js
-  local SCRIPT="if (true) { console.log('hello'); }" || return $?
-  SCRIPT="$SCRIPT else { console.log('bye'); }" || return $?
-  printf "$SCRIPT" > foo.js || return $?
+  # 2. create foo.js
+  printf "console.log('hello');" > foo.js || return $?
 
-  # 3. run offline-coverage for foo.js and create an offline-report
-  node_modules/.bin/jslint_lite cover foo.js || return $?
+  # 3. create bar.css
+  printf "body { margin: 0px; }" > bar.css || return $?
+
+  # 4. jslint foo.js and bar.css
+  node_modules/.bin/jslint-lite foo.js bar.css || :
 }
 shExampleSh
 ```
 #### output from shell
 ![screen-capture](https://kaizhu256.github.io/node-jslint-lite/build/screen-capture.testExampleSh.png)
-#### output from [jslint-lite](https://www.npmjs.com/package/jslint-lite)
-![screen-capture](https://kaizhu256.github.io/node-jslint-lite//build/screen-capture.testExampleSh.slimerjs._2Ftmp_2Fapp_2Fhtml-report_2Fapp_2Ffoo.js.html.png)
 
 
 
@@ -277,17 +261,17 @@ shExampleSh
   "scripts": {
     "build2": "node_modules/.bin/utility2 shRun shBuild",
     "start": "npm_config_mode_auto_restart=1 node_modules/.bin/utility2 shRun node test.js",
-    "test": "node_modules/.bin/utility2 shRun shNpmTest test.js"
+    "test": "node_modules/.bin/utility2 shRun shReadmePackageJsonExport && node_modules/.bin/utility2 shRun shNpmTest test.js"
   },
-  "version": "2015.2.18-10"
+  "version": "2015.3.3-10"
 }
 ```
 
 
 
 # todo
+- npm publish 2015.3.3-10
 - update build to use utility2@2015.3.2-11
-- rename .tmp to tmp
 - jslint - use 4 space indent and 80 col maxlen
 - add link to jslint documentation
 - add code-coverage for shell command
@@ -312,21 +296,18 @@ shBuild() {
   # run npm-test on published package
   shRun shNpmTestPublished || return $?
 
-  # test example js script
-  MODE_BUILD=testExampleJs\
-  shRunScreenCapture shReadmeTestJs example.js || return $?
-  # copy phantomjs screen-capture to $npm_config_dir_build
-  cp /tmp/app/tmp/build/screen-capture.*.png $npm_config_dir_build || return $?
+  #!! # test example js script
+  #!! MODE_BUILD=testExampleJs\
+  #!! shRunScreenCapture shReadmeTestJs example.js || return $?
+  #!! # copy phantomjs screen-capture to $npm_config_dir_build
+  #!! cp /tmp/app/tmp/build/screen-capture.*.png $npm_config_dir_build || return $?
 
   # test example shell script
   MODE_BUILD=testExampleSh\
   shRunScreenCapture shReadmeTestSh example.sh || return $?
-  # screen-capture example.sh coverage
-  MODE_BUILD=testExampleSh shRun shPhantomScreenCapture\
-    /tmp/app/html-report/app/foo.js.html || :
 
   # run npm-test
-  MODE_BUILD=npmTest shRunScreenCapture npm-test || return $?
+  MODE_BUILD=npmTest shRunScreenCapture npm test || return $?
 
   # deploy app to heroku
   shRun shHerokuDeploy hrku01-jslint-lite-$CI_BRANCH || return $?
