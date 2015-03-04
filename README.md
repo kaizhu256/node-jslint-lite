@@ -281,15 +281,14 @@ shExampleSh
         "start": "npm_config_mode_auto_restart=1 node_modules/.bin/utility2 shRun node test.js",
         "test": "node_modules/.bin/utility2 shRun shReadmePackageJsonExport && node_modules/.bin/utility2 shRun shNpmTest test.js"
     },
-    "version": "2015.3.3-12"
+    "version": "2015.3.4-10"
 }
 ```
 
 
 
 # todo
-- add csslint web demo
-- add link to jslint / csslint documentation in test-page
+- npm publish 2015.3.4-10
 - none
 
 
