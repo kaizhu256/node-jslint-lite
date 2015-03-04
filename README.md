@@ -78,16 +78,16 @@ lightweight web module for jslint and csslint with zero npm dependencies
   'body > div {\n' +
     'margin-top: 20px;\n' +
   '}\n' +
+  'textarea {\n' +
+    'font-family: monospace;\n' +
+    'height: 8em;\n' +
+    'width: 100%;\n' +
+  '}\n' +
   '.jslintOutputPre {\n' +
     'color: #f00;\n' +
   '}\n' +
   '.testReportDiv {\n' +
     'display: none;\n' +
-  '}\n' +
-  'textarea {\n' +
-    'font-family: monospace;\n' +
-    'height: 8em;\n' +
-    'width: 100%;\n' +
   '}\n' +
   '</style>\n' +
 '</head>\n' +
@@ -271,11 +271,10 @@ shExampleSh
 
 
 # todo
-- npm publish 2015.3.3-12
+- update .travis.yml
 - jslint - use 4 space indent and 80 col maxlen
 - add link to jslint documentation
-- add code-coverage for shell command
-- add web demo page
+- none
 
 
 
