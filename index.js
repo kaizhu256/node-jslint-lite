@@ -13601,7 +13601,7 @@ klass:              do {
                     'browser';
             }
         }());
-        app.jslint_lite.jslintAndPrint = function (script, file) {
+        app.jslint_lite.jslintAndPrint = function (script, file, options) {
             /*
             this function will jslint / csslint the script
             and print any errors to stderr
@@ -13611,36 +13611,28 @@ klass:              do {
             app.jslint_lite.errorText = '';
             // init lineno
             lineno = 0;
-            // init file and script
-            if (app.jslint_lite.modeJs === 'browser') {
-                file = typeof file === 'string'
-                    ? file
-                    : 'jslintInputTextarea.js';
-                script = typeof script === 'string'
-                    ? script
-                    : document.querySelector('.jslintInputTextarea').value;
-            }
             // csslint script
             if (file.slice(-4) === '.css') {
                 errorList = app.jslint_lite.CSSLint.verify(script).messages;
                 // if error occurred, then print colorized error messages
-                if (errorList.length) {
-                    app.jslint_lite.errorText =
-                        '\n\u001b[1m' + file + '\u001b[22m\n';
-                    errorList.forEach(function (error) {
-                        app.jslint_lite.errors += 1;
-                        lineno += 1;
-                        app.jslint_lite.errorText +=
-                            (' #' + String(lineno) + ' ').slice(-4) +
-                            '\u001b[33m' + error.type + ' - ' + error.message +
-                            '\u001b[39m\n    ' + String(error.evidence).trim() +
-                            '\u001b[90m \/\/ line ' + error.line +
-                            ', col ' + error.col + '\u001b[39m\n';
-                    });
+                if (!errorList.length) {
+                    return script;
                 }
+                app.jslint_lite.errorText =
+                    '\n\u001b[1m' + file + '\u001b[22m\n';
+                errorList.forEach(function (error) {
+                    app.jslint_lite.errors += 1;
+                    lineno += 1;
+                    app.jslint_lite.errorText +=
+                        (' #' + String(lineno) + ' ').slice(-4) +
+                        '\u001b[33m' + error.type + ' - ' + error.message +
+                        '\u001b[39m\n    ' + String(error.evidence).trim() +
+                        '\u001b[90m \/\/ line ' + error.line +
+                        ', col ' + error.col + '\u001b[39m\n';
+                });
             // jslint script
             } else {
-                if (!app.jslint_lite.JSLINT(script
+                if (app.jslint_lite.JSLINT(script
                         // comment shebang
                         .replace((/^#!/), '//')
                         // remove
@@ -13653,36 +13645,29 @@ klass:              do {
                                 return match.replace((/[\S\s]*?$/gm), '');
                             }
                         ))) {
-                    // if error occurred, then print colorized error messages
-                    app.jslint_lite.errorText =
-                        '\n\u001b[1m' + file + '\u001b[22m\n';
-                    app.jslint_lite.JSLINT.errors.forEach(function (error) {
-                        if (!error) {
-                            return;
-                        }
-                        app.jslint_lite.errors += 1;
-                        lineno += 1;
-                        app.jslint_lite.errorText +=
-                            (' #' + String(lineno) + ' ').slice(-4) +
-                            '\u001b[33m' + error.reason +
-                            '\u001b[39m\n    ' +
-                            String(error.evidence).trim() +
-                            '\u001b[90m \/\/ Line ' + error.line +
-                            ', Pos ' + error.character + '\u001b[39m\n';
-                    });
+                    return script;
                 }
+                // if error occurred, then print colorized error messages
+                app.jslint_lite.errorText =
+                    '\n\u001b[1m' + file + '\u001b[22m\n';
+                app.jslint_lite.JSLINT.errors.forEach(function (error) {
+                    if (!error) {
+                        return;
+                    }
+                    app.jslint_lite.errors += 1;
+                    lineno += 1;
+                    app.jslint_lite.errorText +=
+                        (' #' + String(lineno) + ' ').slice(-4) +
+                        '\u001b[33m' + error.reason +
+                        '\u001b[39m\n    ' +
+                        String(error.evidence).trim() +
+                        '\u001b[90m \/\/ Line ' + error.line +
+                        ', Pos ' + error.character + '\u001b[39m\n';
+                });
             }
             // print error to stderr
-            switch (app.jslint_lite.modeJs) {
-            case 'browser':
-                (document.querySelector('.jslintOutputPre') || {})
-                    .textContent = app.jslint_lite.errorText
-                    .replace((/\u001b\[\d+m/g), '')
-                    .trim();
-                break;
-            case 'node':
+            if (app.jslint_lite.errorText && !(options && options.silent)) {
                 console.error(app.jslint_lite.errorText);
-                break;
             }
             return script;
         };
@@ -13695,6 +13680,32 @@ klass:              do {
     case 'browser':
         // export jslint_lite
         window.jslint_lite = app.jslint_lite;
+        app.jslint_lite.jslintTextarea = function () {
+            /*
+            this function will jslint / csslint the text
+            in .jslintInputTextarea / .jslintInputTextarea
+            */
+            // jslint .jslintInputTextarea
+            app.jslint_lite.jslintAndPrint((
+                document.querySelector('.jslintInputTextarea') || {}
+            ).value || '', 'jslintInputTextarea.js', { silent: true });
+            if (app.jslint_lite.errorText) {
+                (document.querySelector('.jslintOutputPre') || {})
+                    .textContent = app.jslint_lite.errorText
+                    .replace((/\u001b\[\d+m/g), '')
+                    .trim();
+            }
+            // csslint .csslintInputTextarea
+            app.jslint_lite.jslintAndPrint((
+                document.querySelector('.csslintInputTextarea') || {}
+            ).value || '', 'csslintInputTextarea.css', { silent: true });
+            if (app.jslint_lite.errorText) {
+                (document.querySelector('.csslintOutputPre') || {})
+                    .textContent = app.jslint_lite.errorText
+                    .replace((/\u001b\[\d+m/g), '')
+                    .trim();
+            }
+        };
         break;
 
 
@@ -13704,19 +13715,19 @@ klass:              do {
         // export jslint_lite
         module.exports = app.jslint_lite;
         // require modules
-        app.jslint_lite.fs = require('fs');
-        app.jslint_lite.path = require('path');
+        app.fs = require('fs');
+        app.path = require('path');
         // init assets
         app.jslint_lite['/assets/jslint-lite.js'] =
-            '//' + app.jslint_lite.fs.readFileSync(__filename, 'utf8');
+            '//' + app.fs.readFileSync(__filename, 'utf8');
         // run main module
         if (module === require.main) {
             // jslint files in command-line
             process.argv.slice(2).forEach(function (arg) {
                 if (arg[0] !== '-') {
                     app.jslint_lite.jslintAndPrint(
-                        app.jslint_lite.fs.readFileSync(
-                            app.jslint_lite.path.resolve(arg),
+                        app.fs.readFileSync(
+                            app.path.resolve(arg),
                             'utf8'
                         ),
                         arg

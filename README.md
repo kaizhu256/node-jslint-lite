@@ -83,6 +83,9 @@ stupid: true
         'height: 8em;\n' +
         'width: 100%;\n' +
     '}\n' +
+    '.csslintOutputPre {\n' +
+        'color: #f00;\n' +
+    '}\n' +
     '.jslintOutputPre {\n' +
         'color: #f00;\n' +
     '}\n' +
@@ -96,12 +99,28 @@ stupid: true
         '{{envDict.npm_package_name}} [{{envDict.npm_package_version}}]\n' +
     '</h1>\n' +
     '<h3>{{envDict.npm_package_description}}</h3>\n' +
-    '<div>edit or paste script below to cover and test</div>\n' +
+    '<div>edit or paste script below to\n' +
+    '<a href="http://www.jslint.com/lint.html#options" target="_blank">\n' +
+    'jslint</a>\n' +
+    '</div>\n' +
 '<textarea class="jslintInputTextarea">\n' +
 '/*jslint browser: true */\n' +
 'console.log("hello");\n' +
 '</textarea>\n' +
     '<pre class="jslintOutputPre"></pre>\n' +
+    '<div>edit or paste script below to\n' +
+    '<a\n' +
+'href="https://github.com/CSSLint/csslint/wiki/Command-line-interface#options"\n' +
+    'target="_blank">\n' +
+    'csslint</a>\n' +
+    '</div>\n' +
+'<textarea class="csslintInputTextarea">\n' +
+'/*csslint box-model: false */\n' +
+'body {\n' +
+  'margin: 0px;\n' +
+'}\n' +
+'</textarea>\n' +
+    '<pre class="csslintOutputPre"></pre>\n' +
     '<div class="testReportDiv"></div>\n' +
     '<script src="/assets/jslint-lite.js"></script>\n' +
     '<script src="/assets/utility2.js"></script>\n' +
@@ -115,8 +134,8 @@ stupid: true
     '};\n' +
     'document.querySelector(\n' +
         '".jslintInputTextarea"\n' +
-    ').addEventListener("keyup", window.jslint_lite.jslintAndPrint);\n' +
-    'window.jslint_lite.jslintAndPrint();\n' +
+    ').addEventListener("keyup", window.jslint_lite.jslintTextarea);\n' +
+    'window.jslint_lite.jslintTextarea();\n' +
     '</script>\n' +
 '</body>\n' +
 '</html>\n' +
@@ -269,9 +288,8 @@ shExampleSh
 
 
 # todo
-- update .travis.yml
-- jslint - use 4 space indent and 80 col maxlen
-- add link to jslint documentation
+- add csslint web demo
+- add link to jslint / csslint documentation in test-page
 - none
 
 
