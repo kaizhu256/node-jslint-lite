@@ -25,22 +25,24 @@ lightweight web module for jslint and csslint with zero npm dependencies
 #### follow the instruction in this script
 ```
 /*
-    example.js
+example.js
 
-    this node script will serve a web-page with interactive jslint
+this node script will serve a web-page with interactive jslint
 
-    instruction
-    1. save this script as example.js
-    2. run the shell command:
-          $ npm install jslint-lite && node example.js
-    3. open a browser to http://localhost:1337
+instruction
+1. save this script as example.js
+2. run the shell command:
+      $ npm install jslint-lite && node example.js
+3. open a browser to http://localhost:1337
 */
+
 /*jslint
-    browser: true,
-    maxerr: 4, maxlen: 80,
-    node: true, nomen: true,
-    stupid: true
+browser: true,
+maxerr: 4, maxlen: 80,
+node: true, nomen: true,
+stupid: true
 */
+
 (function () {
     'use strict';
     var app;
