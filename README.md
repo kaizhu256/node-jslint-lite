@@ -133,6 +133,9 @@ stupid: true
         'npm_package_version: "{{envDict.npm_package_version}}"\n' +
     '};\n' +
     'document.querySelector(\n' +
+        '".csslintInputTextarea"\n' +
+    ').addEventListener("keyup", window.jslint_lite.jslintTextarea);\n' +
+    'document.querySelector(\n' +
         '".jslintInputTextarea"\n' +
     ').addEventListener("keyup", window.jslint_lite.jslintTextarea);\n' +
     'window.jslint_lite.jslintTextarea();\n' +
@@ -281,14 +284,15 @@ shExampleSh
         "start": "npm_config_mode_auto_restart=1 node_modules/.bin/utility2 shRun node test.js",
         "test": "node_modules/.bin/utility2 shRun shReadmePackageJsonExport && node_modules/.bin/utility2 shRun shNpmTest test.js"
     },
-    "version": "2015.3.4-10"
+    "version": "2015.3.4-11"
 }
 ```
 
 
 
 # todo
-- npm publish 2015.3.4-10
+- npm publish 2015.3.4-11
+- fix csslint event handling
 - none
 
 
