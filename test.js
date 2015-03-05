@@ -38,6 +38,26 @@ stupid: true,
             ? window.utility2
             : require('utility2');
         // init tests
+        app._ajax_404_test = function (onError) {
+            /*
+            this function will test ajax's 404 http statusCode handling behavior
+            */
+            // test '/test/undefined'
+            app.utility2.ajax({
+                url: '/test/undefined'
+            }, function (error) {
+                app.utility2.testTryCatch(function () {
+                    // validate error occurred
+                    app.utility2.assert(error instanceof Error, error);
+                    // validate 404 http statusCode
+                    app.utility2.assert(
+                        error.statusCode === 404,
+                        error.statusCode
+                    );
+                    onError();
+                }, onError);
+            });
+        };
         app._jslintAndPrint_default_test = function (onError) {
             /*
             this function will test jslintAndPrint's default handling behavior
@@ -114,38 +134,35 @@ stupid: true,
         app.fs = require('fs');
         app.path = require('path');
         app.utility2 = require('utility2');
+        app.istanbul_lite = app.utility2.istanbul_lite;
         // init tests
-        app._ajax_404_test = function (onError) {
-            /*
-            this function will test ajax's 404 http statusCode handling behavior
-            */
-            // test '/test/undefined'
-            app.utility2.ajax({
-                url: '/test/undefined'
-            }, function (error) {
-                app.utility2.testTryCatch(function () {
-                    // validate error occurred
-                    app.utility2.assert(error instanceof Error, error);
-                    // validate 404 http statusCode
-                    app.utility2.assert(
-                        error.statusCode === 404,
-                        error.statusCode
-                    );
-                    onError();
-                }, onError);
-            });
-        };
         app._testPage_default_test = function (onError) {
             /*
             this function will test the test-page's default handling behavior
             */
+            var onParallel;
+            onParallel = app.utility2.onParallel(onError);
+            onParallel.counter += 1;
+            // test test-page handling behavior
+            onParallel.counter += 1;
             app.utility2.phantomTest({
                 url: 'http://localhost:' +
                     app.utility2.envDict.npm_config_server_port +
                     '?modeTest=phantom&' +
                     '_testSecret={{_testSecret}}&' +
                     'timeoutDefault=' + app.utility2.timeoutDefault
-            }, onError);
+            }, onParallel);
+            // test standalone script handling behavior
+            onParallel.counter += 1;
+            app.utility2.phantomTest({
+                url: 'http://localhost:' +
+                    app.utility2.envDict.npm_config_server_port +
+                    '/test/script.html' +
+                    '?modeTest=phantom&' +
+                    '_testSecret={{_testSecret}}&' +
+                    'timeoutDefault=' + app.utility2.timeoutDefault
+            }, onParallel);
+            onParallel();
         };
         // init assets
         app['/'] =
@@ -159,7 +176,7 @@ stupid: true,
                     envDict: app.utility2.envDict
                 });
         app['/assets/jslint-lite.js'] =
-            app.utility2.istanbulInstrumentInPackage(
+            app.istanbul_lite.instrumentInPackage(
                 app.jslint_lite['/assets/jslint-lite.js'],
                 __dirname + '/index.js',
                 'jslint-lite'
@@ -168,8 +185,13 @@ stupid: true,
             app.utility2['/assets/utility2.css'];
         app['/assets/utility2.js'] =
             app.utility2['/assets/utility2.js'];
+        app['/test/script.html'] =
+            '<script src="/assets/utility2.js"></script>\n' +
+            '<script src="/assets/jslint-lite.js"></script>\n' +
+            '<script>window.jslint_lite.jslintTextarea()</script>\n' +
+            '<script src="/test/test.js"></script>\n';
         app['/test/test.js'] =
-            app.utility2.istanbulInstrumentInPackage(
+            app.istanbul_lite.instrumentInPackage(
                 app.utility2.fs.readFileSync(__filename, 'utf8'),
                 __filename,
                 'jslint-lite'
@@ -186,6 +208,7 @@ stupid: true,
                 case '/assets/jslint-lite.js':
                 case '/assets/utility2.css':
                 case '/assets/utility2.js':
+                case '/test/script.html':
                 case '/test/test.js':
                     response.end(app[request.urlPathNormalized]);
                     break;

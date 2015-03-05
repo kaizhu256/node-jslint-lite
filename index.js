@@ -13687,19 +13687,19 @@ klass:              do {
             this function will jslint / csslint the text
             in .jslintInputTextarea / .jslintInputTextarea
             */
-            // jslint .jslintInputTextarea
-            app.jslint_lite.jslintAndPrint((
-                document.querySelector('.jslintInputTextarea') || {}
-            ).value || '', 'jslintInputTextarea.js', { silent: true });
-            (document.querySelector('.jslintOutputPre') || {})
-                .textContent = app.jslint_lite.errorText
-                .replace((/\u001b\[\d+m/g), '')
-                .trim();
             // csslint .csslintInputTextarea
             app.jslint_lite.jslintAndPrint((
                 document.querySelector('.csslintInputTextarea') || {}
             ).value || '', 'csslintInputTextarea.css', { silent: true });
             (document.querySelector('.csslintOutputPre') || {})
+                .textContent = app.jslint_lite.errorText
+                .replace((/\u001b\[\d+m/g), '')
+                .trim();
+            // jslint .jslintInputTextarea
+            app.jslint_lite.jslintAndPrint((
+                document.querySelector('.jslintInputTextarea') || {}
+            ).value || '', 'jslintInputTextarea.js', { silent: true });
+            (document.querySelector('.jslintOutputPre') || {})
                 .textContent = app.jslint_lite.errorText
                 .replace((/\u001b\[\d+m/g), '')
                 .trim();
