@@ -261,7 +261,7 @@ shExampleSh
     "bin": { "jslint-lite": "index.js" },
     "description": "lightweight web module for jslint and csslint with zero npm dependencies",
     "devDependencies": {
-        "utility2": "2015.3.5-10",
+        "utility2": "2015.3.5-11",
         "phantomjs-lite": "^2015.1.4-103"
     },
     "engines": { "node": ">=0.10 <=0.12" },
@@ -289,15 +289,13 @@ shExampleSh
         "start": "npm_config_mode_auto_restart=1 node_modules/.bin/utility2 shRun node test.js",
         "test": "node_modules/.bin/utility2 shRun shReadmePackageJsonExport && node_modules/.bin/utility2 shRun shNpmTest test.js"
     },
-    "version": "2015.3.5-10"
+    "version": "2015.3.5-11"
 }
 ```
 
 
 
 # todo
-- npm publish 2015.3.4-11
-- fix csslint event handling
 - none
 
 

@@ -13637,15 +13637,22 @@ klass:              do {
                 if (app.jslint_lite.JSLINT(script
                         // comment shebang
                         .replace((/^#!/), '//')
-                        // remove
+                        // remove text-block
                         // /* jslint-ignore-begin */ ... /* jslint-ignore-end */
                         .replace(
 /* jslint-ignore-begin */
-                            (/^\/\* jslint-ignore-begin \*\/$([\S\s]+?)^\/\* jslint-ignore-end \*\/$/gm),
+(/^\/\* jslint-ignore-begin \*\/$([\S\s]+?)^\/\* jslint-ignore-end \*\/$/gm),
 /* jslint-ignore-end */
                             function (match) {
                                 return match.replace((/[\S\s]*?$/gm), '');
                             }
+                        )
+                        // remove next-line
+                        // /* jslint-ignore-next-line */
+                        .replace(
+/* jslint-ignore-next-line */
+(/^\/\* jslint-ignore-next-line \*\/$\n^[\S\s]*?$/gm),
+                            '\n'
                         ))) {
                     return script;
                 }
@@ -13653,18 +13660,17 @@ klass:              do {
                 app.jslint_lite.errorText =
                     '\n\u001b[1m' + file + '\u001b[22m\n';
                 app.jslint_lite.JSLINT.errors.forEach(function (error) {
-                    if (!error) {
-                        return;
+                    if (error) {
+                        app.jslint_lite.errors += 1;
+                        lineno += 1;
+                        app.jslint_lite.errorText +=
+                            (' #' + String(lineno) + ' ').slice(-4) +
+                            '\u001b[33m' + error.reason +
+                            '\u001b[39m\n    ' +
+                            String(error.evidence).trim() +
+                            '\u001b[90m \/\/ Line ' + error.line +
+                            ', Pos ' + error.character + '\u001b[39m\n';
                     }
-                    app.jslint_lite.errors += 1;
-                    lineno += 1;
-                    app.jslint_lite.errorText +=
-                        (' #' + String(lineno) + ' ').slice(-4) +
-                        '\u001b[33m' + error.reason +
-                        '\u001b[39m\n    ' +
-                        String(error.evidence).trim() +
-                        '\u001b[90m \/\/ Line ' + error.line +
-                        ', Pos ' + error.character + '\u001b[39m\n';
                 });
             }
             // print error to stderr
