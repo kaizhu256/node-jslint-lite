@@ -1,8 +1,10 @@
 #!/usr/bin/env node
 /*jslint
 browser: true,
-maxerr: 4, maxlen: 80,
-node: true, nomen: true,
+maxerr: 4,
+maxlen: 80,
+node: true,
+nomen: true,
 stupid: true
 */
 (function () {
@@ -13689,22 +13691,18 @@ klass:              do {
             app.jslint_lite.jslintAndPrint((
                 document.querySelector('.jslintInputTextarea') || {}
             ).value || '', 'jslintInputTextarea.js', { silent: true });
-            if (app.jslint_lite.errorText) {
-                (document.querySelector('.jslintOutputPre') || {})
-                    .textContent = app.jslint_lite.errorText
-                    .replace((/\u001b\[\d+m/g), '')
-                    .trim();
-            }
+            (document.querySelector('.jslintOutputPre') || {})
+                .textContent = app.jslint_lite.errorText
+                .replace((/\u001b\[\d+m/g), '')
+                .trim();
             // csslint .csslintInputTextarea
             app.jslint_lite.jslintAndPrint((
                 document.querySelector('.csslintInputTextarea') || {}
             ).value || '', 'csslintInputTextarea.css', { silent: true });
-            if (app.jslint_lite.errorText) {
-                (document.querySelector('.csslintOutputPre') || {})
-                    .textContent = app.jslint_lite.errorText
-                    .replace((/\u001b\[\d+m/g), '')
-                    .trim();
-            }
+            (document.querySelector('.csslintOutputPre') || {})
+                .textContent = app.jslint_lite.errorText
+                .replace((/\u001b\[\d+m/g), '')
+                .trim();
         };
         break;
 

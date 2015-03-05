@@ -38,8 +38,10 @@ instruction
 
 /*jslint
 browser: true,
-maxerr: 4, maxlen: 80,
-node: true, nomen: true,
+maxerr: 4,
+maxlen: 80,
+node: true,
+nomen: true,
 stupid: true
 */
 

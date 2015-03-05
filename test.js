@@ -1,7 +1,9 @@
 /*jslint
 browser: true,
-maxerr: 4, maxlen: 80,
-node: true, nomen: true,
+maxerr: 4,
+maxlen: 80,
+node: true,
+nomen: true,
 stupid: true,
 */
 (function () {
@@ -153,10 +155,9 @@ stupid: true,
                     (/[\S\s]+?(<!DOCTYPE html>[\S\s]+?<\/html>)[\S\s]+/),
                     '$1'
                 )
-                .replace(
-                    (/\\n' \+(\s*?)'/g),
-                    '$1'
-                ), { envDict: app.utility2.envDict });
+                .replace((/\\n' \+(\s*?)'/g), '$1'), {
+                    envDict: app.utility2.envDict
+                });
         app['/assets/jslint-lite.js'] =
             app.utility2.istanbulInstrumentInPackage(
                 app.jslint_lite['/assets/jslint-lite.js'],
