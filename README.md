@@ -97,6 +97,9 @@ stupid: true
     '</style>\n' +
 '</head>\n' +
 '<body>\n' +
+    '<div class="ajaxProgressDiv" style="display: none;">\n' +
+    '<div class="ajaxProgressBarDiv ajaxProgressBarDivLoading">loading</div>\n' +
+    '</div>\n' +
     '<h1>\n' +
         '{{envDict.npm_package_name}} [{{envDict.npm_package_version}}]\n' +
     '</h1>\n' +
@@ -258,7 +261,7 @@ shExampleSh
     "bin": { "jslint-lite": "index.js" },
     "description": "lightweight web module for jslint and csslint with zero npm dependencies",
     "devDependencies": {
-        "utility2": "2015.3.3-12",
+        "utility2": "2015.3.5-10",
         "phantomjs-lite": "^2015.1.4-103"
     },
     "engines": { "node": ">=0.10 <=0.12" },
@@ -286,7 +289,7 @@ shExampleSh
         "start": "npm_config_mode_auto_restart=1 node_modules/.bin/utility2 shRun node test.js",
         "test": "node_modules/.bin/utility2 shRun shReadmePackageJsonExport && node_modules/.bin/utility2 shRun shNpmTest test.js"
     },
-    "version": "2015.3.4-11"
+    "version": "2015.3.5-10"
 }
 ```
 
