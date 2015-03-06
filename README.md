@@ -153,16 +153,16 @@ target="_blank">\n' +
 
 
 
-                String()).replace((/\{\{envDict\.\w+?\}\}/g), function (match0) {
-                switch (match0) {
-                case '{{envDict.npm_package_description}}':
-                    return 'jslint demo';
-                case '{{envDict.npm_package_name}}':
-                    return 'jslint-lite';
-                case '{{envDict.npm_package_version}}':
-                    return '0.0.1';
-                }
-            });
+            String()).replace((/\{\{envDict\.\w+?\}\}/g), function (match0) {
+            switch (match0) {
+            case '{{envDict.npm_package_description}}':
+                return 'this is an example module';
+            case '{{envDict.npm_package_name}}':
+                return 'example-module';
+            case '{{envDict.npm_package_version}}':
+                return '0.0.1';
+            }
+        });
         app['/assets/jslint-lite.js'] =
             app.jslint_lite['/assets/jslint-lite.js'];
         app['/assets/utility2.css'] =
@@ -267,7 +267,7 @@ shExampleSh
     "description": "lightweight web module for jslint and csslint \
 with zero npm dependencies",
     "devDependencies": {
-        "utility2": "2015.3.6-11",
+        "utility2": "2015.3.6-12",
         "phantomjs-lite": "^2015.1.4-103"
     },
     "engines": { "node": ">=0.10 <=0.12" },
@@ -297,14 +297,15 @@ node_modules/.bin/utility2 shRun node test.js",
         "test": "node_modules/.bin/utility2 shRun shReadmePackageJsonExport \
 && node_modules/.bin/utility2 shRun shNpmTest test.js"
     },
-    "version": "2015.3.6-11"
+    "version": "2015.3.6-12"
 }
 ```
 
 
 
 # todo
-- npm publish 2015.3.6-11
+- npm publish 2015.3.6-12
+- use new-style test-case name - testCase_*
 - none
 
 

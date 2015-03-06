@@ -38,7 +38,7 @@ stupid: true,
             ? window.utility2
             : require('utility2');
         // init tests
-        app._ajax_404_test = function (onError) {
+        app.testCase_ajax_404 = function (onError) {
             /*
             this function will test ajax's 404 http statusCode handling behavior
             */
@@ -58,7 +58,7 @@ stupid: true,
                 }, onError);
             });
         };
-        app._jslintAndPrint_default_test = function (onError) {
+        app.testCase_jslintAndPrint_default = function (onError) {
             /*
             this function will test jslintAndPrint's default handling behavior
             */
@@ -136,7 +136,7 @@ stupid: true,
         app.utility2 = require('utility2');
         app.istanbul_lite = app.utility2.istanbul_lite;
         // init tests
-        app._testPage_default_test = function (onError) {
+        app.testCase_testPage_default = function (onError) {
             /*
             this function will test the test-page's default handling behavior
             */
