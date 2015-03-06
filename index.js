@@ -13637,22 +13637,38 @@ klass:              do {
                 if (app.jslint_lite.JSLINT(script
                         // comment shebang
                         .replace((/^#!/), '//')
-                        // remove text-block
+                        // ignore text-block
                         // /* jslint-ignore-begin */ ... /* jslint-ignore-end */
                         .replace(
 /* jslint-ignore-begin */
-(/^\/\* jslint-ignore-begin \*\/$([\S\s]+?)^\/\* jslint-ignore-end \*\/$/gm),
+(/^ *?\/\* jslint-ignore-begin \*\/$[\S\s]+?^\/\* jslint-ignore-end \*\/$/gm),
 /* jslint-ignore-end */
-                            function (match) {
-                                return match.replace((/[\S\s]*?$/gm), '');
+                            function (match0) {
+                                return match0.replace((/[\S\s]*?$/gm), '');
                             }
                         )
-                        // remove next-line
+                        // ignore next-line
                         // /* jslint-ignore-next-line */
                         .replace(
 /* jslint-ignore-next-line */
-(/^\/\* jslint-ignore-next-line \*\/$\n^[\S\s]*?$/gm),
+(/^ *?\/\* jslint-ignore-next-line \*\/$\n^[\S\s]*?$/gm),
                             '\n'
+                        )
+                        // indent text-block
+                        // /* jslint-indent-begin */ ... /* jslint-indent-end */
+                        .replace(
+/* jslint-indent-begin 28 */
+(function () {
+    /*jslint maxlen: 200*/
+    return (/^ *?\/\* jslint-indent-begin (\d+?) \*\/$[\S\s]+?^\/\* jslint-indent-end \*\/$/gm);
+}()),
+/* jslint-indent-end */
+                            function (match0, match1) {
+                                return match0.replace(
+                                    (/^/gm),
+                                    new Array(Number(match1) + 1).join(' ')
+                                );
+                            }
                         ))) {
                     return script;
                 }
