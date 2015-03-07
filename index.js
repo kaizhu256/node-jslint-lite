@@ -13605,8 +13605,8 @@ klass:              do {
         }());
         local.jslint_lite.jslintAndPrint = function (script, file, options) {
             /*
-            this function will jslint / csslint the script
-            and print any errors to stderr
+                this function will jslint / csslint the script
+                and print any errors to stderr
             */
             var errorList, lineno;
             // cleanup errorText
@@ -13712,8 +13712,8 @@ klass:              do {
         window.jslint_lite = local.jslint_lite;
         local.jslint_lite.jslintTextarea = function () {
             /*
-            this function will jslint / csslint the text
-            in .jslintInputTextarea / .jslintInputTextarea
+                this function will jslint / csslint the text
+                in .jslintInputTextarea / .jslintInputTextarea
             */
             // csslint .csslintInputTextarea
             local.jslint_lite.jslintAndPrint((

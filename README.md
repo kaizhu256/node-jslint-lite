@@ -303,7 +303,6 @@ node_modules/.bin/utility2 shRun shNpmTest test.js"
 
 
 # todo
-- indent text inside /* ... */ by 4 spaces
 - none
 
 

@@ -7,9 +7,6 @@
     stupid: true,
 */
 (function () {
-    /*
-    this function will test this module
-    */
     'use strict';
     var local;
 
@@ -44,7 +41,8 @@
         // init tests
         local.testCase_ajax_404 = function (onError) {
             /*
-            this function will test ajax's 404 http statusCode handling behavior
+                this function will test ajax's
+                404 http statusCode handling behavior
             */
             // test '/test/undefined'
             local.utility2.ajax({
@@ -64,7 +62,8 @@
         };
         local.testCase_jslintAndPrint_default = function (onError) {
             /*
-            this function will test jslintAndPrint's default handling behavior
+                this function will test jslintAndPrint's
+                default handling behavior
             */
             local.utility2.testMock([
                 // suppress console.error
@@ -141,7 +140,8 @@
         // init tests
         local.testCase_testPage_default = function (onError) {
             /*
-            this function will test the test-page's default handling behavior
+                this function will test the test-page's
+                default handling behavior
             */
             var onParallel;
             onParallel = local.utility2.onParallel(onError);
@@ -205,7 +205,7 @@
         local.serverMiddlewareList = [
             function (request, response, onNext) {
                 /*
-                this function will run the main test-middleware
+                    this function will run the main test-middleware
                 */
                 switch (request.urlPathNormalized) {
                 // serve assets
