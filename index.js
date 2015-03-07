@@ -1,18 +1,18 @@
 #!/usr/bin/env node
 /*jslint
-browser: true,
-maxerr: 4,
-maxlen: 80,
-node: true,
-nomen: true,
-stupid: true
+    browser: true,
+    maxerr: 4,
+    maxlen: 80,
+    node: true,
+    nomen: true,
+    stupid: true
 */
 (function () {
     'use strict';
-    var app;
-    // init app
-    app = {};
-    app.jslint_lite = {};
+    var local;
+    // init local
+    local = {};
+    local.jslint_lite = {};
 
 
 
@@ -9283,7 +9283,7 @@ CSSLint.addFormatter({
 return CSSLint;
 })();
 /* jslint-ignore-end */
-        app.jslint_lite.CSSLint = CSSLint;
+        local.jslint_lite.CSSLint = CSSLint;
     }());
 
 
@@ -13584,14 +13584,14 @@ klass:              do {
         return itself;
 }());
 /* jslint-ignore-end */
-        app.jslint_lite.JSLINT = JSLINT;
+        local.jslint_lite.JSLINT = JSLINT;
     }());
 
 
 
     // run shared js-env code
     (function () {
-        app.jslint_lite.modeJs = (function () {
+        local.modeJs = (function () {
             try {
                 return module.exports &&
                     typeof process.versions.node === 'string' &&
@@ -13603,29 +13603,29 @@ klass:              do {
                     'browser';
             }
         }());
-        app.jslint_lite.jslintAndPrint = function (script, file, options) {
+        local.jslint_lite.jslintAndPrint = function (script, file, options) {
             /*
             this function will jslint / csslint the script
             and print any errors to stderr
             */
             var errorList, lineno;
             // cleanup errorText
-            app.jslint_lite.errorText = '';
+            local.jslint_lite.errorText = '';
             // init lineno
             lineno = 0;
             // csslint script
             if (file.slice(-4) === '.css') {
-                errorList = app.jslint_lite.CSSLint.verify(script).messages;
+                errorList = local.jslint_lite.CSSLint.verify(script).messages;
                 // if error occurred, then print colorized error messages
                 if (!errorList.length) {
                     return script;
                 }
-                app.jslint_lite.errorText =
+                local.jslint_lite.errorText =
                     '\n\u001b[1m' + file + '\u001b[22m\n';
                 errorList.forEach(function (error) {
-                    app.jslint_lite.errors += 1;
+                    local.jslint_lite.errors += 1;
                     lineno += 1;
-                    app.jslint_lite.errorText +=
+                    local.jslint_lite.errorText +=
                         (' #' + String(lineno) + ' ').slice(-4) +
                         '\u001b[33m' + error.type + ' - ' + error.message +
                         '\u001b[39m\n    ' + String(error.evidence).trim() +
@@ -13634,7 +13634,7 @@ klass:              do {
                 });
             // jslint script
             } else {
-                if (app.jslint_lite.JSLINT(script
+                if (local.jslint_lite.JSLINT(script
                         // comment shebang
                         .replace((/^#!/), '//')
                         // indent text-block
@@ -13679,13 +13679,13 @@ klass:              do {
                     return script;
                 }
                 // if error occurred, then print colorized error messages
-                app.jslint_lite.errorText =
+                local.jslint_lite.errorText =
                     '\n\u001b[1m' + file + '\u001b[22m\n';
-                app.jslint_lite.JSLINT.errors.forEach(function (error) {
+                local.jslint_lite.JSLINT.errors.forEach(function (error) {
                     if (error) {
-                        app.jslint_lite.errors += 1;
+                        local.jslint_lite.errors += 1;
                         lineno += 1;
-                        app.jslint_lite.errorText +=
+                        local.jslint_lite.errorText +=
                             (' #' + String(lineno) + ' ').slice(-4) +
                             '\u001b[33m' + error.reason +
                             '\u001b[39m\n    ' +
@@ -13696,39 +13696,39 @@ klass:              do {
                 });
             }
             // print error to stderr
-            if (app.jslint_lite.errorText && !(options && options.silent)) {
-                console.error(app.jslint_lite.errorText);
+            if (local.jslint_lite.errorText && !(options && options.silent)) {
+                console.error(local.jslint_lite.errorText);
             }
             return script;
         };
     }());
-    switch (app.jslint_lite.modeJs) {
+    switch (local.modeJs) {
 
 
 
     // run browser js-env code
     case 'browser':
         // export jslint_lite
-        window.jslint_lite = app.jslint_lite;
-        app.jslint_lite.jslintTextarea = function () {
+        window.jslint_lite = local.jslint_lite;
+        local.jslint_lite.jslintTextarea = function () {
             /*
             this function will jslint / csslint the text
             in .jslintInputTextarea / .jslintInputTextarea
             */
             // csslint .csslintInputTextarea
-            app.jslint_lite.jslintAndPrint((
+            local.jslint_lite.jslintAndPrint((
                 document.querySelector('.csslintInputTextarea') || {}
             ).value || '', 'csslintInputTextarea.css', { silent: true });
             (document.querySelector('.csslintOutputPre') || {})
-                .textContent = app.jslint_lite.errorText
+                .textContent = local.jslint_lite.errorText
                 .replace((/\u001b\[\d+m/g), '')
                 .trim();
             // jslint .jslintInputTextarea
-            app.jslint_lite.jslintAndPrint((
+            local.jslint_lite.jslintAndPrint((
                 document.querySelector('.jslintInputTextarea') || {}
             ).value || '', 'jslintInputTextarea.js', { silent: true });
             (document.querySelector('.jslintOutputPre') || {})
-                .textContent = app.jslint_lite.errorText
+                .textContent = local.jslint_lite.errorText
                 .replace((/\u001b\[\d+m/g), '')
                 .trim();
         };
@@ -13739,21 +13739,21 @@ klass:              do {
     // run node js-env code
     case 'node':
         // export jslint_lite
-        module.exports = app.jslint_lite;
+        module.exports = local.jslint_lite;
         // require modules
-        app.fs = require('fs');
-        app.path = require('path');
+        local.fs = require('fs');
+        local.path = require('path');
         // init assets
-        app.jslint_lite['/assets/jslint-lite.js'] =
-            '//' + app.fs.readFileSync(__filename, 'utf8');
+        local.jslint_lite['/assets/jslint-lite.js'] =
+            '//' + local.fs.readFileSync(__filename, 'utf8');
         // run main module
         if (module === require.main) {
             // jslint files in command-line
             process.argv.slice(2).forEach(function (arg) {
                 if (arg[0] !== '-') {
-                    app.jslint_lite.jslintAndPrint(
-                        app.fs.readFileSync(
-                            app.path.resolve(arg),
+                    local.jslint_lite.jslintAndPrint(
+                        local.fs.readFileSync(
+                            local.path.resolve(arg),
                             'utf8'
                         ),
                         arg
@@ -13761,7 +13761,7 @@ klass:              do {
                 }
             });
             // if error occurred, then exit with non-zero code
-            process.exit(app.jslint_lite.errors);
+            process.exit(local.jslint_lite.errors);
         }
         break;
     }

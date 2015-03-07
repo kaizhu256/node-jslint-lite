@@ -37,28 +37,28 @@ instruction
 */
 
 /*jslint
-browser: true,
-maxerr: 4,
-maxlen: 80,
-node: true,
-nomen: true,
-stupid: true
+    browser: true,
+    maxerr: 4,
+    maxlen: 80,
+    node: true,
+    nomen: true,
+    stupid: true
 */
 
 (function () {
     'use strict';
-    var app;
+    var local;
     // run node js-env code
     (function () {
-        // init app
-        app = {};
+        // init local
+        local = {};
         // require modules
-        app.fs = require('fs');
-        app.http = require('http');
-        app.jslint_lite = require('jslint-lite');
-        app.url = require('url');
+        local.fs = require('fs');
+        local.http = require('http');
+        local.jslint_lite = require('jslint-lite');
+        local.url = require('url');
         // init assets
-        app['/'] = (String() +
+        local['/'] = (String() +
 
 
 
@@ -163,24 +163,24 @@ target="_blank">\n' +
                 return '0.0.1';
             }
         });
-        app['/assets/jslint-lite.js'] =
-            app.jslint_lite['/assets/jslint-lite.js'];
-        app['/assets/utility2.css'] =
+        local['/assets/jslint-lite.js'] =
+            local.jslint_lite['/assets/jslint-lite.js'];
+        local['/assets/utility2.css'] =
             '';
-        app['/assets/utility2.js'] =
+        local['/assets/utility2.js'] =
             '';
-        app['/test/test.js'] =
+        local['/test/test.js'] =
             '';
         // create server
-        app.server = app.http.createServer(function (request, response) {
-            switch (app.url.parse(request.url).pathname) {
+        local.server = local.http.createServer(function (request, response) {
+            switch (local.url.parse(request.url).pathname) {
             // serve assets
             case '/':
             case '/assets/jslint-lite.js':
             case '/assets/utility2.css':
             case '/assets/utility2.js':
             case '/test/test.js':
-                response.end(app[app.url.parse(request.url).pathname]);
+                response.end(local[local.url.parse(request.url).pathname]);
                 break;
             // default to 404 Not Found
             default:
@@ -189,17 +189,17 @@ target="_blank">\n' +
             }
         });
         // start server
-        app.serverPort = 1337;
-        console.log('server starting on port ' + app.serverPort);
-        app.server.listen(app.serverPort, function () {
+        local.serverPort = 1337;
+        console.log('server starting on port ' + local.serverPort);
+        local.server.listen(local.serverPort, function () {
             // this internal build-code will screen-capture the server
             // and then exit
             if (process.env.MODE_BUILD === 'testExampleJs') {
-                console.log('server stopping on port ' + app.serverPort);
+                console.log('server stopping on port ' + local.serverPort);
                 require(
                     process.env.npm_config_dir_utility2 + '/index.js'
                 ).phantomScreenCapture({
-                    url: 'http://localhost:' + app.serverPort
+                    url: 'http://localhost:' + local.serverPort
                 }, process.exit);
             }
         });
@@ -226,7 +226,6 @@ target="_blank">\n' +
 
 # instruction
     # 1. copy and paste this entire shell script into a console and press enter
-    # 2. open ./html-report/index.html to view coverage of foo.js
 
 shExampleSh() {
     # 1. npm install jslint-lite
@@ -294,8 +293,8 @@ with zero npm dependencies",
         "build2": "node_modules/.bin/utility2 shRun shBuild",
         "start": "npm_config_mode_auto_restart=1 \
 node_modules/.bin/utility2 shRun node test.js",
-        "test": "node_modules/.bin/utility2 shRun shReadmePackageJsonExport \
-&& node_modules/.bin/utility2 shRun shNpmTest test.js"
+        "test": "node_modules/.bin/utility2 shRun shReadmePackageJsonExport && \
+node_modules/.bin/utility2 shRun shNpmTest test.js"
     },
     "version": "2015.3.6-13"
 }
@@ -304,7 +303,7 @@ node_modules/.bin/utility2 shRun node test.js",
 
 
 # todo
-- npm publish 2015.3.6-13
+- indent text inside /* ... */ by 4 spaces
 - none
 
 
@@ -330,8 +329,8 @@ shBuild() {
     MODE_BUILD=testExampleJs \
         shRunScreenCapture shReadmeTestJs example.js || return $?
     # copy phantomjs screen-capture to $npm_config_dir_build
-    cp /tmp/app/tmp/build/screen-capture.*.png $npm_config_dir_build \
-        || return $?
+    cp /tmp/app/tmp/build/screen-capture.*.png $npm_config_dir_build || \
+        return $?
 
     # test example shell script
     MODE_BUILD=testExampleSh \
@@ -348,10 +347,10 @@ shBuild() {
         [ "$CI_BRANCH" = beta ] ||
         [ "$CI_BRANCH" = master ]
     then
-        local TEST_URL="https://hrku01-jslint-lite-$CI_BRANCH.herokuapp.com" \
-            || return $?
-        TEST_URL="$TEST_URL?modeTest=phantom&_testSecret={{_testSecret}}" \
-            || return $?
+        local TEST_URL="https://hrku01-jslint-lite-$CI_BRANCH.herokuapp.com" || \
+            return $?
+        TEST_URL="$TEST_URL?modeTest=phantom&_testSecret={{_testSecret}}" || \
+            return $?
         MODE_BUILD=herokuTest shRun shPhantomTest $TEST_URL || return $?
     fi
 
@@ -370,8 +369,8 @@ shBuildCleanup() {
     # create package-listing
     MODE_BUILD=gitLsTree shRunScreenCapture shGitLsTree || return $?
     # create recent changelog of last 50 commits
-    MODE_BUILD=gitLog shRunScreenCapture git log -50 --pretty="%ai\u000a%B" \
-        || return $?
+    MODE_BUILD=gitLog shRunScreenCapture git log -50 --pretty="%ai\u000a%B" || \
+        return $?
     # add black border around phantomjs screen-capture
     shBuildPrint phantomScreenCapture \
         "add black border around phantomjs screen-capture" || return $?

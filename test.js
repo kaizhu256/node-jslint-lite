@@ -1,25 +1,25 @@
 /*jslint
-browser: true,
-maxerr: 4,
-maxlen: 80,
-node: true,
-nomen: true,
-stupid: true,
+    browser: true,
+    maxerr: 4,
+    maxlen: 80,
+    node: true,
+    nomen: true,
+    stupid: true,
 */
 (function () {
     /*
     this function will test this module
     */
     'use strict';
-    var app;
+    var local;
 
 
 
     // run shared js-env code
     (function () {
-        // init app
-        app = {};
-        app.modeJs = (function () {
+        // init local
+        local = {};
+        local.modeJs = (function () {
             try {
                 return module.exports &&
                     typeof process.versions.node === 'string' &&
@@ -31,26 +31,26 @@ stupid: true,
                     'browser';
             }
         }());
-        app.jslint_lite = app.modeJs === 'browser'
+        local.jslint_lite = local.modeJs === 'browser'
             ? window.jslint_lite
             : require('./index.js');
-        app.utility2 = app.modeJs === 'browser'
+        local.utility2 = local.modeJs === 'browser'
             ? window.utility2
             : require('utility2');
         // init tests
-        app.testCase_ajax_404 = function (onError) {
+        local.testCase_ajax_404 = function (onError) {
             /*
             this function will test ajax's 404 http statusCode handling behavior
             */
             // test '/test/undefined'
-            app.utility2.ajax({
+            local.utility2.ajax({
                 url: '/test/undefined'
             }, function (error) {
-                app.utility2.testTryCatch(function () {
+                local.utility2.testTryCatch(function () {
                     // validate error occurred
-                    app.utility2.assert(error instanceof Error, error);
+                    local.utility2.assert(error instanceof Error, error);
                     // validate 404 http statusCode
-                    app.utility2.assert(
+                    local.utility2.assert(
                         error.statusCode === 404,
                         error.statusCode
                     );
@@ -58,115 +58,115 @@ stupid: true,
                 }, onError);
             });
         };
-        app.testCase_jslintAndPrint_default = function (onError) {
+        local.testCase_jslintAndPrint_default = function (onError) {
             /*
             this function will test jslintAndPrint's default handling behavior
             */
-            app.utility2.testMock([
+            local.utility2.testMock([
                 // suppress console.error
-                [console, { error: app.utility2.nop }]
+                [console, { error: local.utility2.nop }]
             ], onError, function (onError) {
                 // test csslint failed handling behavior
-                app.jslint_lite.jslintAndPrint('syntax error', 'failed.css');
+                local.jslint_lite.jslintAndPrint('syntax error', 'failed.css');
                 // validate error occurred
-                app.utility2.assert(
-                    app.jslint_lite.errorText,
-                    app.jslint_lite.errorText
+                local.utility2.assert(
+                    local.jslint_lite.errorText,
+                    local.jslint_lite.errorText
                 );
                 // test jslint failed handling behavior
-                app.jslint_lite.jslintAndPrint('syntax error', 'failed.js');
+                local.jslint_lite.jslintAndPrint('syntax error', 'failed.js');
                 // validate error occurred
-                app.utility2.assert(
-                    app.jslint_lite.errorText,
-                    app.jslint_lite.errorText
+                local.utility2.assert(
+                    local.jslint_lite.errorText,
+                    local.jslint_lite.errorText
                 );
                 // test csslint passed handling behavior
-                app.jslint_lite.jslintAndPrint(
+                local.jslint_lite.jslintAndPrint(
                     'body { font: normal; }',
                     'passed.css'
                 );
                 // validate no error occurred
-                app.utility2.assert(
-                    !app.jslint_lite.errorText,
-                    app.jslint_lite.errorText
+                local.utility2.assert(
+                    !local.jslint_lite.errorText,
+                    local.jslint_lite.errorText
                 );
                 // test jslint passed handling behavior
-                app.jslint_lite.jslintAndPrint('{}', 'passed.js');
+                local.jslint_lite.jslintAndPrint('{}', 'passed.js');
                 // validate no error occurred
-                app.utility2.assert(
-                    !app.jslint_lite.errorText,
-                    app.jslint_lite.errorText
+                local.utility2.assert(
+                    !local.jslint_lite.errorText,
+                    local.jslint_lite.errorText
                 );
                 // test /* jslint-ignore-begin */ ... /* jslint-ignore-end */
                 // handling behavior
-                app.jslint_lite.jslintAndPrint('/* jslint-ignore-begin */\n' +
+                local.jslint_lite.jslintAndPrint('/* jslint-ignore-begin */\n' +
                     'syntax error\n' +
                     '/* jslint-ignore-end */\n', 'passed.js');
                 // validate no error occurred
-                app.utility2.assert(
-                    !app.jslint_lite.errorText,
-                    app.jslint_lite.errorText
+                local.utility2.assert(
+                    !local.jslint_lite.errorText,
+                    local.jslint_lite.errorText
                 );
                 onError();
             });
         };
     }());
-    switch (app.modeJs) {
+    switch (local.modeJs) {
 
 
 
     // run browser js-env code
     case 'browser':
-        // export app
-        window.app = app;
+        // export local
+        window.local = local;
         // run test
-        app.utility2.testRun(app);
+        local.utility2.testRun(local);
         break;
 
 
 
     // run node js-env code
     case 'node':
-        // export app
-        global.app = app;
+        // export local
+        global.local = local;
         // require modules
-        app.jslint_lite = require('./index.js');
-        app.fs = require('fs');
-        app.path = require('path');
-        app.utility2 = require('utility2');
-        app.istanbul_lite = app.utility2.istanbul_lite;
+        local.jslint_lite = require('./index.js');
+        local.fs = require('fs');
+        local.path = require('path');
+        local.utility2 = require('utility2');
+        local.istanbul_lite = local.utility2.local.istanbul_lite;
         // init tests
-        app.testCase_testPage_default = function (onError) {
+        local.testCase_testPage_default = function (onError) {
             /*
             this function will test the test-page's default handling behavior
             */
             var onParallel;
-            onParallel = app.utility2.onParallel(onError);
+            onParallel = local.utility2.onParallel(onError);
             onParallel.counter += 1;
             // test test-page handling behavior
             onParallel.counter += 1;
-            app.utility2.phantomTest({
+            local.utility2.phantomTest({
                 url: 'http://localhost:' +
-                    app.utility2.envDict.npm_config_server_port +
+                    local.utility2.envDict.npm_config_server_port +
                     '?modeTest=phantom&' +
                     '_testSecret={{_testSecret}}&' +
-                    'timeoutDefault=' + app.utility2.timeoutDefault
+                    'timeoutDefault=' + local.utility2.timeoutDefault
             }, onParallel);
             // test standalone script handling behavior
             onParallel.counter += 1;
-            app.utility2.phantomTest({
+            local.utility2.phantomTest({
                 url: 'http://localhost:' +
-                    app.utility2.envDict.npm_config_server_port +
+                    local.utility2.envDict.npm_config_server_port +
                     '/test/script.html' +
                     '?modeTest=phantom&' +
                     '_testSecret={{_testSecret}}&' +
-                    'timeoutDefault=' + app.utility2.timeoutDefault
+                    'timeoutDefault=' + local.utility2.timeoutDefault
             }, onParallel);
             onParallel();
         };
         // init assets
-        app['/'] =
-            app.utility2.textFormat(app.fs
+        local['/'] =
+            local.utility2.textFormat(local.fs
                 .readFileSync(__dirname + '/README.md', 'utf8')
                 .replace(
                     (/[\S\s]+?(<!DOCTYPE html>[\S\s]+?<\/html>)[\S\s]+/),
@@ -175,31 +175,31 @@ stupid: true,
                 // parse '\' line-continuation
                 .replace((/\\\n/g), '')
                 .replace((/\\n' \+(\s*?)'/g), '$1'), {
-                    envDict: app.utility2.envDict
+                    envDict: local.utility2.envDict
                 });
-        app['/assets/jslint-lite.js'] =
-            app.istanbul_lite.instrumentInPackage(
-                app.jslint_lite['/assets/jslint-lite.js'],
+        local['/assets/jslint-lite.js'] =
+            local.istanbul_lite.instrumentInPackage(
+                local.jslint_lite['/assets/jslint-lite.js'],
                 __dirname + '/index.js',
                 'jslint-lite'
             );
-        app['/assets/utility2.css'] =
-            app.utility2['/assets/utility2.css'];
-        app['/assets/utility2.js'] =
-            app.utility2['/assets/utility2.js'];
-        app['/test/script.html'] =
+        local['/assets/utility2.css'] =
+            local.utility2['/assets/utility2.css'];
+        local['/assets/utility2.js'] =
+            local.utility2['/assets/utility2.js'];
+        local['/test/script.html'] =
             '<script src="/assets/utility2.js"></script>\n' +
             '<script src="/assets/jslint-lite.js"></script>\n' +
             '<script>window.jslint_lite.jslintTextarea()</script>\n' +
             '<script src="/test/test.js"></script>\n';
-        app['/test/test.js'] =
-            app.istanbul_lite.instrumentInPackage(
-                app.fs.readFileSync(__filename, 'utf8'),
+        local['/test/test.js'] =
+            local.istanbul_lite.instrumentInPackage(
+                local.fs.readFileSync(__filename, 'utf8'),
                 __filename,
                 'jslint-lite'
             );
         // init server-middlewares
-        app.serverMiddlewareList = [
+        local.serverMiddlewareList = [
             function (request, response, onNext) {
                 /*
                 this function will run the main test-middleware
@@ -212,7 +212,7 @@ stupid: true,
                 case '/assets/utility2.js':
                 case '/test/script.html':
                 case '/test/test.js':
-                    response.end(app[request.urlPathNormalized]);
+                    response.end(local[request.urlPathNormalized]);
                     break;
                 // default to next middleware
                 default:
@@ -221,25 +221,25 @@ stupid: true,
             }
         ];
         // run server-test
-        app.utility2.testRunServer(app);
+        local.utility2.testRunServer(local);
         // init dir
-        app.fs.readdirSync(__dirname).forEach(function (file) {
+        local.fs.readdirSync(__dirname).forEach(function (file) {
             file = __dirname + '/' + file;
-            switch (app.path.extname(file)) {
+            switch (local.path.extname(file)) {
             case '.js':
             case '.json':
                 // jslint the file
-                app.jslint_lite.jslintAndPrint(
-                    app.fs.readFileSync(file, 'utf8'),
+                local.jslint_lite.jslintAndPrint(
+                    local.fs.readFileSync(file, 'utf8'),
                     file
                 );
                 break;
             }
             // if the file is modified, then restart the process
-            app.utility2.onFileModifiedRestart(file);
+            local.utility2.onFileModifiedRestart(file);
         });
         // init repl debugger
-        app.utility2.replStart({});
+        local.utility2.replStart({});
         break;
     }
 }());
