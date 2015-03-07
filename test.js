@@ -31,12 +31,16 @@
                     'browser';
             }
         }());
-        local.jslint_lite = local.modeJs === 'browser'
-            ? window.jslint_lite
-            : require('./index.js');
+        // init utility2
         local.utility2 = local.modeJs === 'browser'
             ? window.utility2
             : require('utility2');
+        // init jslint_lite
+        local.jslint_lite = local.modeJs === 'browser'
+            ? window.jslint_lite
+            : require('./index.js');
+        // init istanbul_lite
+        local.istanbul_lite = local.utility2.local.istanbul_lite;
         // init tests
         local.testCase_ajax_404 = function (onError) {
             /*
@@ -134,7 +138,6 @@
         local.fs = require('fs');
         local.path = require('path');
         local.utility2 = require('utility2');
-        local.istanbul_lite = local.utility2.local.istanbul_lite;
         // init tests
         local.testCase_testPage_default = function (onError) {
             /*
