@@ -266,7 +266,7 @@ shExampleSh
     "description": "lightweight web module for jslint and csslint \
 with zero npm dependencies",
     "devDependencies": {
-        "utility2": "2015.3.7-11",
+        "utility2": "2015.3.7-12",
         "phantomjs-lite": "^2015.1.4-103"
     },
     "engines": { "node": ">=0.10 <=0.12" },
@@ -296,7 +296,7 @@ node_modules/.bin/utility2 shRun node test.js",
         "test": "node_modules/.bin/utility2 shRun shReadmePackageJsonExport && \
 node_modules/.bin/utility2 shRun shNpmTest test.js"
     },
-    "version": "2015.3.6-13"
+    "version": "2015.3.7-12"
 }
 ```
 
