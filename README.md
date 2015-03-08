@@ -219,25 +219,25 @@ target="_blank">\n' +
 # example.sh
 
 # this shell script will
-    # 1. npm install jslint-lite
-    # 2. create foo.js
-    # 3. create bar.css
-    # 4. jslint foo.js and bar.css
+    # npm install jslint-lite
+    # create foo.js
+    # create bar.css
+    # jslint foo.js and bar.css
 
 # instruction
     # 1. copy and paste this entire shell script into a console and press enter
 
 shExampleSh() {
-    # 1. npm install jslint-lite
+    # npm install jslint-lite
     npm install jslint-lite || return $?
 
-    # 2. create foo.js
+    # create foo.js
     printf "console.log('hello');" > foo.js || return $?
 
-    # 3. create bar.css
+    # create bar.css
     printf "body { margin: 0px; }" > bar.css || return $?
 
-    # 4. jslint foo.js and bar.css
+    # jslint foo.js and bar.css
     node_modules/.bin/jslint-lite foo.js bar.css || :
 }
 shExampleSh
