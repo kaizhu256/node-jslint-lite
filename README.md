@@ -34,6 +34,7 @@ instruction
     2. run the shell command:
           $ npm install jslint-lite && node example.js
     3. open a browser to http://localhost:1337
+    4. edit or paste script in browser to jslint
 */
 
 /*jslint
@@ -207,9 +208,9 @@ target="_blank">\n' +
 }());
 ```
 #### output from shell
-![screen-capture](https://kaizhu256.github.io/node-jslint-lite/build/screen-capture.testExampleJs.png)
-#### output from [phantomjs-lite](https://www.npmjs.com/package/phantomjs-lite)
-![screen-capture](https://kaizhu256.github.io/node-jslint-lite/build/screen-capture.testExampleJs.slimerjs.png)
+[![screen-capture](https://kaizhu256.github.io/node-jslint-lite/build/screen-capture.testExampleJs.png)](https://travis-ci.org/kaizhu256/node-jslint-lite)
+#### output from phantomjs-lite
+[![screen-capture](https://kaizhu256.github.io/node-jslint-lite/build/screen-capture.testExampleJs.slimerjs.png)](https://hrku01-jslint-lite-beta.herokuapp.com)
 
 
 
@@ -226,6 +227,7 @@ target="_blank">\n' +
 
 # instruction
     # 1. copy and paste this entire shell script into a console and press enter
+    # 2. view jslint in console
 
 shExampleSh() {
     # npm install jslint-lite
@@ -243,7 +245,7 @@ shExampleSh() {
 shExampleSh
 ```
 #### output from shell
-![screen-capture](https://kaizhu256.github.io/node-jslint-lite/build/screen-capture.testExampleSh.png)
+[![screen-capture](https://kaizhu256.github.io/node-jslint-lite/build/screen-capture.testExampleSh.png)](https://travis-ci.org/kaizhu256/node-jslint-lite)
 
 
 
@@ -266,7 +268,7 @@ shExampleSh
     "description": "lightweight web module for jslint and csslint \
 with zero npm dependencies",
     "devDependencies": {
-        "utility2": "2015.3.7-12",
+        "utility2": "2015.3.8-11",
         "phantomjs-lite": "^2015.1.4-103"
     },
     "engines": { "node": ">=0.10 <=0.12" },
@@ -296,19 +298,21 @@ node_modules/.bin/utility2 shRun node test.js",
         "test": "node_modules/.bin/utility2 shRun shReadmePackageJsonExport && \
 node_modules/.bin/utility2 shRun shNpmTest test.js"
     },
-    "version": "2015.3.7-12"
+    "version": "2015.3.8-11"
 }
 ```
 
 
 
 # todo
+- npm publish 2015.3.8-11
+- update screen-capture href in README.md
 - none
 
 
 
 # changelog of last 50 commits
-![screen-capture](https://kaizhu256.github.io/node-jslint-lite/build/screen-capture.gitLog.png)
+[![screen-capture](https://kaizhu256.github.io/node-jslint-lite/build/screen-capture.gitLog.png)](https://github.com/kaizhu256/node-jslint-lite/commits)
 
 
 
