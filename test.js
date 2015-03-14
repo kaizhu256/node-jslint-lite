@@ -133,7 +133,6 @@
         // export local
         global.local = local;
         // require modules
-        local.jslint_lite = require('./index.js');
         local.fs = require('fs');
         local.path = require('path');
         local.utility2 = require('utility2');
