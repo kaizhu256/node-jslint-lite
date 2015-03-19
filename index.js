@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 /*jslint
     browser: true,
-    maxerr: 4,
-    maxlen: 80,
+    maxerr: 8,
+    maxlen: 96,
     node: true,
     nomen: true,
     stupid: true
@@ -13655,8 +13655,7 @@ klass:              do {
                             function (match0, match1) {
                                 return match0.replace(
                                     (/(^ *\S)/gm),
-                                    new Array(Number(match1) + 1).join(' ') +
-                                        '$1'
+                                    new Array(Number(match1) + 1).join(' ') + '$1'
                                 );
                             }
                         )
@@ -13679,8 +13678,7 @@ klass:              do {
                     return script;
                 }
                 // if error occurred, then print colorized error messages
-                local.jslint_lite.errorText =
-                    '\n\u001b[1m' + file + '\u001b[22m\n';
+                local.jslint_lite.errorText = '\n\u001b[1m' + file + '\u001b[22m\n';
                 local.jslint_lite.JSLINT.errors.forEach(function (error) {
                     if (error) {
                         local.jslint_lite.errors += 1;
@@ -13688,8 +13686,7 @@ klass:              do {
                         local.jslint_lite.errorText +=
                             (' #' + String(lineno) + ' ').slice(-4) +
                             '\u001b[33m' + error.reason +
-                            '\u001b[39m\n    ' +
-                            String(error.evidence).trim() +
+                            '\u001b[39m\n    ' + String(error.evidence).trim() +
                             '\u001b[90m \/\/ Line ' + error.line +
                             ', Pos ' + error.character + '\u001b[39m\n';
                     }
@@ -13752,10 +13749,7 @@ klass:              do {
             process.argv.slice(2).forEach(function (arg) {
                 if (arg[0] !== '-') {
                     local.jslint_lite.jslintAndPrint(
-                        local.fs.readFileSync(
-                            local.path.resolve(arg),
-                            'utf8'
-                        ),
+                        local.fs.readFileSync(local.path.resolve(arg), 'utf8'),
                         arg
                     );
                 }
