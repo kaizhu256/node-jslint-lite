@@ -268,7 +268,7 @@ shExampleSh
     "description": "lightweight web module for jslint and csslint \
 with zero npm dependencies",
     "devDependencies": {
-        "utility2": "2015.3.19-10",
+        "utility2": "2015.3.19-11",
         "phantomjs-lite": "^2015.1.4-103"
     },
     "engines": { "node": ">=0.10 <=0.12" },
