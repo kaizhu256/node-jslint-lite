@@ -68,7 +68,7 @@
             local.utility2.testMock([
                 // suppress console.error
                 [console, { error: local.utility2.nop }]
-            ], onError, function (onError) {
+            ], function (onError) {
                 // test csslint failed handling behavior
                 local.jslint_lite.jslintAndPrint('syntax error', 'failed.css');
                 // validate error occurred
@@ -111,7 +111,7 @@
                     local.jslint_lite.errorText
                 );
                 onError();
-            });
+            }, onError);
         };
     }());
     switch (local.modeJs) {
@@ -168,7 +168,7 @@
         };
         // init assets
         local['/'] =
-            local.utility2.textFormat(local.fs
+            local.utility2.stringFormat(local.fs
                 .readFileSync(__dirname + '/README.md', 'utf8')
                 .replace(
                     (/[\S\s]+?(<!DOCTYPE html>[\S\s]+?<\/html>)[\S\s]+/),
@@ -202,11 +202,11 @@
             );
         // init server-middlewares
         local.serverMiddlewareList = [
-            function (request, response, onNext) {
+            function (request, response, nextMiddleware) {
                 /*
                     this function will run the main test-middleware
                 */
-                switch (request.urlPathNormalized) {
+                switch (request.urlParsed.pathnameNormalized) {
                 // serve assets
                 case '/':
                 case '/assets/jslint-lite.js':
@@ -214,11 +214,11 @@
                 case '/assets/utility2.js':
                 case '/test/script.html':
                 case '/test/test.js':
-                    response.end(local[request.urlPathNormalized]);
+                    response.end(local[request.urlParsed.pathnameNormalized]);
                     break;
                 // default to next middleware
                 default:
-                    onNext();
+                    nextMiddleware();
                 }
             }
         ];
