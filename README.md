@@ -1,6 +1,6 @@
 jslint-lite [![NPM](https://img.shields.io/npm/v/jslint-lite.svg?style=flat-square)](https://www.npmjs.org/package/jslint-lite)
 ===========
-lightweight web module for jslint and csslint with zero npm dependencies
+lightweight browser version of jslint and csslint with zero npm dependencies
 
 
 
@@ -22,7 +22,7 @@ lightweight web module for jslint and csslint with zero npm dependencies
 
 
 # quickstart web example
-#### follow the instruction in this script
+#### to run this example, read the instruction inside the script below
 ```
 /*
 example.js
@@ -39,7 +39,7 @@ instruction
 
 /*jslint
     browser: true,
-    maxerr: 4,
+    maxerr: 8,
     maxlen: 80,
     node: true,
     nomen: true,
@@ -215,7 +215,7 @@ target="_blank">\n' +
 
 
 # quickstart command-line example
-#### follow the instruction in this script
+#### to run this example, read the instruction inside the script below
 ```
 # example.sh
 
@@ -265,7 +265,7 @@ shExampleSh
     "_packageJson": true,
     "author": "kai zhu <kaizhu256@gmail.com>",
     "bin": { "jslint-lite": "index.js" },
-    "description": "lightweight web module for jslint and csslint \
+    "description": "lightweight browser version of jslint and csslint \
 with zero npm dependencies",
     "devDependencies": {
         "utility2": "2015.3.19-11",
@@ -289,7 +289,7 @@ with zero npm dependencies",
         "url" : "https://github.com/kaizhu256/node-jslint-lite.git"
     },
     "scripts": {
-        "build-ci": "node_modules/.bin/utility2 shRun shBuildCi",
+        "build-ci": "node_modules/.bin/utility2 shRun shReadmeBuild",
         "start": "npm_config_mode_auto_restart=1 \
 node_modules/.bin/utility2 shRun node test.js",
         "test": "node_modules/.bin/utility2 shRun shReadmePackageJsonExport && \
@@ -315,7 +315,7 @@ node_modules/.bin/utility2 test test.js"
 ```
 # build.sh
 # this shell script will run the build for this package
-shBuildCi() {
+shBuild() {
     # init env
     export npm_config_mode_slimerjs=1 || return $?
     . node_modules/.bin/utility2 && shInit || return $?
@@ -355,7 +355,7 @@ shBuildCi() {
     # if number of commits > 1024, then squash older commits
     shRun shGitBackupAndSquashAndPush 1024 > /dev/null || return $?
 }
-shBuildCi
+shBuild
 
 # save exit-code
 EXIT_CODE=$?
