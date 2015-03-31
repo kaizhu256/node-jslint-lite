@@ -22,7 +22,7 @@ lightweight browser version of jslint and csslint with zero npm dependencies
 
 
 # quickstart web example
-#### to run this example, read the instruction inside the script below
+#### to run this example, follow the instruction in the script below
 ```
 /*
 example.js
@@ -215,7 +215,7 @@ target="_blank">\n' +
 
 
 # quickstart command-line example
-#### to run this example, read the instruction inside the script below
+#### to run this example, follow the instruction in the script below
 ```
 # example.sh
 
@@ -268,8 +268,8 @@ shExampleSh
     "description": "lightweight browser version of jslint and csslint \
 with zero npm dependencies",
     "devDependencies": {
-        "utility2": "2015.3.24-11",
-        "phantomjs-lite": "^2015.3.24-11"
+        "utility2": "2015.3.30-10",
+        "phantomjs-lite": "2015.3.29-13"
     },
     "engines": { "node": ">=0.10 <=0.12" },
     "keywords": [

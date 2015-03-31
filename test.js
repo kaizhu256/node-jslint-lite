@@ -193,8 +193,9 @@
                 __filename,
                 'jslint-lite'
             );
-        // init server-middlewares
-        local.serverMiddlewareList = [
+        // init middleware
+        local.middleware = local.utility2.middlewareGroupCreate([
+            local.utility2.middlewareInit,
             function (request, response, nextMiddleware) {
                 /*
                     this function will run the main test-middleware
@@ -207,14 +208,27 @@
                 case '/assets/utility2.js':
                 case '/test/script.html':
                 case '/test/test.js':
-                    response.end(local[request.urlParsed.pathnameNormalized]);
+                    local.utility2.middlewareCacheControlLastModified(
+                        request,
+                        response,
+                        function () {
+                            local.utility2.serverRespondDataGzip(
+                                request,
+                                response,
+                                request.urlParsed.pathnameNormalized,
+                                local[request.urlParsed.pathnameNormalized]
+                            );
+                        }
+                    );
                     break;
-                // default to next middleware
+                // default to nextMiddleware
                 default:
                     nextMiddleware();
                 }
             }
-        ];
+        ]);
+        // init middleware error-handler
+        local.onMiddlewareError = local.utility2.onMiddlewareError;
         // run server-test
         local.utility2.testRunServer(local);
         // init dir

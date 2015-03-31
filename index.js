@@ -13605,10 +13605,11 @@ klass:              do {
         }());
         local.jslint_lite.jslintAndPrint = function (script, file, options) {
             /*
-                this function will jslint / csslint the script
-                and print any errors to stderr
+                this function will jslint / csslint the script and print any errors to stderr
             */
             var errorList, lineno;
+            // cleanup errors
+            local.jslint_lite.errors = 0;
             // cleanup errorText
             local.jslint_lite.errorText = '';
             // init lineno
@@ -13710,20 +13711,24 @@ klass:              do {
         local.jslint_lite.jslintTextarea = function () {
             /*
                 this function will jslint / csslint the text
-                in .jslintInputTextarea / .jslintInputTextarea
+                in .csslintInputTextarea / .jslintInputTextarea
             */
             // csslint .csslintInputTextarea
-            local.jslint_lite.jslintAndPrint((
-                document.querySelector('.csslintInputTextarea') || {}
-            ).value || '', 'csslintInputTextarea.css', { silent: true });
+            local.jslint_lite.jslintAndPrint(
+                (document.querySelector('.csslintInputTextarea') || {}).value || '',
+                'csslintInputTextarea.css',
+                { silent: true }
+            );
             (document.querySelector('.csslintOutputPre') || {})
                 .textContent = local.jslint_lite.errorText
                 .replace((/\u001b\[\d+m/g), '')
                 .trim();
             // jslint .jslintInputTextarea
-            local.jslint_lite.jslintAndPrint((
-                document.querySelector('.jslintInputTextarea') || {}
-            ).value || '', 'jslintInputTextarea.js', { silent: true });
+            local.jslint_lite.jslintAndPrint(
+                (document.querySelector('.jslintInputTextarea') || {}).value || '',
+                'jslintInputTextarea.js',
+                { silent: true }
+            );
             (document.querySelector('.jslintOutputPre') || {})
                 .textContent = local.jslint_lite.errorText
                 .replace((/\u001b\[\d+m/g), '')
@@ -13745,17 +13750,42 @@ klass:              do {
             '//' + local.fs.readFileSync(__filename, 'utf8');
         // run main module
         if (module === require.main) {
-            // jslint files in command-line
-            process.argv.slice(2).forEach(function (arg) {
-                if (arg[0] !== '-') {
-                    local.jslint_lite.jslintAndPrint(
-                        local.fs.readFileSync(local.path.resolve(arg), 'utf8'),
-                        arg
-                    );
-                }
-            });
-            // if error occurred, then exit with non-zero code
-            process.exit(local.jslint_lite.errors);
+            switch (process.argv[2]) {
+            case 'watchDir':
+                // watch and jslint modified files in dir
+                local.fs.readdirSync(process.argv[3]).forEach(function (file) {
+                    file = local.path.resolve(process.argv[3], file);
+                    if ((/\.(?:css|js|json)$/).test(file) && local.fs.statSync(file).isFile()) {
+                        local.fs.watchFile(file, {
+                            interval: 1000,
+                            persistent: false
+                        }, function (stat2, stat1) {
+                            if (stat2.mtime > stat1.mtime) {
+                                local.jslint_lite.jslintAndPrint(
+                                    local.fs.readFileSync(file, 'utf8'),
+                                    file
+                                );
+                            }
+                        });
+                    }
+                });
+                // start repl
+                global.local = local;
+                require('repl').start({ useGlobal: true });
+                break;
+            default:
+                // jslint files in command-line
+                process.argv.slice(2).forEach(function (arg) {
+                    if (arg[0] !== '-') {
+                        local.jslint_lite.jslintAndPrint(
+                            local.fs.readFileSync(local.path.resolve(arg), 'utf8'),
+                            arg
+                        );
+                    }
+                });
+                // if error occurred, then exit with non-zero code
+                process.exit(local.jslint_lite.errors);
+            }
         }
         break;
     }
