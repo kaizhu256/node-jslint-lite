@@ -268,8 +268,8 @@ shExampleSh
     "description": "lightweight browser version of jslint and csslint \
 with zero npm dependencies",
     "devDependencies": {
-        "utility2": "2015.3.30-10",
-        "phantomjs-lite": "2015.3.29-13"
+        "utility2": "2015.4.2-11",
+        "phantomjs-lite": "2015.4.1-12"
     },
     "engines": { "node": ">=0.10 <=0.12" },
     "keywords": [
@@ -359,6 +359,7 @@ shBuild
 
 # save exit-code
 EXIT_CODE=$?
+[ "$(node --version)" \< "v0.12" ] && exit $EXIT_CODE
 
 shBuildCleanup() {
     # this function will cleanup build-artifacts in local build dir
