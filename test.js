@@ -208,18 +208,15 @@
                 case '/assets/utility2.js':
                 case '/test/script.html':
                 case '/test/test.js':
-                    local.utility2.middlewareCacheControlLastModified(
-                        request,
-                        response,
-                        function () {
-                            local.utility2.serverRespondDataGzip(
+                    local.utility2
+                        .middlewareCacheControlLastModified(request, response, function () {
+                            local.utility2.serverRespondGzipCache(
                                 request,
                                 response,
                                 request.urlParsed.pathnameNormalized,
                                 local[request.urlParsed.pathnameNormalized]
                             );
-                        }
-                    );
+                        });
                     break;
                 // default to nextMiddleware
                 default:
