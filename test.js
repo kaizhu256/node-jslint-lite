@@ -6,38 +6,13 @@
     nomen: true,
     stupid: true,
 */
-(function () {
+(function (local) {
     'use strict';
-    var local;
 
 
 
     // run shared js-env code
     (function () {
-        // init local
-        local = {};
-        local.modeJs = (function () {
-            try {
-                return module.exports &&
-                    typeof process.versions.node === 'string' &&
-                    typeof require('http').createServer === 'function' &&
-                    'node';
-            } catch (errorCaughtNode) {
-                return typeof navigator.userAgent === 'string' &&
-                    typeof document.querySelector('body') === 'object' &&
-                    'browser';
-            }
-        }());
-        // init utility2
-        local.utility2 = local.modeJs === 'browser'
-            ? window.utility2
-            : require('utility2');
-        // init jslint_lite
-        local.jslint_lite = local.modeJs === 'browser'
-            ? window.jslint_lite
-            : require('./index.js');
-        // init istanbul_lite
-        local.istanbul_lite = local.utility2.local.istanbul_lite;
         // init tests
         local.testCase_ajax_404 = function (onError) {
             /*
@@ -115,24 +90,8 @@
 
 
 
-    // run browser js-env code
-    case 'browser':
-        // export local
-        window.local = local;
-        // run test
-        local.utility2.testRun(local);
-        break;
-
-
-
     // run node js-env code
     case 'node':
-        // export local
-        global.local = local;
-        // require modules
-        local.fs = require('fs');
-        local.path = require('path');
-        local.utility2 = require('utility2');
         // init tests
         local.testCase_testPage_default = function (onError) {
             /*
@@ -163,6 +122,30 @@
             }, onTaskEnd);
             onTaskEnd();
         };
+        break;
+    }
+    switch (local.modeJs) {
+
+
+
+    // run browser js-env code
+    case 'browser':
+        // export local
+        window.local = local;
+        // run test
+        local.utility2.testRun(local);
+        break;
+
+
+
+    // run node js-env code
+    case 'node':
+        // export local
+        global.local = local;
+        // require modules
+        local.fs = require('fs');
+        local.path = require('path');
+        local.utility2 = require('utility2');
         // init assets
         local['/'] =
             local.utility2.stringFormat(local.fs
@@ -245,4 +228,42 @@
         local.utility2.replStart({});
         break;
     }
-}());
+}((function () {
+    'use strict';
+    var local;
+
+
+
+    // run shared js-env code
+    (function () {
+        // init local
+        local = {};
+        local.modeJs = (function () {
+            try {
+                return module.exports &&
+                    typeof process.versions.node === 'string' &&
+                    typeof require('http').createServer === 'function' &&
+                    'node';
+            } catch (errorCaughtNode) {
+                return typeof navigator.userAgent === 'string' &&
+                    typeof document.querySelector('body') === 'object' &&
+                    'browser';
+            }
+        }());
+        // init global
+        local.global = local.modeJs === 'browser'
+            ? window
+            : global;
+        // init utility2
+        local.utility2 = local.modeJs === 'browser'
+            ? window.utility2
+            : require('utility2');
+        // init istanbul_lite
+        local.istanbul_lite = local.utility2.local.istanbul_lite;
+        // init jslint_lite
+        local.jslint_lite = local.modeJs === 'browser'
+            ? window.jslint_lite
+            : require('./index.js');
+    }());
+    return local;
+}())));
