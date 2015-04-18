@@ -145,7 +145,6 @@
         // require modules
         local.fs = require('fs');
         local.path = require('path');
-        local.utility2 = require('utility2');
         // init assets
         local['/'] =
             local.utility2.stringFormat(local.fs

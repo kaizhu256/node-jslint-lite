@@ -7,12 +7,8 @@
     nomen: true,
     stupid: true
 */
-(function () {
+(function (local) {
     'use strict';
-    var local;
-    // init local
-    local = {};
-    local.jslint_lite = {};
 
 
 
@@ -13591,18 +13587,6 @@ klass:              do {
 
     // run shared js-env code
     (function () {
-        local.modeJs = (function () {
-            try {
-                return module.exports &&
-                    typeof process.versions.node === 'string' &&
-                    typeof require('http').createServer === 'function' &&
-                    'node';
-            } catch (errorCaughtNode) {
-                return typeof navigator.userAgent === 'string' &&
-                    typeof document.querySelector('body') === 'object' &&
-                    'browser';
-            }
-        }());
         local.jslint_lite.jslintAndPrint = function (script, file, options) {
             /*
                 this function will jslint / csslint the script and print any errors to stderr
@@ -13764,4 +13748,34 @@ klass:              do {
         }
         break;
     }
-}());
+}((function () {
+    'use strict';
+    var local;
+
+
+
+    // run shared js-env code
+    (function () {
+        // init local
+        local = {};
+        local.modeJs = (function () {
+            try {
+                return module.exports &&
+                    typeof process.versions.node === 'string' &&
+                    typeof require('http').createServer === 'function' &&
+                    'node';
+            } catch (errorCaughtNode) {
+                return typeof navigator.userAgent === 'string' &&
+                    typeof document.querySelector('body') === 'object' &&
+                    'browser';
+            }
+        }());
+        // init global
+        local.global = local.modeJs === 'browser'
+            ? window
+            : global;
+        // init jslint_lite
+        local.jslint_lite = { local: local };
+    }());
+    return local;
+}())));
