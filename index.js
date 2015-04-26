@@ -13607,16 +13607,20 @@ klass:              do {
                 }
                 local.jslint_lite.errorText =
                     '\n\u001b[1m' + file + '\u001b[22m\n';
-                errorList.forEach(function (error) {
-                    local.jslint_lite.errorCounter += 1;
-                    lineno += 1;
-                    local.jslint_lite.errorText +=
-                        (' #' + String(lineno) + ' ').slice(-4) +
-                        '\u001b[33m' + error.type + ' - ' + error.message +
-                        '\u001b[39m\n    ' + String(error.evidence).trim() +
-                        '\u001b[90m \/\/ line ' + error.line +
-                        ', col ' + error.col + '\u001b[39m\n';
-                });
+                errorList
+                    .filter(function (error) {
+                        return error;
+                    })
+                    .forEach(function (error) {
+                        local.jslint_lite.errorCounter += 1;
+                        lineno += 1;
+                        local.jslint_lite.errorText +=
+                            (' #' + String(lineno) + ' ').slice(-4) +
+                            '\u001b[33m' + error.type + ' - ' + error.message +
+                            '\u001b[39m\n    ' + String(error.evidence).trim() +
+                            '\u001b[90m \/\/ line ' + error.line +
+                            ', col ' + error.col + '\u001b[39m\n';
+                    });
             // jslint script
             } else {
                 if (local.jslint_lite.JSLINT(script
@@ -13664,16 +13668,20 @@ klass:              do {
                 }
                 // if error occurred, then print colorized error messages
                 local.jslint_lite.errorText = '\n\u001b[1m' + file + '\u001b[22m\n';
-                local.jslint_lite.JSLINT.errors.forEach(function (error) {
-                    local.jslint_lite.errorCounter += 1;
-                    lineno += 1;
-                    local.jslint_lite.errorText +=
-                        (' #' + String(lineno) + ' ').slice(-4) +
-                        '\u001b[33m' + error.reason +
-                        '\u001b[39m\n    ' + String(error.evidence).trim() +
-                        '\u001b[90m \/\/ Line ' + error.line +
-                        ', Pos ' + error.character + '\u001b[39m\n';
-                });
+                local.jslint_lite.JSLINT.errors
+                    .filter(function (error) {
+                        return error;
+                    })
+                    .forEach(function (error) {
+                        local.jslint_lite.errorCounter += 1;
+                        lineno += 1;
+                        local.jslint_lite.errorText +=
+                            (' #' + String(lineno) + ' ').slice(-4) +
+                            '\u001b[33m' + error.reason +
+                            '\u001b[39m\n    ' + String(error.evidence).trim() +
+                            '\u001b[90m \/\/ Line ' + error.line +
+                            ', Pos ' + error.character + '\u001b[39m\n';
+                    });
             }
             // print error to stderr
             if (local.jslint_lite.errorText && !(options && options.silent)) {
