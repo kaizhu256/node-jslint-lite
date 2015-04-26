@@ -13593,7 +13593,7 @@ klass:              do {
             */
             var errorList, lineno;
             // cleanup errors
-            local.jslint_lite.errors = 0;
+            local.jslint_lite.errorCounter = 0;
             // cleanup errorText
             local.jslint_lite.errorText = '';
             // init lineno
@@ -13608,7 +13608,7 @@ klass:              do {
                 local.jslint_lite.errorText =
                     '\n\u001b[1m' + file + '\u001b[22m\n';
                 errorList.forEach(function (error) {
-                    local.jslint_lite.errors += 1;
+                    local.jslint_lite.errorCounter += 1;
                     lineno += 1;
                     local.jslint_lite.errorText +=
                         (' #' + String(lineno) + ' ').slice(-4) +
@@ -13665,16 +13665,14 @@ klass:              do {
                 // if error occurred, then print colorized error messages
                 local.jslint_lite.errorText = '\n\u001b[1m' + file + '\u001b[22m\n';
                 local.jslint_lite.JSLINT.errors.forEach(function (error) {
-                    if (error) {
-                        local.jslint_lite.errors += 1;
-                        lineno += 1;
-                        local.jslint_lite.errorText +=
-                            (' #' + String(lineno) + ' ').slice(-4) +
-                            '\u001b[33m' + error.reason +
-                            '\u001b[39m\n    ' + String(error.evidence).trim() +
-                            '\u001b[90m \/\/ Line ' + error.line +
-                            ', Pos ' + error.character + '\u001b[39m\n';
-                    }
+                    local.jslint_lite.errorCounter += 1;
+                    lineno += 1;
+                    local.jslint_lite.errorText +=
+                        (' #' + String(lineno) + ' ').slice(-4) +
+                        '\u001b[33m' + error.reason +
+                        '\u001b[39m\n    ' + String(error.evidence).trim() +
+                        '\u001b[90m \/\/ Line ' + error.line +
+                        ', Pos ' + error.character + '\u001b[39m\n';
                 });
             }
             // print error to stderr
@@ -13732,20 +13730,26 @@ klass:              do {
         // init assets
         local.jslint_lite['/assets/jslint-lite.js'] =
             '//' + local.fs.readFileSync(__filename, 'utf8');
-        // run main module
-        if (module === require.main) {
-            // jslint files in command-line
-            process.argv.slice(2).forEach(function (arg) {
-                if (arg[0] !== '-') {
-                    local.jslint_lite.jslintAndPrint(
-                        local.fs.readFileSync(local.path.resolve(arg), 'utf8'),
-                        arg
-                    );
-                }
-            });
-            // if error occurred, then exit with non-zero code
-            process.exit(local.jslint_lite.errors);
-        }
+        local.mainRun = function (options) {
+            /*
+                this function will run the main command-line program
+            */
+            if (module === require.main || (options && options.run)) {
+                // jslint files in command-line
+                process.argv.slice(2).forEach(function (arg) {
+                    if (arg[0] !== '-') {
+                        local.jslint_lite.jslintAndPrint(
+                            local.fs.readFileSync(local.path.resolve(arg), 'utf8'),
+                            arg
+                        );
+                    }
+                });
+                // if error occurred, then exit with non-zero code
+                process.exit(local.jslint_lite.errorCounter);
+            }
+        };
+        // run main command-line program
+        local.mainRun();
         break;
     }
 }((function () {

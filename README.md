@@ -17,7 +17,7 @@ lightweight browser version of jslint and csslint with zero npm dependencies
 
 
 # live test-server
-[![heroku.com test-server](https://kaizhu256.github.io/node-jslint-lite/build/screen-capture.herokuTest.slimerjs.png)](https://hrku01-jslint-lite-beta.herokuapp.com)
+[![heroku.com test-server](https://kaizhu256.github.io/node-jslint-lite/build/screen-capture.herokuTest.slimerjs..png)](https://hrku01-jslint-lite-beta.herokuapp.com)
 
 
 
@@ -67,94 +67,96 @@ instruction
 '<!DOCTYPE html>\n' +
 '<html>\n' +
 '<head>\n' +
-    '<meta charset="UTF-8">\n' +
-    '<title>\n' +
-    '{{envDict.npm_package_name}} [{{envDict.npm_package_version}}]\n' +
-    '</title>\n' +
-    '<link rel="stylesheet" href="/assets/utility2.css">\n' +
-    '<style>\n' +
-    '* {\n' +
-        'box-sizing: border-box;\n' +
-    '}\n' +
-    'body {\n' +
-        'background-color: #fff;\n' +
-        'font-family: Helvetical Neue, Helvetica, Arial, sans-serif;\n' +
-    '}\n' +
-    'body > div {\n' +
-        'margin-top: 20px;\n' +
-    '}\n' +
-    'textarea {\n' +
-        'font-family: monospace;\n' +
-        'height: 8em;\n' +
-        'width: 100%;\n' +
-    '}\n' +
-    '.csslintOutputPre {\n' +
-        'color: #f00;\n' +
-    '}\n' +
-    '.jslintOutputPre {\n' +
-        'color: #f00;\n' +
-    '}\n' +
-    '.testReportDiv {\n' +
-        'display: none;\n' +
-    '}\n' +
-    '</style>\n' +
+'    <meta charset="UTF-8">\n' +
+'    <title>\n' +
+'    {{envDict.npm_package_name}} [{{envDict.npm_package_version}}]\n' +
+'    </title>\n' +
+'    <link rel="stylesheet" href="/assets/utility2.css">\n' +
+'    <style>\n' +
+'    * {\n' +
+'        box-sizing: border-box;\n' +
+'    }\n' +
+'    body {\n' +
+'        background-color: #fff;\n' +
+'        font-family: Helvetical Neue, Helvetica, Arial, sans-serif;\n' +
+'    }\n' +
+'    body > div {\n' +
+'        margin-top: 20px;\n' +
+'    }\n' +
+'    textarea {\n' +
+'        font-family: monospace;\n' +
+'        height: 8em;\n' +
+'        width: 100%;\n' +
+'    }\n' +
+'    .csslintOutputPre {\n' +
+'        color: #f00;\n' +
+'    }\n' +
+'    .jslintOutputPre {\n' +
+'        color: #f00;\n' +
+'    }\n' +
+'    .testReportDiv {\n' +
+'        display: none;\n' +
+'    }\n' +
+'    </style>\n' +
+'    {{envDict.npm_config_html_head_extra}}\n' +
 '</head>\n' +
 '<body>\n' +
-    '<div class="ajaxProgressDiv" style="display: none;">\n' +
-    '<div class="ajaxProgressBarDiv ajaxProgressBarDivLoading">loading</div>\n' +
-    '</div>\n' +
-    '<h1>\n' +
-        '{{envDict.npm_package_name}} [{{envDict.npm_package_version}}]\n' +
-    '</h1>\n' +
-    '<h3>{{envDict.npm_package_description}}</h3>\n' +
-    '<div>edit or paste script below to\n' +
-    '<a href="http://www.jslint.com/lint.html#options" target="_blank">\n' +
-    'jslint</a>\n' +
-    '</div>\n' +
+'    <div class="ajaxProgressDiv" style="display: none;">\n' +
+'    <div class="ajaxProgressBarDiv ajaxProgressBarDivLoading" \
+>loading</div>\n' +
+'    </div>\n' +
+'    <h1 \
+>{{envDict.npm_package_name}} [{{envDict.npm_package_version}}]</h1>\n' +
+'    <h3>{{envDict.npm_package_description}}</h3>\n' +
+'    <div>edit or paste script below to\n' +
+'    <a href="http://www.jslint.com/lint.html#options" target="_blank">\n' +
+'    jslint</a>\n' +
+'    </div>\n' +
 '<textarea class="jslintInputTextarea">\n' +
 '/*jslint browser: true */\n' +
 'console.log("hello");\n' +
 '</textarea>\n' +
-    '<pre class="jslintOutputPre"></pre>\n' +
-    '<div>edit or paste script below to\n' +
-    '<a \
+'    <pre class="jslintOutputPre"></pre>\n' +
+'    <div>edit or paste script below to\n' +
+'    <a \
 href="https://github.com/CSSLint/csslint/wiki/Command-line-interface#options" \
 target="_blank">\n' +
-    'csslint</a>\n' +
-    '</div>\n' +
+'    csslint</a>\n' +
+'    </div>\n' +
 '<textarea class="csslintInputTextarea">\n' +
 '/*csslint box-model: false */\n' +
 'body {\n' +
-  'margin: 0px;\n' +
+'  margin: 0px;\n' +
 '}\n' +
 '</textarea>\n' +
-    '<pre class="csslintOutputPre"></pre>\n' +
-    '<div class="testReportDiv"></div>\n' +
-    '<script src="/assets/jslint-lite.js"></script>\n' +
-    '<script src="/assets/utility2.js"></script>\n' +
-    '<script src="/test/test.js"></script>\n' +
-    '<script>\n' +
-    'window.utility2 = window.utility2 || {};\n' +
-    'window.utility2.envDict = {\n' +
-        'npm_package_description: "{{envDict.npm_package_description}}",\n' +
-        'npm_package_name: "{{envDict.npm_package_name}}",\n' +
-        'npm_package_version: "{{envDict.npm_package_version}}"\n' +
-    '};\n' +
-    'document.querySelector(\n' +
-        '".csslintInputTextarea"\n' +
-    ').addEventListener("keyup", window.jslint_lite.jslintTextarea);\n' +
-    'document.querySelector(\n' +
-        '".jslintInputTextarea"\n' +
-    ').addEventListener("keyup", window.jslint_lite.jslintTextarea);\n' +
-    'window.jslint_lite.jslintTextarea();\n' +
-    '</script>\n' +
+'    <pre class="csslintOutputPre"></pre>\n' +
+'    <div class="testReportDiv"></div>\n' +
+'    <script src="/assets/jslint-lite.js"></script>\n' +
+'    <script src="/assets/utility2.js"></script>\n' +
+'    <script src="/test/test.js"></script>\n' +
+'    <script>\n' +
+'    window.utility2 = window.utility2 || {};\n' +
+'    window.utility2.envDict = {\n' +
+'        npm_package_description: "{{envDict.npm_package_description}}",\n' +
+'        npm_package_name: "{{envDict.npm_package_name}}",\n' +
+'        npm_package_version: "{{envDict.npm_package_version}}"\n' +
+'    };\n' +
+'    document.querySelector(\n' +
+'        ".csslintInputTextarea"\n' +
+'    ).addEventListener("keyup", window.jslint_lite.jslintTextarea);\n' +
+'    document.querySelector(\n' +
+'        ".jslintInputTextarea"\n' +
+'    ).addEventListener("keyup", window.jslint_lite.jslintTextarea);\n' +
+'    window.jslint_lite.jslintTextarea();\n' +
+'    </script>\n' +
+'    {{envDict.npm_config_html_body_extra}}\n' +
 '</body>\n' +
 '</html>\n' +
 /* jslint-ignore-end */
 
 
 
-            String()).replace((/\{\{envDict\.\w+?\}\}/g), function (match0) {
+        String()).replace((/\{\{envDict\.\w+?\}\}/g), function (match0) {
             switch (match0) {
             case '{{envDict.npm_package_description}}':
                 return 'this is an example module';
@@ -162,16 +164,15 @@ target="_blank">\n' +
                 return 'example-module';
             case '{{envDict.npm_package_version}}':
                 return '0.0.1';
+            default:
+                return '';
             }
         });
         local['/assets/jslint-lite.js'] =
             local.jslint_lite['/assets/jslint-lite.js'];
-        local['/assets/utility2.css'] =
-            '';
-        local['/assets/utility2.js'] =
-            '';
-        local['/test/test.js'] =
-            '';
+        local['/assets/utility2.css'] = '';
+        local['/assets/utility2.js'] = '';
+        local['/test/test.js'] = '';
         // create server
         local.server = local.http.createServer(function (request, response) {
             switch (local.url.parse(request.url).pathname) {
@@ -210,7 +211,7 @@ target="_blank">\n' +
 #### output from shell
 [![screen-capture](https://kaizhu256.github.io/node-jslint-lite/build/screen-capture.testExampleJs.png)](https://travis-ci.org/kaizhu256/node-jslint-lite)
 #### output from phantomjs-lite
-[![screen-capture](https://kaizhu256.github.io/node-jslint-lite/build/screen-capture.testExampleJs.slimerjs.png)](https://hrku01-jslint-lite-beta.herokuapp.com)
+[![screen-capture](https://kaizhu256.github.io/node-jslint-lite/build/screen-capture.testExampleJs.slimerjs..png)](https://hrku01-jslint-lite-beta.herokuapp.com)
 
 
 
@@ -268,8 +269,8 @@ shExampleSh
     "description": "lightweight browser version of jslint and csslint \
 with zero npm dependencies",
     "devDependencies": {
-        "utility2": "2015.4.18-b",
-        "phantomjs-lite": "2015.4.9-a"
+        "utility2": "2015.4.26-b",
+        "phantomjs-lite": "2015.4.18-a"
     },
     "engines": { "node": ">=0.10 <=0.12" },
     "keywords": [
@@ -277,8 +278,7 @@ with zero npm dependencies",
         "csslint",
         "eshint", "eslint",
         "jshint", "jslint",
-        "light", "lightweight", "lint", "lite",
-        "utility2",
+        "lint",
         "web"
     ],
     "license": "MIT",
@@ -295,13 +295,20 @@ node_modules/.bin/utility2 shRun node test.js",
         "test": "node_modules/.bin/utility2 shRun shReadmePackageJsonExport && \
 node_modules/.bin/utility2 test test.js"
     },
-    "version": "2015.4.18-b"
+    "version": "2015.4.26-b"
 }
 ```
 
 
 
 # todo
+- none
+
+
+
+# change since 353e7570
+- npm publish 2015.4.26-b
+- fix stale screen-capture in README.md
 - none
 
 
@@ -337,6 +344,9 @@ shBuild() {
     # run npm-test
     MODE_BUILD=npmTest shRunScreenCapture npm test || return $?
 
+    # do not continue if running legacy-node
+    [ "$(node --version)" \< "v0.12" ] && return
+
     # deploy app to heroku
     shRun shHerokuDeploy hrku01-jslint-lite-$CI_BRANCH || return $?
 
@@ -345,7 +355,7 @@ shBuild() {
         [ "$CI_BRANCH" = beta ] ||
         [ "$CI_BRANCH" = master ]
     then
-        local TEST_URL="https://hrku01-jslint-lite-$CI_BRANCH.herokuapp.com" || \
+        TEST_URL="https://hrku01-jslint-lite-$CI_BRANCH.herokuapp.com" || \
             return $?
         TEST_URL="$TEST_URL?modeTest=phantom&_testSecret={{_testSecret}}" || \
             return $?
@@ -359,6 +369,8 @@ shBuild
 
 # save exit-code
 EXIT_CODE=$?
+
+# do not continue if running legacy-node
 [ "$(node --version)" \< "v0.12" ] && exit $EXIT_CODE
 
 shBuildCleanup() {

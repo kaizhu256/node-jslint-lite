@@ -16,8 +16,7 @@
         // init tests
         local.testCase_ajax_404 = function (onError) {
             /*
-                this function will test ajax's
-                404 http statusCode handling behavior
+                this function will test ajax's 404 http statusCode handling behavior
             */
             // test '/test/undefined'
             local.utility2.ajax({
@@ -32,10 +31,10 @@
                 }, onError);
             });
         };
+
         local.testCase_jslintAndPrint_default = function (onError) {
             /*
-                this function will test jslintAndPrint's
-                default handling behavior
+                this function will test jslintAndPrint's default handling behavior
             */
             local.utility2.testMock([
                 // suppress console.error
@@ -93,10 +92,31 @@
     // run node js-env code
     case 'node':
         // init tests
+        local.testCase_mainRun_default = function (onError) {
+            /*
+                this function will test mainRun's default handling behavior
+            */
+            local.utility2.testMock([
+                [process, {
+                    argv: [
+                        '',
+                        '',
+                        // test no jslint handling behavior
+                        '-',
+                        // test jslint handling behavior
+                        __filename
+                    ],
+                    exit: local.utility2.nop
+                }]
+            ], function (onError) {
+                local.jslint_lite.local.mainRun({ run: true });
+                onError();
+            }, onError);
+        };
+
         local.testCase_testPage_default = function (onError) {
             /*
-                this function will test the test-page's
-                default handling behavior
+                this function will test the test-page's default handling behavior
             */
             var onTaskEnd;
             onTaskEnd = local.utility2.onTaskEnd(onError);
@@ -110,12 +130,12 @@
                     '_testSecret={{_testSecret}}&' +
                     'timeoutDefault=' + local.utility2.timeoutDefault
             }, onTaskEnd);
-            // test standalone script handling behavior
+            // test script-only handling behavior
             onTaskEnd.counter += 1;
             local.utility2.phantomTest({
                 url: 'http://localhost:' +
                     local.utility2.envDict.npm_config_server_port +
-                    '/test/script.html' +
+                    '/test/script-only.html' +
                     '?modeTest=phantom&' +
                     '_testSecret={{_testSecret}}&' +
                     'timeoutDefault=' + local.utility2.timeoutDefault
@@ -146,35 +166,30 @@
         local.fs = require('fs');
         local.path = require('path');
         // init assets
-        local['/'] =
-            local.utility2.stringFormat(local.fs
-                .readFileSync(__dirname + '/README.md', 'utf8')
-                .replace((/[\S\s]+?(<!DOCTYPE html>[\S\s]+?<\/html>)[\S\s]+/), '$1')
-                // parse '\' line-continuation
-                .replace((/\\\n/g), '')
-                // remove "\\n' +" and "'"
-                .replace((/\\n' \+(\s*?)'/g), '$1'), { envDict: local.utility2.envDict });
-        local['/assets/jslint-lite.js'] =
-            local.istanbul_lite.instrumentInPackage(
-                local.jslint_lite['/assets/jslint-lite.js'],
-                __dirname + '/index.js',
-                'jslint-lite'
-            );
-        local['/assets/utility2.css'] =
-            local.utility2['/assets/utility2.css'];
-        local['/assets/utility2.js'] =
-            local.utility2['/assets/utility2.js'];
-        local['/test/script.html'] =
+        local['/'] = local.utility2.stringFormat(local.fs
+            .readFileSync(__dirname + '/README.md', 'utf8')
+            .replace((/[\S\s]+?(<!DOCTYPE html>[\S\s]+?<\/html>)[\S\s]+/), '$1')
+            // parse '\' line-continuation
+            .replace((/\\\n/g), '')
+            // remove "\\n' +" and "'"
+            .replace((/\\n' \+(\s*?)'/g), '$1'), { envDict: local.utility2.envDict }, '');
+        local['/assets/jslint-lite.js'] = local.istanbul_lite.instrumentInPackage(
+            local.jslint_lite['/assets/jslint-lite.js'],
+            __dirname + '/index.js',
+            'jslint-lite'
+        );
+        local['/assets/utility2.css'] = local.utility2['/assets/utility2.css'];
+        local['/assets/utility2.js'] = local.utility2['/assets/utility2.js'];
+        local['/test/script-only.html'] = '<h1>script-only test</h1>\n' +
             '<script src="/assets/utility2.js"></script>\n' +
             '<script src="/assets/jslint-lite.js"></script>\n' +
             '<script>window.jslint_lite.jslintTextarea()</script>\n' +
             '<script src="/test/test.js"></script>\n';
-        local['/test/test.js'] =
-            local.istanbul_lite.instrumentInPackage(
-                local.fs.readFileSync(__filename, 'utf8'),
-                __filename,
-                'jslint-lite'
-            );
+        local['/test/test.js'] = local.istanbul_lite.instrumentInPackage(
+            local.fs.readFileSync(__filename, 'utf8'),
+            __filename,
+            'jslint-lite'
+        );
         // init middleware
         local.middleware = local.utility2.middlewareGroupCreate([
             local.utility2.middlewareInit,
@@ -188,7 +203,7 @@
                 case '/assets/jslint-lite.js':
                 case '/assets/utility2.css':
                 case '/assets/utility2.js':
-                case '/test/script.html':
+                case '/test/script-only.html':
                 case '/test/test.js':
                     local.utility2
                         .middlewareCacheControlLastModified(request, response, function () {
