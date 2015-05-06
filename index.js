@@ -13738,12 +13738,13 @@ klass:              do {
         // init assets
         local.jslint_lite['/assets/jslint-lite.js'] =
             '//' + local.fs.readFileSync(__filename, 'utf8');
-        local.mainRun = function (options) {
+        // run the cli
+        local.cliRun = function (options) {
             /*
-                this function will run the main command-line program
+                this function will run the cli
             */
             if (module === require.main || (options && options.run)) {
-                // jslint files in command-line
+                // jslint files in cli
                 process.argv.slice(2).forEach(function (arg) {
                     if (arg[0] !== '-') {
                         local.jslint_lite.jslintAndPrint(
@@ -13756,8 +13757,7 @@ klass:              do {
                 process.exit(local.jslint_lite.errorCounter);
             }
         };
-        // run main command-line program
-        local.mainRun();
+        local.cliRun();
         break;
     }
 }((function () {

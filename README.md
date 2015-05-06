@@ -35,7 +35,7 @@ instruction
     2. run the shell command:
           $ npm install jslint-lite && node example.js
     3. open a browser to http://localhost:1337
-    4. edit or paste script in browser to jslint
+    4. edit or paste script in browser to interactively jslint
 */
 
 /*jslint
@@ -50,6 +50,9 @@ instruction
 (function () {
     'use strict';
     var local;
+
+
+
     // run node js-env code
     (function () {
         // init local
@@ -134,7 +137,6 @@ target="_blank">\n' +
 '    <div class="testReportDiv"></div>\n' +
 '    <script src="/assets/jslint-lite.js"></script>\n' +
 '    <script src="/assets/utility2.js"></script>\n' +
-'    <script src="/test/test.js"></script>\n' +
 '    <script>\n' +
 '    window.utility2 = window.utility2 || {};\n' +
 '    window.utility2.envDict = {\n' +
@@ -150,6 +152,7 @@ target="_blank">\n' +
 '    ).addEventListener("keyup", window.jslint_lite.jslintTextarea);\n' +
 '    window.jslint_lite.jslintTextarea();\n' +
 '    </script>\n' +
+'    <script src="/test/test.js"></script>\n' +
 '    {{envDict.npm_config_html_body_extra}}\n' +
 '</body>\n' +
 '</html>\n' +
@@ -216,7 +219,7 @@ target="_blank">\n' +
 
 
 
-# quickstart command-line example
+# quickstart cli example
 #### to run this example, follow the instruction in the script below
 ```
 # example.sh
@@ -270,7 +273,7 @@ shExampleSh
     "description": "lightweight browser version of jslint and csslint \
 with zero npm dependencies",
     "devDependencies": {
-        "utility2": "2015.4.26-c",
+        "utility2": "2015.5.6-c",
         "phantomjs-lite": "2015.4.26-c"
     },
     "engines": { "node": ">=0.10 <=0.12" },
@@ -296,7 +299,7 @@ node_modules/.bin/utility2 shRun node test.js",
         "test": "node_modules/.bin/utility2 shRun shReadmePackageJsonExport && \
 node_modules/.bin/utility2 test test.js"
     },
-    "version": "2015.4.26-c"
+    "version": "2015.5.6-a"
 }
 ```
 
@@ -307,11 +310,9 @@ node_modules/.bin/utility2 test test.js"
 
 
 
-# change since 6a46b139
-- npm publish 2015.4.26-c
-- re-enable error existence check in linted errorList
-- transpose build-status table
-- fix w3.org validation for main-page
+# change since 202d5887
+- npm publish 2015.5.6-a
+- rename mainRun to cliRun
 - none
 
 
@@ -347,7 +348,7 @@ shBuild() {
     # run npm-test
     MODE_BUILD=npmTest shRunScreenCapture npm test || return $?
 
-    # do not continue if running legacy-node
+    # if running legacy-node, then do not continue
     [ "$(node --version)" \< "v0.12" ] && return
 
     # deploy app to heroku
@@ -373,9 +374,6 @@ shBuild
 # save exit-code
 EXIT_CODE=$?
 
-# do not continue if running legacy-node
-[ "$(node --version)" \< "v0.12" ] && exit $EXIT_CODE
-
 shBuildCleanup() {
     # this function will cleanup build-artifacts in local build dir
     # create package-listing
@@ -390,6 +388,9 @@ shBuildGithubUploadCleanup() {
     # this function will cleanup build-artifacts in local gh-pages repo
     return
 }
+
+# if running legacy-node, then do not continue
+[ "$(node --version)" \< "v0.12" ] && exit $EXIT_CODE
 
 # upload build-artifacts to github,
 # and if number of commits > 16, then squash older commits

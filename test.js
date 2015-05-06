@@ -4,7 +4,7 @@
     maxlen: 96,
     node: true,
     nomen: true,
-    stupid: true,
+    stupid: true
 */
 (function (local) {
     'use strict';
@@ -92,9 +92,9 @@
     // run node js-env code
     case 'node':
         // init tests
-        local.testCase_mainRun_default = function (onError) {
+        local.testCase_cliRun_default = function (onError) {
             /*
-                this function will test mainRun's default handling behavior
+                this function will test cliRun's default handling behavior
             */
             local.utility2.testMock([
                 [process, {
@@ -109,7 +109,7 @@
                     exit: local.utility2.nop
                 }]
             ], function (onError) {
-                local.jslint_lite.local.mainRun({ run: true });
+                local.jslint_lite.local.cliRun({ run: true });
                 onError();
             }, onError);
         };
@@ -166,66 +166,38 @@
         local.fs = require('fs');
         local.path = require('path');
         // init assets
-        local['/'] = local.utility2.stringFormat(local.fs
-            .readFileSync(__dirname + '/README.md', 'utf8')
-            .replace((/[\S\s]+?(<!DOCTYPE html>[\S\s]+?<\/html>)[\S\s]+/), '$1')
-            // parse '\' line-continuation
-            .replace((/\\\n/g), '')
-            // remove "\\n' +" and "'"
-            .replace((/\\n' \+(\s*?)'/g), '$1'), { envDict: local.utility2.envDict }, '');
-        local['/assets/jslint-lite.js'] = local.istanbul_lite.instrumentInPackage(
-            local.jslint_lite['/assets/jslint-lite.js'],
-            __dirname + '/index.js',
-            'jslint-lite'
-        );
-        local['/assets/utility2.css'] = local.utility2['/assets/utility2.css'];
-        local['/assets/utility2.js'] = local.utility2['/assets/utility2.js'];
-        local['/test/script-only.html'] = '<h1>script-only test</h1>\n' +
+        local.utility2.cacheDict.assets['/'] =
+            local.utility2.cacheDict.assets['/test/test.html'] =
+            local.utility2.stringFormat(local.fs
+                .readFileSync(__dirname + '/README.md', 'utf8')
+                // extract html
+                .replace((/[\S\s]+?(<!DOCTYPE html>[\S\s]+?<\/html>)[\S\s]+/), '$1')
+                // parse '\' line-continuation
+                .replace((/\\\n/g), '')
+                // remove "\\n' +" and "'"
+                .replace((/\\n' \+(\s*?)'/g), '$1'), { envDict: local.utility2.envDict }, '');
+        local.utility2.cacheDict.assets['/assets/jslint-lite.js'] =
+            local.utility2.istanbul_lite.instrumentInPackage(
+                local.jslint_lite['/assets/jslint-lite.js'],
+                __dirname + '/index.js',
+                'jslint-lite'
+            );
+        local.utility2.cacheDict.assets['/test/script-only.html'] =
+            '<h1>script-only test</h1>\n' +
             '<script src="/assets/utility2.js"></script>\n' +
             '<script src="/assets/jslint-lite.js"></script>\n' +
             '<script>window.jslint_lite.jslintTextarea()</script>\n' +
             '<script src="/test/test.js"></script>\n';
-        local['/test/test.js'] = local.istanbul_lite.instrumentInPackage(
-            local.fs.readFileSync(__filename, 'utf8'),
-            __filename,
-            'jslint-lite'
-        );
+        local.utility2.cacheDict.assets['/test/test.js'] =
+            local.utility2.istanbul_lite.instrumentInPackage(
+                local.fs.readFileSync(__filename, 'utf8'),
+                __filename,
+                'jslint-lite'
+            );
         // init middleware
         local.middleware = local.utility2.middlewareGroupCreate([
             local.utility2.middlewareInit,
-            function (request, response, nextMiddleware) {
-                /*
-                    this function will run the main test-middleware
-                */
-                // set main-page content-type to text/html
-                if (request.urlParsed.pathnameNormalized === '/') {
-                    local.utility2.serverRespondHeadSet(request, response, null, {
-                        'Content-Type': 'text/html; charset=UTF-8'
-                    });
-                }
-                switch (request.urlParsed.pathnameNormalized) {
-                // serve assets
-                case '/':
-                case '/assets/jslint-lite.js':
-                case '/assets/utility2.css':
-                case '/assets/utility2.js':
-                case '/test/script-only.html':
-                case '/test/test.js':
-                    local.utility2
-                        .middlewareCacheControlLastModified(request, response, function () {
-                            local.utility2.serverRespondGzipCache(
-                                request,
-                                response,
-                                request.urlParsed.pathnameNormalized,
-                                local[request.urlParsed.pathnameNormalized]
-                            );
-                        });
-                    break;
-                // default to nextMiddleware
-                default:
-                    nextMiddleware();
-                }
-            }
+            local.utility2.middlewareAssetsCached
         ]);
         // init middleware error-handler
         local.onMiddlewareError = local.utility2.onMiddlewareError;
@@ -234,15 +206,16 @@
         // init dir
         local.fs.readdirSync(__dirname).forEach(function (file) {
             file = __dirname + '/' + file;
+            // if the file is modified, then restart the process
+            local.utility2.onFileModifiedRestart(file);
             switch (local.path.extname(file)) {
             case '.js':
             case '.json':
                 // jslint the file
-                local.jslint_lite.jslintAndPrint(local.fs.readFileSync(file, 'utf8'), file);
+                local.utility2.jslint_lite
+                    .jslintAndPrint(local.fs.readFileSync(file, 'utf8'), file);
                 break;
             }
-            // if the file is modified, then restart the process
-            local.utility2.onFileModifiedRestart(file);
         });
         // init repl debugger
         local.utility2.replStart();
@@ -278,8 +251,6 @@
         local.utility2 = local.modeJs === 'browser'
             ? window.utility2
             : require('utility2');
-        // init istanbul_lite
-        local.istanbul_lite = local.utility2.local.istanbul_lite;
         // init jslint_lite
         local.jslint_lite = local.modeJs === 'browser'
             ? window.jslint_lite
