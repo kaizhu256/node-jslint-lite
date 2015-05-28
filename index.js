@@ -13732,6 +13732,7 @@ klass:              do {
     case 'node':
         // export jslint_lite
         module.exports = local.jslint_lite;
+        module.exports.__dirname = __dirname;
         // require modules
         local.fs = require('fs');
         local.path = require('path');

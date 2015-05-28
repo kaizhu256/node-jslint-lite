@@ -1,6 +1,8 @@
-jslint-lite [![NPM](https://img.shields.io/npm/v/jslint-lite.svg?style=flat-square)](https://www.npmjs.org/package/jslint-lite)
+jslint-lite
 ===========
-lightweight browser version of jslint and csslint with zero npm dependencies
+minimal browser version of jslint and csslint with zero npm dependencies
+
+[![NPM](https://img.shields.io/npm/v/jslint-lite.svg?style=flat-square)](https://www.npmjs.org/package/jslint-lite)
 
 
 
@@ -13,17 +15,33 @@ lightweight browser version of jslint and csslint with zero npm dependencies
 
 [![build commit status](https://kaizhu256.github.io/node-jslint-lite/build/build.badge.svg)](https://travis-ci.org/kaizhu256/node-jslint-lite)
 
-| git-branch | [master](https://github.com/kaizhu256/node-jslint-lite/tree/master) | [beta](https://github.com/kaizhu256/node-jslint-lite/tree/beta) | [alpha](https://github.com/kaizhu256/node-jslint-lite/tree/alpha)|
-|:--|:--|:--|:--|
-| test-server | [![heroku.com test-server](https://kaizhu256.github.io/node-jslint-lite/heroku-logo.75x25.png)](https://hrku01-jslint-lite-master.herokuapp.com) | [![heroku.com test-server](https://kaizhu256.github.io/node-jslint-lite/heroku-logo.75x25.png)](https://hrku01-jslint-lite-beta.herokuapp.com) | [![heroku.com test-server](https://kaizhu256.github.io/node-jslint-lite/heroku-logo.75x25.png)](https://hrku01-jslint-lite-alpha.herokuapp.com)|
-| test-report | [![test-report](https://kaizhu256.github.io/node-jslint-lite/build..master..travis-ci.org/test-report.badge.svg)](https://kaizhu256.github.io/node-jslint-lite/build..master..travis-ci.org/test-report.html) | [![test-report](https://kaizhu256.github.io/node-jslint-lite/build..beta..travis-ci.org/test-report.badge.svg)](https://kaizhu256.github.io/node-jslint-lite/build..beta..travis-ci.org/test-report.html) | [![test-report](https://kaizhu256.github.io/node-jslint-lite/build..alpha..travis-ci.org/test-report.badge.svg)](https://kaizhu256.github.io/node-jslint-lite/build..alpha..travis-ci.org/test-report.html)|
-| coverage | [![istanbul-lite coverage](https://kaizhu256.github.io/node-jslint-lite/build..master..travis-ci.org/coverage.badge.svg)](https://kaizhu256.github.io/node-jslint-lite/build..master..travis-ci.org/coverage.html/node-jslint-lite/index.html) | [![istanbul-lite coverage](https://kaizhu256.github.io/node-jslint-lite/build..beta..travis-ci.org/coverage.badge.svg)](https://kaizhu256.github.io/node-jslint-lite/build..beta..travis-ci.org/coverage.html/node-jslint-lite/index.html) | [![istanbul-lite coverage](https://kaizhu256.github.io/node-jslint-lite/build..alpha..travis-ci.org/coverage.badge.svg)](https://kaizhu256.github.io/node-jslint-lite/build..alpha..travis-ci.org/coverage.html/node-jslint-lite/index.html)|
-| build-artifacts | [![build-artifacts](https://kaizhu256.github.io/node-jslint-lite/glyphicons_144_folder_open.png)](https://github.com/kaizhu256/node-jslint-lite/tree/gh-pages/build..master..travis-ci.org) | [![build-artifacts](https://kaizhu256.github.io/node-jslint-lite/glyphicons_144_folder_open.png)](https://github.com/kaizhu256/node-jslint-lite/tree/gh-pages/build..beta..travis-ci.org) | [![build-artifacts](https://kaizhu256.github.io/node-jslint-lite/glyphicons_144_folder_open.png)](https://github.com/kaizhu256/node-jslint-lite/tree/gh-pages/build..alpha..travis-ci.org)|
+| git-branch : | [master](https://github.com/kaizhu256/node-jslint-lite/tree/master) | [beta](https://github.com/kaizhu256/node-jslint-lite/tree/beta) | [alpha](https://github.com/kaizhu256/node-jslint-lite/tree/alpha)|
+|--:|:--|:--|:--|
+| test-server : | [![heroku.com test-server](https://kaizhu256.github.io/node-jslint-lite/heroku-logo.75x25.png)](https://hrku01-jslint-lite-master.herokuapp.com) | [![heroku.com test-server](https://kaizhu256.github.io/node-jslint-lite/heroku-logo.75x25.png)](https://hrku01-jslint-lite-beta.herokuapp.com) | [![heroku.com test-server](https://kaizhu256.github.io/node-jslint-lite/heroku-logo.75x25.png)](https://hrku01-jslint-lite-alpha.herokuapp.com)|
+| test-report : | [![test-report](https://kaizhu256.github.io/node-jslint-lite/build..master..travis-ci.org/test-report.badge.svg)](https://kaizhu256.github.io/node-jslint-lite/build..master..travis-ci.org/test-report.html) | [![test-report](https://kaizhu256.github.io/node-jslint-lite/build..beta..travis-ci.org/test-report.badge.svg)](https://kaizhu256.github.io/node-jslint-lite/build..beta..travis-ci.org/test-report.html) | [![test-report](https://kaizhu256.github.io/node-jslint-lite/build..alpha..travis-ci.org/test-report.badge.svg)](https://kaizhu256.github.io/node-jslint-lite/build..alpha..travis-ci.org/test-report.html)|
+| coverage : | [![istanbul-lite coverage](https://kaizhu256.github.io/node-jslint-lite/build..master..travis-ci.org/coverage.badge.svg)](https://kaizhu256.github.io/node-jslint-lite/build..master..travis-ci.org/coverage.html/node-jslint-lite/index.html) | [![istanbul-lite coverage](https://kaizhu256.github.io/node-jslint-lite/build..beta..travis-ci.org/coverage.badge.svg)](https://kaizhu256.github.io/node-jslint-lite/build..beta..travis-ci.org/coverage.html/node-jslint-lite/index.html) | [![istanbul-lite coverage](https://kaizhu256.github.io/node-jslint-lite/build..alpha..travis-ci.org/coverage.badge.svg)](https://kaizhu256.github.io/node-jslint-lite/build..alpha..travis-ci.org/coverage.html/node-jslint-lite/index.html)|
+| build-artifacts : | [![build-artifacts](https://kaizhu256.github.io/node-jslint-lite/glyphicons_144_folder_open.png)](https://github.com/kaizhu256/node-jslint-lite/tree/gh-pages/build..master..travis-ci.org) | [![build-artifacts](https://kaizhu256.github.io/node-jslint-lite/glyphicons_144_folder_open.png)](https://github.com/kaizhu256/node-jslint-lite/tree/gh-pages/build..beta..travis-ci.org) | [![build-artifacts](https://kaizhu256.github.io/node-jslint-lite/glyphicons_144_folder_open.png)](https://github.com/kaizhu256/node-jslint-lite/tree/gh-pages/build..alpha..travis-ci.org)|
+
+#### master branch
+- stable branch
+- HEAD should be tagged, npm-published package
+
+#### beta branch
+- stable branch
+- HEAD should be latest, npm-published package
+
+#### alpha branch
+- unstable branch
+- HEAD is arbitrary
+- commit history may be rewritten
 
 
 
 # quickstart web example
+
 #### to run this example, follow the instruction in the script below
+- example.js
+
 ```
 /*
 example.js
@@ -212,15 +230,20 @@ target="_blank">\n' +
     }());
 }());
 ```
+
 #### output from shell
 [![screen-capture](https://kaizhu256.github.io/node-jslint-lite/build/screen-capture.testExampleJs.png)](https://travis-ci.org/kaizhu256/node-jslint-lite)
+
 #### output from phantomjs-lite
 [![screen-capture](https://kaizhu256.github.io/node-jslint-lite/build/screen-capture.testExampleJs.slimerjs..png)](https://hrku01-jslint-lite-beta.herokuapp.com)
 
 
 
 # quickstart cli example
+
 #### to run this example, follow the instruction in the script below
+- example.sh
+
 ```
 # example.sh
 
@@ -249,6 +272,7 @@ shExampleSh() {
 }
 shExampleSh
 ```
+
 #### output from shell
 [![screen-capture](https://kaizhu256.github.io/node-jslint-lite/build/screen-capture.testExampleSh.png)](https://travis-ci.org/kaizhu256/node-jslint-lite)
 
@@ -270,11 +294,11 @@ shExampleSh
     "_packageJson": true,
     "author": "kai zhu <kaizhu256@gmail.com>",
     "bin": { "jslint-lite": "index.js" },
-    "description": "lightweight browser version of jslint and csslint \
+    "description": "minimal browser version of jslint and csslint \
 with zero npm dependencies",
     "devDependencies": {
-        "utility2": "2015.5.6-c",
-        "phantomjs-lite": "2015.4.26-c"
+        "utility2": "2015.5.15-f",
+        "phantomjs-lite": "^2015.4.26-c"
     },
     "engines": { "node": ">=0.10 <=0.12" },
     "keywords": [
@@ -296,10 +320,10 @@ with zero npm dependencies",
         "build-ci": "node_modules/.bin/utility2 shRun shReadmeBuild",
         "start": "npm_config_mode_auto_restart=1 \
 node_modules/.bin/utility2 shRun node test.js",
-        "test": "node_modules/.bin/utility2 shRun shReadmePackageJsonExport && \
+        "test": "node_modules/.bin/utility2 shRun shReadmeExportPackageJson && \
 node_modules/.bin/utility2 test test.js"
     },
-    "version": "2015.5.6-a"
+    "version": "2015.5.28-a"
 }
 ```
 
@@ -310,9 +334,10 @@ node_modules/.bin/utility2 test test.js"
 
 
 
-# change since 202d5887
-- npm publish 2015.5.6-a
-- rename mainRun to cliRun
+# change since f5e2d4d3
+- npm publish 2015.5.28-a
+- remove "instanceof Error" check for error validation tests
+- require explicit creation of deferred task utility2.onReady
 - none
 
 
@@ -323,10 +348,14 @@ node_modules/.bin/utility2 test test.js"
 
 
 # internal build-script
+- build.sh
+
 ```
 # build.sh
+
 # this shell script will run the build for this package
 shBuild() {
+    # this function will run the main build
     # init env
     export npm_config_mode_slimerjs=1 || return $?
     . node_modules/.bin/utility2 && shInit || return $?
@@ -337,9 +366,6 @@ shBuild() {
     # test example js script
     MODE_BUILD=testExampleJs \
         shRunScreenCapture shReadmeTestJs example.js || return $?
-    # copy phantomjs screen-capture to $npm_config_dir_build
-    cp /tmp/app/tmp/build/screen-capture.*.png $npm_config_dir_build || \
-        return $?
 
     # test example shell script
     MODE_BUILD=testExampleSh \
@@ -352,15 +378,15 @@ shBuild() {
     [ "$(node --version)" \< "v0.12" ] && return
 
     # deploy app to heroku
-    shRun shHerokuDeploy hrku01-jslint-lite-$CI_BRANCH || return $?
+    shRun shHerokuDeploy hrku01-$npm_package_name-$CI_BRANCH || return $?
 
     # test deployed app to heroku
     if [ "$CI_BRANCH" = alpha ] ||
         [ "$CI_BRANCH" = beta ] ||
         [ "$CI_BRANCH" = master ]
     then
-        TEST_URL="https://hrku01-jslint-lite-$CI_BRANCH.herokuapp.com" || \
-            return $?
+        TEST_URL="https://hrku01-$npm_package_name-$CI_BRANCH.herokuapp.com" \
+            || return $?
         TEST_URL="$TEST_URL?modeTest=phantom&_testSecret={{_testSecret}}" || \
             return $?
         MODE_BUILD=herokuTest shRun shPhantomTest $TEST_URL || return $?
