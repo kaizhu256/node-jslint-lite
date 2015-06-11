@@ -100,20 +100,20 @@
             /*
                 this function will test the test-page's default handling behavior
             */
-            var onTaskEnd;
-            onTaskEnd = local.utility2.onTaskEnd(onError);
-            onTaskEnd.counter += 1;
+            var onParallel;
+            onParallel = local.utility2.onParallel(onError);
+            onParallel.counter += 1;
             // test test-page handling behavior
-            onTaskEnd.counter += 1;
+            onParallel.counter += 1;
             local.utility2.phantomTest({
                 url: 'http://localhost:' +
                     local.utility2.envDict.npm_config_server_port +
                     '?modeTest=phantom&' +
                     '_testSecret={{_testSecret}}&' +
                     'timeoutDefault=' + local.utility2.timeoutDefault
-            }, onTaskEnd);
+            }, onParallel);
             // test script-only handling behavior
-            onTaskEnd.counter += 1;
+            onParallel.counter += 1;
             local.utility2.phantomTest({
                 url: 'http://localhost:' +
                     local.utility2.envDict.npm_config_server_port +
@@ -121,8 +121,8 @@
                     '?modeTest=phantom&' +
                     '_testSecret={{_testSecret}}&' +
                     'timeoutDefault=' + local.utility2.timeoutDefault
-            }, onTaskEnd);
-            onTaskEnd();
+            }, onParallel);
+            onParallel();
         };
         break;
     }
