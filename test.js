@@ -16,8 +16,8 @@
         // init tests
         local.testCase_jslintAndPrint_default = function (onError) {
             /*
-                this function will test jslintAndPrint's default handling behavior
-            */
+             * this function will test jslintAndPrint's default handling behavior
+             */
             local.utility2.testMock([
                 // suppress console.error
                 [console, { error: local.utility2.nop }]
@@ -76,8 +76,8 @@
         // init tests
         local.testCase_cliRun_default = function (onError) {
             /*
-                this function will test cliRun's default handling behavior
-            */
+             * this function will test cliRun's default handling behavior
+             */
             local.utility2.testMock([
                 [process, {
                     argv: [
@@ -98,8 +98,8 @@
 
         local.testCase_testPage_default = function (onError) {
             /*
-                this function will test the test-page's default handling behavior
-            */
+             * this function will test the test-page's default handling behavior
+             */
             var onParallel;
             onParallel = local.utility2.onParallel(onError);
             onParallel.counter += 1;
@@ -108,9 +108,7 @@
             local.utility2.phantomTest({
                 url: 'http://localhost:' +
                     local.utility2.envDict.npm_config_server_port +
-                    '?modeTest=phantom&' +
-                    '_testSecret={{_testSecret}}&' +
-                    'timeoutDefault=' + local.utility2.timeoutDefault
+                    '?modeTest=phantom&timeExit={{timeExit}}'
             }, onParallel);
             // test script-only handling behavior
             onParallel.counter += 1;
@@ -118,9 +116,7 @@
                 url: 'http://localhost:' +
                     local.utility2.envDict.npm_config_server_port +
                     '/test/script-only.html' +
-                    '?modeTest=phantom&' +
-                    '_testSecret={{_testSecret}}&' +
-                    'timeoutDefault=' + local.utility2.timeoutDefault
+                    '?modeTest=phantom&timeExit={{timeExit}}'
             }, onParallel);
             onParallel();
         };

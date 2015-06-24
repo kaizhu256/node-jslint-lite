@@ -12,6 +12,214 @@
 
 
 
+    // run shared js-env code
+    (function () {
+        local.jslint_lite.jslintAndPrint = function (script, file, options) {
+            /*
+             * this function will jslint / csslint the script and print any errors to stderr
+             */
+            var errorList, lineno;
+            // cleanup errors
+            local.jslint_lite.errorCounter = 0;
+            // cleanup errorText
+            local.jslint_lite.errorText = '';
+            // init lineno
+            lineno = 0;
+            // csslint script
+            if (file.slice(-4) === '.css') {
+                errorList = local.jslint_lite.CSSLint.verify(script).messages;
+                // if error occurred, then print colorized error messages
+                if (!errorList.length) {
+                    return script;
+                }
+                local.jslint_lite.errorText =
+                    '\n\u001b[1m' + file + '\u001b[22m\n';
+                errorList
+                    .filter(function (error) {
+                        return error;
+                    })
+                    .forEach(function (error) {
+                        local.jslint_lite.errorCounter += 1;
+                        lineno += 1;
+                        local.jslint_lite.errorText +=
+                            (' #' + String(lineno) + ' ').slice(-4) +
+                            '\u001b[33m' + error.type + ' - ' + error.message +
+                            '\u001b[39m\n    ' + String(error.evidence).trim() +
+                            '\u001b[90m \/\/ line ' + error.line +
+                            ', col ' + error.col + '\u001b[39m\n';
+                    });
+            // jslint script
+            } else {
+                if (local.jslint_lite.JSLINT(script
+                        // comment shebang
+                        .replace((/^#!/), '//')
+                        // indent text-block
+                        // /* jslint-indent-begin */ ... /* jslint-indent-end */
+                        .replace(
+
+
+
+/* jslint-indent-begin 28 */
+(function () {
+    /*jslint maxlen: 256*/
+    return (/^ *?\/\* jslint-indent-begin (\d+?) \*\/$[\S\s]+?^ *?\/\* jslint-indent-end \*\/$/gm);
+}()),
+/* jslint-indent-end */
+
+
+
+                            function (match0, match1) {
+                                return match0.replace(
+                                    (/(^ *\S)/gm),
+                                    new Array(Number(match1) + 1).join(' ') + '$1'
+                                );
+                            }
+                        )
+                        // ignore text-block
+                        // /* jslint-ignore-begin */ ... /* jslint-ignore-end */
+                        .replace(
+
+
+
+/* jslint-ignore-begin */
+(/^ *?\/\* jslint-ignore-begin \*\/$[\S\s]+?^ *?\/\* jslint-ignore-end \*\/$/gm),
+/* jslint-ignore-end */
+
+
+
+                            function (match0) {
+                                return match0.replace((/[\S\s]*?$/gm), '');
+                            }
+                        ))) {
+                    return script;
+                }
+                // if error occurred, then print colorized error messages
+                local.jslint_lite.errorText = '\n\u001b[1m' + file + '\u001b[22m\n';
+                local.jslint_lite.JSLINT.errors
+                    .filter(function (error) {
+                        return error;
+                    })
+                    .forEach(function (error) {
+                        local.jslint_lite.errorCounter += 1;
+                        lineno += 1;
+                        local.jslint_lite.errorText +=
+                            (' #' + String(lineno) + ' ').slice(-4) +
+                            '\u001b[33m' + error.reason +
+                            '\u001b[39m\n    ' + String(error.evidence).trim() +
+                            '\u001b[90m \/\/ Line ' + error.line +
+                            ', Pos ' + error.character + '\u001b[39m\n';
+                    });
+            }
+            // print error to stderr
+            if (local.jslint_lite.errorText && !(options && options.silent)) {
+                console.error(local.jslint_lite.errorText);
+            }
+            return script;
+        };
+    }());
+    switch (local.modeJs) {
+
+
+
+    // run browser js-env code
+    case 'browser':
+        // export jslint_lite
+        window.jslint_lite = local.jslint_lite;
+        local.jslint_lite.jslintTextarea = function () {
+            /*
+             * this function will jslint / csslint the text
+             * in .csslintInputTextarea / .jslintInputTextarea
+             */
+            // csslint .csslintInputTextarea
+            local.jslint_lite.jslintAndPrint(
+                (document.querySelector('.csslintInputTextarea') || {}).value || '',
+                'csslintInputTextarea.css',
+                { silent: true }
+            );
+            (document.querySelector('.csslintOutputPre') || {})
+                .textContent = local.jslint_lite.errorText
+                .replace((/\u001b\[\d+m/g), '')
+                .trim();
+            // jslint .jslintInputTextarea
+            local.jslint_lite.jslintAndPrint(
+                (document.querySelector('.jslintInputTextarea') || {}).value || '',
+                'jslintInputTextarea.js',
+                { silent: true }
+            );
+            (document.querySelector('.jslintOutputPre') || {})
+                .textContent = local.jslint_lite.errorText
+                .replace((/\u001b\[\d+m/g), '')
+                .trim();
+        };
+        break;
+
+
+
+    // run node js-env code
+    case 'node':
+        // export jslint_lite
+        module.exports = local.jslint_lite;
+        module.exports.__dirname = __dirname;
+        // require modules
+        local.fs = require('fs');
+        local.path = require('path');
+        // init assets
+        local.jslint_lite['/assets/jslint-lite.js'] =
+            '//' + local.fs.readFileSync(__filename, 'utf8');
+        // run the cli
+        local.cliRun = function (options) {
+            /*
+             * this function will run the cli
+             */
+            if (module === require.main || (options && options.run)) {
+                // jslint files in cli
+                process.argv.slice(2).forEach(function (arg) {
+                    if (arg[0] !== '-') {
+                        local.jslint_lite.jslintAndPrint(
+                            local.fs.readFileSync(local.path.resolve(arg), 'utf8'),
+                            arg
+                        );
+                    }
+                });
+                // if error occurred, then exit with non-zero code
+                process.exit(local.jslint_lite.errorCounter);
+            }
+        };
+        local.cliRun();
+        break;
+    }
+}((function () {
+    'use strict';
+    var local;
+
+
+
+    // run shared js-env code
+    (function () {
+        // init local
+        local = {};
+        local.modeJs = (function () {
+            try {
+                return module.exports &&
+                    typeof process.versions.node === 'string' &&
+                    typeof require('http').createServer === 'function' &&
+                    'node';
+            } catch (errorCaughtNode) {
+                return typeof navigator.userAgent === 'string' &&
+                    typeof document.querySelector('body') === 'object' &&
+                    'browser';
+            }
+        }());
+        // init global
+        local.global = local.modeJs === 'browser'
+            ? window
+            : global;
+        // init jslint_lite
+        local.jslint_lite = { local: local };
+    }());
+
+
+
     /* istanbul ignore next */
     (function () {
         var CSSLint;
@@ -13581,214 +13789,6 @@ klass:              do {
 }());
 /* jslint-ignore-end */
         local.jslint_lite.JSLINT = JSLINT;
-    }());
-
-
-
-    // run shared js-env code
-    (function () {
-        local.jslint_lite.jslintAndPrint = function (script, file, options) {
-            /*
-                this function will jslint / csslint the script and print any errors to stderr
-            */
-            var errorList, lineno;
-            // cleanup errors
-            local.jslint_lite.errorCounter = 0;
-            // cleanup errorText
-            local.jslint_lite.errorText = '';
-            // init lineno
-            lineno = 0;
-            // csslint script
-            if (file.slice(-4) === '.css') {
-                errorList = local.jslint_lite.CSSLint.verify(script).messages;
-                // if error occurred, then print colorized error messages
-                if (!errorList.length) {
-                    return script;
-                }
-                local.jslint_lite.errorText =
-                    '\n\u001b[1m' + file + '\u001b[22m\n';
-                errorList
-                    .filter(function (error) {
-                        return error;
-                    })
-                    .forEach(function (error) {
-                        local.jslint_lite.errorCounter += 1;
-                        lineno += 1;
-                        local.jslint_lite.errorText +=
-                            (' #' + String(lineno) + ' ').slice(-4) +
-                            '\u001b[33m' + error.type + ' - ' + error.message +
-                            '\u001b[39m\n    ' + String(error.evidence).trim() +
-                            '\u001b[90m \/\/ line ' + error.line +
-                            ', col ' + error.col + '\u001b[39m\n';
-                    });
-            // jslint script
-            } else {
-                if (local.jslint_lite.JSLINT(script
-                        // comment shebang
-                        .replace((/^#!/), '//')
-                        // indent text-block
-                        // /* jslint-indent-begin */ ... /* jslint-indent-end */
-                        .replace(
-
-
-
-/* jslint-indent-begin 28 */
-(function () {
-    /*jslint maxlen: 256*/
-    return (/^ *?\/\* jslint-indent-begin (\d+?) \*\/$[\S\s]+?^ *?\/\* jslint-indent-end \*\/$/gm);
-}()),
-/* jslint-indent-end */
-
-
-
-                            function (match0, match1) {
-                                return match0.replace(
-                                    (/(^ *\S)/gm),
-                                    new Array(Number(match1) + 1).join(' ') + '$1'
-                                );
-                            }
-                        )
-                        // ignore text-block
-                        // /* jslint-ignore-begin */ ... /* jslint-ignore-end */
-                        .replace(
-
-
-
-/* jslint-ignore-begin */
-(/^ *?\/\* jslint-ignore-begin \*\/$[\S\s]+?^ *?\/\* jslint-ignore-end \*\/$/gm),
-/* jslint-ignore-end */
-
-
-
-                            function (match0) {
-                                return match0.replace((/[\S\s]*?$/gm), '');
-                            }
-                        ))) {
-                    return script;
-                }
-                // if error occurred, then print colorized error messages
-                local.jslint_lite.errorText = '\n\u001b[1m' + file + '\u001b[22m\n';
-                local.jslint_lite.JSLINT.errors
-                    .filter(function (error) {
-                        return error;
-                    })
-                    .forEach(function (error) {
-                        local.jslint_lite.errorCounter += 1;
-                        lineno += 1;
-                        local.jslint_lite.errorText +=
-                            (' #' + String(lineno) + ' ').slice(-4) +
-                            '\u001b[33m' + error.reason +
-                            '\u001b[39m\n    ' + String(error.evidence).trim() +
-                            '\u001b[90m \/\/ Line ' + error.line +
-                            ', Pos ' + error.character + '\u001b[39m\n';
-                    });
-            }
-            // print error to stderr
-            if (local.jslint_lite.errorText && !(options && options.silent)) {
-                console.error(local.jslint_lite.errorText);
-            }
-            return script;
-        };
-    }());
-    switch (local.modeJs) {
-
-
-
-    // run browser js-env code
-    case 'browser':
-        // export jslint_lite
-        window.jslint_lite = local.jslint_lite;
-        local.jslint_lite.jslintTextarea = function () {
-            /*
-                this function will jslint / csslint the text
-                in .csslintInputTextarea / .jslintInputTextarea
-            */
-            // csslint .csslintInputTextarea
-            local.jslint_lite.jslintAndPrint(
-                (document.querySelector('.csslintInputTextarea') || {}).value || '',
-                'csslintInputTextarea.css',
-                { silent: true }
-            );
-            (document.querySelector('.csslintOutputPre') || {})
-                .textContent = local.jslint_lite.errorText
-                .replace((/\u001b\[\d+m/g), '')
-                .trim();
-            // jslint .jslintInputTextarea
-            local.jslint_lite.jslintAndPrint(
-                (document.querySelector('.jslintInputTextarea') || {}).value || '',
-                'jslintInputTextarea.js',
-                { silent: true }
-            );
-            (document.querySelector('.jslintOutputPre') || {})
-                .textContent = local.jslint_lite.errorText
-                .replace((/\u001b\[\d+m/g), '')
-                .trim();
-        };
-        break;
-
-
-
-    // run node js-env code
-    case 'node':
-        // export jslint_lite
-        module.exports = local.jslint_lite;
-        module.exports.__dirname = __dirname;
-        // require modules
-        local.fs = require('fs');
-        local.path = require('path');
-        // init assets
-        local.jslint_lite['/assets/jslint-lite.js'] =
-            '//' + local.fs.readFileSync(__filename, 'utf8');
-        // run the cli
-        local.cliRun = function (options) {
-            /*
-                this function will run the cli
-            */
-            if (module === require.main || (options && options.run)) {
-                // jslint files in cli
-                process.argv.slice(2).forEach(function (arg) {
-                    if (arg[0] !== '-') {
-                        local.jslint_lite.jslintAndPrint(
-                            local.fs.readFileSync(local.path.resolve(arg), 'utf8'),
-                            arg
-                        );
-                    }
-                });
-                // if error occurred, then exit with non-zero code
-                process.exit(local.jslint_lite.errorCounter);
-            }
-        };
-        local.cliRun();
-        break;
-    }
-}((function () {
-    'use strict';
-    var local;
-
-
-
-    // run shared js-env code
-    (function () {
-        // init local
-        local = {};
-        local.modeJs = (function () {
-            try {
-                return module.exports &&
-                    typeof process.versions.node === 'string' &&
-                    typeof require('http').createServer === 'function' &&
-                    'node';
-            } catch (errorCaughtNode) {
-                return typeof navigator.userAgent === 'string' &&
-                    typeof document.querySelector('body') === 'object' &&
-                    'browser';
-            }
-        }());
-        // init global
-        local.global = local.modeJs === 'browser'
-            ? window
-            : global;
-        // init jslint_lite
-        local.jslint_lite = { local: local };
     }());
     return local;
 }())));

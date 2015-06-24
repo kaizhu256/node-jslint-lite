@@ -37,6 +37,45 @@ minimal browser version of jslint and csslint with zero npm-dependencies
 
 
 
+# quickstart cli example
+
+#### to run this example, follow the instruction in the script below
+- example.sh
+
+```shell
+# example.sh
+
+# this shell script will
+    # npm install jslint-lite
+    # create foo.js
+    # create bar.css
+    # jslint foo.js and bar.css
+
+# instruction
+    # 1. copy and paste this entire shell script into a console and press enter
+    # 2. view jslint in console
+
+shExampleSh() {
+    # npm install jslint-lite
+    npm install jslint-lite || return $?
+
+    # create foo.js
+    printf "console.log('hello');" > foo.js || return $?
+
+    # create bar.css
+    printf "body { margin: 0px; }" > bar.css || return $?
+
+    # jslint foo.js and bar.css
+    node_modules/.bin/jslint-lite foo.js bar.css || :
+}
+shExampleSh
+```
+
+#### output from shell
+[![screen-capture](https://kaizhu256.github.io/node-jslint-lite/build/screen-capture.testExampleSh.png)](https://travis-ci.org/kaizhu256/node-jslint-lite)
+
+
+
 # quickstart web example
 
 #### to run this example, follow the instruction in the script below
@@ -239,45 +278,6 @@ target="_blank">\n' +
 
 
 
-# quickstart cli example
-
-#### to run this example, follow the instruction in the script below
-- example.sh
-
-```shell
-# example.sh
-
-# this shell script will
-    # npm install jslint-lite
-    # create foo.js
-    # create bar.css
-    # jslint foo.js and bar.css
-
-# instruction
-    # 1. copy and paste this entire shell script into a console and press enter
-    # 2. view jslint in console
-
-shExampleSh() {
-    # npm install jslint-lite
-    npm install jslint-lite || return $?
-
-    # create foo.js
-    printf "console.log('hello');" > foo.js || return $?
-
-    # create bar.css
-    printf "body { margin: 0px; }" > bar.css || return $?
-
-    # jslint foo.js and bar.css
-    node_modules/.bin/jslint-lite foo.js bar.css || :
-}
-shExampleSh
-```
-
-#### output from shell
-[![screen-capture](https://kaizhu256.github.io/node-jslint-lite/build/screen-capture.testExampleSh.png)](https://travis-ci.org/kaizhu256/node-jslint-lite)
-
-
-
 # npm-dependencies
 - none
 
@@ -296,7 +296,7 @@ shExampleSh
     "description": "minimal browser version of jslint and csslint \
 with zero npm-dependencies",
     "devDependencies": {
-        "utility2": "2015.6.1-b",
+        "utility2": "~2015.6.10-d",
         "phantomjs-lite": "^1.9.8-2015.6.1-b"
     },
     "engines": { "node": ">=0.10 <=0.12" },
@@ -322,7 +322,7 @@ node_modules/.bin/utility2 shRun node test.js",
         "test": "node_modules/.bin/utility2 shRun shReadmeExportPackageJson && \
 node_modules/.bin/utility2 test test.js"
     },
-    "version": "2015.6.1-a"
+    "version": "2015.6.2"
 }
 ```
 
@@ -333,9 +333,9 @@ node_modules/.bin/utility2 test test.js"
 
 
 
-# change since 153449fd
-- npm publish 2015.6.1-a
-- update README.md with syntax-highlighted code-blocks
+# change since a55e793d
+- npm publish 2015.6.2
+- fix versioning for latest npm
 - none
 
 
@@ -385,13 +385,9 @@ shBuild() {
     then
         TEST_URL="https://hrku01-$npm_package_name-$CI_BRANCH.herokuapp.com" \
             || return $?
-        TEST_URL="$TEST_URL?modeTest=phantom&_testSecret={{_testSecret}}" || \
-            return $?
+        TEST_URL="$TEST_URL?modeTest=phantom&timeExit={{timeExit}}" || return $?
         MODE_BUILD=herokuTest shPhantomTest "$TEST_URL" || return $?
     fi
-
-    # if number of commits > 1024, then squash older commits
-    shGitBackupAndSquashAndPush 1024 > /dev/null || return $?
 }
 shBuild
 
