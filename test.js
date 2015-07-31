@@ -14,29 +14,31 @@
     // run shared js-env code
     (function () {
         // init tests
-        local.testCase_jslintAndPrint_default = function (onError) {
+        local.testCase_jslintAndPrint_default = function (options, onError) {
             /*
-             * this function will test jslintAndPrint's default handling behavior
+             * this function will test jslintAndPrint's default handling-behavior
              */
+            // jslint-hack
+            local.utility2.nop(options);
             local.utility2.testMock([
                 // suppress console.error
                 [console, { error: local.utility2.nop }]
             ], function (onError) {
-                // test csslint failed handling behavior
+                // test csslint failed handling-behavior
                 local.jslint_lite.jslintAndPrint('syntax error', 'failed.css');
                 // validate error occurred
                 local.utility2.assert(
                     local.jslint_lite.errorText,
                     local.jslint_lite.errorText
                 );
-                // test jslint failed handling behavior
+                // test jslint failed handling-behavior
                 local.jslint_lite.jslintAndPrint('syntax error', 'failed.js');
                 // validate error occurred
                 local.utility2.assert(
                     local.jslint_lite.errorText,
                     local.jslint_lite.errorText
                 );
-                // test csslint passed handling behavior
+                // test csslint passed handling-behavior
                 local.jslint_lite.jslintAndPrint(
                     'body { font: normal; }',
                     'passed.css'
@@ -46,7 +48,7 @@
                     !local.jslint_lite.errorText,
                     local.jslint_lite.errorText
                 );
-                // test jslint passed handling behavior
+                // test jslint passed handling-behavior
                 local.jslint_lite.jslintAndPrint('{}', 'passed.js');
                 // validate no error occurred
                 local.utility2.assert(
@@ -54,7 +56,7 @@
                     local.jslint_lite.errorText
                 );
                 // test /* jslint-ignore-begin */ ... /* jslint-ignore-end */
-                // handling behavior
+                // handling-behavior
                 local.jslint_lite.jslintAndPrint('/* jslint-ignore-begin */\n' +
                     'syntax error\n' +
                     '/* jslint-ignore-end */\n', 'passed.js');
@@ -74,18 +76,20 @@
     // run node js-env code
     case 'node':
         // init tests
-        local.testCase_cliRun_default = function (onError) {
+        local.testCase_cliRun_default = function (options, onError) {
             /*
-             * this function will test cliRun's default handling behavior
+             * this function will test cliRun's default handling-behavior
              */
+            // jslint-hack
+            local.utility2.nop(options);
             local.utility2.testMock([
                 [process, {
                     argv: [
                         '',
                         '',
-                        // test no jslint handling behavior
+                        // test no jslint handling-behavior
                         '-',
-                        // test jslint handling behavior
+                        // test jslint handling-behavior
                         __filename
                     ],
                     exit: local.utility2.nop
@@ -96,21 +100,23 @@
             }, onError);
         };
 
-        local.testCase_testPage_default = function (onError) {
+        local.testCase_testPage_default = function (options, onError) {
             /*
-             * this function will test the test-page's default handling behavior
+             * this function will test the test-page's default handling-behavior
              */
             var onParallel;
+            // jslint-hack
+            local.utility2.nop(options);
             onParallel = local.utility2.onParallel(onError);
             onParallel.counter += 1;
-            // test test-page handling behavior
+            // test test-page handling-behavior
             onParallel.counter += 1;
             local.utility2.phantomTest({
                 url: 'http://localhost:' +
                     local.utility2.envDict.npm_config_server_port +
                     '?modeTest=phantom&timeExit={{timeExit}}'
             }, onParallel);
-            // test script-only handling behavior
+            // test script-only handling-behavior
             onParallel.counter += 1;
             local.utility2.phantomTest({
                 url: 'http://localhost:' +
@@ -170,8 +176,8 @@
             local.utility2.middlewareInit,
             local.utility2.middlewareAssetsCached
         ]);
-        // init middleware error-handler
-        local.onMiddlewareError = local.utility2.onMiddlewareError;
+        // init error-middleware
+        local.middlewareError = local.utility2.middlewareError;
         // run server-test
         local.utility2.testRunServer(local);
         // jslint dir

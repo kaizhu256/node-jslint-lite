@@ -56,18 +56,12 @@
                         // indent text-block
                         // /* jslint-indent-begin */ ... /* jslint-indent-end */
                         .replace(
-
-
-
 /* jslint-indent-begin 28 */
 (function () {
     /*jslint maxlen: 256*/
     return (/^ *?\/\* jslint-indent-begin (\d+?) \*\/$[\S\s]+?^ *?\/\* jslint-indent-end \*\/$/gm);
 }()),
 /* jslint-indent-end */
-
-
-
                             function (match0, match1) {
                                 return match0.replace(
                                     (/(^ *\S)/gm),
@@ -78,15 +72,9 @@
                         // ignore text-block
                         // /* jslint-ignore-begin */ ... /* jslint-ignore-end */
                         .replace(
-
-
-
 /* jslint-ignore-begin */
 (/^ *?\/\* jslint-ignore-begin \*\/$[\S\s]+?^ *?\/\* jslint-ignore-end \*\/$/gm),
 /* jslint-ignore-end */
-
-
-
                             function (match0) {
                                 return match0.replace((/[\S\s]*?$/gm), '');
                             }

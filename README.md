@@ -7,7 +7,7 @@ minimal browser version of jslint and csslint with zero npm-dependencies
 
 
 # live test-server
-[![heroku.com test-server](https://kaizhu256.github.io/node-jslint-lite/build/screen-capture.herokuTest.slimerjs..png)](https://hrku01-jslint-lite-beta.herokuapp.com)
+[![heroku.com test-server](https://kaizhu256.github.io/node-jslint-lite/build/screen-capture.herokuDeploy.slimerjs..png)](https://hrku01-jslint-lite-beta.herokuapp.com)
 
 
 
@@ -27,7 +27,7 @@ minimal browser version of jslint and csslint with zero npm-dependencies
 - HEAD should be tagged, npm-published package
 
 #### beta branch
-- stable branch
+- semi-stable branch
 - HEAD should be latest, npm-published package
 
 #### alpha branch
@@ -296,8 +296,8 @@ target="_blank">\n' +
     "description": "minimal browser version of jslint and csslint \
 with zero npm-dependencies",
     "devDependencies": {
-        "utility2": "~2015.6.10-d",
-        "phantomjs-lite": "^1.9.8-2015.6.1-b"
+        "utility2": "^2015.7.10",
+        "phantomjs-lite": "^2015.7.1"
     },
     "engines": { "node": ">=0.10 <=0.12" },
     "keywords": [
@@ -322,7 +322,7 @@ node_modules/.bin/utility2 shRun node test.js",
         "test": "node_modules/.bin/utility2 shRun shReadmeExportPackageJson && \
 node_modules/.bin/utility2 test test.js"
     },
-    "version": "2015.6.2"
+    "version": "2015.6.3"
 }
 ```
 
@@ -333,9 +333,11 @@ node_modules/.bin/utility2 test test.js"
 
 
 
-# change since a55e793d
-- npm publish 2015.6.2
-- fix versioning for latest npm
+# change since bd560eba
+- npm publish 2015.6.3
+- update README.md
+- update build-script
+- update test-cases
 - none
 
 
@@ -352,6 +354,7 @@ node_modules/.bin/utility2 test test.js"
 # build.sh
 
 # this shell script will run the build for this package
+
 shBuild() {
     # this function will run the main build
     # init env
@@ -359,7 +362,7 @@ shBuild() {
     . node_modules/.bin/utility2 && shInit || return $?
 
     # run npm-test on published package
-    shNpmTestPublished || return $?
+    shRun shNpmTestPublished || return $?
 
     # test example js script
     MODE_BUILD=testExampleJs \
@@ -376,7 +379,7 @@ shBuild() {
     [ "$(node --version)" \< "v0.12" ] && return
 
     # deploy app to heroku
-    shHerokuDeploy hrku01-$npm_package_name-$CI_BRANCH || return $?
+    shRun shHerokuDeploy hrku01-$npm_package_name-$CI_BRANCH || return $?
 
     # test deployed app to heroku
     if [ "$CI_BRANCH" = alpha ] ||
