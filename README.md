@@ -72,7 +72,7 @@ shExampleSh
 ```
 
 #### output from shell
-[![screen-capture](https://kaizhu256.github.io/node-jslint-lite/build/screen-capture.testExampleSh.png)](https://travis-ci.org/kaizhu256/node-jslint-lite)
+[![screen-capture](https://kaizhu256.github.io/node-jslint-lite/build/screen-capture.testExampleSh.svg)](https://travis-ci.org/kaizhu256/node-jslint-lite)
 
 
 
@@ -271,7 +271,7 @@ target="_blank">\n' +
 ```
 
 #### output from shell
-[![screen-capture](https://kaizhu256.github.io/node-jslint-lite/build/screen-capture.testExampleJs.png)](https://travis-ci.org/kaizhu256/node-jslint-lite)
+[![screen-capture](https://kaizhu256.github.io/node-jslint-lite/build/screen-capture.testExampleJs.svg)](https://travis-ci.org/kaizhu256/node-jslint-lite)
 
 #### output from phantomjs-lite
 [![screen-capture](https://kaizhu256.github.io/node-jslint-lite/build/screen-capture.testExampleJs.slimerjs..png)](https://hrku01-jslint-lite-beta.herokuapp.com)
@@ -284,7 +284,7 @@ target="_blank">\n' +
 
 
 # package-listing
-[![screen-capture](https://kaizhu256.github.io/node-jslint-lite/build/screen-capture.gitLsTree.png)](https://github.com/kaizhu256/node-jslint-lite)
+[![screen-capture](https://kaizhu256.github.io/node-jslint-lite/build/screen-capture.gitLsTree.svg)](https://github.com/kaizhu256/node-jslint-lite)
 
 
 
@@ -296,7 +296,7 @@ target="_blank">\n' +
     "description": "minimal browser version of jslint and csslint \
 with zero npm-dependencies",
     "devDependencies": {
-        "utility2": "^2015.7.10",
+        "utility2": "^2015.8.3",
         "phantomjs-lite": "^2015.7.1"
     },
     "engines": { "node": ">=0.10 <=0.12" },
@@ -343,7 +343,7 @@ node_modules/.bin/utility2 test test.js"
 
 
 # changelog of last 50 commits
-[![screen-capture](https://kaizhu256.github.io/node-jslint-lite/build/screen-capture.gitLog.png)](https://github.com/kaizhu256/node-jslint-lite/commits)
+[![screen-capture](https://kaizhu256.github.io/node-jslint-lite/build/screen-capture.gitLog.svg)](https://github.com/kaizhu256/node-jslint-lite/commits)
 
 
 
@@ -396,29 +396,13 @@ shBuild
 
 # save exit-code
 EXIT_CODE=$?
-
-shBuildCleanup() {
-    # this function will cleanup build-artifacts in local build dir
-    # create package-listing
-    MODE_BUILD=gitLsTree shRunScreenCapture shGitLsTree || return $?
-    # create recent changelog of last 50 commits
-    MODE_BUILD=gitLog shRunScreenCapture git log -50 --pretty="%ai\u000a%B" || \
-        return $?
-}
-shBuildCleanup || exit $?
-
-shBuildGithubUploadCleanup() {
-    # this function will cleanup build-artifacts in local gh-pages repo
-    return
-}
-
+# create package-listing
+MODE_BUILD=gitLsTree shRunScreenCapture shGitLsTree || exit $?
+# create recent changelog of last 50 commits
+MODE_BUILD=gitLog shRunScreenCapture git log -50 --pretty="%ai\u000a%B" || exit $?
 # if running legacy-node, then do not continue
 [ "$(node --version)" \< "v0.12" ] && exit $EXIT_CODE
-
-# upload build-artifacts to github,
-# and if number of commits > 16, then squash older commits
+# upload build-artifacts to github, and if number of commits > 16, then squash older commits
 COMMIT_LIMIT=16 shBuildGithubUpload || exit $?
-
-# exit with $EXIT_CODE
 exit $EXIT_CODE
 ```
