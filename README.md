@@ -98,7 +98,7 @@ instruction
 /*jslint
     browser: true,
     maxerr: 8,
-    maxlen: 80,
+    maxlen: 96,
     node: true,
     nomen: true,
     stupid: true
@@ -296,7 +296,7 @@ target="_blank">\n' +
     "description": "minimal browser version of jslint and csslint \
 with zero npm-dependencies",
     "devDependencies": {
-        "utility2": "^2015.8.3",
+        "utility2": "^2015.8.5",
         "phantomjs-lite": "^2015.7.1"
     },
     "engines": { "node": ">=0.10 <=0.12" },
