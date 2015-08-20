@@ -36,6 +36,18 @@ minimal browser version of jslint and csslint with zero npm-dependencies
 
 
 
+# documentation
+#### this package requires
+- darwin or linux os
+
+#### this package is derived from
+- jslint @ https://github.com/douglascrockford/JSLint/blob/394bf291bfa3881bb9827b9fc7b7d1112d83f313/jslint.js
+
+#### [api-doc](https://kaizhu256.github.io/node-jslint-lite/build/doc.api.html)
+[![api-doc](https://kaizhu256.github.io/node-jslint-lite/build/screen-capture.docApiCreate.slimerjs._2Fhome_2Ftravis_2Fbuild_2Fkaizhu256_2Fnode-jslint-lite_2Ftmp_2Fbuild_2Fdoc.api.html.png)](https://kaizhu256.github.io/node-jslint-lite/build/doc.api.html)
+
+
+
 # quickstart cli example
 #### to run this example, follow the instruction in the script below
 - example.sh
@@ -160,11 +172,9 @@ instruction
 '</head>\n' +
 '<body>\n' +
 '    <div class="ajaxProgressDiv" style="display: none;">\n' +
-'    <div class="ajaxProgressBarDiv ajaxProgressBarDivLoading" \
->loading</div>\n' +
+'    <div class="ajaxProgressBarDiv ajaxProgressBarDivLoading">loading</div>\n' +
 '    </div>\n' +
-'    <h1 \
->{{envDict.npm_package_name}} [{{envDict.npm_package_version}}]</h1>\n' +
+'    <h1>{{envDict.npm_package_name}} [{{envDict.npm_package_version}}]</h1>\n' +
 '    <h3>{{envDict.npm_package_description}}</h3>\n' +
 '    <div>edit or paste script below to\n' +
 '    <a href="http://www.jslint.com/lint.html#options" target="_blank">\n' +
@@ -290,8 +300,7 @@ target="_blank">\n' +
 {
     "author": "kai zhu <kaizhu256@gmail.com>",
     "bin": { "jslint-lite": "index.js" },
-    "description": "minimal browser version of jslint and csslint \
-with zero npm-dependencies",
+    "description": "minimal browser version of jslint and csslint with zero npm-dependencies",
     "devDependencies": {
         "utility2": "^2015.8.5",
         "phantomjs-lite": "^2015.7.1"
@@ -314,12 +323,16 @@ with zero npm-dependencies",
     },
     "scripts": {
         "build-ci": "node_modules/.bin/utility2 shRun shReadmeBuild",
-        "start": "npm_config_mode_auto_restart=1 \
-node_modules/.bin/utility2 shRun node test.js",
+        "build-doc": "node_modules/.bin/utility2 shRun shReadmeExportPackageJson && \
+node_modules/.bin/utility2 shRun shDocApiCreate \"{ \
+exampleFileList:['test.js','index.js'], \
+moduleDict:{'jslint-lite':{aliasList:['jslint_lite'],exports:require('./index.js')}} \
+}\"",
+        "start": "npm_config_mode_auto_restart=1 node_modules/.bin/utility2 shRun node test.js",
         "test": "node_modules/.bin/utility2 shRun shReadmeExportPackageJson && \
 node_modules/.bin/utility2 test test.js"
     },
-    "version": "2015.6.3"
+    "version": "2015.8.1"
 }
 ```
 
@@ -330,11 +343,9 @@ node_modules/.bin/utility2 test test.js"
 
 
 
-# change since bd560eba
-- npm publish 2015.6.3
-- update README.md
-- update build-script
-- update test-cases
+# change since 993bf918
+- npm publish 2015.8.1
+- add api documentation
 - none
 
 
@@ -362,15 +373,16 @@ shBuild() {
     shRun shNpmTestPublished || return $?
 
     # test example js script
-    MODE_BUILD=testExampleJs \
-        shRunScreenCapture shReadmeTestJs example.js || return $?
+    MODE_BUILD=testExampleJs shRunScreenCapture shReadmeTestJs example.js || return $?
 
     # test example shell script
-    MODE_BUILD=testExampleSh \
-        shRunScreenCapture shReadmeTestSh example.sh || return $?
+    MODE_BUILD=testExampleSh shRunScreenCapture shReadmeTestSh example.sh || return $?
 
     # run npm-test
     MODE_BUILD=npmTest shRunScreenCapture npm test || return $?
+
+    # create api-doc
+    npm run-script build-doc || return $?
 
     # if running legacy-node, then do not continue
     [ "$(node --version)" \< "v0.12" ] && return
@@ -383,8 +395,7 @@ shBuild() {
         [ "$CI_BRANCH" = beta ] ||
         [ "$CI_BRANCH" = master ]
     then
-        TEST_URL="https://hrku01-$npm_package_name-$CI_BRANCH.herokuapp.com" \
-            || return $?
+        TEST_URL="https://hrku01-$npm_package_name-$CI_BRANCH.herokuapp.com" || return $?
         TEST_URL="$TEST_URL?modeTest=phantom&timeExit={{timeExit}}" || return $?
         MODE_BUILD=herokuTest shPhantomTest "$TEST_URL" || return $?
     fi
