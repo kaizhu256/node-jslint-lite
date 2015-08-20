@@ -2,7 +2,7 @@ jslint-lite
 ===========
 minimal browser version of jslint and csslint with zero npm-dependencies
 
-[![NPM](https://img.shields.io/npm/v/jslint-lite.svg?style=flat-square)](https://www.npmjs.org/package/jslint-lite)
+[![NPM](https://img.shields.io/npm/v/jslint-lite.svg?style=flat-square)](https://www.npmjs.org/package/jslint-lite) [![NPM](https://img.shields.io/npm/dm/jslint-lite.svg?style=flat-square)](https://www.npmjs.org/package/jslint-lite)
 
 
 
@@ -12,7 +12,6 @@ minimal browser version of jslint and csslint with zero npm-dependencies
 
 
 # build-status [![travis-ci.org build-status](https://api.travis-ci.org/kaizhu256/node-jslint-lite.svg)](https://travis-ci.org/kaizhu256/node-jslint-lite)
-
 [![build commit status](https://kaizhu256.github.io/node-jslint-lite/build/build.badge.svg)](https://travis-ci.org/kaizhu256/node-jslint-lite)
 
 | git-branch : | [master](https://github.com/kaizhu256/node-jslint-lite/tree/master) | [beta](https://github.com/kaizhu256/node-jslint-lite/tree/beta) | [alpha](https://github.com/kaizhu256/node-jslint-lite/tree/alpha)|
@@ -38,7 +37,6 @@ minimal browser version of jslint and csslint with zero npm-dependencies
 
 
 # quickstart cli example
-
 #### to run this example, follow the instruction in the script below
 - example.sh
 
@@ -77,7 +75,6 @@ shExampleSh
 
 
 # quickstart web example
-
 #### to run this example, follow the instruction in the script below
 - example.js
 
