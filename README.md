@@ -305,7 +305,7 @@ target="_blank">\n' +
         "utility2": "^2015.8.5",
         "phantomjs-lite": "^2015.7.1"
     },
-    "engines": { "node": ">=0.10 <=0.12" },
+    "engines": { "node": ">=0.12" },
     "keywords": [
         "browser",
         "csslint",
@@ -332,7 +332,7 @@ moduleDict:{'jslint-lite':{aliasList:['jslint_lite'],exports:require('./index.js
         "test": "node_modules/.bin/utility2 shRun shReadmeExportPackageJson && \
 node_modules/.bin/utility2 test test.js"
     },
-    "version": "2015.8.1"
+    "version": "2015.9.1"
 }
 ```
 
@@ -343,9 +343,9 @@ node_modules/.bin/utility2 test test.js"
 
 
 
-# change since 993bf918
-- npm publish 2015.8.1
-- add api documentation
+# change since 3d215d18
+- npm publish 2015.9.1
+- upgrade to nodejs v4
 - none
 
 
@@ -385,7 +385,7 @@ shBuild() {
     npm run-script build-doc || return $?
 
     # if running legacy-node, then do not continue
-    [ "$(node --version)" \< "v0.12" ] && return
+    [ "$(node --version)" \< "v4.0" ] && return
 
     # deploy app to heroku
     shRun shHerokuDeploy hrku01-$npm_package_name-$CI_BRANCH || return $?
@@ -409,7 +409,7 @@ MODE_BUILD=gitLsTree shRunScreenCapture shGitLsTree || exit $?
 # create recent changelog of last 50 commits
 MODE_BUILD=gitLog shRunScreenCapture git log -50 --pretty="%ai\u000a%B" || exit $?
 # if running legacy-node, then do not continue
-[ "$(node --version)" \< "v0.12" ] && exit $EXIT_CODE
+[ "$(node --version)" \< "v4.0" ] && exit $EXIT_CODE
 # upload build-artifacts to github, and if number of commits > 16, then squash older commits
 COMMIT_LIMIT=16 shBuildGithubUpload || exit $?
 exit $EXIT_CODE
