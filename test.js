@@ -43,16 +43,15 @@
             break;
         // re-init local from example.js
         case 'node':
-            local = require('utility2').requireExampleJsFromReadme({
+            local = (module.utility2 || require('utility2')).requireExampleJsFromReadme({
                 __dirname: __dirname,
-                moduleExports: require('./index.js'),
+                module: module,
+                moduleExports: __dirname + '/index.js',
                 moduleName: 'jslint-lite'
-            }).exports;
-            local.jslint = require('./index.js');
+            });
+            local.jslint = local['jslint-lite'];
             break;
         }
-        // coverage-hack - re-init jslintAndPrint
-        local.utility2.jslintAndPrint = local.jslint.jslintAndPrint;
     }());
 
 
@@ -94,11 +93,27 @@
                 local.jslint.jslintAndPrint('syntax error', 'failed.js');
                 // validate error occurred
                 local.utility2.assert(local.jslint.errorText, local.jslint.errorText);
+                // test /* jslint-indent-begin */ ... /* jslint-indent-end */
+                // handling-behavior
+                local.jslint.jslintAndPrint('(function () {\n' +
+                    '    "use strict";\n' +
+                    '/* jslint-indent-begin 4 */\n' +
+                    'String();\n' +
+                    '/* jslint-indent-end */\n' +
+                    '}());\n', 'passed.js');
+                // validate no error occurred
+                local.utility2.assert(!local.jslint.errorText, local.jslint.errorText);
                 // test /* jslint-ignore-begin */ ... /* jslint-ignore-end */
                 // handling-behavior
                 local.jslint.jslintAndPrint('/* jslint-ignore-begin */\n' +
                     'syntax error\n' +
                     '/* jslint-ignore-end */\n', 'passed.js');
+                // validate no error occurred
+                local.utility2.assert(!local.jslint.errorText, local.jslint.errorText);
+                // test /* jslint-ignore-next-line */ ...
+                // handling-behavior
+                local.jslint.jslintAndPrint('/* jslint-ignore-next-line */\n' +
+                    'syntax error\n', 'passed.js');
                 // validate no error occurred
                 local.utility2.assert(!local.jslint.errorText, local.jslint.errorText);
                 onError();
@@ -120,6 +135,12 @@
             onParallel.counter += 1;
             options = {};
             options = [{
+                file: '/assets.app.js',
+                url: '/assets.app.js'
+            }, {
+                file: '/assets.app.min.js',
+                url: '/assets.app.min.js'
+            }, {
                 file: '/assets.example.js',
                 url: '/assets.example.js'
             }, {
@@ -129,14 +150,14 @@
                 file: '/assets.test.js',
                 url: '/assets.test.js'
             }, {
-                file: '/assets.utility2.js',
-                url: '/assets.utility2.js'
+                file: '/assets.utility2.rollup.js',
+                url: '/assets.utility2.rollup.js'
             }, {
                 file: '/index.html',
                 url: '/index.html'
             }, {
-                file: '/jsonp.utility2.stateGet',
-                url: '/jsonp.utility2.stateGet?callback=window.utility2.stateInit'
+                file: '/jsonp.utility2.stateInit',
+                url: '/jsonp.utility2.stateInit?callback=window.utility2.stateInit'
             }];
             options.forEach(function (options) {
                 onParallel.counter += 1;
@@ -147,7 +168,7 @@
                     switch (local.path.extname(options.file)) {
                     case '.js':
                     case '.json':
-                        local.utility2.jslintAndPrintIfNotCoverage(
+                        local.utility2.jslintAndPrintConditional(
                             xhr.responseText,
                             options.file
                         );
@@ -252,36 +273,60 @@
 
     // run node js-env code - post-init
     case 'node':
+        // run test-server
+        local.utility2.testRunServer(local);
         // init repl debugger
         local.utility2.replStart();
         // init assets
-        local.utility2.jslintAndPrintHtml(local['/'], 'index.html');
         local.utility2.assetsDict['/assets.jslint-lite.js'] =
             local.utility2.istanbulInstrumentInPackage(
                 local['/assets.jslint-lite.js'],
                 process.cwd() + '/index.js'
             );
-        // run test-server
-        local.utility2.testRunServer(local);
-        // debug dir
-        [
-            local.utility2.__dirname,
-            __dirname
-        ].forEach(function (dir) {
-            local.fs.readdirSync(dir).forEach(function (file) {
-                file = dir + '/' + file;
-                // if the file is modified, then restart the process
-                local.utility2.onFileModifiedRestart(file);
-                switch (local.path.extname(file)) {
-                // jslint file
-                case '.css':
-                case '.js':
-                case '.json':
-                    local.utility2.jslintAndPrint(local.fs.readFileSync(file, 'utf8'), file);
-                    break;
-                }
-            });
-        });
+        /* istanbul ignore next */
+        if (module.isRollup) {
+            break;
+        }
+        local.utility2.assetsDict['/assets.app.js'] = [
+            'header',
+            '/assets.utility2.rollup.js',
+            'local.utility2.stateInit',
+            '/assets.jslint-lite.js',
+            '/assets.example.js',
+            '/assets.test.js'
+        ].map(function (key) {
+            switch (key) {
+/* jslint-ignore-begin */
+case 'header':
+return '\
+/*\n\
+app.js\n\
+\n' + local.utility2.envDict.npm_package_description + '\n\
+\n\
+instruction\n\
+    1. save this script as app.js\n\
+    2. run the shell command:\n\
+        $ PORT=8081 node app.js\n\
+    3. open a browser to http://localhost:8081\n\
+    4. edit or paste script in browser to jslint and csslint\n\
+*/\n\
+';
+/* jslint-ignore-end */
+            case 'local.utility2.stateInit':
+                return '// ' + key + '\n' +
+                    local.utility2.assetsDict['/assets.utility2.rollup.content.js']
+                    .replace(
+                        '/* utility2.rollup.js content */',
+                        key + '(' + JSON.stringify(
+                            local.utility2.middlewareJsonpStateInit({ stateInit: true })
+                        ) + ');'
+                    );
+            default:
+                return '// ' + key + '\n' + local.utility2.assetsDict[key];
+            }
+        }).join('\n\n\n\n');
+        local.utility2.assetsDict['/assets.app.min.js'] =
+            local.utility2.uglifyIfProduction(local.utility2.assetsDict['/assets.app.js']);
         break;
     }
 }());

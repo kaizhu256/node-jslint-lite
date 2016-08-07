@@ -14,9 +14,10 @@ this package will run browser-compatible versions of jslint and csslint with zer
 #### todo
 - none
 
-#### change since ef0ab87f
-- npm publish 2015.6.1
-- move test-server from heroku to github
+#### change since bd992870
+- npm publish 2015.7.1
+- deploy standalone-app to heroku
+- rename local.utility2.middlewareJsonpStateGet to local.utility2.middlewareJsonpStateInit
 - none
 
 #### this package requires
@@ -24,7 +25,7 @@ this package will run browser-compatible versions of jslint and csslint with zer
 
 #### additional info
 - csslint derived from https://github.com/CSSLint/csslint/blob/v0.10.0/release/csslint.js
-- jslint derivied from https://github.com/douglascrockford/JSLint/blob/394bf291bfa3881bb9827b9fc7b7d1112d83f313/jslint.js (does not support es6)
+- jslint derivied from https://github.com/douglascrockford/JSLint/blob/394bf291bfa3881bb9827b9fc7b7d1112d83f313/jslint.js (this version does not support es6 or higher)
 
 #### api-doc
 - [https://kaizhu256.github.io/node-jslint-lite/build/doc.api.html](https://kaizhu256.github.io/node-jslint-lite/build/doc.api.html)
@@ -45,7 +46,8 @@ this package will run browser-compatible versions of jslint and csslint with zer
 
 | git-branch : | [master](https://github.com/kaizhu256/node-jslint-lite/tree/master) | [beta](https://github.com/kaizhu256/node-jslint-lite/tree/beta) | [alpha](https://github.com/kaizhu256/node-jslint-lite/tree/alpha)|
 |--:|:--|:--|:--|
-| test-server : | [![github.com test-server](https://kaizhu256.github.io/node-jslint-lite/GitHub-Mark-32px.png)](https://kaizhu256.github.io/node-jslint-lite/build..master..travis-ci.org/app/index.html) | [![github.com test-server](https://kaizhu256.github.io/node-jslint-lite/GitHub-Mark-32px.png)](https://kaizhu256.github.io/node-jslint-lite/build..beta..travis-ci.org/app/index.html) | [![github.com test-server](https://kaizhu256.github.io/node-jslint-lite/GitHub-Mark-32px.png)](https://kaizhu256.github.io/node-jslint-lite/build..alpha..travis-ci.org/app/index.html)|
+| test-server 1 : | [![github.com test-server](https://kaizhu256.github.io/node-jslint-lite/GitHub-Mark-32px.png)](https://kaizhu256.github.io/node-jslint-lite/build..master..travis-ci.org/app/index.html) | [![github.com test-server](https://kaizhu256.github.io/node-jslint-lite/GitHub-Mark-32px.png)](https://kaizhu256.github.io/node-jslint-lite/build..beta..travis-ci.org/app/index.html) | [![github.com test-server](https://kaizhu256.github.io/node-jslint-lite/GitHub-Mark-32px.png)](https://kaizhu256.github.io/node-jslint-lite/build..alpha..travis-ci.org/app/index.html)|
+| test-server 2 : | [![heroku.com test-server](https://kaizhu256.github.io/node-jslint-lite/heroku-logo.75x25.png)](https://hrku01-jslint-lite-master.herokuapp.com) | [![heroku.com test-server](https://kaizhu256.github.io/node-jslint-lite/heroku-logo.75x25.png)](https://hrku01-jslint-lite-beta.herokuapp.com) | [![heroku.com test-server](https://kaizhu256.github.io/node-jslint-lite/heroku-logo.75x25.png)](https://hrku01-jslint-lite-alpha.herokuapp.com)|
 | test-report : | [![test-report](https://kaizhu256.github.io/node-jslint-lite/build..master..travis-ci.org/test-report.badge.svg)](https://kaizhu256.github.io/node-jslint-lite/build..master..travis-ci.org/test-report.html) | [![test-report](https://kaizhu256.github.io/node-jslint-lite/build..beta..travis-ci.org/test-report.badge.svg)](https://kaizhu256.github.io/node-jslint-lite/build..beta..travis-ci.org/test-report.html) | [![test-report](https://kaizhu256.github.io/node-jslint-lite/build..alpha..travis-ci.org/test-report.badge.svg)](https://kaizhu256.github.io/node-jslint-lite/build..alpha..travis-ci.org/test-report.html)|
 | coverage : | [![istanbul coverage](https://kaizhu256.github.io/node-jslint-lite/build..master..travis-ci.org/coverage.badge.svg)](https://kaizhu256.github.io/node-jslint-lite/build..master..travis-ci.org/coverage.html/index.html) | [![istanbul coverage](https://kaizhu256.github.io/node-jslint-lite/build..beta..travis-ci.org/coverage.badge.svg)](https://kaizhu256.github.io/node-jslint-lite/build..beta..travis-ci.org/coverage.html/index.html) | [![istanbul coverage](https://kaizhu256.github.io/node-jslint-lite/build..alpha..travis-ci.org/coverage.badge.svg)](https://kaizhu256.github.io/node-jslint-lite/build..alpha..travis-ci.org/coverage.html/index.html)|
 | build-artifacts : | [![build-artifacts](https://kaizhu256.github.io/node-jslint-lite/glyphicons_144_folder_open.png)](https://github.com/kaizhu256/node-jslint-lite/tree/gh-pages/build..master..travis-ci.org) | [![build-artifacts](https://kaizhu256.github.io/node-jslint-lite/glyphicons_144_folder_open.png)](https://github.com/kaizhu256/node-jslint-lite/tree/gh-pages/build..beta..travis-ci.org) | [![build-artifacts](https://kaizhu256.github.io/node-jslint-lite/glyphicons_144_folder_open.png)](https://github.com/kaizhu256/node-jslint-lite/tree/gh-pages/build..alpha..travis-ci.org)|
@@ -81,7 +83,7 @@ instruction
     2. run the shell command:
         $ npm install jslint-lite && export PORT=8081 && node example.js
     3. open a browser to http://localhost:8081
-    4. edit or paste script in the browser to jslint
+    4. edit or paste script in browser to jslint and csslint
 */
 
 /* istanbul instrument in package jslint-lite */
@@ -119,6 +121,13 @@ instruction
                     'node';
             }
         }());
+        /* istanbul ignore next */
+        // re-init local
+        local = local.modeJs === 'browser'
+            ? window.utility2_jslint.local
+            : module.isRollup
+            ? module
+            : require('jslint-lite').local;
         // init global
         local.global = local.modeJs === 'browser'
             ? window
@@ -132,8 +141,6 @@ instruction
 
     // run browser js-env code - post-init
     case 'browser':
-        // require modules
-        local.jslint = local.global.utility2_jslint;
         /* istanbul ignore next */
         local.testRun = function (event) {
             switch (event && event.currentTarget.id) {
@@ -190,18 +197,9 @@ instruction
         // require modules
         local.fs = require('fs');
         local.http = require('http');
-        local.jslint = require('jslint-lite');
         local.path = require('path');
         local.url = require('url');
         // init assets
-        try {
-            local['/assets.example.js'] = local.fs.readFileSync(__filename, 'utf8');
-        } catch (ignore) {
-        }
-        local['/assets.jslint-lite.js'] = '//' + local.fs.readFileSync(
-            local.jslint.__dirname + '/index.js',
-            'utf8'
-        );
         /* jslint-ignore-begin */
         local.templateIndexHtml = '\
 <!doctype html>\n\
@@ -240,11 +238,27 @@ textarea {\n\
 </head>\n\
 <body>\n\
     <h1>\n\
-        <a target="_blank"\n\
-        >{{envDict.npm_package_name}} v{{envDict.npm_package_version}}</a>\n\
+<!-- utility2-comment\n\
+        <a\n\
+            {{#if envDict.npm_package_homepage}}\n\
+            href="{{envDict.npm_package_homepage}}"\n\
+            {{/if envDict.npm_package_homepage}}\n\
+            target="_blank"\n\
+        >\n\
+utility2-comment -->\n\
+            {{envDict.npm_package_name}} v{{envDict.npm_package_version}}\n\
+<!-- utility2-comment\n\
+        </a>\n\
+utility2-comment -->\n\
+<!-- utility2-comment\n\
+        {{#if envDict.NODE_ENV}}\n\
+        (NODE_ENV={{envDict.NODE_ENV}})\n\
+        {{/if envDict.NODE_ENV}}\n\
+utility2-comment -->\n\
     </h1>\n\
     <h3>{{envDict.npm_package_description}}</h3>\n\
 <!-- utility2-comment\n\
+    <h4><a download href="assets.app.js">download standalone app</a></h4>\n\
     <button id="testRunButton1">run internal test</button><br>\n\
 utility2-comment -->\n\
 \n\
@@ -274,26 +288,48 @@ body {\n\
 </textarea>\n\
     <pre id="outputPreCsslint1"></pre>\n\
     <div class="testReportDiv" style="display: none;"></div>\n\
+<!-- utility2-comment\n\
+    {{#if isRollup}}\n\
+    <script src="assets.app.min.js"></script>\n\
+    {{#unless isRollup}}\n\
+utility2-comment -->\n\
+    <script src="assets.utility2.rollup.js"></script>\n\
+    <script src="jsonp.utility2.stateInit?callback=window.utility2.stateInit"></script>\n\
     <script src="assets.jslint-lite.js"></script>\n\
     <script src="assets.example.js"></script>\n\
-    <script src="assets.utility2.js"></script>\n\
-    <script src="jsonp.utility2.stateGet?callback=window.utility2.stateInit"></script>\n\
     <script src="assets.test.js"></script>\n\
+<!-- utility2-comment\n\
+    {{/if isRollup}}\n\
+utility2-comment -->\n\
 </body>\n\
 </html>\n\
 ';
         /* jslint-ignore-end */
         local['/'] = local.templateIndexHtml
-            .replace((/\{\{envDict\.\w+?\}\}/g), function (match0) {
-                switch (match0) {
-                case '{{envDict.npm_package_description}}':
-                    return 'undefined module';
-                case '{{envDict.npm_package_name}}':
-                    return 'undefined';
-                case '{{envDict.npm_package_version}}':
+            .replace((/\{\{envDict\.(\w+?)\}\}/g), function (match0, match1) {
+                // jslint-hack
+                String(match0);
+                switch (match1) {
+                case 'npm_package_description':
+                    return 'example module';
+                case 'npm_package_name':
+                    return 'example';
+                case 'npm_package_version':
                     return '0.0.1';
                 }
             });
+        /* istanbul ignore next */
+        if (module.isRollup) {
+            break;
+        }
+        try {
+            local['/assets.example.js'] = local.fs.readFileSync(__filename, 'utf8');
+        } catch (ignore) {
+        }
+        local['/assets.jslint-lite.js'] = '//' + local.fs.readFileSync(
+            local.jslint.__dirname + '/index.js',
+            'utf8'
+        );
         /* istanbul ignore next */
         // run the cli
         local.cliRun = function () {
@@ -311,13 +347,10 @@ body {\n\
                 case '/assets.example.js':
                 case '/assets.jslint-lite.js':
                 case '/assets.test.js':
-                case '/assets.utility2.js':
-                case '/jsonp.utility2.stateGet':
-                    response.end(local[local.url.parse(request.url).pathname] || '');
+                    response.end(local[local.url.parse(request.url).pathname]);
                     break;
                 default:
-                    response.statusCode = 404;
-                    response.end('404 Not Found');
+                    response.end();
                 }
             }).listen(process.env.PORT);
             // if $npm_config_timeout_exit is defined,
@@ -349,7 +382,7 @@ body {\n\
     "description": "{{packageJson.description}}",
     "devDependencies": {
         "electron-lite": "kaizhu256/node-electron-lite#alpha",
-        "utility2": "2016.7.2"
+        "utility2": "kaizhu256/node-utility2#alpha"
     },
     "engines": { "node": ">=4.0" },
     "homepage": "https://github.com/kaizhu256/node-jslint-lite",
@@ -376,13 +409,27 @@ body {\n\
         "start": "\
 export PORT=${PORT:-8080} && \
 export npm_config_mode_auto_restart=1 && \
-utility2 shRun shIstanbulCover node test.js",
+utility2 shRun shIstanbulCover test.js",
+        "start-example": "\
+utility2 shRun && \
+cp tmp/README.example.js example.js && \
+export PORT=8081 && \
+node example.js \
+",
+        "start-heroku": "\
+export npm_config_mode_backend=1 && \
+node assets.app.js \
+",
+        "start-standalone": "\
+npm run build-app && \
+node tmp/build/app/assets.app.js \
+",
         "test": "\
 export PORT=$(utility2 shServerPortRandom) && \
-utility2 test node test.js",
+utility2 test test.js",
         "test-published": "utility2 shRun shNpmTestPublished"
     },
-    "version": "2015.6.1"
+    "version": "2015.7.1"
 }
 ```
 
@@ -421,6 +468,20 @@ shBuildCiTestPost() {(set -e
         shGithubDeploy) || return $?
     # test deployed app to gh-pages
     (export MODE_BUILD=githubTest &&
+        export modeBrowserTest=test &&
+        export url="$TEST_URL?modeTest=consoleLogResult&timeExit={{timeExit}}" &&
+        shBrowserTest) || return $?
+    # deploy app to heroku
+    export HEROKU_REPO="hrku01-$npm_package_name-$CI_BRANCH"
+    export TEST_URL="https://$HEROKU_REPO.herokuapp.com"
+    shGitRepoBranchUpdateLocal() {(set -e
+    # this function will local-update git-repo-branch
+        cp "$npm_config_dir_build/app/assets.app.js" .
+    )}
+    (export MODE_BUILD=herokuDeploy &&
+        shHerokuDeploy) || return $?
+    # test deployed app to heroku
+    (export MODE_BUILD=herokuTest &&
         export modeBrowserTest=test &&
         export url="$TEST_URL?modeTest=consoleLogResult&timeExit={{timeExit}}" &&
         shBrowserTest) || return $?
