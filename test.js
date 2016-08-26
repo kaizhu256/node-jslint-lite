@@ -49,7 +49,6 @@
                 moduleExports: __dirname + '/index.js',
                 moduleName: 'jslint-lite'
             });
-            local.jslint = local['jslint-lite'];
             break;
         }
     }());
@@ -73,34 +72,24 @@
                 local.jslint.jslintAndPrint('', 'empty.css');
                 // validate no error occurred
                 local.utility2.assert(!local.jslint.errorText, local.jslint.errorText);
-                // test csslint passed handling-behavior
-                local.jslint.jslintAndPrint('body { font: normal; }', 'passed.css');
-                // validate no error occurred
-                local.utility2.assert(!local.jslint.errorText, local.jslint.errorText);
                 // test csslint failed handling-behavior
                 local.jslint.jslintAndPrint('syntax error', 'failed.css');
                 // validate error occurred
                 local.utility2.assert(local.jslint.errorText, local.jslint.errorText);
-                // test csslint flexbox handling-behavior
-                local.jslint.jslintAndPrint('body { display: flex; }', 'passed.css');
+                // test csslint passed handling-behavior
+                local.jslint.jslintAndPrint('body { font: normal; }', 'passed.css');
                 // validate no error occurred
                 local.utility2.assert(!local.jslint.errorText, local.jslint.errorText);
-                // test jslint passed handling-behavior
-                local.jslint.jslintAndPrint('{}', 'passed.js');
+                // test csslint flexbox handling-behavior
+                local.jslint.jslintAndPrint('body { display: flex; }', 'passed.css');
                 // validate no error occurred
                 local.utility2.assert(!local.jslint.errorText, local.jslint.errorText);
                 // test jslint failed handling-behavior
                 local.jslint.jslintAndPrint('syntax error', 'failed.js');
                 // validate error occurred
                 local.utility2.assert(local.jslint.errorText, local.jslint.errorText);
-                // test /* jslint-indent-begin */ ... /* jslint-indent-end */
-                // handling-behavior
-                local.jslint.jslintAndPrint('(function () {\n' +
-                    '    "use strict";\n' +
-                    '/* jslint-indent-begin 4 */\n' +
-                    'String();\n' +
-                    '/* jslint-indent-end */\n' +
-                    '}());\n', 'passed.js');
+                // test jslint passed handling-behavior
+                local.jslint.jslintAndPrint('{}', 'passed.js');
                 // validate no error occurred
                 local.utility2.assert(!local.jslint.errorText, local.jslint.errorText);
                 // test /* jslint-ignore-begin */ ... /* jslint-ignore-end */
@@ -114,6 +103,16 @@
                 // handling-behavior
                 local.jslint.jslintAndPrint('/* jslint-ignore-next-line */\n' +
                     'syntax error\n', 'passed.js');
+                // validate no error occurred
+                local.utility2.assert(!local.jslint.errorText, local.jslint.errorText);
+                // test /* jslint-indent-begin */ ... /* jslint-indent-end */
+                // handling-behavior
+                local.jslint.jslintAndPrint('(function () {\n' +
+                    '    "use strict";\n' +
+                    '/* jslint-indent-begin 4 */\n' +
+                    'String();\n' +
+                    '/* jslint-indent-end */\n' +
+                    '}());\n', 'passed.js');
                 // validate no error occurred
                 local.utility2.assert(!local.jslint.errorText, local.jslint.errorText);
                 onError();
@@ -144,8 +143,19 @@
                 file: '/assets.example.js',
                 url: '/assets.example.js'
             }, {
-                file: '/assets.jslint-lite.js',
-                url: '/assets.jslint-lite.js'
+                file: '/assets.' + local.utility2.envDict.npm_package_name + '.css',
+                url: '/assets.' + local.utility2.envDict.npm_package_name + '.css'
+            }, {
+                file: '/assets.' + local.utility2.envDict.npm_package_name + '.js',
+                url: '/assets.' + local.utility2.envDict.npm_package_name + '.js'
+            }, {
+                file: '/assets.' + local.utility2.envDict.npm_package_name + '.min.js',
+                transform: function (data) {
+                    return local.utility2.uglifyIfProduction(
+                        local.utility2.bufferToString(data)
+                    );
+                },
+                url: '/assets.' + local.utility2.envDict.npm_package_name + '.js'
             }, {
                 file: '/assets.test.js',
                 url: '/assets.test.js'
@@ -166,6 +176,7 @@
                     // validate no error occurred
                     onParallel(error);
                     switch (local.path.extname(options.file)) {
+                    case '.css':
                     case '.js':
                     case '.json':
                         local.utility2.jslintAndPrintConditional(
@@ -183,7 +194,7 @@
                     }
                     local.utility2.fsWriteFileWithMkdirp(
                         local.utility2.envDict.npm_config_dir_build + '/app' + options.file,
-                        xhr.response,
+                        (options.transform || local.utility2.echo)(xhr.response),
                         onParallel
                     );
                 });
@@ -271,22 +282,17 @@
 
 
 
+    /* istanbul ignore next */
     // run node js-env code - post-init
     case 'node':
         // run test-server
         local.utility2.testRunServer(local);
         // init repl debugger
         local.utility2.replStart();
-        // init assets
-        local.utility2.assetsDict['/assets.jslint-lite.js'] =
-            local.utility2.istanbulInstrumentInPackage(
-                local['/assets.jslint-lite.js'],
-                process.cwd() + '/index.js'
-            );
-        /* istanbul ignore next */
-        if (module.isRollup) {
+        if (module !== require.main || module.isRollup) {
             break;
         }
+        // init assets
         local.utility2.assetsDict['/assets.app.js'] = [
             'header',
             '/assets.utility2.rollup.js',
@@ -300,13 +306,13 @@
 case 'header':
 return '\
 /*\n\
-app.js\n\
+assets.app.js\n\
 \n' + local.utility2.envDict.npm_package_description + '\n\
 \n\
 instruction\n\
-    1. save this script as app.js\n\
+    1. save this script as assets.app.js\n\
     2. run the shell command:\n\
-        $ PORT=8081 node app.js\n\
+        $ PORT=8081 node assets.app.js\n\
     3. open a browser to http://localhost:8081\n\
     4. edit or paste script in browser to jslint and csslint\n\
 */\n\
