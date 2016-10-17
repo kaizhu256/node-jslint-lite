@@ -21,9 +21,9 @@ this package will run standalone, browser-compatible versions of jslint and cssl
 #### todo
 - none
 
-#### change since fe609343
-- npm publish 2015.7.2
-- streamline build
+#### change since f1d79d84
+- npm publish 2016.7.3
+- add 'hide internal test' button to demo
 - none
 
 #### this package requires
@@ -75,7 +75,7 @@ this package will run standalone, browser-compatible versions of jslint and cssl
 /*
 example.js
 
-this script will will run a browser version of jslint and csslint
+this script will will demo the browser-version of jslint and csslint
 
 instruction
     1. save this script as example.js
@@ -127,10 +127,6 @@ instruction
             : module.isRollup
             ? module
             : require('jslint-lite').local;
-        // init global
-        local.global = local.modeJs === 'browser'
-            ? window
-            : global;
         // export local
         local.global.local = local;
     }());
@@ -144,8 +140,15 @@ instruction
         local.testRun = function (event) {
             switch (event && event.currentTarget.id) {
             case 'testRunButton1':
-                local.modeTest = true;
-                local.utility2.testRun(local);
+                if (document.querySelector('.testReportDiv').style.display === 'none') {
+                    document.querySelector('.testReportDiv').style.display = 'block';
+                    document.querySelector('#testRunButton1').innerText = 'hide internal test';
+                    local.modeTest = true;
+                    local.utility2.testRun(local);
+                } else {
+                    document.querySelector('.testReportDiv').style.display = 'none';
+                    document.querySelector('#testRunButton1').innerText = 'run internal test';
+                }
                 break;
             default:
                 // jslint #inputTextareaJslint1
@@ -169,19 +172,12 @@ instruction
             }
         };
         // init event-handling
-        [
-            '#inputTextareaCsslint1',
-            '#inputTextareaJslint1',
-            '#testRunButton1'
-        ].forEach(function (element) {
-            try {
-                if (element.indexOf('#inputTextarea') === 0) {
-                    document.querySelector(element).addEventListener('keyup', local.testRun);
-                    return;
-                }
-                document.querySelector(element).addEventListener('click', local.testRun);
-            } catch (ignore) {
-            }
+        ['click', 'keyup'].forEach(function (event) {
+            Array.prototype.slice.call(
+                document.querySelectorAll('.on' + event)
+            ).forEach(function (element) {
+                element.addEventListener(event, local.testRun);
+            });
         });
         // run tests
         local.testRun();
@@ -206,6 +202,7 @@ instruction
 <html lang="en">\n\
 <head>\n\
 <meta charset="UTF-8">\n\
+<meta name="viewport" content="width=device-width, initial-scale=1">\n\
 <title>\n\
 {{envDict.npm_package_name}} v{{envDict.npm_package_version}}\n\
 </title>\n\
@@ -220,7 +217,7 @@ instruction
 }\n\
 body {\n\
     background-color: #fff;\n\
-    font-family: Helvetica Neue,Helvetica,Arial,sans-serif;\n\
+    font-family: Arial, Helvetica, sans-serif;\n\
 }\n\
 body > * {\n\
     margin-bottom: 1rem;\n\
@@ -250,23 +247,18 @@ utility2-comment -->\n\
 <!-- utility2-comment\n\
         </a>\n\
 utility2-comment -->\n\
-<!-- utility2-comment\n\
-        {{#if envDict.NODE_ENV}}\n\
-        (NODE_ENV={{envDict.NODE_ENV}})\n\
-        {{/if envDict.NODE_ENV}}\n\
-utility2-comment -->\n\
     </h1>\n\
     <h3>{{envDict.npm_package_description}}</h3>\n\
 <!-- utility2-comment\n\
     <h4><a download href="assets.app.js">download standalone app</a></h4>\n\
-    <button id="testRunButton1">run internal test</button><br>\n\
+    <button class="onclick" id="testRunButton1">run internal test</button><br>\n\
     <div class="testReportDiv" style="display: none;"></div>\n\
 utility2-comment -->\n\
 \n\
     <div>edit or paste script below to\n\
         <a href="http://www.jslint.com" target="_blank">jslint</a>\n\
     </div>\n\
-<textarea id="inputTextareaJslint1">\n\
+<textarea class="onkeyup" id="inputTextareaJslint1">\n\
 /*jslint\n\
     browser: true\n\
 */\n\
@@ -279,7 +271,7 @@ console.log("hello");\n\
             target="_blank"\n\
         >csslint</a>\n\
     </div>\n\
-<textarea id="inputTextareaCsslint1">\n\
+<textarea class="onkeyup" id="inputTextareaCsslint1">\n\
 /*csslint\n\
     box-model: false\n\
 */\n\
@@ -401,7 +393,7 @@ export npm_config_mode_auto_restart=1 && \
 utility2 shRun shIstanbulCover test.js",
         "test": "export PORT=$(utility2 shServerPortRandom) && utility2 test test.js"
     },
-    "version": "2015.7.2"
+    "version": "2016.7.3"
 }
 ```
 
