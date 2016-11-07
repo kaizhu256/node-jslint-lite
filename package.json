@@ -2,7 +2,7 @@
     "package.json": true,
     "author": "kai zhu <kaizhu256@gmail.com>",
     "bin": { "jslint-lite": "index.js" },
-    "description": "this package will run standalone, browser-compatible versions of jslint and csslint with zero npm-dependencies",
+    "description": "this zero-dependency package will provide browser-compatible versions of jslint and csslint",
     "devDependencies": {
         "electron-lite": "kaizhu256/node-electron-lite#alpha",
         "utility2": "kaizhu256/node-utility2#alpha"
@@ -32,5 +32,5 @@
 
         "test": "export PORT=$(utility2 shServerPortRandom) && utility2 test test.js"
     },
-    "version": "2016.7.3"
+    "version": "2016.10.1"
 }

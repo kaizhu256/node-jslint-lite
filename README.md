@@ -1,12 +1,18 @@
 jslint-lite
 ===========
-this package will run standalone, browser-compatible versions of jslint and csslint with zero npm-dependencies
+this zero-dependency package will provide browser-compatible versions of jslint and csslint
 
 [![travis-ci.org build-status](https://api.travis-ci.org/kaizhu256/node-jslint-lite.svg)](https://travis-ci.org/kaizhu256/node-jslint-lite)
 
 [![NPM](https://nodei.co/npm/jslint-lite.png?downloads=true)](https://www.npmjs.com/package/jslint-lite)
 
 [![package-listing](https://kaizhu256.github.io/node-jslint-lite/build/screen-capture.gitLsTree.svg)](https://github.com/kaizhu256/node-jslint-lite)
+
+
+
+# cdn download
+- [http://kaizhu256.github.io/node-jslint-lite/build..beta..travis-ci.org/app/assets.jslint-lite.js](http://kaizhu256.github.io/node-jslint-lite/build..beta..travis-ci.org/app/assets.jslint-lite.js)
+- [http://kaizhu256.github.io/node-jslint-lite/build..beta..travis-ci.org/app/assets.jslint-lite.min.js](http://kaizhu256.github.io/node-jslint-lite/build..beta..travis-ci.org/app/assets.jslint-lite.min.js)
 
 
 
@@ -18,25 +24,28 @@ this package will run standalone, browser-compatible versions of jslint and cssl
 
 
 # documentation
+#### api-doc
+- [https://kaizhu256.github.io/node-jslint-lite/build..beta..travis-ci.org/doc.api.html](https://kaizhu256.github.io/node-jslint-lite/build..beta..travis-ci.org/doc.api.html)
+
+[![api-doc](https://kaizhu256.github.io/node-jslint-lite/build..beta..travis-ci.org/screen-capture.docApiCreate.browser._2Fhome_2Ftravis_2Fbuild_2Fkaizhu256_2Fnode-jslint-lite_2Ftmp_2Fbuild_2Fdoc.api.html.png)](https://kaizhu256.github.io/node-jslint-lite/build..beta..travis-ci.org/doc.api.html)
+
 #### todo
+- add es6-syntax support and test
 - none
 
-#### change since f1d79d84
-- npm publish 2016.7.3
-- add 'hide internal test' button to demo
+#### change since f3aa2e79
+- npm publish 2016.10.1
+- README.md - add cdn-download links
+- README.md - replace alpha api-doc with beta api-doc
 - none
 
 #### this package requires
 - darwin or linux os
 
 #### additional info
-- csslint derived from https://github.com/CSSLint/csslint/blob/v0.10.0/release/csslint.js
-- jslint derived from https://github.com/douglascrockford/JSLint/blob/394bf291bfa3881bb9827b9fc7b7d1112d83f313/jslint.js (this version does not support es6 or higher)
-
-#### api-doc
-- [https://kaizhu256.github.io/node-jslint-lite/build/doc.api.html](https://kaizhu256.github.io/node-jslint-lite/build/doc.api.html)
-
-[![api-doc](https://kaizhu256.github.io/node-jslint-lite/build/screen-capture.docApiCreate.browser._2Fhome_2Ftravis_2Fbuild_2Fkaizhu256_2Fnode-jslint-lite_2Ftmp_2Fbuild_2Fdoc.api.html.png)](https://kaizhu256.github.io/node-jslint-lite/build/doc.api.html)
+- this version does not support es6-syntax or higher
+- csslint code derived from https://github.com/CSSLint/csslint/blob/v0.10.0/release/csslint.js
+- jslint code derived from https://github.com/douglascrockford/JSLint/blob/394bf291bfa3881bb9827b9fc7b7d1112d83f313/jslint.js
 
 
 
@@ -140,13 +149,13 @@ instruction
         local.testRun = function (event) {
             switch (event && event.currentTarget.id) {
             case 'testRunButton1':
-                if (document.querySelector('.testReportDiv').style.display === 'none') {
-                    document.querySelector('.testReportDiv').style.display = 'block';
+                if (document.querySelector('#testReportDiv1').style.display === 'none') {
+                    document.querySelector('#testReportDiv1').style.display = 'block';
                     document.querySelector('#testRunButton1').innerText = 'hide internal test';
                     local.modeTest = true;
                     local.utility2.testRun(local);
                 } else {
-                    document.querySelector('.testReportDiv').style.display = 'none';
+                    document.querySelector('#testReportDiv1').style.display = 'none';
                     document.querySelector('#testRunButton1').innerText = 'run internal test';
                 }
                 break;
@@ -169,8 +178,30 @@ instruction
                     local.jslint.errorText
                     .replace((/\u001b\[\d+m/g), '')
                     .trim();
+                // try to eval input-code
+                try {
+                    /*jslint evil: true*/
+                    document.querySelector('#outputTextarea2').value = '';
+                    eval(document.querySelector('#inputTextareaJslint1').value);
+                } catch (errorCaught) {
+                    document.querySelector('#outputTextarea2').value += '\n' +
+                        errorCaught.stack + '\n';
+                }
             }
         };
+        // log stderr and stdout to #outputTextarea2
+        ['error', 'log'].forEach(function (key) {
+            console['_' + key] = console[key];
+            console[key] = function () {
+                console['_' + key].apply(console, arguments);
+                document.querySelector('#outputTextarea2').value +=
+                    Array.prototype.slice.call(arguments).map(function (arg) {
+                        return typeof arg === 'string'
+                            ? arg
+                            : JSON.stringify(arg, null, 4);
+                    }).join(' ') + '\n';
+            };
+        });
         // init event-handling
         ['click', 'keyup'].forEach(function (event) {
             Array.prototype.slice.call(
@@ -216,26 +247,31 @@ instruction
     box-sizing: border-box;\n\
 }\n\
 body {\n\
-    background-color: #fff;\n\
+    background: #fff;\n\
     font-family: Arial, Helvetica, sans-serif;\n\
+    margin: 1rem;\n\
 }\n\
 body > * {\n\
     margin-bottom: 1rem;\n\
 }\n\
 #outputPreCsslint1,\n\
 #outputPreJslint1 {\n\
-    color: #f00;\n\
+    color: #d00;\n\
 }\n\
 textarea {\n\
     font-family: monospace;\n\
-    height: 16rem;\n\
+    height: 10rem;\n\
     width: 100%;\n\
+}\n\
+textarea[readonly] {\n\
+    background: #ddd;\n\
 }\n\
 </style>\n\
 </head>\n\
 <body>\n\
     <h1>\n\
 <!-- utility2-comment\n\
+        <div id="ajaxProgressDiv1" style="background: #d00; height: 2px; left: 0; margin: 0; padding: 0; position: fixed; top: 0; transition: background 0.5s, width 1.5s; width: 25%;"></div>\n\
         <a\n\
             {{#if envDict.npm_package_homepage}}\n\
             href="{{envDict.npm_package_homepage}}"\n\
@@ -252,7 +288,7 @@ utility2-comment -->\n\
 <!-- utility2-comment\n\
     <h4><a download href="assets.app.js">download standalone app</a></h4>\n\
     <button class="onclick" id="testRunButton1">run internal test</button><br>\n\
-    <div class="testReportDiv" style="display: none;"></div>\n\
+    <div id="testReportDiv1" style="display: none;"></div>\n\
 utility2-comment -->\n\
 \n\
     <div>edit or paste script below to\n\
@@ -263,6 +299,7 @@ utility2-comment -->\n\
     browser: true\n\
 */\n\
 console.log("hello");\n\
+console.log(null);\n\
 </textarea>\n\
     <pre id="outputPreJslint1"></pre>\n\
     <div>edit or paste script below to\n\
@@ -280,6 +317,8 @@ body {\n\
 }\n\
 </textarea>\n\
     <pre id="outputPreCsslint1"></pre>\n\
+    <label>stderr and stdout</label>\n\
+    <textarea id="outputTextarea2" readonly></textarea>\n\
 <!-- utility2-comment\n\
     {{#if isRollup}}\n\
     <script src="assets.app.min.js"></script>\n\
@@ -393,7 +432,7 @@ export npm_config_mode_auto_restart=1 && \
 utility2 shRun shIstanbulCover test.js",
         "test": "export PORT=$(utility2 shServerPortRandom) && utility2 test test.js"
     },
-    "version": "2016.7.3"
+    "version": "2016.10.1"
 }
 ```
 
@@ -415,7 +454,7 @@ shBuildCiTestPre() {(set -e
 # this function will run the pre-test build
     # test example.js
     (export MODE_BUILD=testExampleJs &&
-        utility2 shRunScreenCapture shReadmeTestJs example.js) || return $?
+        shRunScreenCapture shReadmeTestJs example.js) || return $?
     # test published-package
     (export MODE_BUILD=npmTestPublished &&
         shRunScreenCapture shNpmTestPublished) || return $?
