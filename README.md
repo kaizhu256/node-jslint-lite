@@ -30,20 +30,18 @@ this zero-dependency package will provide browser-compatible versions of jslint 
 [![api-doc](https://kaizhu256.github.io/node-jslint-lite/build..beta..travis-ci.org/screen-capture.docApiCreate.browser._2Fhome_2Ftravis_2Fbuild_2Fkaizhu256_2Fnode-jslint-lite_2Ftmp_2Fbuild_2Fdoc.api.html.png)](https://kaizhu256.github.io/node-jslint-lite/build..beta..travis-ci.org/doc.api.html)
 
 #### todo
-- add es6-syntax support and test
 - none
 
-#### change since f3aa2e79
-- npm publish 2016.10.1
-- README.md - add cdn-download links
-- README.md - replace alpha api-doc with beta api-doc
+#### change since 005cc86a
+- npm publish 2016.11.1
+- add es6-syntax support and test
+- rename files index.* -> lib.jslint.*
 - none
 
 #### this package requires
 - darwin or linux os
 
 #### additional info
-- this version does not support es6-syntax or higher
 - csslint code derived from https://github.com/CSSLint/csslint/blob/v0.10.0/release/csslint.js
 - jslint code derived from https://github.com/douglascrockford/JSLint/blob/394bf291bfa3881bb9827b9fc7b7d1112d83f313/jslint.js
 
@@ -89,9 +87,10 @@ this script will will demo the browser-version of jslint and csslint
 instruction
     1. save this script as example.js
     2. run the shell command:
-        $ npm install jslint-lite && export PORT=8081 && node example.js
-    3. open a browser to http://localhost:8081
-    4. edit or paste script in browser to jslint and csslint
+        $ npm install jslint-lite && \
+            export PORT=8081 && \
+            node example.js
+    3. play with the browser-demo on http://localhost:8081
 */
 
 /* istanbul instrument in package jslint-lite */
@@ -129,13 +128,14 @@ instruction
                     'node';
             }
         }());
-        /* istanbul ignore next */
-        // re-init local
-        local = local.modeJs === 'browser'
-            ? window.utility2_jslint.local
-            : module.isRollup
-            ? module
-            : require('jslint-lite').local;
+        // init global
+        local.global = local.modeJs === 'browser'
+            ? window
+            : global;
+        // init utility2_rollup
+        local = local.global.utility2_rollup || (local.modeJs === 'browser'
+            ? local.global.utility2_jslint
+            : require('jslint-lite'));
         // export local
         local.global.local = local;
     }());
@@ -149,17 +149,21 @@ instruction
         local.testRun = function (event) {
             switch (event && event.currentTarget.id) {
             case 'testRunButton1':
+                // show tests
                 if (document.querySelector('#testReportDiv1').style.display === 'none') {
                     document.querySelector('#testReportDiv1').style.display = 'block';
                     document.querySelector('#testRunButton1').innerText = 'hide internal test';
                     local.modeTest = true;
-                    local.utility2.testRun(local);
+                    local.testRunDefault(local);
+                // hide tests
                 } else {
                     document.querySelector('#testReportDiv1').style.display = 'none';
                     document.querySelector('#testRunButton1').innerText = 'run internal test';
                 }
                 break;
             default:
+                // reset stdout
+                document.querySelector('#outputTextarea2').value = '';
                 // jslint #inputTextareaJslint1
                 local.jslint.jslintAndPrint(
                     document.querySelector('#inputTextareaJslint1').value,
@@ -181,12 +185,13 @@ instruction
                 // try to eval input-code
                 try {
                     /*jslint evil: true*/
-                    document.querySelector('#outputTextarea2').value = '';
                     eval(document.querySelector('#inputTextareaJslint1').value);
                 } catch (errorCaught) {
-                    document.querySelector('#outputTextarea2').value += '\n' +
-                        errorCaught.stack + '\n';
+                    console.error(errorCaught.stack);
                 }
+                // scroll stdout to bottom
+                document.querySelector('#outputTextarea2').scrollTop =
+                    document.querySelector('#outputTextarea2').scrollHeight;
             }
         };
         // log stderr and stdout to #outputTextarea2
@@ -195,7 +200,7 @@ instruction
             console[key] = function () {
                 console['_' + key].apply(console, arguments);
                 document.querySelector('#outputTextarea2').value +=
-                    Array.prototype.slice.call(arguments).map(function (arg) {
+                    Array.from(arguments).map(function (arg) {
                         return typeof arg === 'string'
                             ? arg
                             : JSON.stringify(arg, null, 4);
@@ -204,9 +209,7 @@ instruction
         });
         // init event-handling
         ['click', 'keyup'].forEach(function (event) {
-            Array.prototype.slice.call(
-                document.querySelectorAll('.on' + event)
-            ).forEach(function (element) {
+            Array.from(document.querySelectorAll('.on' + event)).forEach(function (element) {
                 element.addEventListener(event, local.testRun);
             });
         });
@@ -234,9 +237,7 @@ instruction
 <head>\n\
 <meta charset="UTF-8">\n\
 <meta name="viewport" content="width=device-width, initial-scale=1">\n\
-<title>\n\
-{{envDict.npm_package_name}} v{{envDict.npm_package_version}}\n\
-</title>\n\
+<title>{{env.npm_package_name}} v{{env.npm_package_version}}</title>\n\
 <style>\n\
 /*csslint\n\
     box-sizing: false,\n\
@@ -269,22 +270,24 @@ textarea[readonly] {\n\
 </style>\n\
 </head>\n\
 <body>\n\
+<!-- utility2-comment\n\
+    <div id="ajaxProgressDiv1" style="background: #d00; height: 2px; left: 0; margin: 0; padding: 0; position: fixed; top: 0; transition: background 0.5s, width 1.5s; width: 25%;"></div>\n\
+utility2-comment -->\n\
     <h1>\n\
 <!-- utility2-comment\n\
-        <div id="ajaxProgressDiv1" style="background: #d00; height: 2px; left: 0; margin: 0; padding: 0; position: fixed; top: 0; transition: background 0.5s, width 1.5s; width: 25%;"></div>\n\
         <a\n\
-            {{#if envDict.npm_package_homepage}}\n\
-            href="{{envDict.npm_package_homepage}}"\n\
-            {{/if envDict.npm_package_homepage}}\n\
+            {{#if env.npm_package_homepage}}\n\
+            href="{{env.npm_package_homepage}}"\n\
+            {{/if env.npm_package_homepage}}\n\
             target="_blank"\n\
         >\n\
 utility2-comment -->\n\
-            {{envDict.npm_package_name}} v{{envDict.npm_package_version}}\n\
+            {{env.npm_package_name}} v{{env.npm_package_version}}\n\
 <!-- utility2-comment\n\
         </a>\n\
 utility2-comment -->\n\
     </h1>\n\
-    <h3>{{envDict.npm_package_description}}</h3>\n\
+    <h3>{{env.npm_package_description}}</h3>\n\
 <!-- utility2-comment\n\
     <h4><a download href="assets.app.js">download standalone app</a></h4>\n\
     <button class="onclick" id="testRunButton1">run internal test</button><br>\n\
@@ -296,9 +299,11 @@ utility2-comment -->\n\
     </div>\n\
 <textarea class="onkeyup" id="inputTextareaJslint1">\n\
 /*jslint\n\
-    browser: true\n\
+    browser: true,\n\
+    es6: true\n\
 */\n\
-console.log("hello");\n\
+const message = "hello";\n\
+console.log(message);\n\
 console.log(null);\n\
 </textarea>\n\
     <pre id="outputPreJslint1"></pre>\n\
@@ -310,10 +315,11 @@ console.log(null);\n\
     </div>\n\
 <textarea class="onkeyup" id="inputTextareaCsslint1">\n\
 /*csslint\n\
-    box-model: false\n\
+    box-sizing: false,\n\
 */\n\
 body {\n\
-  margin: 0px;\n\
+    box-sizing: border-box;\n\
+    margin: 0px;\n\
 }\n\
 </textarea>\n\
     <pre id="outputPreCsslint1"></pre>\n\
@@ -325,7 +331,7 @@ body {\n\
     {{#unless isRollup}}\n\
 utility2-comment -->\n\
     <script src="assets.utility2.rollup.js"></script>\n\
-    <script src="jsonp.utility2.stateInit?callback=window.utility2.stateInit"></script>\n\
+    <script src="jsonp.utility2._stateInit?callback=window.utility2._stateInit"></script>\n\
     <script src="assets.jslint-lite.js"></script>\n\
     <script src="assets.example.js"></script>\n\
     <script src="assets.test.js"></script>\n\
@@ -337,7 +343,7 @@ utility2-comment -->\n\
 ';
         /* jslint-ignore-end */
         local['/'] = local.templateIndexHtml
-            .replace((/\{\{envDict\.(\w+?)\}\}/g), function (match0, match1) {
+            .replace((/\{\{env\.(\w+?)\}\}/g), function (match0, match1) {
                 // jslint-hack
                 String(match0);
                 switch (match1) {
@@ -349,7 +355,7 @@ utility2-comment -->\n\
                     return '0.0.1';
                 }
             });
-        if (module.isRollup) {
+        if (local.global.utility2_rollup) {
             break;
         }
         try {
@@ -357,7 +363,7 @@ utility2-comment -->\n\
         } catch (ignore) {
         }
         local['/assets.jslint-lite.js'] = '//' + local.fs.readFileSync(
-            local.jslint.__dirname + '/index.js',
+            local.jslint.__dirname + '/lib.jslint.js',
             'utf8'
         );
         // run the cli
@@ -378,7 +384,7 @@ utility2-comment -->\n\
                 response.end();
             }
         }).listen(process.env.PORT);
-        // if $npm_config_timeout_exit is defined,
+        // if $npm_config_timeout_exit exists,
         // then exit this process after $npm_config_timeout_exit ms
         if (Number(process.env.npm_config_timeout_exit)) {
             setTimeout(process.exit, Number(process.env.npm_config_timeout_exit));
@@ -401,7 +407,7 @@ utility2-comment -->\n\
 {
     "package.json": true,
     "author": "kai zhu <kaizhu256@gmail.com>",
-    "bin": { "jslint-lite": "index.js" },
+    "bin": { "jslint-lite": "lib.jslint.js" },
     "description": "{{packageJson.description}}",
     "devDependencies": {
         "electron-lite": "kaizhu256/node-electron-lite#alpha",
@@ -418,6 +424,7 @@ utility2-comment -->\n\
         "web"
     ],
     "license": "MIT",
+    "main": "lib.jslint",
     "name": "jslint-lite",
     "os": ["darwin", "linux"],
     "repository" : {
@@ -432,7 +439,7 @@ export npm_config_mode_auto_restart=1 && \
 utility2 shRun shIstanbulCover test.js",
         "test": "export PORT=$(utility2 shServerPortRandom) && utility2 test test.js"
     },
-    "version": "2016.10.1"
+    "version": "2016.11.1"
 }
 ```
 
@@ -463,7 +470,7 @@ shBuildCiTestPre() {(set -e
 shBuildCiTestPost() {(set -e
 # this function will run the post-test build
     # if running legacy-node, then return
-    [ "$(node --version)" \< "v5.0" ] && return || true
+    [ "$(node --version)" \< "v7.0" ] && return || true
     export NODE_ENV=production
     # deploy app to gh-pages
     export TEST_URL="https://$(printf "$GITHUB_REPO" | \
