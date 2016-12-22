@@ -158,7 +158,16 @@
         /*
          * this function will test build's doc handling-behavior
          */
-            options = {};
+            options = { moduleDict: {
+                'jslint-lite.CSSLint': {
+                    exampleFileList: [],
+                    exports: local.CSSLint
+                },
+                'jslint-lite.JSLINT': {
+                    exampleFileList: [],
+                    exports: local.JSLINT
+                }
+            } };
             local.buildDoc(options, onError);
         };
 

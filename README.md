@@ -2,7 +2,7 @@ jslint-lite
 ===========
 this zero-dependency package will provide browser-compatible versions of jslint and csslint
 
-[![travis-ci.org build-status](https://api.travis-ci.org/kaizhu256/node-jslint-lite.svg)](https://travis-ci.org/kaizhu256/node-jslint-lite)
+[![travis-ci.org build-status](https://api.travis-ci.org/kaizhu256/node-jslint-lite.svg)](https://travis-ci.org/kaizhu256/node-jslint-lite) [![istanbul coverage](https://kaizhu256.github.io/node-jslint-lite/build..alpha..travis-ci.org/coverage.badge.svg)](https://kaizhu256.github.io/node-jslint-lite/build..alpha..travis-ci.org/coverage.html/index.html)
 
 [![NPM](https://nodei.co/npm/jslint-lite.png?downloads=true)](https://www.npmjs.com/package/jslint-lite)
 
@@ -11,8 +11,8 @@ this zero-dependency package will provide browser-compatible versions of jslint 
 
 
 # cdn download
-- [http://kaizhu256.github.io/node-jslint-lite/build..beta..travis-ci.org/app/assets.jslint-lite.js](http://kaizhu256.github.io/node-jslint-lite/build..beta..travis-ci.org/app/assets.jslint-lite.js)
-- [http://kaizhu256.github.io/node-jslint-lite/build..beta..travis-ci.org/app/assets.jslint-lite.min.js](http://kaizhu256.github.io/node-jslint-lite/build..beta..travis-ci.org/app/assets.jslint-lite.min.js)
+- [https://kaizhu256.github.io/node-jslint-lite/build..beta..travis-ci.org/app/assets.jslint-lite.js](https://kaizhu256.github.io/node-jslint-lite/build..beta..travis-ci.org/app/assets.jslint-lite.js)
+- [https://kaizhu256.github.io/node-jslint-lite/build..beta..travis-ci.org/app/assets.jslint-lite.min.js](https://kaizhu256.github.io/node-jslint-lite/build..beta..travis-ci.org/app/assets.jslint-lite.min.js)
 
 
 
@@ -32,10 +32,10 @@ this zero-dependency package will provide browser-compatible versions of jslint 
 #### todo
 - none
 
-#### change since 005cc86a
-- npm publish 2016.11.1
-- add es6-syntax support and test
-- rename files index.* -> lib.jslint.*
+#### change since 8b03a6a4
+- npm publish 2016.12.1
+- update documentation
+- fix cdn link
 - none
 
 #### this package requires
@@ -439,7 +439,7 @@ export npm_config_mode_auto_restart=1 && \
 utility2 shRun shIstanbulCover test.js",
         "test": "export PORT=$(utility2 shServerPortRandom) && utility2 test test.js"
     },
-    "version": "2016.11.1"
+    "version": "2016.12.1"
 }
 ```
 
@@ -473,30 +473,11 @@ shBuildCiTestPost() {(set -e
     [ "$(node --version)" \< "v7.0" ] && return || true
     export NODE_ENV=production
     # deploy app to gh-pages
-    export TEST_URL="https://$(printf "$GITHUB_REPO" | \
-        sed 's/\//.github.io\//')/build..$CI_BRANCH..travis-ci.org/app/index.html"
-    (export MODE_BUILD=githubDeploy &&
-        shGithubDeploy) || return $?
-    # test deployed app to gh-pages
-    (export MODE_BUILD=githubTest &&
-        export modeBrowserTest=test &&
-        export url="$TEST_URL?modeTest=1&timeExit={{timeExit}}" &&
-        shBrowserTest) || return $?
+    (export MODE_BUILD=deployGithub &&
+        shDeployGithub) || return $?
     # deploy app to heroku
-    export HEROKU_REPO="hrku01-$npm_package_name-$CI_BRANCH"
-    export TEST_URL="https://$HEROKU_REPO.herokuapp.com"
-    shGitRepoBranchUpdateLocal() {(set -e
-    # this function will local-update git-repo-branch
-        cp "$npm_config_dir_build/app/assets.app.js" .
-        printf "web: npm_config_mode_backend=1 node assets.app.js" > Procfile
-    )}
-    (export MODE_BUILD=herokuDeploy &&
-        shHerokuDeploy) || return $?
-    # test deployed app to heroku
-    (export MODE_BUILD=herokuTest &&
-        export modeBrowserTest=test &&
-        export url="$TEST_URL?modeTest=1&timeExit={{timeExit}}" &&
-        shBrowserTest) || return $?
+    (export MODE_BUILD=deployHeroku &&
+        shDeployHeroku) || return $?
 )}
 
 shBuild() {(set -e
