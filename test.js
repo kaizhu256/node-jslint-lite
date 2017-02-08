@@ -17,8 +17,6 @@
 
     // run shared js-env code - pre-init
     (function () {
-        // init Error.stackTraceLimit
-        Error.stackTraceLimit = 20;
         // init local
         local = {};
         // init modeJs
@@ -159,16 +157,26 @@
          * this function will test build's doc handling-behavior
          */
             options = { moduleDict: {
-                'jslint-lite.CSSLint': {
+                'jslint.CSSLint': {
                     exampleFileList: [],
                     exports: local.CSSLint
                 },
-                'jslint-lite.JSLINT': {
+                'jslint.JSLINT': {
                     exampleFileList: [],
                     exports: local.JSLINT
                 }
             } };
             local.buildDoc(options, onError);
+        };
+
+        local.testCase_build_readme = function (options, onError) {
+        /*
+         * this function will test build's readme handling-behavior
+         */
+            options = {};
+            options.readmeFrom = local.fs.readFileSync('README.md', 'utf8');
+            options.readmeTo = local.templateReadme;
+            local.buildReadmeJslintLite(options, onError);
         };
 
         local.testCase_webpage_default = function (options, onError) {

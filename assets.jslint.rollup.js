@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+///usr/bin/env node
 /* istanbul instrument in package jslint-lite */
 /*jslint
     bitwise: true,

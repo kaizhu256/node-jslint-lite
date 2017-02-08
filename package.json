@@ -1,37 +1,45 @@
 {
-    "package.json": true,
     "author": "kai zhu <kaizhu256@gmail.com>",
-    "bin": { "jslint-lite": "lib.jslint.js" },
+    "bin": {
+        "jslint-lite": "lib.jslint.js"
+    },
     "description": "this zero-dependency package will provide browser-compatible versions of jslint and csslint",
     "devDependencies": {
         "electron-lite": "kaizhu256/node-electron-lite#alpha",
         "utility2": "kaizhu256/node-utility2#alpha"
     },
-    "engines": { "node": ">=4.0" },
-    "homepage": "https://github.com/kaizhu256/node-jslint-lite",
+    "engines": {
+        "node": ">=4.0"
+    },
+    "homepage": "https://github.com/kaizhu256/node-jslint",
     "keywords": [
         "browser",
         "csslint",
-        "eshint", "eslint",
-        "jshint", "jslint",
-        "lint",
-        "web"
+        "eshint",
+        "eslint",
+        "jshint",
+        "jslint",
+        "lint"
     ],
     "license": "MIT",
     "main": "lib.jslint",
     "name": "jslint-lite",
-    "os": ["darwin", "linux"],
-    "repository" : {
-        "type" : "git",
-        "url" : "https://github.com/kaizhu256/node-jslint-lite.git"
+    "nameAlias": "jslint",
+    "os": [
+        "darwin",
+        "linux"
+    ],
+    "package.json": true,
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/kaizhu256/node-jslint.git"
     },
     "scripts": {
         "build-ci": "utility2 shRun shReadmeBuild",
+        "heroku-postbuild": "npm install 'kaizhu256/node-utility2#alpha' && utility2 shRun shDeployHeroku",
+        "postinstall": "if [ -f lib.jslint.npm-scripts.sh ]; then ./lib.jslint.npm-scripts.sh postinstall; fi",
         "start": "export PORT=${PORT:-8080} && export npm_config_mode_auto_restart=1 && utility2 shRun shIstanbulCover test.js",
-
-
-
         "test": "export PORT=$(utility2 shServerPortRandom) && utility2 test test.js"
     },
-    "version": "2016.12.1"
+    "version": "2017.2.1"
 }
