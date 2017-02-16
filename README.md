@@ -2,41 +2,39 @@ jslint-lite
 ===========
 this zero-dependency package will provide browser-compatible versions of jslint and csslint
 
-[![travis-ci.org build-status](https://api.travis-ci.org/kaizhu256/node-jslint.svg)](https://travis-ci.org/kaizhu256/node-jslint) [![istanbul coverage](https://kaizhu256.github.io/node-jslint/build..alpha..travis-ci.org/coverage.badge.svg)](https://kaizhu256.github.io/node-jslint/build..alpha..travis-ci.org/coverage.html/index.html)
+[![travis-ci.org build-status](https://api.travis-ci.org/kaizhu256/node-jslint-lite.svg)](https://travis-ci.org/kaizhu256/node-jslint-lite) [![istanbul-coverage](https://kaizhu256.github.io/node-jslint-lite/build..alpha..travis-ci.org/coverage.badge.svg)](https://kaizhu256.github.io/node-jslint-lite/build..alpha..travis-ci.org/coverage.html/index.html)
 
 [![NPM](https://nodei.co/npm/jslint-lite.png?downloads=true)](https://www.npmjs.com/package/jslint-lite)
 
-[![package-listing](https://kaizhu256.github.io/node-jslint/build/screen-capture.gitLsTree.svg)](https://github.com/kaizhu256/node-jslint)
+[![package-listing](https://kaizhu256.github.io/node-jslint-lite/build/screen-capture.gitLsTree.svg)](https://github.com/kaizhu256/node-jslint-lite)
 
 
 
 # cdn download
-- [https://kaizhu256.github.io/node-jslint/build..beta..travis-ci.org/app/assets.jslint.rollup.js](https://kaizhu256.github.io/node-jslint/build..beta..travis-ci.org/app/assets.jslint.rollup.js)
-- [https://kaizhu256.github.io/node-jslint/build..beta..travis-ci.org/app/assets.jslint.rollup.min.js](https://kaizhu256.github.io/node-jslint/build..beta..travis-ci.org/app/assets.jslint.rollup.min.js)
+- [https://kaizhu256.github.io/node-jslint-lite/build..beta..travis-ci.org/app/assets.jslint.rollup.js](https://kaizhu256.github.io/node-jslint-lite/build..beta..travis-ci.org/app/assets.jslint.rollup.js)
+- [https://kaizhu256.github.io/node-jslint-lite/build..beta..travis-ci.org/app/assets.jslint.rollup.min.js](https://kaizhu256.github.io/node-jslint-lite/build..beta..travis-ci.org/app/assets.jslint.rollup.min.js)
 
 
 
 # live demo
-- [https://kaizhu256.github.io/node-jslint/build..beta..travis-ci.org/app/index.html](https://kaizhu256.github.io/node-jslint/build..beta..travis-ci.org/app/index.html)
+- [https://kaizhu256.github.io/node-jslint-lite/build..beta..travis-ci.org/app/index.html](https://kaizhu256.github.io/node-jslint-lite/build..beta..travis-ci.org/app/index.html)
 
-[![github.com test-server](https://kaizhu256.github.io/node-jslint/build/screen-capture.deployGithub.browser._2Fnode-jslint_2Fbuild..alpha..travis-ci.org_2Fapp_2Findex.html.png)](https://kaizhu256.github.io/node-jslint/build..beta..travis-ci.org/app/index.html)
+[![github.com test-server](https://kaizhu256.github.io/node-jslint-lite/build/screen-capture.deployGithub.browser._2Fnode-jslint-lite_2Fbuild..alpha..travis-ci.org_2Fapp_2Findex.html.png)](https://kaizhu256.github.io/node-jslint-lite/build..beta..travis-ci.org/app/index.html)
 
 
 
 # documentation
 #### api-doc
-- [https://kaizhu256.github.io/node-jslint/build..beta..travis-ci.org/doc.api.html](https://kaizhu256.github.io/node-jslint/build..beta..travis-ci.org/doc.api.html)
+- [https://kaizhu256.github.io/node-jslint-lite/build..beta..travis-ci.org/api-doc.html](https://kaizhu256.github.io/node-jslint-lite/build..beta..travis-ci.org/api-doc.html)
 
-[![api-doc](https://kaizhu256.github.io/node-jslint/build..beta..travis-ci.org/screen-capture.docApiCreate.browser._2Fhome_2Ftravis_2Fbuild_2Fkaizhu256_2Fnode-jslint_2Ftmp_2Fbuild_2Fdoc.api.html.png)](https://kaizhu256.github.io/node-jslint/build..beta..travis-ci.org/doc.api.html)
+[![api-doc](https://kaizhu256.github.io/node-jslint-lite/build/screen-capture.apiDocCreate.browser._2Fhome_2Ftravis_2Fbuild_2Fkaizhu256_2Fnode-jslint-lite_2Ftmp_2Fbuild_2Fapi-doc.html.png)](https://kaizhu256.github.io/node-jslint-lite/build..beta..travis-ci.org/api-doc.html)
 
 #### todo
 - none
 
-#### change since 842a6a81
-- npm publish 2017.2.1
-- use env var npm_package_nameAlias over npm_package_name
-- add file assets.jslint.rollup.js
-- add heroku-postbuild npm-script
+#### change since 980799f1
+- npm publish 2017.2.2
+- revamp README.md
 - none
 
 #### this package requires
@@ -48,16 +46,16 @@ this zero-dependency package will provide browser-compatible versions of jslint 
 
 
 
-# build-status [![travis-ci.org build-status](https://api.travis-ci.org/kaizhu256/node-jslint.svg)](https://travis-ci.org/kaizhu256/node-jslint)
-[![build commit status](https://kaizhu256.github.io/node-jslint/build/build.badge.svg)](https://travis-ci.org/kaizhu256/node-jslint)
+# build status [![travis-ci.org build-status](https://api.travis-ci.org/kaizhu256/node-jslint-lite.svg)](https://travis-ci.org/kaizhu256/node-jslint-lite)
+[![build commit status](https://kaizhu256.github.io/node-jslint-lite/build/build.badge.svg)](https://travis-ci.org/kaizhu256/node-jslint-lite)
 
-| git-branch : | [master](https://github.com/kaizhu256/node-jslint/tree/master) | [beta](https://github.com/kaizhu256/node-jslint/tree/beta) | [alpha](https://github.com/kaizhu256/node-jslint/tree/alpha)|
+| git-branch : | [master](https://github.com/kaizhu256/node-jslint-lite/tree/master) | [beta](https://github.com/kaizhu256/node-jslint-lite/tree/beta) | [alpha](https://github.com/kaizhu256/node-jslint-lite/tree/alpha)|
 |--:|:--|:--|:--|
-| test-server-1 : | [![github.com test-server](https://kaizhu256.github.io/node-jslint/GitHub-Mark-32px.png)](https://kaizhu256.github.io/node-jslint/build..master..travis-ci.org/app/index.html) | [![github.com test-server](https://kaizhu256.github.io/node-jslint/GitHub-Mark-32px.png)](https://kaizhu256.github.io/node-jslint/build..beta..travis-ci.org/app/index.html) | [![github.com test-server](https://kaizhu256.github.io/node-jslint/GitHub-Mark-32px.png)](https://kaizhu256.github.io/node-jslint/build..alpha..travis-ci.org/app/index.html)|
-| test-server-2 : | [![heroku.com test-server](https://kaizhu256.github.io/node-jslint/heroku-logo.75x25.png)](https://hrku01-jslint-master.herokuapp.com) | [![heroku.com test-server](https://kaizhu256.github.io/node-jslint/heroku-logo.75x25.png)](https://hrku01-jslint-beta.herokuapp.com) | [![heroku.com test-server](https://kaizhu256.github.io/node-jslint/heroku-logo.75x25.png)](https://hrku01-jslint-alpha.herokuapp.com)|
-| test-report : | [![test-report](https://kaizhu256.github.io/node-jslint/build..master..travis-ci.org/test-report.badge.svg)](https://kaizhu256.github.io/node-jslint/build..master..travis-ci.org/test-report.html) | [![test-report](https://kaizhu256.github.io/node-jslint/build..beta..travis-ci.org/test-report.badge.svg)](https://kaizhu256.github.io/node-jslint/build..beta..travis-ci.org/test-report.html) | [![test-report](https://kaizhu256.github.io/node-jslint/build..alpha..travis-ci.org/test-report.badge.svg)](https://kaizhu256.github.io/node-jslint/build..alpha..travis-ci.org/test-report.html)|
-| coverage : | [![istanbul coverage](https://kaizhu256.github.io/node-jslint/build..master..travis-ci.org/coverage.badge.svg)](https://kaizhu256.github.io/node-jslint/build..master..travis-ci.org/coverage.html/index.html) | [![istanbul coverage](https://kaizhu256.github.io/node-jslint/build..beta..travis-ci.org/coverage.badge.svg)](https://kaizhu256.github.io/node-jslint/build..beta..travis-ci.org/coverage.html/index.html) | [![istanbul coverage](https://kaizhu256.github.io/node-jslint/build..alpha..travis-ci.org/coverage.badge.svg)](https://kaizhu256.github.io/node-jslint/build..alpha..travis-ci.org/coverage.html/index.html)|
-| build-artifacts : | [![build-artifacts](https://kaizhu256.github.io/node-jslint/glyphicons_144_folder_open.png)](https://github.com/kaizhu256/node-jslint/tree/gh-pages/build..master..travis-ci.org) | [![build-artifacts](https://kaizhu256.github.io/node-jslint/glyphicons_144_folder_open.png)](https://github.com/kaizhu256/node-jslint/tree/gh-pages/build..beta..travis-ci.org) | [![build-artifacts](https://kaizhu256.github.io/node-jslint/glyphicons_144_folder_open.png)](https://github.com/kaizhu256/node-jslint/tree/gh-pages/build..alpha..travis-ci.org)|
+| test-server-1 : | [![github.com test-server](https://kaizhu256.github.io/node-jslint-lite/GitHub-Mark-32px.png)](https://kaizhu256.github.io/node-jslint-lite/build..master..travis-ci.org/app/index.html) | [![github.com test-server](https://kaizhu256.github.io/node-jslint-lite/GitHub-Mark-32px.png)](https://kaizhu256.github.io/node-jslint-lite/build..beta..travis-ci.org/app/index.html) | [![github.com test-server](https://kaizhu256.github.io/node-jslint-lite/GitHub-Mark-32px.png)](https://kaizhu256.github.io/node-jslint-lite/build..alpha..travis-ci.org/app/index.html)|
+| test-server-2 : | [![heroku.com test-server](https://kaizhu256.github.io/node-jslint-lite/heroku-logo.75x25.png)](https://h1-jslint-master.herokuapp.com) | [![heroku.com test-server](https://kaizhu256.github.io/node-jslint-lite/heroku-logo.75x25.png)](https://h1-jslint-beta.herokuapp.com) | [![heroku.com test-server](https://kaizhu256.github.io/node-jslint-lite/heroku-logo.75x25.png)](https://h1-jslint-alpha.herokuapp.com)|
+| test-report : | [![test-report](https://kaizhu256.github.io/node-jslint-lite/build..master..travis-ci.org/test-report.badge.svg)](https://kaizhu256.github.io/node-jslint-lite/build..master..travis-ci.org/test-report.html) | [![test-report](https://kaizhu256.github.io/node-jslint-lite/build..beta..travis-ci.org/test-report.badge.svg)](https://kaizhu256.github.io/node-jslint-lite/build..beta..travis-ci.org/test-report.html) | [![test-report](https://kaizhu256.github.io/node-jslint-lite/build..alpha..travis-ci.org/test-report.badge.svg)](https://kaizhu256.github.io/node-jslint-lite/build..alpha..travis-ci.org/test-report.html)|
+| coverage : | [![istanbul-coverage](https://kaizhu256.github.io/node-jslint-lite/build..master..travis-ci.org/coverage.badge.svg)](https://kaizhu256.github.io/node-jslint-lite/build..master..travis-ci.org/coverage.html/index.html) | [![istanbul-coverage](https://kaizhu256.github.io/node-jslint-lite/build..beta..travis-ci.org/coverage.badge.svg)](https://kaizhu256.github.io/node-jslint-lite/build..beta..travis-ci.org/coverage.html/index.html) | [![istanbul-coverage](https://kaizhu256.github.io/node-jslint-lite/build..alpha..travis-ci.org/coverage.badge.svg)](https://kaizhu256.github.io/node-jslint-lite/build..alpha..travis-ci.org/coverage.html/index.html)|
+| build-artifacts : | [![build-artifacts](https://kaizhu256.github.io/node-jslint-lite/glyphicons_144_folder_open.png)](https://github.com/kaizhu256/node-jslint-lite/tree/gh-pages/build..master..travis-ci.org) | [![build-artifacts](https://kaizhu256.github.io/node-jslint-lite/glyphicons_144_folder_open.png)](https://github.com/kaizhu256/node-jslint-lite/tree/gh-pages/build..beta..travis-ci.org) | [![build-artifacts](https://kaizhu256.github.io/node-jslint-lite/glyphicons_144_folder_open.png)](https://github.com/kaizhu256/node-jslint-lite/tree/gh-pages/build..alpha..travis-ci.org)|
 
 #### master branch
 - stable branch
@@ -75,26 +73,25 @@ this zero-dependency package will provide browser-compatible versions of jslint 
 
 
 # quickstart web example
-![screen-capture](https://kaizhu256.github.io/node-jslint/build/screen-capture.testExampleJs.browser..png)
+![screen-capture](https://kaizhu256.github.io/node-jslint-lite/build/screen-capture.testExampleJs.browser..png)
 
 #### to run this example, follow the instruction in the script below
-- [example.js](https://kaizhu256.github.io/node-jslint/build/example.js)
+- [example.js](https://kaizhu256.github.io/node-jslint-lite/build/example.js)
 ```javascript
 /*
 example.js
 
-this script will will demo the browser-version of jslint and csslint
+this script will demo the browser-version of jslint and csslint
 
 instruction
     1. save this script as example.js
     2. run the shell command:
-        $ npm install jslint-lite && \
-            export PORT=8081 && \
-            node example.js
+        $ npm install jslint-lite && PORT=8081 node example.js
     3. play with the browser-demo on http://127.0.0.1:8081
 */
 
-/* istanbul instrument in package jslint-lite */
+
+
 /*jslint
     bitwise: true,
     browser: true,
@@ -146,7 +143,6 @@ instruction
 
     // run browser js-env code - post-init
     case 'browser':
-        /* istanbul ignore next */
         local.testRun = function (event) {
             switch (event && event.currentTarget.id) {
             case 'testRunButton1':
@@ -220,7 +216,6 @@ instruction
 
 
 
-    /* istanbul ignore next */
     // run node js-env code - post-init
     case 'node':
         // export local
@@ -228,11 +223,11 @@ instruction
         // require modules
         local.fs = require('fs');
         local.http = require('http');
-        local.path = require('path');
         local.url = require('url');
         // init assets
+        local.assetsDict = local.assetsDict || {};
         /* jslint-ignore-begin */
-        local.templateIndexHtml = '\
+        local.assetsDict['/assets.index.template.html'] = '\
 <!doctype html>\n\
 <html lang="en">\n\
 <head>\n\
@@ -248,7 +243,7 @@ instruction
     box-sizing: border-box;\n\
 }\n\
 body {\n\
-    background: #fff;\n\
+    background: #dde;\n\
     font-family: Arial, Helvetica, sans-serif;\n\
     margin: 2rem;\n\
 }\n\
@@ -276,7 +271,7 @@ textarea[readonly] {\n\
 </head>\n\
 <body>\n\
 <!-- utility2-comment\n\
-    <div id="ajaxProgressDiv1" style="background: #d00; height: 4px; left: 0; margin: 0; padding: 0; position: fixed; top: 0; transition: background 0.5s, width 1.5s; width: 25%;"></div>\n\
+    <div id="ajaxProgressDiv1" style="background: #d00; height: 2px; left: 0; margin: 0; padding: 0; position: fixed; top: 0; transition: background 0.5s, width 1.5s; width: 25%;"></div>\n\
 utility2-comment -->\n\
     <h1>\n\
 <!-- utility2-comment\n\
@@ -337,7 +332,7 @@ body {\n\
 utility2-comment -->\n\
     <script src="assets.utility2.rollup.js"></script>\n\
     <script src="jsonp.utility2._stateInit?callback=window.utility2._stateInit"></script>\n\
-    <script src="assets.jslint.js"></script>\n\
+    <script src="assets.jslint.rollup.js"></script>\n\
     <script src="assets.example.js"></script>\n\
     <script src="assets.test.js"></script>\n\
 <!-- utility2-comment\n\
@@ -347,63 +342,74 @@ utility2-comment -->\n\
 </html>\n\
 ';
         /* jslint-ignore-end */
-        local['/'] = local.templateIndexHtml
-            .replace((/\{\{env\.(\w+?)\}\}/g), function (match0, match1) {
-                // jslint-hack
-                String(match0);
-                switch (match1) {
-                case 'npm_package_description':
-                    return 'example module';
-                case 'npm_package_nameAlias':
-                    return 'example';
-                case 'npm_package_version':
-                    return '0.0.1';
+        if (local.templateRender) {
+            local.assetsDict['/'] = local.templateRender(
+                local.assetsDict['/assets.index.template.html'],
+                {
+                    env: local.objectSetDefault(local.env, {
+                        npm_package_description: 'example module',
+                        npm_package_nameAlias: 'example',
+                        npm_package_version: '0.0.1'
+                    })
                 }
-            });
-        if (local.global.utility2_rollup) {
-            break;
+            );
+        } else {
+            local.assetsDict['/'] = local.assetsDict['/assets.index.template.html']
+                .replace((/\{\{env\.(\w+?)\}\}/g), function (match0, match1) {
+                    // jslint-hack
+                    String(match0);
+                    switch (match1) {
+                    case 'npm_package_description':
+                        return 'example module';
+                    case 'npm_package_nameAlias':
+                        return 'example';
+                    case 'npm_package_version':
+                        return '0.0.1';
+                    }
+                });
         }
-        try {
-            local['/assets.example.js'] = local.fs.readFileSync(__filename, 'utf8');
-        } catch (ignore) {
-        }
-        local['/assets.jslint.js'] = '//' + local.fs.readFileSync(
-            local.jslint.__dirname + '/lib.jslint.js',
-            'utf8'
-        );
         // run the cli
-        if (module !== require.main) {
+        if (local.global.utility2_rollup || module !== require.main) {
             break;
         }
-        // start server
-        console.log('server starting on port ' + process.env.PORT);
-        local.http.createServer(function (request, response) {
-            switch (local.url.parse(request.url).pathname) {
-            case '/':
-            case '/assets.example.js':
-            case '/assets.jslint.js':
-            case '/assets.test.js':
-                response.end(local[local.url.parse(request.url).pathname]);
-                break;
-            default:
-                response.end();
-            }
-        }).listen(process.env.PORT);
+        local.assetsDict['/assets.example.js'] = local.assetsDict['/assets.example.js'] ||
+            local.fs.readFileSync(__filename, 'utf8');
+        local.assetsDict['/assets.jslint.rollup.js'] =
+            local.assetsDict['/assets.jslint.rollup.js'] || local.fs.readFileSync(
+                local.jslint.__dirname + '/lib.jslint.js',
+                'utf8'
+            ).replace((/^#!/), '//');
+        local.assetsDict['/favicon.ico'] = local.assetsDict['/favicon.ico'] || '';
         // if $npm_config_timeout_exit exists,
         // then exit this process after $npm_config_timeout_exit ms
         if (Number(process.env.npm_config_timeout_exit)) {
             setTimeout(process.exit, Number(process.env.npm_config_timeout_exit));
         }
+        // start server
+        if (local.global.utility2_serverHttp1) {
+            break;
+        }
+        process.env.PORT = process.env.PORT || '8081';
+        console.log('server starting on port ' + process.env.PORT);
+        local.http.createServer(function (request, response) {
+            request.urlParsed = local.url.parse(request.url);
+            if (local.assetsDict[request.urlParsed.pathname] !== undefined) {
+                response.end(local.assetsDict[request.urlParsed.pathname]);
+                return;
+            }
+            response.statusCode = 404;
+            response.end();
+        }).listen(process.env.PORT);
         break;
     }
 }());
 ```
 
 #### output from electron
-![screen-capture](https://kaizhu256.github.io/node-jslint/build/screen-capture.testExampleJs.browser..png)
+![screen-capture](https://kaizhu256.github.io/node-jslint-lite/build/screen-capture.testExampleJs.browser..png)
 
 #### output from shell
-![screen-capture](https://kaizhu256.github.io/node-jslint/build/screen-capture.testExampleJs.svg)
+![screen-capture](https://kaizhu256.github.io/node-jslint-lite/build/screen-capture.testExampleJs.svg)
 
 
 
@@ -422,7 +428,7 @@ utility2-comment -->\n\
     "engines": {
         "node": ">=4.0"
     },
-    "homepage": "https://github.com/kaizhu256/node-jslint",
+    "homepage": "https://github.com/kaizhu256/node-jslint-lite",
     "keywords": [
         "browser",
         "csslint",
@@ -433,7 +439,7 @@ utility2-comment -->\n\
         "lint"
     ],
     "license": "MIT",
-    "main": "lib.jslint",
+    "main": "lib.jslint.js",
     "name": "jslint-lite",
     "nameAlias": "jslint",
     "os": [
@@ -443,7 +449,7 @@ utility2-comment -->\n\
     "package.json": true,
     "repository": {
         "type": "git",
-        "url": "https://github.com/kaizhu256/node-jslint.git"
+        "url": "https://github.com/kaizhu256/node-jslint-lite.git"
     },
     "scripts": {
         "build-ci": "utility2 shRun shReadmeBuild",
@@ -452,14 +458,14 @@ utility2-comment -->\n\
         "start": "export PORT=${PORT:-8080} && export npm_config_mode_auto_restart=1 && utility2 shRun shIstanbulCover test.js",
         "test": "export PORT=$(utility2 shServerPortRandom) && utility2 test test.js"
     },
-    "version": "2017.2.1"
+    "version": "2017.2.2"
 }
 ```
 
 
 
 # changelog of last 50 commits
-[![screen-capture](https://kaizhu256.github.io/node-jslint/build/screen-capture.gitLog.svg)](https://github.com/kaizhu256/node-jslint/commits)
+[![screen-capture](https://kaizhu256.github.io/node-jslint-lite/build/screen-capture.gitLog.svg)](https://github.com/kaizhu256/node-jslint-lite/commits)
 
 
 
@@ -469,29 +475,6 @@ utility2-comment -->\n\
 # build.sh
 
 # this shell script will run the build for this package
-
-shBuildCiTestPre() {(set -e
-# this function will run the pre-test build
-    # test example.js
-    (export MODE_BUILD=testExampleJs &&
-        shRunScreenCapture shReadmeTestJs example.js) || return $?
-    # test published-package
-    (export MODE_BUILD=npmTestPublished &&
-        shRunScreenCapture shNpmTestPublished) || return $?
-)}
-
-shBuildCiTestPost() {(set -e
-# this function will run the post-test build
-    # if running legacy-node, then return
-    [ "$(node --version)" \< "v7.0" ] && return || true
-    export NODE_ENV=production
-    # deploy app to gh-pages
-    (export MODE_BUILD=deployGithub &&
-        shDeployGithub) || return $?
-    # deploy app to heroku
-    (export MODE_BUILD=deployHeroku &&
-        shDeployHeroku) || return $?
-)}
 
 shBuild() {(set -e
 # this function will run the main build
@@ -509,5 +492,29 @@ shBuild() {(set -e
         shBuildCiDefault
     fi
 )}
+
+shBuildCiTestPost() {(set -e
+# this function will run the post-test build
+    # if running legacy-node, then return
+    [ "$(node --version)" \< "v7.0" ] && return || true
+    export NODE_ENV=production
+    # deploy app to gh-pages
+    (export MODE_BUILD=deployGithub &&
+        shDeployGithub) || return $?
+    # deploy app to heroku
+    (export MODE_BUILD=deployHeroku &&
+        shDeployHeroku) || return $?
+)}
+
+shBuildCiTestPre() {(set -e
+# this function will run the pre-test build
+    # test example.js
+    (export MODE_BUILD=testExampleJs &&
+        shRunScreenCapture shReadmeTestExampleJs) || return $?
+    # test published-package
+    (export MODE_BUILD=npmTestPublished &&
+        shRunScreenCapture shNpmTestPublished) || return $?
+)}
+
 shBuild
 ```

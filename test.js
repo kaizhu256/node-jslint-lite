@@ -144,17 +144,9 @@
 
     // run node js-env code - function
     case 'node':
-        local.testCase_build_app = function (options, onError) {
+        local.testCase_build_apiDoc = function (options, onError) {
         /*
-         * this function will test build's app handling-behavior
-         */
-            options = [];
-            local.buildApp(options, onError);
-        };
-
-        local.testCase_build_doc = function (options, onError) {
-        /*
-         * this function will test build's doc handling-behavior
+         * this function will test build's apiDoc handling-behavior
          */
             options = { moduleDict: {
                 'jslint.CSSLint': {
@@ -166,7 +158,15 @@
                     exports: local.JSLINT
                 }
             } };
-            local.buildDoc(options, onError);
+            local.buildApiDoc(options, onError);
+        };
+
+        local.testCase_build_app = function (options, onError) {
+        /*
+         * this function will test build's app handling-behavior
+         */
+            options = [];
+            local.buildApp(options, onError);
         };
 
         local.testCase_build_readme = function (options, onError) {
@@ -174,8 +174,6 @@
          * this function will test build's readme handling-behavior
          */
             options = {};
-            options.readmeFrom = local.fs.readFileSync('README.md', 'utf8');
-            options.readmeTo = local.templateReadme;
             local.buildReadmeJslintLite(options, onError);
         };
 
