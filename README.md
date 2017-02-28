@@ -12,7 +12,6 @@ this zero-dependency package will provide browser-compatible versions of jslint 
 
 # cdn download
 - [https://kaizhu256.github.io/node-jslint-lite/build..beta..travis-ci.org/app/assets.jslint.rollup.js](https://kaizhu256.github.io/node-jslint-lite/build..beta..travis-ci.org/app/assets.jslint.rollup.js)
-- [https://kaizhu256.github.io/node-jslint-lite/build..beta..travis-ci.org/app/assets.jslint.rollup.min.js](https://kaizhu256.github.io/node-jslint-lite/build..beta..travis-ci.org/app/assets.jslint.rollup.min.js)
 
 
 
@@ -27,14 +26,15 @@ this zero-dependency package will provide browser-compatible versions of jslint 
 #### api-doc
 - [https://kaizhu256.github.io/node-jslint-lite/build..beta..travis-ci.org/api-doc.html](https://kaizhu256.github.io/node-jslint-lite/build..beta..travis-ci.org/api-doc.html)
 
-[![api-doc](https://kaizhu256.github.io/node-jslint-lite/build/screen-capture.apiDocCreate.browser._2Fhome_2Ftravis_2Fbuild_2Fkaizhu256_2Fnode-jslint-lite_2Ftmp_2Fbuild_2Fapi-doc.html.png)](https://kaizhu256.github.io/node-jslint-lite/build..beta..travis-ci.org/api-doc.html)
+[![api-doc](https://kaizhu256.github.io/node-jslint-lite/build/screen-capture.apiDoc.browser._2Fhome_2Ftravis_2Fbuild_2Fkaizhu256_2Fnode-jslint-lite_2Ftmp_2Fbuild_2Fapi-doc.html.png)](https://kaizhu256.github.io/node-jslint-lite/build..beta..travis-ci.org/api-doc.html)
 
 #### todo
 - none
 
-#### change since 980799f1
-- npm publish 2017.2.2
-- revamp README.md
+#### change since 89307aed
+- npm publish 2017.2.27
+- create published-alias es5lint es6lint jslint_lite
+- replace env var npm_package_name with npm_package_nameAlias in istanbul code-coverage
 - none
 
 #### this package requires
@@ -92,6 +92,7 @@ instruction
 
 
 
+/* istanbul instrument in package jslint */
 /*jslint
     bitwise: true,
     browser: true,
@@ -141,30 +142,51 @@ instruction
 
 
 
+    // post-init
+    /* istanbul ignore next */
     // run browser js-env code - post-init
     case 'browser':
-        local.testRun = function (event) {
-            switch (event && event.currentTarget.id) {
+        local.testRunBrowser = function (event) {
+            if (!event || (event &&
+                    event.currentTarget &&
+                    event.currentTarget.className &&
+                    event.currentTarget.className.includes &&
+                    event.currentTarget.className.includes('onreset'))) {
+                // reset output
+                Array.from(
+                    document.querySelectorAll('body > .resettable')
+                ).forEach(function (element) {
+                    switch (element.tagName) {
+                    case 'INPUT':
+                    case 'TEXTAREA':
+                        element.value = '';
+                        break;
+                    default:
+                        element.textContent = '';
+                    }
+                });
+            }
+            switch (event && event.currentTarget && event.currentTarget.id) {
             case 'testRunButton1':
                 // show tests
                 if (document.querySelector('#testReportDiv1').style.display === 'none') {
                     document.querySelector('#testReportDiv1').style.display = 'block';
-                    document.querySelector('#testRunButton1').innerText = 'hide internal test';
+                    document.querySelector('#testRunButton1').textContent =
+                        'hide internal test';
                     local.modeTest = true;
                     local.testRunDefault(local);
                 // hide tests
                 } else {
                     document.querySelector('#testReportDiv1').style.display = 'none';
-                    document.querySelector('#testRunButton1').innerText = 'run internal test';
+                    document.querySelector('#testRunButton1').textContent = 'run internal test';
                 }
                 break;
+            // custom-case
             default:
-                // reset stdout
-                document.querySelector('#outputTextarea2').value = '';
-                // jslint #inputTextareaJslint1
+                // jslint #inputTextareaEval1
                 local.jslint.jslintAndPrint(
-                    document.querySelector('#inputTextareaJslint1').value,
-                    'inputTextareaJslint1.js'
+                    document.querySelector('#inputTextareaEval1').value,
+                    'inputTextareaEval1.js'
                 );
                 document.querySelector('#outputPreJslint1').textContent =
                     local.jslint.errorText
@@ -179,43 +201,54 @@ instruction
                     local.jslint.errorText
                     .replace((/\u001b\[\d+m/g), '')
                     .trim();
+            }
+            if (document.querySelector('#inputTextareaEval1') && (!event || (event &&
+                    event.currentTarget &&
+                    event.currentTarget.className &&
+                    event.currentTarget.className.includes &&
+                    event.currentTarget.className.includes('oneval')))) {
                 // try to eval input-code
                 try {
                     /*jslint evil: true*/
-                    eval(document.querySelector('#inputTextareaJslint1').value);
+                    eval(document.querySelector('#inputTextareaEval1').value);
                 } catch (errorCaught) {
                     console.error(errorCaught.stack);
                 }
-                // scroll stdout to bottom
-                document.querySelector('#outputTextarea2').scrollTop =
-                    document.querySelector('#outputTextarea2').scrollHeight;
             }
         };
-        // log stderr and stdout to #outputTextarea2
+        // log stderr and stdout to #outputTextareaStdout1
         ['error', 'log'].forEach(function (key) {
-            console['_' + key] = console[key];
+            console[key + '_original'] = console[key];
             console[key] = function () {
-                console['_' + key].apply(console, arguments);
-                document.querySelector('#outputTextarea2').value +=
-                    Array.from(arguments).map(function (arg) {
-                        return typeof arg === 'string'
-                            ? arg
-                            : JSON.stringify(arg, null, 4);
-                    }).join(' ') + '\n';
+                var element;
+                console[key + '_original'].apply(console, arguments);
+                element = document.querySelector('#outputTextareaStdout1');
+                if (!element) {
+                    return;
+                }
+                // append text to #outputTextareaStdout1
+                element.value += Array.from(arguments).map(function (arg) {
+                    return typeof arg === 'string'
+                        ? arg
+                        : JSON.stringify(arg, null, 4);
+                }).join(' ') + '\n';
+                // scroll textarea to bottom
+                element.scrollTop = element.scrollHeight;
             };
         });
         // init event-handling
-        ['click', 'keyup'].forEach(function (event) {
+        ['change', 'click', 'keyup'].forEach(function (event) {
             Array.from(document.querySelectorAll('.on' + event)).forEach(function (element) {
-                element.addEventListener(event, local.testRun);
+                element.addEventListener(event, local.testRunBrowser);
             });
         });
         // run tests
-        local.testRun();
+        local.testRunBrowser();
         break;
 
 
 
+    /* istanbul ignore next */
     // run node js-env code - post-init
     case 'node':
         // export local
@@ -290,14 +323,16 @@ utility2-comment -->\n\
     <h3>{{env.npm_package_description}}</h3>\n\
 <!-- utility2-comment\n\
     <h4><a download href="assets.app.js">download standalone app</a></h4>\n\
-    <button class="onclick" id="testRunButton1">run internal test</button><br>\n\
+    <button class="onclick onreset" id="testRunButton1">run internal test</button><br>\n\
     <div id="testReportDiv1" style="display: none;"></div>\n\
 utility2-comment -->\n\
+\n\
+\n\
 \n\
     <div>edit or paste script below to\n\
         <a href="http://www.jslint.com" target="_blank">jslint</a>\n\
     </div>\n\
-<textarea class="onkeyup" id="inputTextareaJslint1">\n\
+<textarea class="oneval onkeyup onreset" id="inputTextareaEval1">\n\
 /*jslint\n\
     browser: true,\n\
     es6: true\n\
@@ -313,7 +348,7 @@ console.log(null);\n\
             target="_blank"\n\
         >csslint</a>\n\
     </div>\n\
-<textarea class="onkeyup" id="inputTextareaCsslint1">\n\
+<textarea class="oneval onkeyup onreset" id="inputTextareaCsslint1">\n\
 /*csslint\n\
     box-sizing: false,\n\
 */\n\
@@ -324,10 +359,10 @@ body {\n\
 </textarea>\n\
     <pre id="outputPreCsslint1"></pre>\n\
     <label>stderr and stdout</label>\n\
-    <textarea id="outputTextarea2" readonly></textarea>\n\
+    <textarea class="resettable" id="outputTextareaStdout1" readonly></textarea>\n\
 <!-- utility2-comment\n\
     {{#if isRollup}}\n\
-    <script src="assets.app.min.js"></script>\n\
+    <script src="assets.app.js"></script>\n\
     {{#unless isRollup}}\n\
 utility2-comment -->\n\
     <script src="assets.utility2.rollup.js"></script>\n\
@@ -442,23 +477,25 @@ utility2-comment -->\n\
     "main": "lib.jslint.js",
     "name": "jslint-lite",
     "nameAlias": "jslint",
+    "nameOriginal": "jslint-lite",
     "os": [
         "darwin",
         "linux"
     ],
-    "package.json": true,
     "repository": {
         "type": "git",
         "url": "https://github.com/kaizhu256/node-jslint-lite.git"
     },
     "scripts": {
         "build-ci": "utility2 shRun shReadmeBuild",
+        "env": "env",
         "heroku-postbuild": "npm install 'kaizhu256/node-utility2#alpha' && utility2 shRun shDeployHeroku",
         "postinstall": "if [ -f lib.jslint.npm-scripts.sh ]; then ./lib.jslint.npm-scripts.sh postinstall; fi",
+        "publish-alias": "VERSION=$(npm info $npm_package_name version); for ALIAS in es5lint es6lint jslint_lite; do utility2 shRun shNpmPublishAs . $ALIAS $VERSION; utility2 shRun shNpmTestPublished $ALIAS || exit $?; done",
         "start": "export PORT=${PORT:-8080} && export npm_config_mode_auto_restart=1 && utility2 shRun shIstanbulCover test.js",
         "test": "export PORT=$(utility2 shServerPortRandom) && utility2 test test.js"
     },
-    "version": "2017.2.2"
+    "version": "2017.2.27"
 }
 ```
 
@@ -483,14 +520,18 @@ shBuild() {(set -e
     # cleanup github-gh-pages dir
     # export BUILD_GITHUB_UPLOAD_PRE_SH="rm -fr build"
     # init github-gh-pages commit-limit
-    export COMMIT_LIMIT=16
-    # if branch is alpha, beta, or master, then run default build
-    if [ "$CI_BRANCH" = alpha ] ||
-        [ "$CI_BRANCH" = beta ] ||
-        [ "$CI_BRANCH" = master ]
-    then
+    export COMMIT_LIMIT=20
+    case "$CI_BRANCH" in
+    alpha)
         shBuildCiDefault
-    fi
+        ;;
+    beta)
+        shBuildCiDefault
+        ;;
+    master)
+        shBuildCiDefault
+        ;;
+    esac
 )}
 
 shBuildCiTestPost() {(set -e
@@ -499,22 +540,23 @@ shBuildCiTestPost() {(set -e
     [ "$(node --version)" \< "v7.0" ] && return || true
     export NODE_ENV=production
     # deploy app to gh-pages
-    (export MODE_BUILD=deployGithub &&
-        shDeployGithub) || return $?
+    (export MODE_BUILD=deployGithub && shDeployGithub) || return $?
     # deploy app to heroku
-    (export MODE_BUILD=deployHeroku &&
-        shDeployHeroku) || return $?
+    (export MODE_BUILD=deployHeroku && shDeployHeroku) || return $?
 )}
 
 shBuildCiTestPre() {(set -e
 # this function will run the pre-test build
     # test example.js
-    (export MODE_BUILD=testExampleJs &&
-        shRunScreenCapture shReadmeTestExampleJs) || return $?
+    (export MODE_BUILD=testExampleJs && shRunScreenCapture shReadmeTestExampleJs) || return $?
     # test published-package
-    (export MODE_BUILD=npmTestPublished &&
-        shRunScreenCapture shNpmTestPublished) || return $?
+    (export MODE_BUILD=npmTestPublished && shRunScreenCapture shNpmTestPublished) || return $?
 )}
 
 shBuild
 ```
+
+
+
+# misc
+- this README.md was auto-generated by [utility2](https://github.com/kaizhu256/node-utility2)

@@ -1,4 +1,4 @@
-/* istanbul instrument in package jslint-lite */
+/* istanbul instrument in package jslint */
 /*jslint
     bitwise: true,
     browser: true,
@@ -144,37 +144,29 @@
 
     // run node js-env code - function
     case 'node':
-        local.testCase_build_apiDoc = function (options, onError) {
+        local.testCase_buildApiDoc_default = function (options, onError) {
         /*
-         * this function will test build's apiDoc handling-behavior
+         * this function will test buildApiDoc's handling-behavior
          */
-            options = { moduleDict: {
-                'jslint.CSSLint': {
-                    exampleFileList: [],
-                    exports: local.CSSLint
-                },
-                'jslint.JSLINT': {
-                    exampleFileList: [],
-                    exports: local.JSLINT
-                }
-            } };
+            options = {};
             local.buildApiDoc(options, onError);
         };
 
-        local.testCase_build_app = function (options, onError) {
+        local.testCase_buildApp_default = function (options, onError) {
         /*
-         * this function will test build's app handling-behavior
+         * this function will test buildApp's handling-behavior
          */
+            local.testCase_buildReadme_default(options, local.onErrorDefault);
             options = [];
             local.buildApp(options, onError);
         };
 
-        local.testCase_build_readme = function (options, onError) {
+        local.testCase_buildReadme_default = function (options, onError) {
         /*
-         * this function will test build's readme handling-behavior
+         * this function will test buildReadme's handling-behavior
          */
             options = {};
-            local.buildReadmeJslintLite(options, onError);
+            local.buildReadme(options, onError);
         };
 
         local.testCase_webpage_default = function (options, onError) {
