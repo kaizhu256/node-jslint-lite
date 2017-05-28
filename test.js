@@ -15,7 +15,7 @@
 
 
 
-    // run shared js-env code - pre-init
+    // run shared js-env code - init-before
     (function () {
         // init local
         local = {};
@@ -47,11 +47,11 @@
             break;
         // re-init local from example.js
         case 'node':
-            local = (local.global.utility2_rollup || require('utility2'))
-                .requireExampleJsFromReadme();
+            local = (local.global.utility2_rollup ||
+                require('utility2')).requireReadme();
             break;
         }
-        // export local
+        // init exports
         local.global.local = local;
     }());
 
@@ -159,7 +159,7 @@
 
 
 
-    // run shared js-env code - post-init
+    // run shared js-env code - init-after
     (function () {
         return;
     }());
@@ -167,9 +167,20 @@
 
 
 
-    // run browser js-env code - post-init
+    // run browser js-env code - init-after
     case 'browser':
+        local.testCase_browser_nullCase = local.testCase_browser_nullCase || function (
+            options,
+            onError
+        ) {
+        /*
+         * this function will test browser's null-case handling-behavior-behavior
+         */
+            onError(null, options);
+        };
+
         // run tests
+        // coverage-hack - ignore else-statement
         local.nop(local.modeTest &&
             document.querySelector('#testRunButton1') &&
             document.querySelector('#testRunButton1').click());
@@ -177,7 +188,7 @@
 
 
 
-    // run node js-env code - post-init
+    // run node js-env code - init-after
     /* istanbul ignore next */
     case 'node':
         local.testCase_buildApidoc_default = local.testCase_buildApidoc_default || function (
@@ -188,10 +199,6 @@
          * this function will test buildApidoc's default handling-behavior-behavior
          */
             options = { modulePathList: module.paths };
-            if (local.env.npm_package_buildNpmdoc) {
-                local.buildNpmdoc(options, onError);
-                return;
-            }
             local.buildApidoc(options, onError);
         };
 
@@ -205,9 +212,19 @@
             local.testCase_buildReadme_default(options, local.onErrorThrow);
             local.testCase_buildLib_default(options, local.onErrorThrow);
             local.testCase_buildTest_default(options, local.onErrorThrow);
+            local.testCase_buildCustomOrg_default(options, local.onErrorThrow);
             options = [];
             local.buildApp(options, onError);
         };
+
+        local.testCase_buildCustomOrg_default = local.testCase_buildCustomOrg_default ||
+            function (options, onError) {
+            /*
+             * this function will test buildCustomOrg's default handling-behavior
+             */
+                options = {};
+                local.buildCustomOrg(options, onError);
+            };
 
         local.testCase_buildLib_default = local.testCase_buildLib_default || function (
             options,
@@ -227,10 +244,6 @@
         /*
          * this function will test buildReadme's default handling-behavior-behavior
          */
-            if (local.env.npm_package_buildNpmdoc) {
-                onError();
-                return;
-            }
             options = {};
             local.buildReadme(options, onError);
         };
