@@ -53,11 +53,10 @@ this zero-dependency package will provide browser-compatible versions of jslint 
 [![apidoc](https://kaizhu256.github.io/node-jslint-lite/build/screenshot.buildCi.browser.%252Ftmp%252Fbuild%252Fapidoc.html.png)](https://kaizhu256.github.io/node-jslint-lite/build..beta..travis-ci.org/apidoc.html)
 
 #### todo
+- npm publish 2017.9.7
 - none
 
-#### changelog for v2017.9.6
-- npm publish 2017.9.6
-- update cli
+#### changelog for v2017.9.7
 - none
 
 #### this package requires
@@ -628,7 +627,7 @@ utility2-comment -->\n\
         "start": "PORT=${PORT:-8080} utility2 start test.js",
         "test": "PORT=$(utility2 shServerPortRandom) utility2 test test.js"
     },
-    "version": "2017.9.6"
+    "version": "2017.9.7"
 }
 ```
 

@@ -5965,7 +5965,7 @@ n.open,delete n.used,n=l}})}var r={bitwise:!0,browser:["Audio","clearInterval","
 ,wrap_parameter:"Wrap the parameter in parens.",wrap_regexp:"Wrap this regexp in parens to avoid confusion."
 ,wrap_unary:"Wrap the unary expression in parens."},l=/\{([^{}]*)\}/g,c=/\n|\r\n?/
 ,h=/[\u0000-\u001f\u007f-\u009f\u00ad\u0600-\u0604\u070f\u17b4\u17b5\u200c-\u200f\u2028-\u202f\u2060-\u206f\ufeff\ufff0-\uffff]/
-,p=/^([a-zA-Z_$][a-zA-Z0-9_$]*)$/,d=/^[a-zA-Z0-9_$:.@\-\/]+$/,v=/^_|\$|Sync\$|_$/
+,p=/^([a-zA-Z_$][a-zA-Z0-9_$]*)$/,d=/^[a-zA-Z0-9_$:.@\-\/]+$/,v=/Sync\$/
 ,m=/\*\//,g=/\/\*/,y=/\/\*|\/$/,b=/\b(?:todo|TO\s?DO|HACK)\b/,w=/\t/g,E=/^(jslint|property|global)\s+(.*)$/
 ,S=/^([a-zA-Z$_][a-zA-Z0-9$_]*)\s*(?::\s*(true|false|[0-9]+)\s*)?(?:,\s*)?(.*)$/
 ,x=/^((\s+)|([a-zA-Z_$][a-zA-Z0-9_$]*)|[(){}\[\]?,:;'"~`]|=(?:==?|>)?|\.+|\/[=*\/]?|\*[\/=]?|\+(?:=|\++)?|-(?:=|-+)?|[\^%]=?|&[&=]?|\|[|=]?|>{1,3}=?|<<?=?|!={0,2}|(0|[1-9][0-9]*))(.*)$/
