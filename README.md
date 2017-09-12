@@ -48,17 +48,7 @@ this zero-dependency package will provide browser-compatible versions of jslint 
 
 # documentation
 #### cli help
-```shell
-usage: /Users/kaizhu/src/utility2/lib.jslint.js [command] [arguments]
-
-[command]   [arguments]        [description]
---eval ---- code ------------- eval code
---help ---- [none] ----------- print help
--e -------- code ------------- eval code
--h -------- [none] ----------- print help
-[none] ---- file1 file2 ... -- jslint file1 file2 ...
-help ------ [none] ----------- print help
-```
+![screenshot](https://kaizhu256.github.io/node-jslint-lite/build/screenshot.npmPackageCliHelp.svg)
 
 #### apidoc
 - [https://kaizhu256.github.io/node-jslint-lite/build..beta..travis-ci.org/apidoc.html](https://kaizhu256.github.io/node-jslint-lite/build..beta..travis-ci.org/apidoc.html)
