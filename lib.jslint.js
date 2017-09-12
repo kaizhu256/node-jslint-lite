@@ -6339,7 +6339,7 @@ local.CSSLint = CSSLint; local.JSLINT = JSLINT, local.jslintEs6 = jslint; }());
         local.cliDict._default = function () {
         /*
          * file1 file2 ...
-         * jslint file1 file2 ...
+         * jslint file1 file2 ... and print result to stdout
          */
             // jslint files
             process.argv.slice(2).forEach(function (arg) {
