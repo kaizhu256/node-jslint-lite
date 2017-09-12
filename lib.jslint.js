@@ -110,7 +110,8 @@
                         lengthList[jj] = Math.max(element[jj].length, length);
                     });
                 });
-                console.log('usage: ' + __filename + ' [command] [arguments]\n');
+                console.log('usage: ' + local.path.basename(__filename) +
+                    ' [command] [arguments]\n');
                 result.forEach(function (element, ii) {
                     lengthList.forEach(function (length, jj) {
                         while (element[jj].length < length) {
@@ -6338,10 +6339,10 @@ local.CSSLint = CSSLint; local.JSLINT = JSLINT, local.jslintEs6 = jslint; }());
                     );
                 }
             });
+            // if error occurred, then exit with non-zero code
+            process.exit(local.errorCounter);
         };
         local.cliRun();
-        // if error occurred, then exit with non-zero code
-        process.exit(local.errorCounter);
         break;
     }
 }());
