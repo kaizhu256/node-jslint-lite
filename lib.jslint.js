@@ -88,13 +88,16 @@
              * [none]
              * print help
              */
-                var element, result, lengthList;
-                result = [['[command]', '[arguments]', '[description]']];
+                var element, result, lengthList, sortDict;
+                sortDict = {};
+                result = [['[command]', '[args]', '[description]', -1]];
                 lengthList = [result[0][0].length, result[0][1].length];
-                Object.keys(local.cliDict).sort().forEach(function (key) {
+                Object.keys(local.cliDict).sort().forEach(function (key, ii) {
                     if (key[0] === '_' && key !== '_default') {
                         return;
                     }
+                    sortDict[local.cliDict[key].toString()] =
+                        sortDict[local.cliDict[key].toString()] || ii;
                     element = (/\n +\*(.*)\n +\*(.*)/).exec(local.cliDict[key].toString());
                     // coverage-hack - ignore else-statement
                     nop(local.global.__coverage__ && (function () {
@@ -103,22 +106,30 @@
                     element = [
                         key.replace('_default', '[none]') + ' ',
                         element[1].trim() + ' ',
-                        element[2].trim()
+                        element[2].trim(),
+                        (sortDict[local.cliDict[key].toString()] << 8) + ii
                     ];
                     result.push(element);
                     lengthList.forEach(function (length, jj) {
                         lengthList[jj] = Math.max(element[jj].length, length);
                     });
                 });
-                console.log('usage: ' + local.path.basename(__filename) +
-                    ' [command] [arguments]\n');
+                result.sort(function (aa, bb) {
+                    return aa[3] < bb[3]
+                        ? -1
+                        : 1;
+                });
+                console.log('$ usage:   ' + __filename.replace((/.*\//), '') +
+                    ' [command] [args]');
+                console.log('$ example: ' + __filename.replace((/.*\//), '') +
+                    ' --eval    "console.log(\'hello world\')"\n');
                 result.forEach(function (element, ii) {
                     lengthList.forEach(function (length, jj) {
                         while (element[jj].length < length) {
                             element[jj] += '-';
                         }
                     });
-                    element = element.join('-- ');
+                    element = element.slice(0, 3).join('---- ');
                     if (ii === 0) {
                         element = element.replace((/-/g), ' ');
                     }
