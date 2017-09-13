@@ -97,7 +97,7 @@
                         return;
                     }
                     sortDict[local.cliDict[key].toString()] =
-                        sortDict[local.cliDict[key].toString()] || ii;
+                        sortDict[local.cliDict[key].toString()] || (ii + 1);
                     element = (/\n +\*(.*)\n +\*(.*)/).exec(local.cliDict[key].toString());
                     // coverage-hack - ignore else-statement
                     nop(local.global.__coverage__ && (function () {
@@ -119,10 +119,9 @@
                         ? -1
                         : 1;
                 });
-                console.log('$ usage:   ' + __filename.replace((/.*\//), '') +
-                    ' [command] [args]');
-                console.log('$ example: ' + __filename.replace((/.*\//), '') +
-                    ' --eval    "console.log(\'hello world\')"\n');
+                console.log('usage:   ' + __filename + ' [command] [args]');
+                console.log('example: ' + __filename + ' --eval    ' +
+                    '"console.log(\'hello world\')"\n');
                 result.forEach(function (element, ii) {
                     lengthList.forEach(function (length, jj) {
                         while (element[jj].length < length) {
@@ -155,8 +154,8 @@
             }
             // run fnc()
             fnc = fnc || function () {
-                if (local.cliDict[String(process.argv[2]).toLowerCase()]) {
-                    local.cliDict[String(process.argv[2]).toLowerCase()]();
+                if (local.cliDict[process.argv[2]]) {
+                    local.cliDict[process.argv[2]]();
                     return;
                 }
                 local.cliDict._default();
