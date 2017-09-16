@@ -1,5 +1,5 @@
 # jslint-lite
-this zero-dependency package will provide browser-compatible versions of jslint (v2014.7.8 and v2016.10.24) and csslint v0.10.0
+this zero-dependency package will provide browser-compatible versions of jslint (v2014.7.8 and v2016.10.24) and csslint (v0.10.0)
 
 # live demo
 - [https://kaizhu256.github.io/node-jslint-lite/build..beta..travis-ci.org/app](https://kaizhu256.github.io/node-jslint-lite/build..beta..travis-ci.org/app)
@@ -590,7 +590,7 @@ utility2-comment -->\n\
     "bin": {
         "jslint-lite": "lib.jslint.js"
     },
-    "description": "this zero-dependency package will provide browser-compatible versions of jslint (v2014.7.8 and v2016.10.24) and csslint v0.10.0",
+    "description": "this zero-dependency package will provide browser-compatible versions of jslint (v2014.7.8 and v2016.10.24) and csslint (v0.10.0)",
     "devDependencies": {
         "electron-lite": "kaizhu256/node-electron-lite#alpha",
         "utility2": "kaizhu256/node-utility2#alpha"
@@ -602,11 +602,7 @@ utility2-comment -->\n\
     "keywords": [
         "browser",
         "csslint",
-        "eshint",
-        "eslint",
-        "jshint",
-        "jslint",
-        "lint"
+        "jslint"
     ],
     "license": "MIT",
     "main": "lib.jslint.js",
