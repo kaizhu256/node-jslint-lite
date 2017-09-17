@@ -142,28 +142,7 @@
 
 
 
-    // run browser js-env code - function
-    case 'browser':
-        break;
-
-
-
-    // run node js-env code - function
-    case 'node':
-        break;
-    }
-
-
-
-    // run shared js-env code - init-after
-    (function () {
-        return;
-    }());
-    switch (local.modeJs) {
-
-
-
-    // run browser js-env code - init-after
+    // run browser js-env code - init-test
     /* istanbul ignore next */
     case 'browser':
         local.testCase_browser_nullCase = local.testCase_browser_nullCase || function (
@@ -190,13 +169,20 @@
 
         // run tests
         if (local.modeTest && document.querySelector('#testRunButton1')) {
+            if (!local.testRunBrowser) {
+                local.testRunBrowser = function () {
+                    local.testRunDefault(local);
+                };
+                document.querySelector('#testRunButton1')
+                    .addEventListener(local.testRunBrowser);
+            }
             document.querySelector('#testRunButton1').click();
         }
         break;
 
 
 
-    // run node js-env code - init-after
+    // run node js-env code - init-test
     /* istanbul ignore next */
     case 'node':
         local.testCase_buildApidoc_default = local.testCase_buildApidoc_default || function (
