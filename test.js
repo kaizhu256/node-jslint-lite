@@ -174,7 +174,7 @@
                     local.testRunDefault(local);
                 };
                 document.querySelector('#testRunButton1')
-                    .addEventListener(local.testRunBrowser);
+                    .addEventListener('click', local.testRunBrowser);
             }
             document.querySelector('#testRunButton1').click();
         }
