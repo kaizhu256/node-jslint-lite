@@ -51,6 +51,10 @@
                 require('utility2')).requireReadme();
             break;
         }
+        // init test
+        setTimeout(function () {
+            local.testRunAll(local);
+        });
         // init exports
         local.global.local = local;
     }());
@@ -138,142 +142,4 @@
             }, onError);
         };
     }());
-    switch (local.modeJs) {
-
-
-
-    // run browser js-env code - init-test
-    /* istanbul ignore next */
-    case 'browser':
-        local.testCase_browser_nullCase = local.testCase_browser_nullCase || function (
-            options,
-            onError
-        ) {
-        /*
-         * this function will test browser's null-case handling-behavior
-         */
-            onError(null, options);
-        };
-
-        local.utility2.ajaxForwardProxyUrlTest = local.utility2.ajaxForwardProxyUrlTest ||
-            function (url, location) {
-            /*
-             * this function will test if the url requires forward-proxy
-             */
-                // jslint-hack
-                local.nop(url);
-                return local.env.npm_package_nameAlias && (/\bgithub.io$/).test(location.host)
-                    ? 'https://h1-' + local.env.npm_package_nameAlias + '-alpha.herokuapp.com'
-                    : location.protocol + '//' + location.host;
-            };
-
-        // run tests
-        if (local.modeTest && document.querySelector('#testRunButton1')) {
-            if (!local.testRunBrowser) {
-                local.testRunBrowser = function () {
-                    local.testRunDefault(local);
-                };
-                document.querySelector('#testRunButton1')
-                    .addEventListener('click', local.testRunBrowser);
-            }
-            document.querySelector('#testRunButton1').click();
-        }
-        break;
-
-
-
-    // run node js-env code - init-test
-    /* istanbul ignore next */
-    case 'node':
-        local.testCase_buildApidoc_default = local.testCase_buildApidoc_default || function (
-            options,
-            onError
-        ) {
-        /*
-         * this function will test buildApidoc's default handling-behavior
-         */
-            options = { modulePathList: module.paths };
-            local.buildApidoc(options, onError);
-        };
-
-        local.testCase_buildApp_default = local.testCase_buildApp_default || function (
-            options,
-            onError
-        ) {
-        /*
-         * this function will test buildApp's default handling-behavior
-         */
-            local.testCase_buildReadme_default(options, local.onErrorThrow);
-            local.testCase_buildLib_default(options, local.onErrorThrow);
-            local.testCase_buildTest_default(options, local.onErrorThrow);
-            local.testCase_buildCustomOrg_default(options, local.onErrorThrow);
-            options = [];
-            local.buildApp(options, onError);
-        };
-
-        local.testCase_buildCustomOrg_default = local.testCase_buildCustomOrg_default ||
-            function (options, onError) {
-            /*
-             * this function will test buildCustomOrg's default handling-behavior
-             */
-                options = {};
-                local.buildCustomOrg(options, onError);
-            };
-
-        local.testCase_buildLib_default = local.testCase_buildLib_default || function (
-            options,
-            onError
-        ) {
-        /*
-         * this function will test buildLib's default handling-behavior
-         */
-            options = {};
-            local.buildLib(options, onError);
-        };
-
-        local.testCase_buildReadme_default = local.testCase_buildReadme_default || function (
-            options,
-            onError
-        ) {
-        /*
-         * this function will test buildReadme's default handling-behavior
-         */
-            options = {};
-            local.buildReadme(options, onError);
-        };
-
-        local.testCase_buildTest_default = local.testCase_buildTest_default || function (
-            options,
-            onError
-        ) {
-        /*
-         * this function will test buildTest's default handling-behavior
-         */
-            options = {};
-            local.buildTest(options, onError);
-        };
-
-        local.testCase_webpage_default = local.testCase_webpage_default || function (
-            options,
-            onError
-        ) {
-        /*
-         * this function will test webpage's default handling-behavior
-         */
-            options = {
-                fileScreenshotBase: local.env.npm_config_dir_build +
-                    '/screenshot.' + local.env.MODE_BUILD + '.browser.%2F',
-                modeCoverageMerge: true,
-                url: local.assetsDict['/']
-                    .indexOf('<script src="assets.test.js"></script>') >= 0
-                    ? local.serverLocalHost + '?modeTest=1'
-                    : local.serverLocalHost + '/index.default.html?modeTest=1'
-            };
-            local.browserTest(options, onError);
-        };
-
-        // run test-server
-        local.testRunServer(local);
-        break;
-    }
 }());
