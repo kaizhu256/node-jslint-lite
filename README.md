@@ -482,7 +482,7 @@ utility2-comment -->\n\
                     return 'the greatest app in the world!';
                 case 'npm_package_name':
                     return 'jslint-lite';
-                case 'npm_package_nameAlias':
+                case 'npm_package_nameLib':
                     return 'jslint';
                 case 'npm_package_version':
                     return '0.0.1';
@@ -571,9 +571,6 @@ utility2-comment -->\n\
 1. [https://kaizhu256.github.io/node-jslint-lite/build/screenshot.npmTest.browser.%252F.png](https://kaizhu256.github.io/node-jslint-lite/build/screenshot.npmTest.browser.%252F.png)
 [![screenshot](https://kaizhu256.github.io/node-jslint-lite/build/screenshot.npmTest.browser.%252F.png)](https://kaizhu256.github.io/node-jslint-lite/build/screenshot.npmTest.browser.%252F.png)
 
-1. [https://kaizhu256.github.io/node-jslint-lite/build/screenshot.npmTestPublished.browser.%252F.png](https://kaizhu256.github.io/node-jslint-lite/build/screenshot.npmTestPublished.browser.%252F.png)
-[![screenshot](https://kaizhu256.github.io/node-jslint-lite/build/screenshot.npmTestPublished.browser.%252F.png)](https://kaizhu256.github.io/node-jslint-lite/build/screenshot.npmTestPublished.browser.%252F.png)
-
 1. [https://kaizhu256.github.io/node-jslint-lite/build/screenshot.testExampleJs.browser.%252F.png](https://kaizhu256.github.io/node-jslint-lite/build/screenshot.testExampleJs.browser.%252F.png)
 [![screenshot](https://kaizhu256.github.io/node-jslint-lite/build/screenshot.testExampleJs.browser.%252F.png)](https://kaizhu256.github.io/node-jslint-lite/build/screenshot.testExampleJs.browser.%252F.png)
 
@@ -606,8 +603,8 @@ utility2-comment -->\n\
     "license": "MIT",
     "main": "lib.jslint.js",
     "name": "jslint-lite",
-    "nameAlias": "jslint",
     "nameAliasPublish": "es5lint jslint-classic",
+    "nameLib": "jslint",
     "nameOriginal": "jslint-lite",
     "os": [
         "darwin",

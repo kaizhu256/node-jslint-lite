@@ -20,8 +20,8 @@
     "license": "MIT",
     "main": "lib.jslint.js",
     "name": "jslint-lite",
-    "nameAlias": "jslint",
     "nameAliasPublish": "es5lint jslint-classic",
+    "nameLib": "jslint",
     "nameOriginal": "jslint-lite",
     "os": [
         "darwin",
