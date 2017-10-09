@@ -61,6 +61,7 @@
 
 
     // run shared js-env code - function-before
+    /* istanbul ignore next */
     (function () {
         local.cliRun = function (fnc) {
         /*
@@ -88,13 +89,16 @@
              * [none]
              * print help
              */
-                var element, result, lengthList;
-                result = [['[command]', '[arguments]', '[description]']];
+                var element, result, lengthList, sortDict;
+                sortDict = {};
+                result = [['[command]', '[args]', '[description]', -1]];
                 lengthList = [result[0][0].length, result[0][1].length];
-                Object.keys(local.cliDict).sort().forEach(function (key) {
+                Object.keys(local.cliDict).sort().forEach(function (key, ii) {
                     if (key[0] === '_' && key !== '_default') {
                         return;
                     }
+                    sortDict[local.cliDict[key].toString()] =
+                        sortDict[local.cliDict[key].toString()] || (ii + 1);
                     element = (/\n +\*(.*)\n +\*(.*)/).exec(local.cliDict[key].toString());
                     // coverage-hack - ignore else-statement
                     nop(local.global.__coverage__ && (function () {
@@ -103,21 +107,29 @@
                     element = [
                         key.replace('_default', '[none]') + ' ',
                         element[1].trim() + ' ',
-                        element[2].trim()
+                        element[2].trim(),
+                        (sortDict[local.cliDict[key].toString()] << 8) + ii
                     ];
                     result.push(element);
                     lengthList.forEach(function (length, jj) {
                         lengthList[jj] = Math.max(element[jj].length, length);
                     });
                 });
-                console.log('usage: ' + __filename + ' [command] [arguments]\n');
+                result.sort(function (aa, bb) {
+                    return aa[3] < bb[3]
+                        ? -1
+                        : 1;
+                });
+                console.log('usage:   ' + __filename + ' [command] [args]');
+                console.log('example: ' + __filename + ' --eval    ' +
+                    '"console.log(\'hello world\')"\n');
                 result.forEach(function (element, ii) {
                     lengthList.forEach(function (length, jj) {
                         while (element[jj].length < length) {
                             element[jj] += '-';
                         }
                     });
-                    element = element.join('-- ');
+                    element = element.slice(0, 3).join('---- ');
                     if (ii === 0) {
                         element = element.replace((/-/g), ' ');
                     }
@@ -143,8 +155,8 @@
             }
             // run fnc()
             fnc = fnc || function () {
-                if (local.cliDict[String(process.argv[2]).toLowerCase()]) {
-                    local.cliDict[String(process.argv[2]).toLowerCase()]();
+                if (local.cliDict[process.argv[2]]) {
+                    local.cliDict[process.argv[2]]();
                     return;
                 }
                 local.cliDict._default();
@@ -5965,7 +5977,7 @@ n.open,delete n.used,n=l}})}var r={bitwise:!0,browser:["Audio","clearInterval","
 ,wrap_parameter:"Wrap the parameter in parens.",wrap_regexp:"Wrap this regexp in parens to avoid confusion."
 ,wrap_unary:"Wrap the unary expression in parens."},l=/\{([^{}]*)\}/g,c=/\n|\r\n?/
 ,h=/[\u0000-\u001f\u007f-\u009f\u00ad\u0600-\u0604\u070f\u17b4\u17b5\u200c-\u200f\u2028-\u202f\u2060-\u206f\ufeff\ufff0-\uffff]/
-,p=/^([a-zA-Z_$][a-zA-Z0-9_$]*)$/,d=/^[a-zA-Z0-9_$:.@\-\/]+$/,v=/^_|\$|Sync\$|_$/
+,p=/^([a-zA-Z_$][a-zA-Z0-9_$]*)$/,d=/^[a-zA-Z0-9_$:.@\-\/]+$/,v=/Sync\$/
 ,m=/\*\//,g=/\/\*/,y=/\/\*|\/$/,b=/\b(?:todo|TO\s?DO|HACK)\b/,w=/\t/g,E=/^(jslint|property|global)\s+(.*)$/
 ,S=/^([a-zA-Z$_][a-zA-Z0-9$_]*)\s*(?::\s*(true|false|[0-9]+)\s*)?(?:,\s*)?(.*)$/
 ,x=/^((\s+)|([a-zA-Z_$][a-zA-Z0-9_$]*)|[(){}\[\]?,:;'"~`]|=(?:==?|>)?|\.+|\/[=*\/]?|\*[\/=]?|\+(?:=|\++)?|-(?:=|-+)?|[\^%]=?|&[&=]?|\|[|=]?|>{1,3}=?|<<?=?|!={0,2}|(0|[1-9][0-9]*))(.*)$/
@@ -6327,7 +6339,7 @@ local.CSSLint = CSSLint; local.JSLINT = JSLINT, local.jslintEs6 = jslint; }());
         local.cliDict._default = function () {
         /*
          * file1 file2 ...
-         * jslint file1 file2 ...
+         * jslint file1 file2 ... and print result to stdout
          */
             // jslint files
             process.argv.slice(2).forEach(function (arg) {
@@ -6338,10 +6350,10 @@ local.CSSLint = CSSLint; local.JSLINT = JSLINT, local.jslintEs6 = jslint; }());
                     );
                 }
             });
+            // if error occurred, then exit with non-zero code
+            process.exit(local.errorCounter);
         };
         local.cliRun();
-        // if error occurred, then exit with non-zero code
-        process.exit(local.errorCounter);
         break;
     }
 }());

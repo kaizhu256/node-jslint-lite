@@ -1,5 +1,5 @@
 # jslint-lite
-this zero-dependency package will provide browser-compatible versions of jslint (v2014.7.8 and v2016.10.24) and csslint v0.10.0
+this zero-dependency package will provide browser-compatible versions of jslint (v2014.7.8 and v2016.10.24) and csslint (v0.10.0), with a working demo
 
 # live demo
 - [https://kaizhu256.github.io/node-jslint-lite/build..beta..travis-ci.org/app](https://kaizhu256.github.io/node-jslint-lite/build..beta..travis-ci.org/app)
@@ -47,7 +47,10 @@ this zero-dependency package will provide browser-compatible versions of jslint 
 
 
 # documentation
-#### apidoc
+#### cli help
+![screenshot](https://kaizhu256.github.io/node-jslint-lite/build/screenshot.npmPackageCliHelp.svg)
+
+#### api doc
 - [https://kaizhu256.github.io/node-jslint-lite/build..beta..travis-ci.org/apidoc.html](https://kaizhu256.github.io/node-jslint-lite/build..beta..travis-ci.org/apidoc.html)
 
 [![apidoc](https://kaizhu256.github.io/node-jslint-lite/build/screenshot.buildCi.browser.%252Ftmp%252Fbuild%252Fapidoc.html.png)](https://kaizhu256.github.io/node-jslint-lite/build..beta..travis-ci.org/apidoc.html)
@@ -55,9 +58,9 @@ this zero-dependency package will provide browser-compatible versions of jslint 
 #### todo
 - none
 
-#### changelog for v2017.9.6
-- npm publish 2017.9.6
-- update cli
+#### changelog for v2017.10.8
+- npm publish 2017.10.8
+- add cli-help doc to README.md
 - none
 
 #### this package requires
@@ -164,8 +167,7 @@ instruction
 
 
 
-    // init-after
-    // run browser js-env code - init-after
+    // run browser js-env code - init-test
     /* istanbul ignore next */
     case 'browser':
         local.testRunBrowser = function (event) {
@@ -270,7 +272,7 @@ instruction
 
 
 
-    // run node js-env code - init-after
+    // run node js-env code - init-test
     /* istanbul ignore next */
     case 'node':
         // init exports
@@ -349,7 +351,6 @@ textarea[readonly] {\n\
 </style>\n\
 </head>\n\
 <body>\n\
-<!-- utility2-comment\n\
 <div id="ajaxProgressDiv1" style="background: #d00; height: 2px; left: 0; margin: 0; padding: 0; position: fixed; top: 0; transition: background 500ms, width 1500ms; width: 0%;"></div>\n\
 <script>\n\
 /*jslint\n\
@@ -364,19 +365,38 @@ textarea[readonly] {\n\
 */\n\
 (function () {\n\
     "use strict";\n\
-    var ajaxProgressDiv1, ajaxProgressState;\n\
+    var ajaxProgressDiv1,\n\
+        ajaxProgressState,\n\
+        ajaxProgressUpdate,\n\
+        timerIntervalAjaxProgressUpdate;\n\
     ajaxProgressDiv1 = document.querySelector("#ajaxProgressDiv1");\n\
+    setTimeout(function () {\n\
+        ajaxProgressDiv1.style.width = "25%";\n\
+    });\n\
     ajaxProgressState = 0;\n\
-    window.timerIntervalAjaxProgressUpdate = setInterval(function () {\n\
+    ajaxProgressUpdate = (window.local &&\n\
+        window.local.ajaxProgressUpdate) || function () {\n\
+        ajaxProgressDiv1.style.width = "100%";\n\
+        setTimeout(function () {\n\
+            ajaxProgressDiv1.style.background = "transparent";\n\
+            setTimeout(function () {\n\
+                ajaxProgressDiv1.style.width = "0%";\n\
+            }, 500);\n\
+        }, 1500);\n\
+    };\n\
+    timerIntervalAjaxProgressUpdate = setInterval(function () {\n\
         ajaxProgressState += 1;\n\
         ajaxProgressDiv1.style.width = Math.max(\n\
-            100 - 100 * Math.exp(-0.0625 * ajaxProgressState),\n\
+            100 - 75 * Math.exp(-0.125 * ajaxProgressState),\n\
             Number(ajaxProgressDiv1.style.width.slice(0, -1)) || 0\n\
         ) + "%";\n\
     }, 1000);\n\
+    window.addEventListener("load", function () {\n\
+        clearInterval(timerIntervalAjaxProgressUpdate);\n\
+        ajaxProgressUpdate();\n\
+    });\n\
 }());\n\
 </script>\n\
-utility2-comment -->\n\
 <h1>\n\
 <!-- utility2-comment\n\
     <a\n\
@@ -481,7 +501,7 @@ utility2-comment -->\n\
                     return 'the greatest app in the world!';
                 case 'npm_package_name':
                     return 'jslint-lite';
-                case 'npm_package_nameAlias':
+                case 'npm_package_nameLib':
                     return 'jslint';
                 case 'npm_package_version':
                     return '0.0.1';
@@ -501,7 +521,7 @@ utility2-comment -->\n\
         local.assetsDict['/assets.jslint.js'] =
             local.assetsDict['/assets.jslint.js'] ||
             local.fs.readFileSync(
-                local.jslint.__dirname + '/lib.jslint.js',
+                local.__dirname + '/lib.jslint.js',
                 'utf8'
             ).replace((/^#!/), '//');
         /* jslint-ignore-end */
@@ -570,9 +590,6 @@ utility2-comment -->\n\
 1. [https://kaizhu256.github.io/node-jslint-lite/build/screenshot.npmTest.browser.%252F.png](https://kaizhu256.github.io/node-jslint-lite/build/screenshot.npmTest.browser.%252F.png)
 [![screenshot](https://kaizhu256.github.io/node-jslint-lite/build/screenshot.npmTest.browser.%252F.png)](https://kaizhu256.github.io/node-jslint-lite/build/screenshot.npmTest.browser.%252F.png)
 
-1. [https://kaizhu256.github.io/node-jslint-lite/build/screenshot.npmTestPublished.browser.%252F.png](https://kaizhu256.github.io/node-jslint-lite/build/screenshot.npmTestPublished.browser.%252F.png)
-[![screenshot](https://kaizhu256.github.io/node-jslint-lite/build/screenshot.npmTestPublished.browser.%252F.png)](https://kaizhu256.github.io/node-jslint-lite/build/screenshot.npmTestPublished.browser.%252F.png)
-
 1. [https://kaizhu256.github.io/node-jslint-lite/build/screenshot.testExampleJs.browser.%252F.png](https://kaizhu256.github.io/node-jslint-lite/build/screenshot.testExampleJs.browser.%252F.png)
 [![screenshot](https://kaizhu256.github.io/node-jslint-lite/build/screenshot.testExampleJs.browser.%252F.png)](https://kaizhu256.github.io/node-jslint-lite/build/screenshot.testExampleJs.browser.%252F.png)
 
@@ -588,7 +605,7 @@ utility2-comment -->\n\
     "bin": {
         "jslint-lite": "lib.jslint.js"
     },
-    "description": "this zero-dependency package will provide browser-compatible versions of jslint (v2014.7.8 and v2016.10.24) and csslint v0.10.0",
+    "description": "this zero-dependency package will provide browser-compatible versions of jslint (v2014.7.8 and v2016.10.24) and csslint (v0.10.0), with a working demo",
     "devDependencies": {
         "electron-lite": "kaizhu256/node-electron-lite#alpha",
         "utility2": "kaizhu256/node-utility2#alpha"
@@ -600,17 +617,13 @@ utility2-comment -->\n\
     "keywords": [
         "browser",
         "csslint",
-        "eshint",
-        "eslint",
-        "jshint",
-        "jslint",
-        "lint"
+        "jslint"
     ],
     "license": "MIT",
     "main": "lib.jslint.js",
     "name": "jslint-lite",
-    "nameAlias": "jslint",
     "nameAliasPublish": "es5lint jslint-classic",
+    "nameLib": "jslint",
     "nameOriginal": "jslint-lite",
     "os": [
         "darwin",
@@ -628,7 +641,7 @@ utility2-comment -->\n\
         "start": "PORT=${PORT:-8080} utility2 start test.js",
         "test": "PORT=$(utility2 shServerPortRandom) utility2 test test.js"
     },
-    "version": "2017.9.6"
+    "version": "2017.10.8"
 }
 ```
 
