@@ -3,7 +3,7 @@
     bitwise: true,
     browser: true,
     maxerr: 8,
-    maxlen: 96,
+    maxlen: 100,
     node: true,
     nomen: true,
     regexp: true,
@@ -65,11 +65,7 @@
                 // validate error occurred
                 local.assert(local.jslint.errorText, local.jslint.errorText);
                 // test csslint's passed handling-behavior
-                local.jslint.jslintAndPrint('body { font: normal; }', 'passed.css');
-                // validate no error occurred
-                local.assert(!local.jslint.errorText, local.jslint.errorText);
-                // test csslint's flexbox handling-behavior
-                local.jslint.jslintAndPrint('body { display: flex; }', 'passed.css');
+                local.jslint.jslintAndPrint('body { display: block; }', 'passed.css');
                 // validate no error occurred
                 local.assert(!local.jslint.errorText, local.jslint.errorText);
                 // test jslint's failed handling-behavior

@@ -3,7 +3,7 @@
     "bin": {
         "jslint-lite": "lib.jslint.js"
     },
-    "description": "this zero-dependency package will provide browser-compatible versions of jslint (v2014.7.8 and v2016.10.24) and csslint (v0.10.0), with a working demo",
+    "description": "this zero-dependency package will provide browser-compatible versions of jslint (v2014.7.8 and v2016.10.24) and csslint (v1.0.5), with a working web-demo",
     "devDependencies": {
         "electron-lite": "kaizhu256/node-electron-lite#alpha",
         "utility2": "kaizhu256/node-utility2#alpha"
@@ -39,5 +39,5 @@
         "start": "PORT=${PORT:-8080} utility2 start test.js",
         "test": "PORT=$(utility2 shServerPortRandom) utility2 test test.js"
     },
-    "version": "2017.10.8"
+    "version": "2018.1.12"
 }

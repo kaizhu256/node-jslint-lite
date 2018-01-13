@@ -1,7 +1,7 @@
 # jslint-lite
-this zero-dependency package will provide browser-compatible versions of jslint (v2014.7.8 and v2016.10.24) and csslint (v0.10.0), with a working demo
+this zero-dependency package will provide browser-compatible versions of jslint (v2014.7.8 and v2016.10.24) and csslint (v1.0.5), with a working web-demo
 
-# live demo
+# live web demo
 - [https://kaizhu256.github.io/node-jslint-lite/build..beta..travis-ci.org/app](https://kaizhu256.github.io/node-jslint-lite/build..beta..travis-ci.org/app)
 
 [![screenshot](https://kaizhu256.github.io/node-jslint-lite/build/screenshot.deployGithub.browser.%252Fnode-jslint-lite%252Fbuild%252Fapp.png)](https://kaizhu256.github.io/node-jslint-lite/build..beta..travis-ci.org/app)
@@ -58,16 +58,16 @@ this zero-dependency package will provide browser-compatible versions of jslint 
 #### todo
 - none
 
-#### changelog for v2017.10.8
-- npm publish 2017.10.8
-- add cli-help doc to README.md
+#### changelog for v2018.1.12
+- npm publish 2018.1.12
+- update csslint to v1.0.5
 - none
 
 #### this package requires
 - darwin or linux os
 
 #### additional info
-- csslint code derived from https://github.com/CSSLint/csslint/blob/v0.10.0/release/csslint.js
+- csslint code derived from https://github.com/CSSLint/csslint/blob/v1.0.5/release/csslint.js
 - jslint code derived from https://github.com/douglascrockford/JSLint/blob/394bf291bfa3881bb9827b9fc7b7d1112d83f313/jslint.js
 
 
@@ -78,13 +78,13 @@ this zero-dependency package will provide browser-compatible versions of jslint 
 ```shell
 # example.sh
 
-# this shell script will download and run a web demo of jslint-lite as a standalone app
+# this shell script will download and run a web-demo of jslint-lite as a standalone app
 
 # 1. download standalone app
 curl -O https://kaizhu256.github.io/node-jslint-lite/build..beta..travis-ci.org/app/assets.app.js
 # 2. run standalone app
-node ./assets.app.js
-# 3. open a browser to http://127.0.0.1:8081 and play with the web demo
+PORT=8081 node ./assets.app.js
+# 3. open a browser to http://127.0.0.1:8081 and play with the web-demo
 # 4. edit file assets.app.js to suit your needs
 ```
 
@@ -105,13 +105,13 @@ node ./assets.app.js
 /*
 example.js
 
-this script will run a web demo of jslint-lite
+this script will run a web-demo of jslint-lite
 
 instruction
     1. save this script as example.js
     2. run the shell command:
         $ npm install jslint-lite && PORT=8081 node example.js
-    3. open a browser to http://127.0.0.1:8081 and play with the web demo
+    3. open a browser to http://127.0.0.1:8081 and play with the web-demo
     4. edit this script to suit your needs
 */
 
@@ -122,7 +122,7 @@ instruction
     bitwise: true,
     browser: true,
     maxerr: 8,
-    maxlen: 96,
+    maxlen: 100,
     node: true,
     nomen: true,
     regexp: true,
@@ -299,16 +299,25 @@ instruction
     box-sizing: false,\n\
     universal-selector: false\n\
 */\n\
-* {\n\
+*,\n\
+*:after,\n\
+*:before {\n\
     box-sizing: border-box;\n\
 }\n\
 body {\n\
     background: #dde;\n\
     font-family: Arial, Helvetica, sans-serif;\n\
-    margin: 2rem;\n\
+    margin: 0 40px;\n\
 }\n\
-body > * {\n\
-    margin-bottom: 1rem;\n\
+body > a,\n\
+body > button,\n\
+body > div,\n\
+body > input,\n\
+body > pre,\n\
+body > select,\n\
+body > span,\n\
+body > textarea {\n\
+    margin-bottom: 20px;\n\
 }\n\
 body > button {\n\
     width: 20rem;\n\
@@ -316,12 +325,30 @@ body > button {\n\
 button {\n\
     cursor: pointer;\n\
 }\n\
+@keyframes uiAnimateShake {\n\
+    100% {\n\
+        transform: translateX(0);\n\
+    }\n\
+    0%, 20%, 60% {\n\
+        transform: translateX(10px);\n\
+    }\n\
+    40%, 80% {\n\
+        transform: translateX(-10px);\n\
+    }\n\
+}\n\
+.uiAnimateShake {\n\
+    animation-duration: 500ms;\n\
+    animation-name: uiAnimateShake;\n\
+}\n\
 .uiAnimateSlide {\n\
     overflow-y: hidden;\n\
-    transition: border-bottom 250ms, border-top 250ms, margin-bottom 250ms, margin-top 250ms, max-height 250ms, min-height 250ms, padding-bottom 250ms, padding-top 250ms;\n\
+    transition: max-height ease-in 250ms, min-height ease-in 250ms, padding-bottom ease-in 250ms, padding-top ease-in 250ms;\n\
+}\n\
+@keyframes uiAnimateSpin {\n\
+    0% { transform: rotate(0deg); }\n\
+    100% { transform: rotate(360deg); }\n\
 }\n\
 .utility2FooterDiv {\n\
-    margin-top: 20px;\n\
     text-align: center;\n\
 }\n\
 .zeroPixel {\n\
@@ -351,13 +378,14 @@ textarea[readonly] {\n\
 </style>\n\
 </head>\n\
 <body>\n\
-<div id="ajaxProgressDiv1" style="background: #d00; height: 2px; left: 0; margin: 0; padding: 0; position: fixed; top: 0; transition: background 500ms, width 1500ms; width: 0%;"></div>\n\
+<div id="ajaxProgressDiv1" style="background: #d00; height: 2px; left: 0; margin: 0; padding: 0; position: fixed; top: 0; transition: background 500ms, width 1500ms; width: 0%; z-index: 1;"></div>\n\
+<div class="uiAnimateSpin" style="animation: uiAnimateSpin 2s linear infinite; border: 5px solid #999; border-radius: 50%; border-top: 5px solid #7d7; display: none; height: 25px; vertical-align: middle; width: 25px;"></div>\n\
 <script>\n\
 /*jslint\n\
     bitwise: true,\n\
     browser: true,\n\
     maxerr: 8,\n\
-    maxlen: 96,\n\
+    maxlen: 100,\n\
     node: true,\n\
     nomen: true,\n\
     regexp: true,\n\
@@ -420,9 +448,9 @@ utility2-comment -->\n\
 \n\
 \n\
 \n\
-<div>edit or paste script below to\n\
+<label>edit or paste script below to\n\
     <a href="http://www.jslint.com" target="_blank">jslint</a>\n\
-</div>\n\
+</label>\n\
 <textarea class="oneval onkeyup onreset" id="inputTextareaEval1">\n\
 /*jslint\n\
     browser: true,\n\
@@ -433,12 +461,12 @@ console.log(message);\n\
 console.log(null);\n\
 </textarea>\n\
 <pre id="outputPreJslint1"></pre>\n\
-<div>edit or paste script below to\n\
+<label>edit or paste script below to\n\
     <a \n\
         href="https://github.com/CSSLint/csslint/wiki/Command-line-interface#options" \n\
         target="_blank"\n\
     >csslint</a>\n\
-</div>\n\
+</label>\n\
 <textarea class="oneval onkeyup onreset" id="inputTextareaCsslint1">\n\
 /*csslint\n\
     box-sizing: false,\n\
@@ -605,7 +633,7 @@ utility2-comment -->\n\
     "bin": {
         "jslint-lite": "lib.jslint.js"
     },
-    "description": "this zero-dependency package will provide browser-compatible versions of jslint (v2014.7.8 and v2016.10.24) and csslint (v0.10.0), with a working demo",
+    "description": "this zero-dependency package will provide browser-compatible versions of jslint (v2014.7.8 and v2016.10.24) and csslint (v1.0.5), with a working web-demo",
     "devDependencies": {
         "electron-lite": "kaizhu256/node-electron-lite#alpha",
         "utility2": "kaizhu256/node-utility2#alpha"
@@ -641,7 +669,7 @@ utility2-comment -->\n\
         "start": "PORT=${PORT:-8080} utility2 start test.js",
         "test": "PORT=$(utility2 shServerPortRandom) utility2 test test.js"
     },
-    "version": "2017.10.8"
+    "version": "2018.1.12"
 }
 ```
 
