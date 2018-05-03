@@ -16,6 +16,32 @@
 
 
 
+    /* istanbul ignore next */
+    // init debug_inline
+    (function () {
+        var consoleError, key;
+        key = "debug_inline".replace("_i", "I");
+        if (console[key]) {
+            return;
+        }
+        consoleError = console.error;
+        console[key] = function (arg0) {
+        /*
+         * this function will both print arg0 to stderr and return it
+         */
+            // debug arguments
+            console[key + "Arguments"] = arguments;
+            consoleError("\n\n" + key);
+            consoleError.apply(console, arguments);
+            consoleError("\n");
+            // return arg0 for inspection
+            return arg0;
+        };
+        ((typeof window === "object" && window) || global)[key] = console[key];
+    }());
+
+
+
     // run shared js-env code - init-before
     (function () {
         // init local
@@ -102,11 +128,14 @@
                 [
                     // test syntax-error handling-behavior
                     'syntax error',
-                    // test sort-error handling-behavior
-                    '/* jslint-utility2 */\n(function () {\n    \"use strict\";\n    var local;\n' +
-                        '    local = {};\n    local.bb = null;\n    local.aa = null;\n}());'
+                    // test validateLineSorted-error1 handling-behavior
+                    '(function () {\n    \"use strict\";\n    var local;\n' +
+                        '    local = {};\n    local.bb = null;\n    local.aa = null;\n}());',
+                    // test validateLineSorted-error2 handling-behavior
+                    '(function () {\n    \"use strict\";\n    var local;\n' +
+                        '    local = {};\n    local.aa = "class=\\"bb aa\\"";\n}());'
                 ].forEach(function (script) {
-                    script += '\n/* jslint-utility2 */\n';
+                    script += '\n/* jslint-utility2 */\n/*jslint */\n';
                     local.jslint.jslintAndPrint(script, 'failed.js');
                     // validate error occurred
                     local.assert(local.jslint.errorText, JSON.stringify(script));
@@ -136,7 +165,7 @@
                     // test tab handling-behavior
                     'aa\tbb',
                     // test validateLineSorted handling-behavior
-                    'shBb() {\n    return;\n}\nshAa() {\n    return;\n}'
+                    'shBb () {\n    return;\n}\nshAa () {\n    return;\n}'
                 ].forEach(function (script) {
                     script += '\n# jslint-utility2\n';
                     local.jslint.jslintAndPrint(script, 'failed.sh');
@@ -145,8 +174,8 @@
                 });
                 // test shlint's passed handling-behavior
                 [
-                    // test passed handling-behavior
-                    'shAa() {\n    return;\n}\nshBb() {\n    return;\n}'
+                    // test validateLineSorted handling-behavior
+                    'shAa () {\n    return;\n}\nshBb () {\n    return;\n}'
                 ].forEach(function (script) {
                     script += '\n# jslint-utility2\n';
                     local.jslint.jslintAndPrint(script, 'passed.sh');
