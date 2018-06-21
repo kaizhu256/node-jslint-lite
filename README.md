@@ -58,8 +58,9 @@ this zero-dependency package will provide browser-compatible versions of jslint 
 #### todo
 - none
 
-#### changelog 2018.4.30
-- npm publish 2018.4.30
+#### changelog 2018.6.21
+- npm publish 2018.6.21
+- add RegExp flags 'u', 'y'
 - update build
 - none
 
@@ -140,24 +141,20 @@ instruction
         // init local
         local = {};
         // init modeJs
-        local.modeJs = (function () {
+        (function () {
             try {
-                return typeof navigator.userAgent === 'string' &&
-                    typeof document.querySelector('body') === 'object' &&
-                    typeof XMLHttpRequest.prototype.open === 'function' &&
-                    'browser';
-            } catch (errorCaughtBrowser) {
-                return module.exports &&
-                    typeof process.versions.node === 'string' &&
+                local.modeJs = typeof process.versions.node === 'string' &&
                     typeof require('http').createServer === 'function' &&
                     'node';
+            } catch (ignore) {
             }
+            local.modeJs = local.modeJs || 'browser';
         }());
         // init global
         local.global = local.modeJs === 'browser'
             ? window
             : global;
-        // init utility2_rollup
+        // re-init local
         local = local.global.utility2_rollup || (local.modeJs === 'browser'
             ? local.global.utility2_jslint
             : require('jslint-lite'));
@@ -311,9 +308,23 @@ instruction
         local.v8 = require('v8');
         local.vm = require('vm');
         local.zlib = require('zlib');
-/* validateLineSortedReset */
+        /* validateLineSortedReset */
         // init assets
         local.assetsDict = local.assetsDict || {};
+        [
+            'assets.index.template.html',
+            'assets.swgg.swagger.json',
+            'assets.swgg.swagger.server.json'
+        ].forEach(function (file) {
+            file = '/' + file;
+            local.assetsDict[file] = local.assetsDict[file] || '';
+            if (local.fs.existsSync(local.__dirname + file)) {
+                local.assetsDict[file] = local.fs.readFileSync(
+                    local.__dirname + file,
+                    'utf8'
+                );
+            }
+        });
         /* jslint-ignore-begin */
         local.assetsDict['/assets.index.template.html'] = '\
 <!doctype html>\n\
@@ -481,7 +492,7 @@ textarea {\n\
         ajaxProgressState += 1;\n\
         ajaxProgressDiv1.style.width = Math.max(\n\
             100 - 75 * Math.exp(-0.125 * ajaxProgressState),\n\
-            Number(ajaxProgressDiv1.style.width.slice(0, -1)) || 0\n\
+            ajaxProgressDiv1.style.width.slice(0, -1) | 0\n\
         ) + "%";\n\
     }, 1000);\n\
     window.addEventListener("load", function () {\n\
@@ -489,17 +500,17 @@ textarea {\n\
         ajaxProgressUpdate();\n\
     });\n\
 }());\n\
-// init domOnEventSelectAllInsidePre\n\
+// init domOnEventSelectAllWithinPre\n\
 (function () {\n\
 /*\n\
- * this function will limit select-all from growing outside a <pre tabIndex="0"> element\n\
+ * this function will limit select-all within <pre tabIndex="0"> elements\n\
  * https://stackoverflow.com/questions/985272/selecting-text-in-an-element-akin-to-highlighting-with-your-mouse\n\
  */\n\
     "use strict";\n\
-    if (window.domOnEventSelectAllInsidePre) {\n\
+    if (window.domOnEventSelectAllWithinPre) {\n\
         return;\n\
     }\n\
-    window.domOnEventSelectAllInsidePre = function (event) {\n\
+    window.domOnEventSelectAllWithinPre = function (event) {\n\
         var range, selection;\n\
         if (event &&\n\
                 event.code === "KeyA" &&\n\
@@ -513,7 +524,7 @@ textarea {\n\
             event.preventDefault();\n\
         }\n\
     };\n\
-    document.addEventListener("keydown", window.domOnEventSelectAllInsidePre);\n\
+    document.addEventListener("keydown", window.domOnEventSelectAllWithinPre);\n\
 }());\n\
 </script>\n\
 <h1>\n\
@@ -594,28 +605,15 @@ utility2-comment -->\n\
 </html>\n\
 ';
         /* jslint-ignore-end */
-        [
-            'assets.index.css',
-            'assets.index.template.html',
-            'assets.swgg.swagger.json',
-            'assets.swgg.swagger.server.json'
-        ].forEach(function (file) {
-            file = '/' + file;
-            local.assetsDict[file] = local.assetsDict[file] || '';
-            if (local.fs.existsSync(local.__dirname + file)) {
-                local.assetsDict[file] = local.fs.readFileSync(
-                    local.__dirname + file,
-                    'utf8'
-                );
-            }
-        });
-/* validateLineSortedReset */
-        // bug-workaround - long $npm_package_buildCustomOrg
+        /* validateLineSortedReset */
         /* jslint-ignore-begin */
-        local.assetsDict['/assets.jslint.js'] = local.assetsDict['/assets.jslint.js'] ||
+        // bug-workaround - long $npm_package_buildCustomOrg
+        local.assetsDict['/assets.jslint.js'] =
+            local.assetsDict['/assets.jslint.js'] ||
             local.fs.readFileSync(local.__dirname + '/lib.jslint.js', 'utf8'
-        ).replace((/^#!/), '//');
-/* validateLineSortedReset */
+        ).replace((/^#!\//), '// ');
+        /* jslint-ignore-end */
+        /* validateLineSortedReset */
         local.assetsDict['/'] =
             local.assetsDict['/assets.example.html'] =
             local.assetsDict['/assets.index.template.html']
@@ -640,7 +638,6 @@ utility2-comment -->\n\
         local.assetsDict['/assets.example.js'] =
             local.assetsDict['/assets.example.js'] ||
             local.fs.readFileSync(__filename, 'utf8');
-        /* jslint-ignore-end */
         local.assetsDict['/favicon.ico'] = local.assetsDict['/favicon.ico'] || '';
         // if $npm_config_timeout_exit exists,
         // then exit this process after $npm_config_timeout_exit ms
@@ -749,16 +746,15 @@ utility2-comment -->\n\
         "url": "https://github.com/kaizhu256/node-jslint-lite.git"
     },
     "scripts": {
-        "apidocRawCreate": "[ ! -f npm_scripts.sh ] || ./npm_scripts.sh shNpmScriptApidocRawCreate",
-        "apidocRawFetch": "[ ! -f npm_scripts.sh ] || ./npm_scripts.sh shNpmScriptApidocRawFetch",
-        "build-ci": "utility2 shReadmeTest build_ci.sh",
-        "env": "env",
-        "heroku-postbuild": "npm install kaizhu256/node-utility2#alpha --prefix . && utility2 shDeployHeroku",
-        "postinstall": "[ ! -f npm_scripts.sh ] || ./npm_scripts.sh shNpmScriptPostinstall",
-        "start": "PORT=${PORT:-8080} utility2 start test.js",
-        "test": "PORT=$(utility2 shServerPortRandom) utility2 test test.js"
+        "build-ci": "./npm_scripts.sh",
+        "eval": "./npm_scripts.sh",
+        "heroku-postbuild": "./npm_scripts.sh",
+        "postinstall": "./npm_scripts.sh",
+        "start": "./npm_scripts.sh",
+        "test": "./npm_scripts.sh",
+        "utility2": "./npm_scripts.sh"
     },
-    "version": "2018.4.30"
+    "version": "2018.6.21"
 }
 ```
 
