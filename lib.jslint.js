@@ -37,25 +37,20 @@
                 context["_" + key + "Arguments"] = arguments;
                 consoleError("\n\n" + key);
                 consoleError.apply(console, arguments);
-                consoleError("\n");
+                consoleError(new Error().stack + "\n");
                 // return arg0 for inspection
                 return arg0;
             };
         }());
         // init local
         local = {};
-        // init modeJs
-        (function () {
-            try {
-                local.modeJs = typeof process.versions.node === 'string' &&
-                    typeof require('http').createServer === 'function' &&
-                    'node';
-            } catch (ignore) {
-            }
-            local.modeJs = local.modeJs || 'browser';
-        }());
+        // init isBrowser
+        local.isBrowser = typeof window === "object" &&
+            typeof window.XMLHttpRequest === "function" &&
+            window.document &&
+            typeof window.document.querySelectorAll === "function";
         // init global
-        local.global = local.modeJs === 'browser'
+        local.global = local.isBrowser
             ? window
             : global;
         // re-init local
@@ -70,7 +65,7 @@
             return;
         };
         // init exports
-        if (local.modeJs === 'browser') {
+        if (local.isBrowser) {
             local.global.utility2_jslint = local;
         } else {
             // require builtins
@@ -78,8 +73,6 @@
             local.buffer = require('buffer');
             local.child_process = require('child_process');
             local.cluster = require('cluster');
-            local.console = require('console');
-            local.constants = require('constants');
             local.crypto = require('crypto');
             local.dgram = require('dgram');
             local.dns = require('dns');
@@ -88,12 +81,9 @@
             local.fs = require('fs');
             local.http = require('http');
             local.https = require('https');
-            local.module = require('module');
             local.net = require('net');
             local.os = require('os');
             local.path = require('path');
-            local.process = require('process');
-            local.punycode = require('punycode');
             local.querystring = require('querystring');
             local.readline = require('readline');
             local.repl = require('repl');
@@ -2011,7 +2001,9 @@ var JSLINT = (function () {
             'clearInterval', 'clearTimeout', 'document', 'event', 'FormData',
             'frames', 'history', 'Image', 'localStorage', 'location', 'name',
             'navigator', 'Option', 'parent', 'screen', 'sessionStorage',
-            'setInterval', 'setTimeout', 'Storage', 'window', 'XMLHttpRequest'
+            // 'setInterval', 'setTimeout', 'Storage', 'window', 'XMLHttpRequest'
+            'setInterval', 'setTimeout', 'Storage', 'window', 'XMLHttpRequest',
+            'ArrayBuffer', 'Uint8Array'
         ], false),
 
 // bundle contains the text messages.
@@ -2219,7 +2211,9 @@ var JSLINT = (function () {
             'Buffer', 'clearImmediate', 'clearInterval', 'clearTimeout',
             'console', 'exports', 'global', 'module', 'process',
             'require', 'setImmediate', 'setInterval', 'setTimeout',
-            '__dirname', '__filename'
+            // '__dirname', '__filename'
+            '__dirname', '__filename',
+            'ArrayBuffer', 'Uint8Array'
         ], false),
         node_js,
         numbery = array_to_object(['indexOf', 'lastIndexOf', 'search'], true),
@@ -2230,12 +2224,13 @@ var JSLINT = (function () {
         prev_token,
         property,
         protosymbol,
+        // regexp_flag = array_to_object(['g', 'i', 'm'], true),
         regexp_flag = array_to_object(['g', 'i', 'm', 'u', 'y'], true),
         return_this = function return_this() {
             return this;
         },
         rhino = array_to_object([
-            'defineClass', 'deserialize', 'gc', 'interactive', 'load', 'loadClass',
+            'defineClass', 'deserialize', 'gc', 'help', 'load', 'loadClass',
             'print', 'quit', 'readFile', 'readUrl', 'runCommand', 'seal',
             'serialize', 'spawn', 'sync', 'toint32', 'version'
         ], false),
@@ -2282,7 +2277,8 @@ var JSLINT = (function () {
 // comment todo
         tox = /^\W*to\s*do(?:\W|$)/i,
 // token
-        tx = /^\s*([(){}\[\]\?.,:;'"~#@`]|={1,3}|\/(\*(jslint|properties|property|members?|globals?)?|=|\/)?|\*[\/=]?|\+(?:=|\++)?|-(?:=|-+)?|[\^%]=?|&[&=]?|\|[|=]?|>{1,3}=?|<(?:[\/=!]|\!(\[|--)?|<=?)?|\!(\!|==?)?|[a-zA-Z_$][a-zA-Z0-9_$]*|[0-9]+(?:[xX][0-9a-fA-F]+|\.[0-9]*)?(?:[eE][+\-]?[0-9]+)?)/;
+        // tx = /^\s*([(){}\[\]\?.,:;'"~#@`]|={1,3}|\/(\*(jslint|properties|property|members?|globals?)?|=|\/)?|\*[\/=]?|\+(?:=|\++)?|-(?:=|-+)?|[\^%]=?|&[&=]?|\|[|=]?|>{1,3}=?|<(?:[\/=!]|\!(\[|--)?|<=?)?|\!(\!|==?)?|[a-zA-Z_$][a-zA-Z0-9_$]*|[0-9]+(?:[xX][0-9a-fA-F]+|\.[0-9]*)?(?:[eE][+\-]?[0-9]+)?)/;
+        tx = /^\s*([(){}\[\]\?.,:;'"~#@`]|={1,3}|\/(\*(jslint|properties|property|members?|globals?)?|=|\/)?|\*[\/=]?|\+(?:=|\++)?|-(?:=|-+)?|[\^%]=?|&[&=]?|\|[|=]?|>{1,3}=?|<(?:[\/=!]|\!(\[|--)?|<=?)?|\!(\!|==?)?|[a-zA-Z_$][a-zA-Z0-9_$]*|[0-9]+(?:[xX][0-9a-fA-F]+|\.[0-9]*)?(?:[eE][+\-]?[0-9]+)?n?)/; // BigInt
 
 
     if (typeof String.prototype.entityify !== 'function') {
@@ -2630,7 +2626,8 @@ var JSLINT = (function () {
                 warn('trailing_decimal_a', line, character, snippet);
             }
             digit = +snippet;
-            if (!isFinite(digit)) {
+            // if (!isFinite(digit)) {
+            if (!isFinite(digit) && !(/^[0-9]+n$/).test(snippet)) {
                 warn('bad_number', line, character, snippet);
             }
             snippet = digit;
@@ -4550,7 +4547,9 @@ klass:              do {
         if (left.identifier) {
             if (left.string.match(/^[A-Z]([A-Z0-9_$]*[a-z][A-Za-z0-9_$]*)?$/)) {
                 if (left.string !== 'Number' && left.string !== 'String' &&
-                        left.string !== 'Boolean' && left.string !== 'Date') {
+                        // left.string !== 'Boolean' && left.string !== 'Date') {
+                        left.string !== 'Boolean' && left.string !== 'Date' &&
+                        left.string !== 'Symbol' && left.string !== 'BigInt') {
                     if (left.string === 'Math') {
                         left.warn('not_a_function');
                     } else if (left.string === 'Object') {
@@ -6569,6 +6568,7 @@ local.CSSLint = CSSLint; local.JSLINT = JSLINT, local.jslintEs6 = jslint; }());
                 }
                 // validate previous1 < current1
                 current1 = current1
+                    .replace((/^#/gm), '|')
                     .replace((/,$/gm), '   ,')
                     .replace((/( \{$|:)/gm), '  $1')
                     .replace((/(^[\w*@]| \w)/gm), ' $1');
@@ -6585,7 +6585,9 @@ local.CSSLint = CSSLint; local.JSLINT = JSLINT, local.jslintEs6 = jslint; }());
                     if (!(previous2 < current2)) {
                         jj = jj || 1;
                         message = message ||
-                            ('lines not sorted\n' + previous2 + '\n' + current2).trim();
+                            ('lines not sorted\n' + previous2 + '\n' + current2)
+                                .replace((/\n\|/g), '\n#')
+                                .trim();
                     }
                     previous1 = '';
                     previous2 = current2;
@@ -6760,39 +6762,39 @@ local.CSSLint = CSSLint; local.JSLINT = JSLINT, local.jslintEs6 = jslint; }());
         /*
          * this function will jslint the script with utiity2-specific rules
          */
-            var ii, current, previous, tmp;
+            var ii, current, previous, rgx, tmp;
             ii = 0;
+            rgx = new RegExp('^ *?\\/\\* validateLineSortedReset \\*\\/$|' +
+                '^ {4}\\/\\/ run .*?\\bjs\\\\?-env code\\b|' +
+                '^\\/\\/ init lib ');
             previous = '';
             script.replace((/^.*?$/gm), function (line) {
                 current = line.trim();
                 ii += 1;
-                // validate tag.classList sorted
+                // validate domElement.classList sorted
                 tmp = (/class=\\?"([^"]+?)\\?"/g).exec(current);
-                tmp = JSON.stringify(
-                    (tmp && tmp[1].match(/\w\S*?\{\{[^}]*?\}\}|\w\S*|\{\{[^}]*?\}\}/g)) || []
-                );
+                tmp = JSON.stringify((tmp && tmp[1].replace((/^ /), 'zSpace').match(
+                    / {2}| $|\w\S*?\{\{[^}]*?\}\}|\w\S*|\{\{[^}]*?\}\}/g
+                )) || []);
                 if (JSON.stringify(JSON.parse(tmp).sort()) !== tmp) {
                     local.errorList.push({
                         col: 0,
                         line: ii,
-                        message: 'tag.classList not sorted - ' + tmp,
+                        message: 'domElement.classList not sorted - ' + tmp,
                         value: line
                     });
                 }
                 // validate line-sorted
-                if (new RegExp('^ *?\\/\\* validateLineSortedReset \\*\\/$|' +
-                        '^ {4}\\/\\/ run .*?\\bjs\\\\?-env code\\b|' +
-                        '^\\/\\/ init lib ').test(line)) {
+                if (rgx.test(line)) {
                     previous = '';
                     return;
                 }
                 if (!(/^(?:| {4}| {8})local\.\S*? =(?: |$)/m).test(line) ||
-                        (/^local\.(?:modeJs|global|local|tmp)\b|\\n\\$/).test(current) ||
-                        (/ =$/).test(previous)) {
+                        (/^local\.(?:global|isBrowser|local|tmp)\b|\\n\\$/).test(current)) {
                     return;
                 }
                 // validate previous < current
-                if (!(previous < current)) {
+                if (!(previous < current || (/ =$/).test(previous))) {
                     local.errorList.push({
                         col: 0,
                         line: ii,
@@ -6829,16 +6831,18 @@ local.CSSLint = CSSLint; local.JSLINT = JSLINT, local.jslintEs6 = jslint; }());
             });
         };
     }());
-    switch (local.modeJs) {
 
 
 
     // run node js-env code - init-after
     /* istanbul ignore next */
-    case 'node':
+    (function () {
+        if (local.isBrowser) {
+            return;
+        }
         // init cli
         if (module !== require.main || local.global.utility2_rollup) {
-            break;
+            return;
         }
         local.cliDict = {};
         local.cliDict._default = function () {
@@ -6859,6 +6863,5 @@ local.CSSLint = CSSLint; local.JSLINT = JSLINT, local.jslintEs6 = jslint; }());
             process.exit(!!local.errorList.length);
         };
         local.cliRun();
-        break;
-    }
+    }());
 }());
