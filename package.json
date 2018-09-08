@@ -19,7 +19,7 @@
     "license": "MIT",
     "main": "lib.jslint.js",
     "name": "jslint-lite",
-    "nameAliasPublish": "es5lint jslint-classic",
+    "nameAliasPublish": "csslint-lite es5lint jslint-classic",
     "nameLib": "jslint",
     "nameOriginal": "jslint-lite",
     "os": [
@@ -40,5 +40,5 @@
         "test": "./npm_scripts.sh",
         "utility2": "./npm_scripts.sh"
     },
-    "version": "2018.8.21"
+    "version": "2018.9.8"
 }

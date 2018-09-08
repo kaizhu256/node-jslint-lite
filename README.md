@@ -56,17 +56,13 @@ this zero-dependency package will provide browser-compatible versions of jslint 
 [![apidoc](https://kaizhu256.github.io/node-jslint-lite/build/screenshot.buildCi.browser.%252Ftmp%252Fbuild%252Fapidoc.html.png)](https://kaizhu256.github.io/node-jslint-lite/build..beta..travis-ci.org/apidoc.html)
 
 #### todo
+- update jslint-function jslintAndPrint to validate sorted vars
+- update jslint-function jslintAndPrint to validate 3 or more continuous-newlines
 - none
 
-#### changelog 2018.8.21
-- npm publish 2018.8.21
-- revamp bootstrap-mechanism before running tests
-- add nodejs globals 'ArrayBuffer', 'Uint8Array'
-- add window globals 'ArrayBuffer', 'Uint8Array'
-- fix css-id sort-priority
-- add support for BigInt and Symbol
-- add RegExp flags 'u', 'y'
-- migrate from modeJs -> isBrowser
+#### changelog 2018.9.8
+- npm publish 2018.9.8
+- prepare for jslint v2018.05.14
 - update build
 - none
 
@@ -238,6 +234,7 @@ instruction
                 }
             }
         };
+
         // log stderr and stdout to #outputStdoutTextarea1
         ['error', 'log'].forEach(function (key) {
             console[key + '_original'] = console[key + '_original'] || console[key];
@@ -304,7 +301,6 @@ instruction
         local.tty = require('tty');
         local.url = require('url');
         local.util = require('util');
-        local.v8 = require('v8');
         local.vm = require('vm');
         local.zlib = require('zlib');
         /* validateLineSortedReset */
@@ -763,7 +759,7 @@ utility2-comment -->\n\
     "license": "MIT",
     "main": "lib.jslint.js",
     "name": "jslint-lite",
-    "nameAliasPublish": "es5lint jslint-classic",
+    "nameAliasPublish": "csslint-lite es5lint jslint-classic",
     "nameLib": "jslint",
     "nameOriginal": "jslint-lite",
     "os": [
@@ -784,7 +780,7 @@ utility2-comment -->\n\
         "test": "./npm_scripts.sh",
         "utility2": "./npm_scripts.sh"
     },
-    "version": "2018.8.21"
+    "version": "2018.9.8"
 }
 ```
 
