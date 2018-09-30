@@ -56,14 +56,26 @@ this zero-dependency package will provide browser-compatible versions of jslint 
 [![apidoc](https://kaizhu256.github.io/node-jslint-lite/build/screenshot.buildCi.browser.%252Ftmp%252Fbuild%252Fapidoc.html.png)](https://kaizhu256.github.io/node-jslint-lite/build..beta..travis-ci.org/apidoc.html)
 
 #### todo
+- jslint - refactor files to 80 chr column-limit
+- add jslint-rule unexpected_empty_lines
+- merge function jslintAndPrintConditional into jslintAndPrint
+- update jslint-function do_var to check if var-statemsnts are sorted
 - update jslint-function jslintAndPrint to validate sorted vars
 - update jslint-function jslintAndPrint to validate 3 or more continuous-newlines
 - none
 
-#### changelog 2018.9.8
-- npm publish 2018.9.8
-- prepare for jslint v2018.05.14
-- update build
+#### changelog 2018.9.29
+- npm publish 2018.9.29
+- jslint - bug-workaround - v8 tail-call issue
+- jslint - merge directive /*jslint ...*/ -> /* jslint utility2:true */
+- jslint-autofix whitespace, double-quote, and regexp for files: lib.xxx.js, test.js
+- add jslint-cli-command "autofix"
+- update jslint-function jslintAndPrint to
+    - ignore too_long-warnings in comments and regexp,
+    - accept macros /\* jslint ignore:start */, /\* jslint ignore:end */, /\/ jslint ignore:line,
+    - accept jslint-option "autofix" to autofix whitespace, and convert single-quote -> double-quote
+    - cleanup source_autofix
+- migrate to new jslint (2018-09)
 - none
 
 #### this package requires
@@ -121,207 +133,201 @@ instruction
 
 
 /* istanbul instrument in package jslint */
-/* jslint-utility2 */
-/*jslint
-    bitwise: true,
-    browser: true,
-    maxerr: 4,
-    maxlen: 100,
-    node: true,
-    nomen: true,
-    regexp: true,
-    stupid: true
-*/
+/* jslint utility2:true */
 (function () {
-    'use strict';
-    var local;
+"use strict";
+var local;
 
 
 
-    // run shared js-env code - init-before
-    (function () {
-        // init local
-        local = {};
-        // init isBrowser
-        local.isBrowser = typeof window === "object" &&
-            typeof window.XMLHttpRequest === "function" &&
-            window.document &&
-            typeof window.document.querySelectorAll === "function";
-        // init global
-        local.global = local.isBrowser
-            ? window
-            : global;
-        // re-init local
-        local = local.global.utility2_rollup || (local.isBrowser
-            ? local.global.utility2_jslint
-            : require('jslint-lite'));
-        // init exports
-        local.global.local = local;
-    }());
+// run shared js-env code - init-before
+(function () {
 
 
 
-    // run browser js-env code - init-test
-    /* istanbul ignore next */
-    (function () {
-        if (!local.isBrowser) {
-            return;
-        }
-        local.testRunBrowser = function (event) {
-            if (!event || (event &&
-                    event.currentTarget &&
-                    event.currentTarget.className &&
-                    event.currentTarget.className.includes &&
-                    event.currentTarget.className.includes('onreset'))) {
-                // reset output
-                Array.from(document.querySelectorAll(
-                    'body > .resettable'
-                )).forEach(function (element) {
-                    switch (element.tagName) {
-                    case 'INPUT':
-                    case 'TEXTAREA':
-                        element.value = '';
-                        break;
-                    default:
-                        element.textContent = '';
-                    }
-                });
-            }
-            switch (event && event.currentTarget && event.currentTarget.id) {
-            case 'testRunButton1':
-                // show tests
-                if (document.querySelector('#testReportDiv1').style.maxHeight === '0px') {
-                    local.uiAnimateSlideDown(document.querySelector('#testReportDiv1'));
-                    document.querySelector('#testRunButton1').textContent = 'hide internal test';
-                    local.modeTest = 1;
-                    local.testRunDefault(local);
-                // hide tests
-                } else {
-                    local.uiAnimateSlideUp(document.querySelector('#testReportDiv1'));
-                    document.querySelector('#testRunButton1').textContent = 'run internal test';
-                }
+// init local
+local = {};
+// init isBrowser
+local.isBrowser = (
+    typeof window === "object"
+    && typeof window.XMLHttpRequest === "function"
+    && window.document
+    && typeof window.document.querySelectorAll === "function"
+);
+// init global
+local.global = local.isBrowser
+? window
+: global;
+// re-init local
+local = local.global.utility2_rollup || (
+    local.isBrowser
+    ? local.global.utility2_jslint
+    : require("jslint-lite")
+);
+// init exports
+local.global.local = local;
+}());
+
+
+
+/* istanbul ignore next */
+// run browser js-env code - init-test
+(function () {
+if (!local.isBrowser) {
+    return;
+}
+
+
+
+local.testRunBrowser = function (event) {
+    if (!event || (
+        event &&
+        event.currentTarget &&
+        event.currentTarget.className &&
+        event.currentTarget.className.includes &&
+        event.currentTarget.className.includes("onreset")
+    )) {
+        // reset output
+        Array.from(document.querySelectorAll(
+            "body > .resettable"
+        )).forEach(function (element) {
+            switch (element.tagName) {
+            case "INPUT":
+            case "TEXTAREA":
+                element.value = "";
                 break;
-            // custom-case
             default:
-                // jslint #inputTextareaEval1
-                local.jslint.jslintAndPrint(
-                    document.querySelector('#inputTextareaEval1').value,
-                    'inputTextareaEval1.js'
-                );
-                document.querySelector('#outputJslintPre1').textContent = local.jslint.errorText
-                    .replace((/\u001b\[\d*m/g), '')
-                    .trim();
-                // csslint #inputTextareaCsslint1
-                local.jslint.jslintAndPrint(
-                    document.querySelector('#inputTextareaCsslint1').value,
-                    'inputTextareaCsslint1.css'
-                );
-                document.querySelector('#outputCsslintPre1').textContent = local.jslint.errorText
-                    .replace((/\u001b\[\d*m/g), '')
-                    .trim();
+                element.textContent = "";
             }
-            if (document.querySelector('#inputTextareaEval1') && (!event || (event &&
-                    event.currentTarget &&
-                    event.currentTarget.className &&
-                    event.currentTarget.className.includes &&
-                    event.currentTarget.className.includes('oneval')))) {
-                // try to eval input-code
-                try {
-                    /*jslint evil: true*/
-                    eval(document.querySelector('#inputTextareaEval1').value);
-                } catch (errorCaught) {
-                    console.error(errorCaught);
-                }
-            }
-        };
-
-        // log stderr and stdout to #outputStdoutTextarea1
-        ['error', 'log'].forEach(function (key) {
-            console[key + '_original'] = console[key + '_original'] || console[key];
-            console[key] = function () {
-                var element;
-                console[key + '_original'].apply(console, arguments);
-                element = document.querySelector('#outputStdoutTextarea1');
-                if (!element) {
-                    return;
-                }
-                // append text to #outputStdoutTextarea1
-                element.value += Array.from(arguments).map(function (arg) {
-                    return typeof arg === 'string'
-                        ? arg
-                        : JSON.stringify(arg, null, 4);
-                }).join(' ').replace((/\u001b\[\d*m/g), '') + '\n';
-                // scroll textarea to bottom
-                element.scrollTop = element.scrollHeight;
-            };
         });
-        // init event-handling
-        ['change', 'click', 'keyup'].forEach(function (event) {
-            Array.from(document.querySelectorAll('.on' + event)).forEach(function (element) {
-                element.addEventListener(event, local.testRunBrowser);
-            });
-        });
-        // run tests
-        local.testRunBrowser();
-    }());
+    }
+    switch (event && event.currentTarget && event.currentTarget.id) {
+    case "testRunButton1":
+        // show tests
+        if (document.querySelector("#testReportDiv1").style.maxHeight === "0px") {
+            local.uiAnimateSlideDown(document.querySelector("#testReportDiv1"));
+            document.querySelector("#testRunButton1").textContent = "hide internal test";
+            local.modeTest = 1;
+            local.testRunDefault(local);
+        // hide tests
+        } else {
+            local.uiAnimateSlideUp(document.querySelector("#testReportDiv1"));
+            document.querySelector("#testRunButton1").textContent = "run internal test";
+        }
+        break;
+    // custom-case
+    default:
+        // jslint #inputTextareaEval1
+        local.jslintAndPrint(
+            document.querySelector("#inputTextareaEval1").value,
+            "inputTextareaEval1.js"
+        );
+        document.querySelector("#outputJslintPre1").textContent = local.result.errorText
+        .replace((/\u001b\[\d*m/g), "")
+        .trim();
+        // csslint #inputTextareaCsslint1
+        local.jslintAndPrint(
+            document.querySelector("#inputTextareaCsslint1").value,
+            "inputTextareaCsslint1.css"
+        );
+        document.querySelector("#outputCsslintPre1").textContent = local.result.errorText
+        .replace((/\u001b\[\d*m/g), "")
+        .trim();
+    }
+};
 
-
-
-    // run node js-env code - init-test
-    /* istanbul ignore next */
-    (function () {
-        if (local.isBrowser) {
+// log stderr and stdout to #outputStdoutTextarea1
+["error", "log"].forEach(function (key) {
+    console[key + "_original"] = console[key + "_original"] || console[key];
+    console[key] = function () {
+        var argList;
+        var element;
+        argList = Array.from(arguments); // jslint ignore:line
+        console[key + "_original"].apply(console, argList);
+        element = document.querySelector("#outputStdoutTextarea1");
+        if (!element) {
             return;
         }
-        // init exports
-        module.exports = local;
-        // require builtins
-        // local.assert = require('assert');
-        local.buffer = require('buffer');
-        local.child_process = require('child_process');
-        local.cluster = require('cluster');
-        local.crypto = require('crypto');
-        local.dgram = require('dgram');
-        local.dns = require('dns');
-        local.domain = require('domain');
-        local.events = require('events');
-        local.fs = require('fs');
-        local.http = require('http');
-        local.https = require('https');
-        local.net = require('net');
-        local.os = require('os');
-        local.path = require('path');
-        local.querystring = require('querystring');
-        local.readline = require('readline');
-        local.repl = require('repl');
-        local.stream = require('stream');
-        local.string_decoder = require('string_decoder');
-        local.timers = require('timers');
-        local.tls = require('tls');
-        local.tty = require('tty');
-        local.url = require('url');
-        local.util = require('util');
-        local.vm = require('vm');
-        local.zlib = require('zlib');
-        /* validateLineSortedReset */
-        // init assets
-        local.assetsDict = local.assetsDict || {};
-        [
-            'assets.index.template.html',
-            'assets.swgg.swagger.json',
-            'assets.swgg.swagger.server.json'
-        ].forEach(function (file) {
-            file = '/' + file;
-            local.assetsDict[file] = local.assetsDict[file] || '';
-            if (local.fs.existsSync(local.__dirname + file)) {
-                local.assetsDict[file] = local.fs.readFileSync(
-                    local.__dirname + file,
-                    'utf8'
-                );
-            }
-        });
-        /* jslint-ignore-begin */
-        local.assetsDict['/assets.index.template.html'] = '\
+        // append text to #outputStdoutTextarea1
+        element.value += argList.map(function (arg) {
+            return typeof arg === "string"
+            ? arg
+            : JSON.stringify(arg, null, 4);
+        }).join(" ").replace((/\u001b\[\d*m/g), "") + "\n";
+        // scroll textarea to bottom
+        element.scrollTop = element.scrollHeight;
+    };
+});
+// init event-handling
+["change", "click", "keyup"].forEach(function (event) {
+    Array.from(document.querySelectorAll(".on" + event)).forEach(function (element) {
+        element.addEventListener(event, local.testRunBrowser);
+    });
+});
+// run tests
+local.testRunBrowser();
+}());
+
+
+
+/* istanbul ignore next */
+// run node js-env code - init-test
+(function () {
+if (local.isBrowser) {
+    return;
+}
+
+
+
+// init exports
+module.exports = local;
+// require builtins
+// local.assert = require("assert");
+local.buffer = require("buffer");
+local.child_process = require("child_process");
+local.cluster = require("cluster");
+local.crypto = require("crypto");
+local.dgram = require("dgram");
+local.dns = require("dns");
+local.domain = require("domain");
+local.events = require("events");
+local.fs = require("fs");
+local.http = require("http");
+local.https = require("https");
+local.net = require("net");
+local.os = require("os");
+local.path = require("path");
+local.querystring = require("querystring");
+local.readline = require("readline");
+local.repl = require("repl");
+local.stream = require("stream");
+local.string_decoder = require("string_decoder");
+local.timers = require("timers");
+local.tls = require("tls");
+local.tty = require("tty");
+local.url = require("url");
+local.util = require("util");
+local.vm = require("vm");
+local.zlib = require("zlib");
+/* validateLineSortedReset */
+// init assets
+local.assetsDict = local.assetsDict || {};
+[
+    "assets.index.template.html",
+    "assets.swgg.swagger.json",
+    "assets.swgg.swagger.server.json"
+].forEach(function (file) {
+    file = "/" + file;
+    local.assetsDict[file] = local.assetsDict[file] || "";
+    if (local.fs.existsSync(local.__dirname + file)) {
+        local.assetsDict[file] = local.fs.readFileSync(
+            local.__dirname + file,
+            "utf8"
+        );
+    }
+});
+/* jslint ignore:start */
+local.assetsDict["/assets.index.template.html"] = '\
 <!doctype html>\n\
 <html lang="en">\n\
 <head>\n\
@@ -330,16 +336,16 @@ instruction
 <!-- "assets.utility2.template.html" -->\n\
 <title>{{env.npm_package_name}} ({{env.npm_package_version}})</title>\n\
 <style>\n\
-/* jslint-utility2 */\n\
+/* jslint utility2:true */\n\
 /*csslint\n\
 */\n\
-/* jslint-ignore-begin */\n\
+/* csslint ignore:start */\n\
 *,\n\
 *:after,\n\
 *:before {\n\
     box-sizing: border-box;\n\
 }\n\
-/* jslint-ignore-end */\n\
+/* csslint ignore:end */\n\
 @keyframes uiAnimateShake {\n\
     0%, 50% {\n\
         transform: translateX(10px);\n\
@@ -456,17 +462,7 @@ textarea {\n\
 <a class="zeroPixel" download="db.persistence.json" href="" id="dbExportA1"></a>\n\
 <input class="zeroPixel" id="dbImportInput1" type="file">\n\
 <script>\n\
-/* jslint-utility2 */\n\
-/*jslint\n\
-    bitwise: true,\n\
-    browser: true,\n\
-    maxerr: 4,\n\
-    maxlen: 100,\n\
-    node: true,\n\
-    nomen: true,\n\
-    regexp: true,\n\
-    stupid: true\n\
-*/\n\
+/* jslint utility2:true */\n\
 // init domOnEventWindowOnloadTimeElapsed\n\
 (function () {\n\
 /*\n\
@@ -480,9 +476,10 @@ textarea {\n\
     window.addEventListener("load", function () {\n\
         setTimeout(function () {\n\
             window.domOnEventWindowOnloadTimeElapsed = Date.now() -\n\
-                window.domOnEventWindowOnloadTimeElapsed;\n\
-            console.error("domOnEventWindowOnloadTimeElapsed = " +\n\
-                window.domOnEventWindowOnloadTimeElapsed);\n\
+                    window.domOnEventWindowOnloadTimeElapsed;\n\
+            console.error(\n\
+                "domOnEventWindowOnloadTimeElapsed = " + window.domOnEventWindowOnloadTimeElapsed\n\
+            );\n\
         }, 100);\n\
     });\n\
 }());\n\
@@ -503,15 +500,17 @@ textarea {\n\
         ajaxProgressDiv1.style.width = "25%";\n\
     });\n\
     ajaxProgressState = 0;\n\
-    ajaxProgressUpdate = (window.local &&\n\
-        window.local.ajaxProgressUpdate) || function () {\n\
+    ajaxProgressUpdate = (\n\
+        window.local &&\n\
+        window.local.ajaxProgressUpdate\n\
+    ) || function () {\n\
         ajaxProgressDiv1.style.width = "100%";\n\
         setTimeout(function () {\n\
             ajaxProgressDiv1.style.background = "transparent";\n\
             setTimeout(function () {\n\
                 ajaxProgressDiv1.style.width = "0%";\n\
             }, 500);\n\
-        }, 1500);\n\
+        }, 1000);\n\
     };\n\
     window.timerIntervalAjaxProgressUpdate = setInterval(function () {\n\
         ajaxProgressState += 1;\n\
@@ -536,11 +535,14 @@ textarea {\n\
         return;\n\
     }\n\
     window.domOnEventSelectAllWithinPre = function (event) {\n\
-        var range, selection;\n\
-        if (event &&\n\
-                event.key === "a" &&\n\
-                (event.ctrlKey || event.metaKey) &&\n\
-                event.target.closest("pre")) {\n\
+        var range;\n\
+        var selection;\n\
+        if (\n\
+            event &&\n\
+            event.key === "a" &&\n\
+            (event.ctrlKey || event.metaKey) &&\n\
+            event.target.closest("pre")\n\
+        ) {\n\
             range = document.createRange();\n\
             range.selectNodeContents(event.target.closest("pre"));\n\
             selection = window.getSelection();\n\
@@ -581,7 +583,6 @@ utility2-comment -->\n\
 <textarea class="oneval onkeyup onreset" id="inputTextareaEval1">\n\
 /*jslint\n\
     browser: true,\n\
-    es6: true\n\
 */\n\
 const message = "hello";\n\
 console.log(message);\n\
@@ -629,63 +630,62 @@ utility2-comment -->\n\
 </body>\n\
 </html>\n\
 ';
-        /* jslint-ignore-end */
-        /* validateLineSortedReset */
-        /* jslint-ignore-begin */
-        // bug-workaround - long $npm_package_buildCustomOrg
-        local.assetsDict['/assets.jslint.js'] =
-            local.assetsDict['/assets.jslint.js'] ||
-            local.fs.readFileSync(local.__dirname + '/lib.jslint.js', 'utf8'
-        ).replace((/^#!\//), '// ');
-        /* jslint-ignore-end */
-        /* validateLineSortedReset */
-        local.assetsDict['/'] =
-            local.assetsDict['/assets.example.html'] =
-            local.assetsDict['/index.html'] =
-            local.assetsDict['/assets.index.template.html']
-            .replace((/\{\{env\.(\w+?)\}\}/g), function (match0, match1) {
-                switch (match1) {
-                case 'npm_package_description':
-                    return 'the greatest app in the world!';
-                case 'npm_package_name':
-                    return 'jslint-lite';
-                case 'npm_package_nameLib':
-                    return 'jslint';
-                case 'npm_package_version':
-                    return '0.0.1';
-                default:
-                    return match0;
-                }
-            });
-        // init cli
-        if (module !== require.main || local.global.utility2_rollup) {
-            return;
-        }
-        local.assetsDict['/assets.example.js'] =
-            local.assetsDict['/assets.example.js'] ||
-            local.fs.readFileSync(__filename, 'utf8');
-        local.assetsDict['/favicon.ico'] = local.assetsDict['/favicon.ico'] || '';
-        // if $npm_config_timeout_exit exists,
-        // then exit this process after $npm_config_timeout_exit ms
-        if (Number(process.env.npm_config_timeout_exit)) {
-            setTimeout(process.exit, Number(process.env.npm_config_timeout_exit));
-        }
-        // start server
-        if (local.global.utility2_serverHttp1) {
-            return;
-        }
-        process.env.PORT = process.env.PORT || '8081';
-        console.error('server starting on port ' + process.env.PORT);
-        local.http.createServer(function (request, response) {
-            request.urlParsed = local.url.parse(request.url);
-            if (local.assetsDict[request.urlParsed.pathname] !== undefined) {
-                response.end(local.assetsDict[request.urlParsed.pathname]);
-                return;
-            }
-            response.statusCode = 404;
-            response.end();
-        }).listen(process.env.PORT);
-    }());
+/* jslint ignore:end */
+/* validateLineSortedReset */
+/* jslint ignore:start */
+// bug-workaround - long $npm_package_buildCustomOrg
+local.assetsDict["/assets.jslint.js"] =
+    local.assetsDict["/assets.jslint.js"] ||
+    local.fs.readFileSync(local.__dirname + "/lib.jslint.js", "utf8"
+).replace((/^#!\//), "// ");
+/* jslint ignore:end */
+/* validateLineSortedReset */
+local.assetsDict["/"] = local.assetsDict["/assets.index.template.html"]
+.replace((/\{\{env\.(\w+?)\}\}/g), function (match0, match1) {
+    switch (match1) {
+    case "npm_package_description":
+        return "the greatest app in the world!";
+    case "npm_package_name":
+        return "jslint-lite";
+    case "npm_package_nameLib":
+        return "jslint";
+    case "npm_package_version":
+        return "0.0.1";
+    default:
+        return match0;
+    }
+});
+local.assetsDict["/assets.example.html"] = local.assetsDict["/"];
+local.assetsDict["/index.html"] = local.assetsDict["/"];
+// init cli
+if (module !== require.main || local.global.utility2_rollup) {
+    return;
+}
+/* validateLineSortedReset */
+local.assetsDict["/assets.example.js"] = local.assetsDict["/assets.example.js"] ||
+        local.fs.readFileSync(__filename, "utf8");
+local.assetsDict["/favicon.ico"] = local.assetsDict["/favicon.ico"] || "";
+// if $npm_config_timeout_exit exists,
+// then exit this process after $npm_config_timeout_exit ms
+if (Number(process.env.npm_config_timeout_exit)) {
+    setTimeout(process.exit, Number(process.env.npm_config_timeout_exit));
+}
+// start server
+if (local.global.utility2_serverHttp1) {
+    return;
+}
+process.env.PORT = process.env.PORT || "8081";
+console.error("server starting on port " + process.env.PORT);
+local.http.createServer(function (request, response) {
+    request.urlParsed = local.url.parse(request.url);
+    if (local.assetsDict[request.urlParsed.pathname] !== undefined) {
+        response.end(local.assetsDict[request.urlParsed.pathname]);
+        return;
+    }
+    response.statusCode = 404;
+    response.end();
+}).listen(process.env.PORT);
+}());
 }());
 ```
 
@@ -749,7 +749,7 @@ utility2-comment -->\n\
         "utility2": "kaizhu256/node-utility2#alpha"
     },
     "engines": {
-        "node": ">=4.0"
+        "node": ">=8.0"
     },
     "homepage": "https://github.com/kaizhu256/node-jslint-lite",
     "keywords": [
@@ -759,7 +759,7 @@ utility2-comment -->\n\
     "license": "MIT",
     "main": "lib.jslint.js",
     "name": "jslint-lite",
-    "nameAliasPublish": "csslint-lite es5lint jslint-classic",
+    "nameAliasPublish": "csslint-lite",
     "nameLib": "jslint",
     "nameOriginal": "jslint-lite",
     "os": [
@@ -780,7 +780,7 @@ utility2-comment -->\n\
         "test": "./npm_scripts.sh",
         "utility2": "./npm_scripts.sh"
     },
-    "version": "2018.9.8"
+    "version": "2018.9.29"
 }
 ```
 
