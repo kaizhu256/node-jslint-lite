@@ -1,32 +1,109 @@
 /* istanbul instrument in package jslint */
+/* istanbul ignore next */
 /* jslint utility2:true */
-(function () {
+(function (globalThis) {
+    "use strict";
+    var consoleError;
+    var local;
+    // init globalThis
+    (function () {
+        try {
+            globalThis = Function("return this")(); // jslint ignore:line
+        } catch (ignore) {}
+    }());
+    globalThis.globalThis = globalThis;
+    // init local
+    local = {};
+    // init isBrowser
+    local.isBrowser = (
+        typeof window === "object"
+        && window === globalThis
+        && typeof window.XMLHttpRequest === "function"
+        && window.document
+        && typeof window.document.querySelectorAll === "function"
+    );
+    globalThis.globalLocal = local;
+    // init function
+    local.assertThrow = function (passed, message) {
+    /*
+     * this function will throw the error <message> if <passed> is falsy
+     */
+        var error;
+        if (passed) {
+            return;
+        }
+        error = (
+            // ternary-operator
+            (
+                message
+                && typeof message.message === "string"
+                && typeof message.stack === "string"
+            )
+            // if message is an error-object, then leave it as is
+            ? message
+            : new Error(
+                typeof message === "string"
+                // if message is a string, then leave it as is
+                ? message
+                // else JSON.stringify message
+                : JSON.stringify(message, null, 4)
+            )
+        );
+        throw error;
+    };
+    local.functionOrNop = function (fnc) {
+    /*
+     * this function will if <fnc> exists,
+     * them return <fnc>,
+     * else return <nop>
+     */
+        return fnc || local.nop;
+    };
+    local.identity = function (value) {
+    /*
+     * this function will return <value>
+     */
+        return value;
+    };
+    local.nop = function () {
+    /*
+     * this function will do nothing
+     */
+        return;
+    };
+    // init debug_inline
+    if (!globalThis["debug\u0049nline"]) {
+        consoleError = console.error;
+        globalThis["debug\u0049nline"] = function () {
+        /*
+         * this function will both print <arguments> to stderr
+         * and return <arguments>[0]
+         */
+            var argList;
+            argList = Array.from(arguments); // jslint ignore:line
+            // debug arguments
+            globalThis["debug\u0049nlineArguments"] = argList;
+            consoleError("\n\ndebug\u0049nline");
+            consoleError.apply(console, argList);
+            consoleError("\n");
+            // return arg0 for inspection
+            return argList[0];
+        };
+    }
+}(this));
+
+
+
+(function (local) {
 "use strict";
-var local;
 
 
 
 // run shared js-env code - init-before
 (function () {
-
-
-
 // init local
-local = {};
-// init isBrowser
-local.isBrowser = (
-    typeof window === "object"
-    && typeof window.XMLHttpRequest === "function"
-    && window.document
-    && typeof window.document.querySelectorAll === "function"
-);
-// init global
-local.global = local.isBrowser
-? window
-: global;
-// re-init local
-local = (local.global.utility2 || require("utility2")).requireReadme();
-local.global.local = local;
+local = (globalThis.utility2 || require("utility2")).requireReadme();
+globalThis.local = local;
 // init test
 local.testRunDefault(local);
 }());
@@ -35,10 +112,7 @@ local.testRunDefault(local);
 
 // run shared js-env code - function
 (function () {
-
-
-
-local.testCase_jslintAndPrint_default = function (options, onError) {
+local._testCase_jslintAndPrint_default = function (options, onError) {
 /*
  * this function will test jslintAndPrint's default handling-behavior
  */
@@ -46,10 +120,12 @@ local.testCase_jslintAndPrint_default = function (options, onError) {
     [[
         // test passed handling-behavior
         ".aa {\n    display: block;\n}",
-        // test /* validateLineSortedReset */ handling-behavior
-        ".bb {\n    display: block;\n}\n" +
-                "/* validateLineSortedReset */\n" +
-                ".aa {\n    display: block;\n}"
+// test /* validateLineSortedReset */ handling-behavior
+        (
+            ".bb {\n    display: block;\n}\n"
+            + "/* validateLineSortedReset */\n"
+            + ".aa {\n    display: block;\n}"
+        )
     // 1. test csslint's failed handling-behavior
     ], [
         // test syntax-error handling-behavior
@@ -86,10 +162,10 @@ local.testCase_jslintAndPrint_default = function (options, onError) {
         "syntax error"
         //!! // test validateLineSorted-error1 handling-behavior
         //!! "(function () {\n    \"use strict\";\n    var local;\n" +
-                //!! "    local = {};\n    local.bb = null;\n    local.aa = null;\n}());",
+        //!! "    local = {};\n    local.bb = null;\n    local.aa = null;\n}());",
         //!! // test validateLineSorted-error2 handling-behavior
         //!! "(function () {\n    \"use strict\";\n    var local;\n" +
-                //!! "    local = {};\n    local.aa = \"class=\\\"bb aa\\\"\";\n}());"
+        //!! "    local = {};\n    local.aa = \"class=\\\"bb aa\\\"\";\n}());"
     // 4. test shlint's passed handling-behavior
     ], [
         // test validateLineSorted handling-behavior
@@ -122,17 +198,17 @@ local.testCase_jslintAndPrint_default = function (options, onError) {
             }
             if (Boolean(ii & 1)) {
                 // validate error occurred
-                local.assert(local.result.errorText, local.result);
+                local.assert(local.jslintResult.errorText, local.jslintResult);
                 return;
             }
             // validate no error occurred
-            local.assert(!local.result.errorText, local.result);
+            local.assert(!local.jslintResult.errorText, local.jslintResult);
         });
     });
     onError(null, options);
 };
 
-local.testCase_jslintAndPrintConditional_default = function (options, onError) {
+local._testCase_jslintAndPrintConditional_default = function (options, onError) {
 /*
  * this function will test jslintAndPrintConditional's default handling-behavior
  */
@@ -170,15 +246,17 @@ local.testCase_jslintAndPrintConditional_default = function (options, onError) {
         local.assert(!local.jslint.errorText, local.jslint.errorText);
         // test shlint passed handling-behavior
         local.jslintAndPrintConditional(
-            "# jslint utility2:true\n" +
-                    "shAa () {\n" +
-                    "    node -e \"\n" +
-                    "local = {};\n" +
-                    "local.aa = function () {\n" +
-                    "    return;\n" +
-                    "};\n" +
-                    "    \"\n" +
-                    "}\n",
+            (
+                "# jslint utility2:true\n"
+                + "shAa () {\n"
+                + "    node -e \"\n"
+                + "local = {};\n"
+                + "local.aa = function () {\n"
+                + "    return;\n"
+                + "};\n"
+                + "    \"\n"
+                + "}\n"
+            ),
             "passed.sh",
             "force"
         );
@@ -187,4 +265,7 @@ local.testCase_jslintAndPrintConditional_default = function (options, onError) {
     }, onError);
 };
 }());
+
+
+
 }());
