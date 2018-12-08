@@ -56,6 +56,7 @@ this zero-dependency package will provide browser-compatible versions of jslint 
 [![apidoc](https://kaizhu256.github.io/node-jslint-lite/build/screenshot.buildCi.browser.%252Ftmp%252Fbuild%252Fapidoc.html.png)](https://kaizhu256.github.io/node-jslint-lite/build..beta..travis-ci.org/apidoc.html)
 
 #### todo
+- jslint-autofix - move inner-loop to outer
 - jslint - refactor files to 80 chr column-limit
 - add jslint-rule unexpected_empty_lines
 - merge function jslintAndPrintConditional into jslintAndPrint
@@ -64,26 +65,9 @@ this zero-dependency package will provide browser-compatible versions of jslint 
 - update jslint-function jslintAndPrint to validate 3 or more continuous-newlines
 - none
 
-#### changelog 2018.11.14
-- npm publish 2018.11.14
-- jslint - upgrade to commit-813d1fb157076ef9df1d773a084c971705e57a84 (v2018.10.26)
-- jslint - replace ",$s/^ *".*"\n *+ ".*"\(\n *+ ".*"\)*/(&)/gc"
-- jslint - unexpected_a \(
-- jslint - replace instanceof -> Object.prototype.toString.call
-- jslint - replace var self -> that
-- jslint - unconst and unlet
-- jslint - prioritize fatal jslint-errors
-- jslint - merge function jslintAndPrintConditional -> jslintAndPrint
-- jslint-autofix - braket
-- jslint-autofix - parenthesize open-statements
-- jslint-autofix - prefix-operator
-- jslint-autofix - parenthesize rgx
-- jslint-autofix - local-function
-- jslint-autofix - add autofix button to live web-demo
-- jslint-autofix - embedded ```javascript```, <\script\>, <\style\>
-- jslint-autofix - tweak to run before JSLint in function jslintAndPrint
-- add autofix rule - expected_space_a_b: "Expected one space between '{a}' and '{b}'.",
-- rename object local.result -> local.jslintResult
+#### changelog 2018.12.8
+- npm publish 2018.12.8
+- upgrade to jslint commit-de413767154641f490d6e96185e525255cca5f7e (v2018.11.14)
 - none
 
 #### this package requires
@@ -154,8 +138,29 @@ instruction
         } catch (ignore) {}
     }());
     globalThis.globalThis = globalThis;
+    // init debug_inline
+    if (!globalThis["debug\u0049nline"]) {
+        consoleError = console.error;
+        globalThis["debug\u0049nline"] = function () {
+        /*
+         * this function will both print <arguments> to stderr
+         * and return <arguments>[0]
+         */
+            var argList;
+            argList = Array.from(arguments); // jslint ignore:line
+            // debug arguments
+            globalThis["debug\u0049nlineArguments"] = argList;
+            consoleError("\n\ndebug\u0049nline");
+            consoleError.apply(console, argList);
+            consoleError("\n");
+            // return arg0 for inspection
+            return argList[0];
+        };
+    }
     // init local
     local = {};
+    local.local = local;
+    globalThis.globalLocal = local;
     // init isBrowser
     local.isBrowser = (
         typeof window === "object"
@@ -164,7 +169,6 @@ instruction
         && window.document
         && typeof window.document.querySelectorAll === "function"
     );
-    globalThis.globalLocal = local;
     // init function
     local.assertThrow = function (passed, message) {
     /*
@@ -175,7 +179,7 @@ instruction
             return;
         }
         error = (
-            // ternary-operator
+            // ternary-condition
             (
                 message
                 && typeof message.message === "string"
@@ -213,24 +217,35 @@ instruction
      */
         return;
     };
-    // init debug_inline
-    if (!globalThis["debug\u0049nline"]) {
-        consoleError = console.error;
-        globalThis["debug\u0049nline"] = function () {
-        /*
-         * this function will both print <arguments> to stderr
-         * and return <arguments>[0]
-         */
-            var argList;
-            argList = Array.from(arguments); // jslint ignore:line
-            // debug arguments
-            globalThis["debug\u0049nlineArguments"] = argList;
-            consoleError("\n\ndebug\u0049nline");
-            consoleError.apply(console, argList);
-            consoleError("\n");
-            // return arg0 for inspection
-            return argList[0];
-        };
+    // require builtin
+    if (!local.isBrowser) {
+        local.assert = require("assert");
+        local.buffer = require("buffer");
+        local.child_process = require("child_process");
+        local.cluster = require("cluster");
+        local.crypto = require("crypto");
+        local.dgram = require("dgram");
+        local.dns = require("dns");
+        local.domain = require("domain");
+        local.events = require("events");
+        local.fs = require("fs");
+        local.http = require("http");
+        local.https = require("https");
+        local.net = require("net");
+        local.os = require("os");
+        local.path = require("path");
+        local.querystring = require("querystring");
+        local.readline = require("readline");
+        local.repl = require("repl");
+        local.stream = require("stream");
+        local.string_decoder = require("string_decoder");
+        local.timers = require("timers");
+        local.tls = require("tls");
+        local.tty = require("tty");
+        local.url = require("url");
+        local.util = require("util");
+        local.vm = require("vm");
+        local.zlib = require("zlib");
     }
 }(this));
 
@@ -418,34 +433,6 @@ if (local.isBrowser) {
 }
 // init exports
 module.exports = local;
-// require builtins
-local.assert = require("assert");
-local.buffer = require("buffer");
-local.child_process = require("child_process");
-local.cluster = require("cluster");
-local.crypto = require("crypto");
-local.dgram = require("dgram");
-local.dns = require("dns");
-local.domain = require("domain");
-local.events = require("events");
-local.fs = require("fs");
-local.http = require("http");
-local.https = require("https");
-local.net = require("net");
-local.os = require("os");
-local.path = require("path");
-local.querystring = require("querystring");
-local.readline = require("readline");
-local.repl = require("repl");
-local.stream = require("stream");
-local.string_decoder = require("string_decoder");
-local.timers = require("timers");
-local.tls = require("tls");
-local.tty = require("tty");
-local.url = require("url");
-local.util = require("util");
-local.vm = require("vm");
-local.zlib = require("zlib");
 /* validateLineSortedReset */
 // init assets
 local.assetsDict = local.assetsDict || {};
@@ -943,7 +930,7 @@ local.http.createServer(function (request, response) {
         "test": "./npm_scripts.sh",
         "utility2": "./npm_scripts.sh"
     },
-    "version": "2018.11.14"
+    "version": "2018.12.8"
 }
 ```
 
