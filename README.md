@@ -56,18 +56,26 @@ this zero-dependency package will provide browser-compatible versions of jslint 
 [![apidoc](https://kaizhu256.github.io/node-jslint-lite/build/screenshot.buildCi.browser.%252Ftmp%252Fbuild%252Fapidoc.html.png)](https://kaizhu256.github.io/node-jslint-lite/build..beta..travis-ci.org/apidoc.html)
 
 #### todo
+- add test-coverage for autofix
+- jslint - remove bad_property_a and unexpected_a hacks
+- jslint - fix lineOffset issue with ignored-lines
+- jslint - sort nested switch-statements
 - jslint-autofix - move inner-loop to outer
-- jslint - refactor files to 80 chr column-limit
-- add jslint-rule unexpected_empty_lines
-- merge function jslintAndPrintConditional into jslintAndPrint
-- update jslint-function do_var to check if var-statemsnts are sorted
-- update jslint-function jslintAndPrint to validate sorted vars
-- update jslint-function jslintAndPrint to validate 3 or more continuous-newlines
 - none
 
-#### changelog 2018.12.8
-- npm publish 2018.12.8
-- upgrade to jslint commit-de413767154641f490d6e96185e525255cca5f7e (v2018.11.14)
+#### changelog 2019.8.10
+- npm publish 2019.8.10
+- csslint - unminify csslint v1.0.5
+- jslint - refactor files to 80 chr column-limit
+- update to jslint commit ea8401c6a72e21d66f49766af692b09e81d7a79f
+- csslint - reset sorted-line with \n\n instead of macro /* validateLineSortedReset */
+- jslint-autofix - split ([aa, bb]) into multiple-lines
+- jslint-autofix - sort var,let,const statements
+- jslint-autofix - enforce only 1,2,4 continuous newlines
+- jslint - merge function local.jslintUtility20 into local.jslintAndPrint
+- jslint - simplify lint and autofix for json
+- jslint - add function jslintAndPrintDir
+- lint json with JSON.parse instead of jslint
 - none
 
 #### this package requires
@@ -80,7 +88,7 @@ this zero-dependency package will provide browser-compatible versions of jslint 
 
 
 # quickstart standalone app
-#### to run this example, follow the instruction in the script below
+#### to run this example, follow instruction in script below
 - [assets.app.js](https://kaizhu256.github.io/node-jslint-lite/build..beta..travis-ci.org/app/assets.app.js)
 ```shell
 # example.sh
@@ -91,7 +99,7 @@ this zero-dependency package will provide browser-compatible versions of jslint 
 curl -O https://kaizhu256.github.io/node-jslint-lite/build..beta..travis-ci.org/app/assets.app.js
 # 2. run standalone app
 PORT=8081 node ./assets.app.js
-# 3. open a browser to http://127.0.0.1:8081 and play with the web-demo
+# 3. open a browser to http://127.0.0.1:8081 and play with web-demo
 # 4. edit file assets.app.js to suit your needs
 ```
 
@@ -106,7 +114,7 @@ PORT=8081 node ./assets.app.js
 # quickstart example.js
 [![screenshot](https://kaizhu256.github.io/node-jslint-lite/build/screenshot.testExampleJs.browser.%252F.png)](https://kaizhu256.github.io/node-jslint-lite/build/app/assets.example.html)
 
-#### to run this example, follow the instruction in the script below
+#### to run this example, follow instruction in script below
 - [example.js](https://kaizhu256.github.io/node-jslint-lite/build..beta..travis-ci.org/example.js)
 ```javascript
 /*
@@ -116,9 +124,9 @@ this script will run a web-demo of jslint-lite
 
 instruction
     1. save this script as example.js
-    2. run the shell-command:
+    2. run shell-command:
         $ npm install jslint-lite && PORT=8081 node example.js
-    3. open a browser to http://127.0.0.1:8081 and play with the web-demo
+    3. open a browser to http://127.0.0.1:8081 and play with web-demo
     4. edit this script to suit your needs
 */
 
@@ -167,35 +175,35 @@ instruction
         && window === globalThis
         && typeof window.XMLHttpRequest === "function"
         && window.document
-        && typeof window.document.querySelectorAll === "function"
+        && typeof window.document.querySelector === "function"
     );
     // init function
     local.assertThrow = function (passed, message) {
     /*
-     * this function will throw the error <message> if <passed> is falsy
+     * this function will throw err.<message> if <passed> is falsy
      */
-        var error;
+        var err;
         if (passed) {
             return;
         }
-        error = (
-            // ternary-condition
+        err = (
+            // ternary-operator
             (
                 message
                 && typeof message.message === "string"
                 && typeof message.stack === "string"
             )
-            // if message is an error-object, then leave it as is
+            // if message is errObj, then leave as is
             ? message
             : new Error(
                 typeof message === "string"
-                // if message is a string, then leave it as is
+                // if message is a string, then leave as is
                 ? message
                 // else JSON.stringify message
                 : JSON.stringify(message, null, 4)
             )
         );
-        throw error;
+        throw err;
     };
     local.functionOrNop = function (fnc) {
     /*
@@ -216,6 +224,24 @@ instruction
      * this function will do nothing
      */
         return;
+    };
+    local.objectAssignDefault = function (target, source) {
+    /*
+     * this function will if items from <target> are
+     * null, undefined, or empty-string,
+     * then overwrite them with items from <source>
+     */
+        target = target || {};
+        Object.keys(source || {}).forEach(function (key) {
+            if (
+                target[key] === null
+                || target[key] === undefined
+                || target[key] === ""
+            ) {
+                target[key] = target[key] || source[key];
+            }
+        });
+        return target;
     };
     // require builtin
     if (!local.isBrowser) {
@@ -276,129 +302,23 @@ globalThis.local = local;
 if (!local.isBrowser) {
     return;
 }
-local.testRunBrowser = function (event) {
-    if (!event || (
-        event
-        && event.currentTarget
-        && event.currentTarget.className
-        && event.currentTarget.className.includes
-        && event.currentTarget.className.includes("onreset")
-    )) {
-        // reset output
-        Array.from(document.querySelectorAll(
-            "body > .resettable"
-        )).forEach(function (element) {
-            switch (element.tagName) {
-            case "INPUT":
-            case "TEXTAREA":
-                element.value = "";
-                break;
-            default:
-                element.textContent = "";
-            }
-        });
-    }
-    switch (event && event.currentTarget && event.currentTarget.id) {
-    case "testRunButton1":
-        // show tests
-        if (document.querySelector("#testReportDiv1").style.maxHeight === "0px") {
-            local.uiAnimateSlideDown(document.querySelector("#testReportDiv1"));
-            document.querySelector("#testRunButton1").textContent = "hide internal test";
-            local.modeTest = 1;
-            local.testRunDefault(local);
-        // hide tests
-        } else {
-            local.uiAnimateSlideUp(document.querySelector("#testReportDiv1"));
-            document.querySelector("#testRunButton1").textContent = "run internal test";
-        }
-        break;
-    // custom-case
-    default:
-        // csslint #inputTextareaCsslint1
-        local.jslintAndPrint(
-            document.querySelector("#inputTextareaCsslint1").value,
-            "inputTextareaCsslint1.css"
-        );
-        document.querySelector("#outputCsslintPre1").textContent = local.jslintResult.errorText
-        .replace((
-            /\u001b\[\d*m/g
-        ), "").trim();
-        // jslint #inputTextareaEval1
-        local.jslintAndPrint(
-            document.querySelector("#inputTextareaEval1").value,
-            "inputTextareaEval1.js",
-            {
-                autofix: (
-                    event
-                    && event.currentTarget
-                    && event.currentTarget.id === "jslintAutofixButton1"
-                )
-            }
-        );
-        if (local.jslint.jslintResult.autofix) {
-            document.querySelector("#inputTextareaEval1").value = (
-                local.jslint.jslintResult.code
-            );
-        }
-        document.querySelector("#outputJslintPre1").textContent = local.jslintResult.errorText
-        .replace((
-            /\u001b\[\d*m/g
-        ), "").trim();
-    }
-};
-
-local.uiEventDelegate = local.uiEventDelegate || function (event) {
-    // filter non-input keyup-event
-    event.targetOnEvent = event.target.closest("[data-event]");
-    if (!event.targetOnEvent) {
+// log stderr and stdout to #outputStdout1
+["error", "log"].forEach(function (key) {
+    var argList;
+    var elem;
+    var fnc;
+    elem = document.querySelector(
+        "#outputStdout1"
+    );
+    if (!elem) {
         return;
     }
-    // rate-limit keyup
-    if (event.type === "keyup") {
-        local.uiEventDelegateKeyupEvent = event;
-        if (local.uiEventDelegateKeyupTimerTimeout !== 2) {
-            local.uiEventDelegateKeyupTimerTimeout = (
-                local.uiEventDelegateKeyupTimerTimeout
-                || setTimeout(function () {
-                    local.uiEventDelegateKeyupTimerTimeout = 2;
-                    local.uiEventDelegate(local.uiEventDelegateKeyupEvent);
-                }, 100)
-            );
-            return;
-        }
-        local.uiEventDelegateKeyupTimerTimeout = null;
-        if (!event.target.closest("input, option, select, textarea")) {
-            return;
-        }
-    }
-    switch (event.targetOnEvent.tagName) {
-    case "BUTTON":
-    case "FORM":
-        event.preventDefault();
-        break;
-    }
-    event.stopPropagation();
-    local.uiEventListenerDict[event.targetOnEvent.dataset.event](event);
-};
-
-local.uiEventListenerDict = local.uiEventListenerDict || {};
-
-local.uiEventListenerDict.testRunBrowser = local.testRunBrowser;
-
-// log stderr and stdout to #outputStdoutTextarea1
-["error", "log"].forEach(function (key) {
-    console[key + "_original"] = console[key + "_original"] || console[key];
+    fnc = console[key];
     console[key] = function () {
-        var argList;
-        var element;
         argList = Array.from(arguments); // jslint ignore:line
-        console[key + "_original"].apply(console, argList);
-        element = document.querySelector("#outputStdoutTextarea1");
-        if (!element) {
-            return;
-        }
-        // append text to #outputStdoutTextarea1
-        element.value += argList.map(function (arg) {
+        fnc.apply(console, argList);
+        // append text to #outputStdout1
+        elem.textContent += argList.map(function (arg) {
             return (
                 typeof arg === "string"
                 ? arg
@@ -408,19 +328,106 @@ local.uiEventListenerDict.testRunBrowser = local.testRunBrowser;
             /\u001b\[\d*m/g
         ), "") + "\n";
         // scroll textarea to bottom
-        element.scrollTop = element.scrollHeight;
+        elem.scrollTop = elem.scrollHeight;
     };
 });
-// init event-handling
-["Change", "Click", "Keyup", "Submit"].forEach(function (eventType) {
-    Array.from(document.querySelectorAll(
-        ".eventDelegate" + eventType
-    )).forEach(function (element) {
-        element.addEventListener(eventType.toLowerCase(), local.uiEventDelegate);
-    });
+Object.assign(local, globalThis.domOnEventDelegateDict);
+globalThis.domOnEventDelegateDict = local;
+local.onEventDomDb = (
+    local.db && local.db.onEventDomDb
+);
+local.testRunBrowser = function (evt) {
+/*
+ * this function will run browser-tests
+ */
+    switch (
+        !evt.ctrlKey
+        && !evt.metaKey
+        && (
+            evt.modeInit
+            || (evt.type + "." + (evt.target && evt.target.id))
+        )
+    ) {
+    // custom-case
+    case "click.inputCsslint1":
+    case "click.inputJslint1":
+    case "click.jslintAutofixButton1":
+    case "keydown.inputCsslint1":
+    case "keydown.inputJslint1":
+    case true:
+        // csslint #inputCsslint1
+        local.jslintAndPrint(
+            document.querySelector(
+                "#inputCsslint1"
+            ).value,
+            "inputCsslint1.css"
+        );
+        document.querySelector(
+            "#outputCsslint1"
+        ).textContent = local.jslintResult.errText.replace((
+            /\u001b\[\d*m/g
+        ), "").trim();
+        // jslint #inputJslint1
+        local.jslintAndPrint(document.querySelector(
+            "#inputJslint1"
+        ).value, "inputJslint1.js", {
+            autofix: (
+                event
+                && event.targetOnEvent
+                && event.targetOnEvent.id === "jslintAutofixButton1"
+            )
+        });
+        if (local.jslint.jslintResult.autofix) {
+            document.querySelector(
+                "#inputJslint1"
+            ).value = (
+                local.jslint.jslintResult.code
+            );
+        }
+        document.querySelector(
+            "#outputJslint1"
+        ).textContent = local.jslintResult.errText.replace((
+            /\u001b\[\d*m/g
+        ), "").trim();
+        return;
+    // run browser-tests
+    default:
+        if (
+            (evt.target && evt.target.id) !== "testRunButton1"
+            && !(evt.modeInit && (
+                /\bmodeTest=1\b/
+            ).test(location.search))
+        ) {
+            return;
+        }
+        // show browser-tests
+        if (document.querySelector(
+            "#testReportDiv1"
+        ).style.maxHeight === "0px") {
+            globalThis.domOnEventDelegateDict.domOnEventResetOutput();
+            local.uiAnimateSlideDown(document.querySelector(
+                "#testReportDiv1"
+            ));
+            document.querySelector(
+                "#testRunButton1"
+            ).textContent = "hide internal test";
+            local.modeTest = 1;
+            local.testRunDefault(local);
+            return;
+        }
+        // hide browser-tests
+        local.uiAnimateSlideUp(document.querySelector(
+            "#testReportDiv1"
+        ));
+        document.querySelector(
+            "#testRunButton1"
+        ).textContent = "run internal test";
+    }
+};
+
+local.testRunBrowser({
+    modeInit: true
 });
-// run tests
-local.testRunBrowser();
 }());
 
 
@@ -471,23 +478,25 @@ local.assetsDict["/assets.index.template.html"] = '\
 }\n\
 /* csslint ignore:end */\n\
 @keyframes uiAnimateShake {\n\
-    0%, 50% {\n\
-        transform: translateX(10px);\n\
-    }\n\
-    25%, 75% {\n\
-        transform: translateX(-10px);\n\
-    }\n\
-    100% {\n\
-        transform: translateX(0);\n\
-    }\n\
+0%,\n\
+50% {\n\
+    transform: translateX(10px);\n\
+}\n\
+100% {\n\
+    transform: translateX(0);\n\
+}\n\
+25%,\n\
+75% {\n\
+    transform: translateX(-10px);\n\
+}\n\
 }\n\
 @keyframes uiAnimateSpin {\n\
-    0% {\n\
-        transform: rotate(0deg);\n\
-    }\n\
-    100% {\n\
-        transform: rotate(360deg);\n\
-    }\n\
+0% {\n\
+    transform: rotate(0deg);\n\
+}\n\
+100% {\n\
+    transform: rotate(360deg);\n\
+}\n\
 }\n\
 a {\n\
     overflow-wrap: break-word;\n\
@@ -495,19 +504,21 @@ a {\n\
 body {\n\
     background: #eef;\n\
     font-family: Arial, Helvetica, sans-serif;\n\
+    font-size: small;\n\
     margin: 0 40px;\n\
 }\n\
 body > div,\n\
 body > form > div,\n\
 body > form > input,\n\
 body > form > pre,\n\
-body > form > textarea,\n\
 body > form > .button,\n\
+body > form > .textarea,\n\
 body > input,\n\
 body > pre,\n\
-body > textarea,\n\
-body > .button {\n\
+body > .button,\n\
+body > .textarea {\n\
     margin-bottom: 20px;\n\
+    margin-top: 0;\n\
 }\n\
 body > form > input,\n\
 body > form > .button,\n\
@@ -515,27 +526,23 @@ body > input,\n\
 body > .button {\n\
     width: 20rem;\n\
 }\n\
-body > form > textarea,\n\
-body > textarea {\n\
+body > form > .textarea,\n\
+body > .textarea {\n\
     height: 10rem;\n\
     width: 100%;\n\
 }\n\
-body > textarea[readonly] {\n\
+body > .readonly {\n\
     background: #ddd;\n\
 }\n\
 code,\n\
 pre,\n\
-textarea {\n\
+.textarea {\n\
     font-family: Consolas, Menlo, monospace;\n\
-    font-size: small;\n\
+    font-size: smaller;\n\
 }\n\
 pre {\n\
     overflow-wrap: break-word;\n\
     white-space: pre-wrap;\n\
-}\n\
-textarea {\n\
-    overflow: auto;\n\
-    white-space: pre;\n\
 }\n\
 .button {\n\
     background-color: #fff;\n\
@@ -559,6 +566,14 @@ textarea {\n\
 }\n\
 .colorError {\n\
     color: #d00;\n\
+}\n\
+.textarea {\n\
+    background: #fff;\n\
+    border: 1px solid #999;\n\
+    border-radius: 0;\n\
+    cursor: auto;\n\
+    overflow: auto;\n\
+    padding: 2px;\n\
 }\n\
 .uiAnimateShake {\n\
     animation-duration: 500ms;\n\
@@ -584,13 +599,13 @@ textarea {\n\
 <div id="ajaxProgressDiv1" style="background: #d00; height: 2px; left: 0; margin: 0; padding: 0; position: fixed; top: 0; transition: background 500ms, width 1500ms; width: 0%; z-index: 1;"></div>\n\
 <div class="uiAnimateSpin" style="animation: uiAnimateSpin 2s linear infinite; border: 5px solid #999; border-radius: 50%; border-top: 5px solid #7d7; display: none; height: 25px; vertical-align: middle; width: 25px;"></div>\n\
 <a class="zeroPixel" download="db.persistence.json" href="" id="dbExportA1"></a>\n\
-<input class="zeroPixel" id="dbImportInput1" type="file">\n\
+<input class="zeroPixel" data-onevent="onEventDomDb" data-onevent-db="dbImportInput" type="file">\n\
 <script>\n\
 /* jslint utility2:true */\n\
 // init domOnEventWindowOnloadTimeElapsed\n\
 (function () {\n\
 /*\n\
- * this function will measure and print the time-elapsed for window.onload\n\
+ * this function will measure and print time-elapsed for window.onload\n\
  */\n\
     "use strict";\n\
     if (window.domOnEventWindowOnloadTimeElapsed) {\n\
@@ -613,11 +628,102 @@ textarea {\n\
 \n\
 \n\
 \n\
+// init domOnEventDelegateDict\n\
+(function () {\n\
+/*\n\
+ * this function will handle delegated dom-event\n\
+ */\n\
+    "use strict";\n\
+    var timerTimeoutDict;\n\
+    if (window.domOnEventDelegateDict) {\n\
+        return;\n\
+    }\n\
+    window.domOnEventDelegateDict = {};\n\
+    timerTimeoutDict = {};\n\
+    window.domOnEventDelegateDict.domOnEventDelegate = function (evt) {\n\
+        evt.targetOnEvent = evt.target.closest(\n\
+            "[data-onevent]"\n\
+        );\n\
+        if (\n\
+            !evt.targetOnEvent\n\
+            || evt.targetOnEvent.dataset.onevent === "domOnEventNop"\n\
+            || evt.target.closest(\n\
+                ".disabled, .readonly"\n\
+            )\n\
+        ) {\n\
+            return;\n\
+        }\n\
+        // rate-limit high-frequency-event\n\
+        switch (evt.type) {\n\
+        case "keydown":\n\
+        case "keyup":\n\
+            // filter non-input keyboard-event\n\
+            if (!evt.target.closest(\n\
+                "input, option, select, textarea"\n\
+            )) {\n\
+                return;\n\
+            }\n\
+            if (timerTimeoutDict[evt.type] !== true) {\n\
+                timerTimeoutDict[evt.type] = timerTimeoutDict[\n\
+                    evt.type\n\
+                ] || setTimeout(function () {\n\
+                    timerTimeoutDict[evt.type] = true;\n\
+                    window.domOnEventDelegateDict.domOnEventDelegate(evt);\n\
+                }, 50);\n\
+                return;\n\
+            }\n\
+            timerTimeoutDict[evt.type] = null;\n\
+            break;\n\
+        }\n\
+        switch (evt.targetOnEvent.tagName) {\n\
+        case "BUTTON":\n\
+        case "FORM":\n\
+            evt.preventDefault();\n\
+            break;\n\
+        }\n\
+        evt.stopPropagation();\n\
+        window.domOnEventDelegateDict[evt.targetOnEvent.dataset.onevent](\n\
+            evt\n\
+        );\n\
+    };\n\
+    window.domOnEventDelegateDict.domOnEventResetOutput = function () {\n\
+        Array.from(document.querySelectorAll(\n\
+            ".onevent-reset-output"\n\
+        )).forEach(function (elem) {\n\
+            switch (elem.tagName) {\n\
+            case "INPUT":\n\
+            case "TEXTAREA":\n\
+                elem.value = "";\n\
+                break;\n\
+            case "PRE":\n\
+                elem.textContent = "";\n\
+                break;\n\
+            default:\n\
+                elem.innerHTML = "";\n\
+            }\n\
+        });\n\
+    };\n\
+    // init event-handling\n\
+    [\n\
+        "change",\n\
+        "click",\n\
+        "keydown",\n\
+        "submit"\n\
+    ].forEach(function (eventType) {\n\
+        document.addEventListener(\n\
+            eventType,\n\
+            window.domOnEventDelegateDict.domOnEventDelegate\n\
+        );\n\
+    });\n\
+}());\n\
+\n\
+\n\
+\n\
 // init timerIntervalAjaxProgressUpdate\n\
 (function () {\n\
 /*\n\
- * this function will increment the ajax-progress-bar\n\
- * until the webpage has loaded\n\
+ * this function will increment ajax-progress-bar\n\
+ * until webpage has loaded\n\
  */\n\
     "use strict";\n\
     var ajaxProgressDiv1;\n\
@@ -625,11 +731,15 @@ textarea {\n\
     var ajaxProgressUpdate;\n\
     if (\n\
         window.timerIntervalAjaxProgressUpdate\n\
-        || !document.querySelector("#ajaxProgressDiv1")\n\
+        || !document.querySelector(\n\
+            "#ajaxProgressDiv1"\n\
+        )\n\
     ) {\n\
         return;\n\
     }\n\
-    ajaxProgressDiv1 = document.querySelector("#ajaxProgressDiv1");\n\
+    ajaxProgressDiv1 = document.querySelector(\n\
+        "#ajaxProgressDiv1"\n\
+    );\n\
     setTimeout(function () {\n\
         ajaxProgressDiv1.style.width = "25%";\n\
     });\n\
@@ -671,23 +781,28 @@ textarea {\n\
     if (window.domOnEventSelectAllWithinPre) {\n\
         return;\n\
     }\n\
-    window.domOnEventSelectAllWithinPre = function (event) {\n\
+    window.domOnEventSelectAllWithinPre = function (evt) {\n\
         var range;\n\
         var selection;\n\
         if (\n\
-            event\n\
-            && event.key === "a"\n\
-            && (event.ctrlKey || event.metaKey)\n\
-            && event.target.closest("pre")\n\
+            evt\n\
+            && evt.key === "a"\n\
+            && (evt.ctrlKey || evt.metaKey)\n\
+            && evt.target.closest(\n\
+                "pre"\n\
+            )\n\
         ) {\n\
             range = document.createRange();\n\
-            range.selectNodeContents(event.target.closest("pre"));\n\
+            range.selectNodeContents(evt.target.closest(\n\
+                "pre"\n\
+            ));\n\
             selection = window.getSelection();\n\
             selection.removeAllRanges();\n\
             selection.addRange(range);\n\
-            event.preventDefault();\n\
+            evt.preventDefault();\n\
         }\n\
     };\n\
+    // init event-handling\n\
     document.addEventListener(\n\
         "keydown",\n\
         window.domOnEventSelectAllWithinPre\n\
@@ -711,7 +826,7 @@ utility2-comment -->\n\
 <h3>{{env.npm_package_description}}</h3>\n\
 <!-- utility2-comment\n\
 <a class="button" download href="assets.app.js">download standalone app</a><br>\n\
-<button class="button eventDelegateClick onreset" data-event="testRunBrowser" id="testRunButton1">run internal test</button><br>\n\
+<button class="button" data-onevent="testRunBrowser" data-onevent-reset-output="1" id="testRunButton1">run internal test</button><br>\n\
 <div class="uiAnimateSlide" id="testReportDiv1" style="border-bottom: 0; border-top: 0; margin-bottom: 0; margin-top: 0; max-height: 0; padding-bottom: 0; padding-top: 0;"></div>\n\
 utility2-comment -->\n\
 \n\
@@ -720,7 +835,7 @@ utility2-comment -->\n\
 <label>edit or paste script below to\n\
     <a href="http://www.jslint.com" target="_blank">jslint</a>\n\
 </label>\n\
-<textarea class="eventDelegateKeyup onreset" data-event="testRunBrowser" id="inputTextareaEval1">\n\
+<textarea class="textarea" data-onevent="testRunBrowser" data-onevent-reset-output="1" id="inputJslint1">\n\
 /*jslint\n\
     browser: true,\n\
 */\n\
@@ -731,15 +846,15 @@ console.log(null);\n\
 \n\
 \n\
 \n\
-<button class="button eventDelegateClick onreset" data-event="testRunBrowser" id="jslintAutofixButton1">jslint autofix</button><br>\n\
-<pre class= "colorError" id="outputJslintPre1"></pre>\n\
+<button class="button" data-onevent="testRunBrowser" data-onevent-reset-output="1" id="jslintAutofixButton1">jslint autofix</button><br>\n\
+<pre class= "colorError readonly textarea" id="outputJslint1"></pre>\n\
 <label>edit or paste script below to\n\
     <a\n\
         href="https://github.com/CSSLint/csslint/wiki/Command-line-interface#options"\n\
         target="_blank"\n\
     >csslint</a>\n\
 </label>\n\
-<textarea class="eventDelegateKeyup onreset" data-event="testRunBrowser" id="inputTextareaCsslint1">\n\
+<textarea class="textarea" data-onevent="testRunBrowser" data-onevent-reset-output="1" id="inputCsslint1">\n\
 /*csslint\n\
     box-sizing: false,\n\
 */\n\
@@ -748,9 +863,9 @@ body {\n\
     margin: 0px;\n\
 }\n\
 </textarea>\n\
-<pre class= "colorError" id="outputCsslintPre1"></pre>\n\
+<pre class= "colorError readonly textarea" id="outputCsslint1"></pre>\n\
 <label>stderr and stdout</label>\n\
-<textarea class="resettable" id="outputStdoutTextarea1" readonly></textarea>\n\
+<pre class="onevent-reset-output readonly textarea" id="outputStdout1"></pre>\n\
 <!-- utility2-comment\n\
 {{#if isRollup}}\n\
 <script src="assets.app.js"></script>\n\
@@ -822,15 +937,15 @@ if (globalThis.utility2_serverHttp1) {
     return;
 }
 process.env.PORT = process.env.PORT || "8081";
-console.error("server starting on port " + process.env.PORT);
-local.http.createServer(function (request, response) {
-    request.urlParsed = local.url.parse(request.url);
-    if (local.assetsDict[request.urlParsed.pathname] !== undefined) {
-        response.end(local.assetsDict[request.urlParsed.pathname]);
+console.error("http-server listening on port " + process.env.PORT);
+local.http.createServer(function (req, res) {
+    req.urlParsed = local.url.parse(req.url);
+    if (local.assetsDict[req.urlParsed.pathname] !== undefined) {
+        res.end(local.assetsDict[req.urlParsed.pathname]);
         return;
     }
-    response.statusCode = 404;
-    response.end();
+    res.statusCode = 404;
+    res.end();
 }).listen(process.env.PORT);
 }());
 
@@ -899,7 +1014,7 @@ local.http.createServer(function (request, response) {
         "utility2": "kaizhu256/node-utility2#alpha"
     },
     "engines": {
-        "node": ">=8.0"
+        "node": ">=10.0"
     },
     "homepage": "https://github.com/kaizhu256/node-jslint-lite",
     "keywords": [
@@ -921,16 +1036,16 @@ local.http.createServer(function (request, response) {
         "url": "https://github.com/kaizhu256/node-jslint-lite.git"
     },
     "scripts": {
-        "build-ci": "./npm_scripts.sh",
+        "build-ci": "sh ./npm_scripts.sh",
         "env": "env",
-        "eval": "./npm_scripts.sh",
-        "heroku-postbuild": "./npm_scripts.sh",
-        "postinstall": "./npm_scripts.sh",
-        "start": "./npm_scripts.sh",
-        "test": "./npm_scripts.sh",
-        "utility2": "./npm_scripts.sh"
+        "eval": "sh ./npm_scripts.sh",
+        "heroku-postbuild": "sh ./npm_scripts.sh",
+        "postinstall": "sh ./npm_scripts.sh",
+        "start": "sh ./npm_scripts.sh",
+        "test": "sh ./npm_scripts.sh",
+        "utility2": "sh ./npm_scripts.sh"
     },
-    "version": "2018.12.8"
+    "version": "2019.8.10"
 }
 ```
 
