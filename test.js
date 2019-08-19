@@ -314,7 +314,4 @@ local.testCase_jslintAndPrint_default = function (opt, onError) {
     onError(null, opt);
 };
 }());
-
-
-
 }());

@@ -1,5 +1,5 @@
 # jslint-lite
-this zero-dependency package will provide browser-compatible versions of jslint (v2018.10.26) and csslint (v1.0.5), with a working web-demo
+this zero-dependency package will provide browser-compatible versions of jslint (v2019.8.3) and csslint (v1.0.5), with a working web-demo
 
 # live web demo
 - [https://kaizhu256.github.io/node-jslint-lite/build..beta..travis-ci.org/app](https://kaizhu256.github.io/node-jslint-lite/build..beta..travis-ci.org/app)
@@ -58,24 +58,14 @@ this zero-dependency package will provide browser-compatible versions of jslint 
 #### todo
 - add test-coverage for autofix
 - jslint - remove bad_property_a and unexpected_a hacks
-- jslint - fix lineOffset issue with ignored-lines
 - jslint - sort nested switch-statements
-- jslint-autofix - move inner-loop to outer
 - none
 
-#### changelog 2019.8.10
-- npm publish 2019.8.10
-- csslint - unminify csslint v1.0.5
-- jslint - refactor files to 80 chr column-limit
-- update to jslint commit ea8401c6a72e21d66f49766af692b09e81d7a79f
-- csslint - reset sorted-line with \n\n instead of macro /* validateLineSortedReset */
-- jslint-autofix - split ([aa, bb]) into multiple-lines
-- jslint-autofix - sort var,let,const statements
-- jslint-autofix - enforce only 1,2,4 continuous newlines
-- jslint - merge function local.jslintUtility20 into local.jslintAndPrint
-- jslint - simplify lint and autofix for json
-- jslint - add function jslintAndPrintDir
-- lint json with JSON.parse instead of jslint
+#### changelog 2019.8.12
+- npm publish 2019.8.12
+- jslint - upgrade to jslint edition 2019.8.3
+- jslint - add async/await support
+- jslint - remove autofix-js-whitespace - ...}()); to ...}());\n\n\n\n
 - none
 
 #### this package requires
@@ -948,9 +938,6 @@ local.http.createServer(function (req, res) {
     res.end();
 }).listen(process.env.PORT);
 }());
-
-
-
 }());
 ```
 
@@ -1008,7 +995,7 @@ local.http.createServer(function (req, res) {
     "bin": {
         "jslint-lite": "lib.jslint.js"
     },
-    "description": "this zero-dependency package will provide browser-compatible versions of jslint (v2018.10.26) and csslint (v1.0.5), with a working web-demo",
+    "description": "this zero-dependency package will provide browser-compatible versions of jslint (v2019.8.3) and csslint (v1.0.5), with a working web-demo",
     "devDependencies": {
         "electron-lite": "kaizhu256/node-electron-lite#alpha",
         "utility2": "kaizhu256/node-utility2#alpha"
@@ -1036,16 +1023,16 @@ local.http.createServer(function (req, res) {
         "url": "https://github.com/kaizhu256/node-jslint-lite.git"
     },
     "scripts": {
-        "build-ci": "sh ./npm_scripts.sh",
+        "build-ci": "./npm_scripts.sh",
         "env": "env",
-        "eval": "sh ./npm_scripts.sh",
-        "heroku-postbuild": "sh ./npm_scripts.sh",
-        "postinstall": "sh ./npm_scripts.sh",
-        "start": "sh ./npm_scripts.sh",
-        "test": "sh ./npm_scripts.sh",
-        "utility2": "sh ./npm_scripts.sh"
+        "eval": "./npm_scripts.sh",
+        "heroku-postbuild": "./npm_scripts.sh",
+        "postinstall": "./npm_scripts.sh",
+        "start": "./npm_scripts.sh",
+        "test": "./npm_scripts.sh",
+        "utility2": "./npm_scripts.sh"
     },
-    "version": "2019.8.10"
+    "version": "2019.8.12"
 }
 ```
 

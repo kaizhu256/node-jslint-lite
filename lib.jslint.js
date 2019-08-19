@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 /*
- * lib.jslint.js (2019.8.10)
+ * lib.jslint.js (2019.8.12)
  * https://github.com/kaizhu256/node-jslint-lite
- * this zero-dependency package will provide browser-compatible versions of jslint (v2018.10.26) and csslint (v1.0.5), with a working web-demo
+ * this zero-dependency package will provide browser-compatible versions of jslint (v2019.8.3) and csslint (v1.0.5), with a working web-demo
  *
  */
 
@@ -347,70 +347,6 @@ local.cliRun = function (opt) {
     local.cliDict._default();
 };
 
-local.jsonStringifyOrdered = function (obj, replacer, space) {
-/*
- * this function will JSON.stringify <obj>,
- * with object-keys sorted and circular-references removed
- * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify#Syntax
- */
-    var circularSet;
-    var stringify;
-    var tmp;
-    stringify = function (obj) {
-    /*
-     * this function will recursively JSON.stringify obj,
-     * with object-keys sorted and circular-references removed
-     */
-        // if obj is not an object or function, then JSON.stringify as normal
-        if (!(
-            obj
-            && typeof obj === "object"
-            && typeof obj.toJSON !== "function"
-        )) {
-            return JSON.stringify(obj);
-        }
-        // ignore circular-reference
-        if (circularSet.has(obj)) {
-            return;
-        }
-        circularSet.add(obj);
-        // if obj is an array, then recurse its items
-        if (Array.isArray(obj)) {
-            tmp = "[" + obj.map(function (obj) {
-                // recurse
-                tmp = stringify(obj);
-                return (
-                    typeof tmp === "string"
-                    ? tmp
-                    : "null"
-                );
-            }).join(",") + "]";
-            circularSet.delete(obj);
-            return tmp;
-        }
-        // if obj is not an array,
-        // then recurse its items with object-keys sorted
-        tmp = "{" + Object.keys(obj).sort().map(function (key) {
-            // recurse
-            tmp = stringify(obj[key]);
-            if (typeof tmp === "string") {
-                return JSON.stringify(key) + ":" + tmp;
-            }
-        }).filter(function (obj) {
-            return typeof obj === "string";
-        }).join(",") + "}";
-        circularSet.delete(obj);
-        return tmp;
-    };
-    circularSet = new Set();
-    return JSON.stringify((
-        (typeof obj === "object" && obj)
-        // recurse
-        ? JSON.parse(stringify(obj))
-        : obj
-    ), replacer, space);
-};
-
 local.onErrorWithStack = function (onError) {
 /*
  * this function will create wrapper around <onError>
@@ -422,13 +358,13 @@ local.onErrorWithStack = function (onError) {
         /(.*?)\n.*?$/m
     ), "$1");
     onError2 = function (err, data, meta) {
+        // append current-stack to err.stack
         if (
             err
             && typeof err.stack === "string"
             && err !== local.errDefault
             && String(err.stack).indexOf(stack.split("\n")[2]) < 0
         ) {
-            // append current-stack to err.stack
             err.stack += "\n" + stack;
         }
         onError(err, data, meta);
@@ -11170,19 +11106,19 @@ local.CSSLint = CSSLint;
 
 
 
-// jslint-hack - var
+// hack-jslint - var
 var jslint_extra;
 var jslint_result;
 var line_ignore;
 var lines_extra;
 /*
-file https://github.com/douglascrockford/JSLint/blob/ea8401c6a72e21d66f49766af692b09e81d7a79f/jslint.js
+file https://github.com/douglascrockford/JSLint/blob/efefb7d4e22359b6fb1977d33712bcc2fda95f14/jslint.js
 */
 /* jslint utility2:true */
 var next_line_extra = null;
 var warn_at_extra = null;
 // jslint.js
-// 2019-01-31
+// 2019-08-03
 // Copyright (c) 2015 Douglas Crockford  (www.JSLint.com)
 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -11268,7 +11204,7 @@ var warn_at_extra = null;
 
 // WARNING: JSLint will hurt your feelings.
 
-// jslint-hack - property
+// hack-jslint - property
 /*\property
     a, and, arity, assign, b, bad_assignment_a, bad_directive_a, bad_get,
     bad_module_name_a, bad_option_a, bad_property_a, bad_set, bitwise, block,
@@ -11728,7 +11664,7 @@ function warn_at(code, line, column, a, b, c, d) {
         warning.d = d;
     }
     warning.message = supplant(bundle[code] || code, warning);
-    // jslint-hack - warn_at_extra
+    // hack-jslint - warn_at_extra
     warn_at_extra(warning, warnings);
     return warning;
 }
@@ -11737,7 +11673,7 @@ function stop_at(code, line, column, a, b, c, d) {
 
 // Same as warn_at, except that it stops the analysis.
 
-    // jslint-hack - early_stop = true
+    // hack-jslint - early_stop = true
     early_stop = true;
     throw warn_at(code, line, column, a, b, c, d);
 }
@@ -11759,7 +11695,7 @@ function warn(code, the_token, a, b, c, d) {
             a || artifact(the_token),
             b,
             c,
-            // jslint-hack - the_token
+            // hack-jslint - the_token
             d || the_token
         );
         return the_token.warning;
@@ -11776,7 +11712,7 @@ function stop(code, the_token, a, b, c, d) {
         the_token = next_token;
     }
     delete the_token.warning;
-    // jslint-hack - early_stop = true
+    // hack-jslint - early_stop = true
     early_stop = true;
     throw warn(code, the_token, a, b, c, d);
 }
@@ -11844,7 +11780,7 @@ function tokenize(source) {
         source_line = lines[line];
         whole_line = source_line || "";
         if (source_line !== undefined) {
-            // jslint-hack - next_line_extra
+            // hack-jslint - next_line_extra
             source_line = next_line_extra(source_line, line);
             at = source_line.search(rx_tab);
             if (at >= 0) {
@@ -12474,7 +12410,27 @@ function tokenize(source) {
         var last;
         var result;
         var the_token;
-        // jslint-hack - un-recurse
+
+// This should properly be a tail recursive function, but sadly, conformant
+// implementations of ES6 are still rare. This is the ideal code:
+
+//      if (!source_line) {
+//          source_line = next_line();
+//          from = 0;
+//          return (
+//              source_line === undefined
+//              ? (
+//                  mega_mode
+//                  ? stop_at("unclosed_mega", mega_line, mega_from)
+//                  : make("(end)")
+//              )
+//              : lex()
+//          );
+//      }
+
+// Unfortunately, incompetent JavaScript engines will sometimes fail to execute
+// it correctly. So for now, we do it the old fashioned way.
+
         while (!source_line) {
             source_line = next_line();
             from = 0;
@@ -12486,6 +12442,7 @@ function tokenize(source) {
                 );
             }
         }
+
         from = column;
         result = source_line.match(rx_token);
 
@@ -12618,7 +12575,7 @@ function tokenize(source) {
 // The token is a // comment.
 
         if (snippet === "//") {
-            // jslint-hack - too_long
+            // hack-jslint - too_long
             if (option.utility2 && (
                 /^!!\u0020|^\u0020https:\/\//m
             ).test(source_line)) {
@@ -12652,7 +12609,7 @@ function tokenize(source) {
                     }
                 }
                 array.push(source_line);
-                // jslint-hack - too_long
+                // hack-jslint - too_long
                 if (option.utility2 && (
                     /^\S|^\u0020{2}|\u0020https:\/\/|\u0020this\u0020.*?\u0020package\u0020will\u0020/m
                 ).test(source_line)) {
@@ -12732,8 +12689,8 @@ function tokenize(source) {
     first = lex();
     json_mode = first.id === "{" || first.id === "[";
 
-// This is the only loop in JSLint. It will turn into a recursive call to lex
-// when ES6 has been finished and widely deployed and adopted.
+// This loop will be replaced with a recursive call to lex when ES6 has been
+// finished and widely deployed and adopted.
 
     while (true) {
         if (lex().id === "(end)") {
@@ -12807,6 +12764,19 @@ function dispense() {
 
     var cadet = tokens[token_nr];
     token_nr += 1;
+    // hack-jslint - advance token async/await to next_token based on context
+    var next_cadet_id = (tokens[token_nr] || {
+        id: ""
+    }).id;
+    if (
+        (cadet.id === "async" && next_cadet_id === "function")
+        || (cadet.id === "await" && next_cadet_id[0].match(
+            /[a-zA-Z_$]/
+        ))
+    ) {
+        cadet.id = next_cadet_id;
+        token_nr += 1;
+    }
     if (cadet.id === "(comment)") {
         if (json_mode) {
             warn("unexpected_a", cadet);
@@ -13383,7 +13353,7 @@ function left_check(left, right) {
             || (id !== "." && id !== "(" && id !== "[")
         )
     ) {
-        // jslint-hack - unexpected_a
+        // hack-jslint - unexpected_a
         warn("unexpected_a", right, null, null, left, right);
         return false;
     }
@@ -15764,7 +15734,7 @@ function whitage() {
 
     function at_margin(fit) {
         var at = margin + fit;
-        // jslint-hack - expected_at
+        // hack-jslint - expected_at
         if (right.from !== at) {
             return expected_at(at);
         }
@@ -15805,12 +15775,12 @@ function whitage() {
                     ? margin
                     : margin + 8
                 );
-                // jslint-hack - expected_at
+                // hack-jslint - expected_at
                 if (right.from !== at) {
                     expected_at(at);
                 }
             } else {
-                // jslint-hack - expected_at
+                // hack-jslint - expected_at
                 if (right.from !== margin + 8) {
                     expected_at(margin + 8);
                 }
@@ -15840,7 +15810,7 @@ function whitage() {
                 );
             }
         } else {
-            // jslint-hack - expected_at
+            // hack-jslint - expected_at
             if (right.from !== margin) {
                 expected_at(margin);
             }
@@ -15870,7 +15840,7 @@ function whitage() {
                     if (opening) {
                         free = closer === ")" && left.free;
                         open = true;
-                        // jslint-hack - conditional-margin
+                        // hack-jslint - conditional-margin
                         if (
                             !option.utility2
                             || lines[right.line].startsWith(" ")
@@ -15878,7 +15848,7 @@ function whitage() {
                             margin += 4;
                         }
                         if (right.role === "label") {
-                            // jslint-hack - expected_at
+                            // hack-jslint - expected_at
                             if (right.from !== 0) {
                                 expected_at(0);
                             }
@@ -15939,7 +15909,7 @@ function whitage() {
                     if (right.switch) {
                         at_margin(-4);
                     } else if (right.role === "label") {
-                        // jslint-hack - expected_at
+                        // hack-jslint - expected_at
                         if (right.from !== 0) {
                             expected_at(0);
                         }
@@ -15984,7 +15954,7 @@ function whitage() {
                     ) {
                         no_space_only();
                     } else if (right.id === "." || right.id === "?.") {
-                        // jslint-hack - method-chain
+                        // hack-jslint - method-chain
                         // https://github.com/douglascrockford/JSLint/commit/752c82d860ac14d35d492dc5c6ad0a0ed8227e76#diff-01d3d81a6eb6d82af3c377b55dc4fa28L4692
                         if (left.line === right.line) {
                             no_space();
@@ -16073,7 +16043,7 @@ function whitage() {
 
 // The jslint function itself.
 
-// jslint-hack - jslint0
+// hack-jslint - jslint0
 var jslint0 = Object.freeze(function (
     source = "",
     option_object = empty(),
@@ -16087,7 +16057,7 @@ var jslint0 = Object.freeze(function (
         declared_globals = empty();
         directive_mode = true;
         directives = [];
-        // jslint-hack - early_stop = false
+        // hack-jslint - early_stop = false
         early_stop = false;
         exports = empty();
         froms = [];
@@ -16161,7 +16131,7 @@ var jslint0 = Object.freeze(function (
             advance("(end)");
             functionage = global;
             walk_statement(tree);
-            // jslint-hack - !early_stop
+            // hack-jslint - !early_stop
             if (!early_stop) {
                 uninitialized_and_unused();
                 if (!option.white) {
@@ -16178,7 +16148,7 @@ var jslint0 = Object.freeze(function (
         }
         early_stop = false;
     } catch (e) {
-        // jslint-hack - e.early_stop = true
+        // hack-jslint - e.early_stop = true
         e.early_stop = true;
         if (e.name !== "JSLintError") {
             warnings.push(e);
@@ -16186,7 +16156,7 @@ var jslint0 = Object.freeze(function (
     }
     return {
         directives,
-        edition: "2019-01-31",
+        edition: "2019-08-03",
         exports,
         froms,
         functions,
@@ -16217,11 +16187,11 @@ var jslint0 = Object.freeze(function (
 /*
 file none
 */
-// jslint-hack - ignore bad_property_a
+// hack-jslint - ignore bad_property_a
 rx_bad_property = (
     /$^/m
 );
-// jslint-hack - extra
+// hack-jslint - extra
 jslint_extra = function (source, opt, global_array) {
 /*
  * this function will run with extra-features inside jslint-function jslint()
@@ -16457,9 +16427,9 @@ local.jslintAndPrint = function (code, file, opt) {
  * this function will jslint / csslint <code> and print any errors to stderr
  */
     var tmp;
-    if (!(opt && opt.modeNext)) {
+    if (!(opt && opt.gotoState)) {
         local.jslintResult = {
-            modeNext: 0
+            gotoState: 0
         };
     }
     code = code || "";
@@ -16468,8 +16438,8 @@ local.jslintAndPrint = function (code, file, opt) {
         code,
         file
     });
-    opt.modeNext += 1;
-    switch (opt.modeNext) {
+    opt.gotoState += 1;
+    switch (opt.gotoState) {
     // jslint - init
     case 1:
         // cleanup
@@ -16531,7 +16501,7 @@ local.jslintAndPrint = function (code, file, opt) {
                     code = JSON.stringify(tmp, null, 4) + "\n";
                     opt.code0 = code;
                 }
-                opt.modeNext = Infinity;
+                opt.gotoState = Infinity;
                 break;
             } catch (errCaught) {
                 if (opt.fileType === ".json") {
@@ -16541,7 +16511,7 @@ local.jslintAndPrint = function (code, file, opt) {
                         line: 0,
                         message: errCaught.message
                     });
-                    opt.modeNext = Infinity;
+                    opt.gotoState = Infinity;
                     break;
                 }
             }
@@ -16559,7 +16529,7 @@ local.jslintAndPrint = function (code, file, opt) {
         ) {
             break;
         }
-        opt.modeNext = 10;
+        opt.gotoState = 10;
         break;
     // jslint - autofix
     case 11:
@@ -16812,7 +16782,7 @@ local.jslintAutofix = function (code, file, opt) {
                     ) + code.slice(0, ii).replace((
                         /.+/g
                     ), "").length,
-                    modeNext: 0
+                    gotoState: 0
                 })
             ) + match2;
         });
@@ -16840,7 +16810,7 @@ local.jslintAutofix = function (code, file, opt) {
                             /.+/g
                         ), "").length
                     ),
-                    modeNext: 0
+                    gotoState: 0
                 }, opt)
             ) + match2;
         });
@@ -17053,10 +17023,6 @@ local.jslintAutofix = function (code, file, opt) {
         code = code.replace((
             /\n+((?:\/\*_\*\/\n|\/\/_\n)*?\(function\u0020.*?)\n+/g
         ), "\n\n\n\n$1\n");
-        // autofix-js-whitespace - ...}()); to ...}());\n\n\n\n
-        code = code.replace((
-            /\n+(\}\(.*\)\);)\n+/g
-        ), "\n$1\n\n\n\n");
         // autofix-js-whitespace - remove double-whitespace
         code = code.replace((
             /(\S\u0020)\u0020+/g
@@ -17172,7 +17138,7 @@ local.jslintAutofix = function (code, file, opt) {
                     lineOffset: code.slice(0, ii).replace((
                         /.+/g
                     ), "").length + 1,
-                    modeNext: 0
+                    gotoState: 0
                 })
             ) + "```";
         });
@@ -17190,7 +17156,7 @@ local.jslintAutofix = function (code, file, opt) {
                     lineOffset: code.slice(0, ii).replace((
                         /.+/g
                     ), "").length + 1,
-                    modeNext: 0
+                    gotoState: 0
                 })
             ) + "'";
         });
@@ -17586,7 +17552,4 @@ if (module === require.main && !globalThis.utility2_rollup) {
     local.cliRun();
 }
 }());
-
-
-
 }());
