@@ -56,13 +56,16 @@ this zero-dependency package will provide browser-compatible versions of jslint 
 [![apidoc](https://kaizhu256.github.io/node-jslint-lite/build/screenshot.buildCi.browser.%252Ftmp%252Fbuild%252Fapidoc.html.png)](https://kaizhu256.github.io/node-jslint-lite/build..beta..travis-ci.org/apidoc.html)
 
 #### todo
-- add test-coverage for autofix
+- improve test-coverage
+- jslint - jslint embedded template-strings
 - jslint - remove bad_property_a and unexpected_a hacks
 - jslint - sort nested switch-statements
 - none
 
-#### changelog 2019.8.12
-- npm publish 2019.8.12
+#### changelog 2019.9.6
+- npm publish 2019.9.6
+- remove electron dependency
+- jslint - remove ternary-operator/newline comment preceding bra
 - jslint - remove allow-method-chain-newline hack
 - jslint - remove autofix - autofix-js-braket - remove leading-whitespace from bra
 - jslint - internalize hacks to function warn_at_extra
@@ -119,7 +122,8 @@ this script will run a web-demo of jslint-lite
 instruction
     1. save this script as example.js
     2. run shell-command:
-        $ npm install jslint-lite && PORT=8081 node example.js
+        $ npm install jslint-lite && \
+            PORT=8081 node example.js
     3. open a browser to http://127.0.0.1:8081 and play with web-demo
     4. edit this script to suit your needs
 */
@@ -134,24 +138,17 @@ instruction
     var consoleError;
     var local;
     // init globalThis
-    (function () {
-        try {
-            globalThis = Function("return this")(); // jslint ignore:line
-        } catch (ignore) {}
-    }());
-    globalThis.globalThis = globalThis;
+    globalThis.globalThis = globalThis.globalThis || globalThis;
     // init debug_inline
     if (!globalThis["debug\u0049nline"]) {
         consoleError = console.error;
-        globalThis["debug\u0049nline"] = function () {
+        globalThis["debug\u0049nline"] = function (...argList) {
         /*
-         * this function will both print <arguments> to stderr
-         * and return <arguments>[0]
+         * this function will both print <argList> to stderr
+         * and return <argList>[0]
          */
-            var argList;
-            argList = Array.from(arguments); // jslint ignore:line
-            // debug arguments
-            globalThis["debug\u0049nlineArguments"] = argList;
+            // debug argList
+            globalThis["debug\u0049nlineArgList"] = argList;
             consoleError("\n\ndebug\u0049nline");
             consoleError.apply(console, argList);
             consoleError("\n");
@@ -165,11 +162,9 @@ instruction
     globalThis.globalLocal = local;
     // init isBrowser
     local.isBrowser = (
-        typeof window === "object"
-        && window === globalThis
-        && typeof window.XMLHttpRequest === "function"
-        && window.document
-        && typeof window.document.querySelector === "function"
+        typeof globalThis.XMLHttpRequest === "function"
+        && globalThis.navigator
+        && typeof globalThis.navigator.userAgent === "string"
     );
     // init function
     local.assertThrow = function (passed, message) {
@@ -181,7 +176,6 @@ instruction
             return;
         }
         err = (
-            // ternary-operator
             (
                 message
                 && typeof message.message === "string"
@@ -198,6 +192,54 @@ instruction
             )
         );
         throw err;
+    };
+    local.fsRmrfSync = function (dir) {
+    /*
+     * this function will sync "rm -rf" <dir>
+     */
+        var child_process;
+        try {
+            child_process = require("child_process");
+        } catch (ignore) {
+            return;
+        }
+        child_process.spawnSync("rm", [
+            "-rf", dir
+        ], {
+            stdio: [
+                "ignore", 1, 2
+            ]
+        });
+    };
+    local.fsWriteFileWithMkdirpSync = function (file, data) {
+    /*
+     * this function will sync write <data> to <file> with "mkdir -p"
+     */
+        var fs;
+        try {
+            fs = require("fs");
+        } catch (ignore) {
+            return;
+        }
+        // try to write file
+        try {
+            fs.writeFileSync(file, data);
+        } catch (ignore) {
+            // mkdir -p
+            require("child_process").spawnSync(
+                "mkdir",
+                [
+                    "-p", require("path").dirname(file)
+                ],
+                {
+                    stdio: [
+                        "ignore", 1, 2
+                    ]
+                }
+            );
+            // rewrite file
+            fs.writeFileSync(file, data);
+        }
     };
     local.functionOrNop = function (fnc) {
     /*
@@ -267,7 +309,9 @@ instruction
         local.vm = require("vm");
         local.zlib = require("zlib");
     }
-}(this));
+}((typeof globalThis === "object" && globalThis) || (function () {
+    return Function("return this")(); // jslint ignore:line
+}())));
 
 
 
@@ -298,7 +342,6 @@ if (!local.isBrowser) {
 }
 // log stderr and stdout to #outputStdout1
 ["error", "log"].forEach(function (key) {
-    var argList;
     var elem;
     var fnc;
     elem = document.querySelector(
@@ -308,8 +351,7 @@ if (!local.isBrowser) {
         return;
     }
     fnc = console[key];
-    console[key] = function () {
-        argList = Array.from(arguments); // jslint ignore:line
+    console[key] = function (...argList) {
         fnc.apply(console, argList);
         // append text to #outputStdout1
         elem.textContent += argList.map(function (arg) {
@@ -343,7 +385,7 @@ local.testRunBrowser = function (evt) {
     // custom-case
     case "click.inputCsslint1":
     case "click.inputJslint1":
-    case "click.jslintAutofixButton1":
+    case "click.buttonJslintAutofix1":
     case "keydown.inputCsslint1":
     case "keydown.inputJslint1":
     case true:
@@ -366,7 +408,7 @@ local.testRunBrowser = function (evt) {
             autofix: (
                 event
                 && event.targetOnEvent
-                && event.targetOnEvent.id === "jslintAutofixButton1"
+                && event.targetOnEvent.id === "buttonJslintAutofix1"
             )
         });
         if (local.jslint.jslintResult.autofix) {
@@ -385,7 +427,7 @@ local.testRunBrowser = function (evt) {
     // run browser-tests
     default:
         if (
-            (evt.target && evt.target.id) !== "testRunButton1"
+            (evt.target && evt.target.id) !== "buttonTestRun1"
             && !(evt.modeInit && (
                 /\bmodeTest=1\b/
             ).test(location.search))
@@ -394,14 +436,14 @@ local.testRunBrowser = function (evt) {
         }
         // show browser-tests
         if (document.querySelector(
-            "#testReportDiv1"
+            "#htmlTestReport1"
         ).style.maxHeight === "0px") {
             globalThis.domOnEventDelegateDict.domOnEventResetOutput();
             local.uiAnimateSlideDown(document.querySelector(
-                "#testReportDiv1"
+                "#htmlTestReport1"
             ));
             document.querySelector(
-                "#testRunButton1"
+                "#buttonTestRun1"
             ).textContent = "hide internal test";
             local.modeTest = 1;
             local.testRunDefault(local);
@@ -409,10 +451,10 @@ local.testRunBrowser = function (evt) {
         }
         // hide browser-tests
         local.uiAnimateSlideUp(document.querySelector(
-            "#testReportDiv1"
+            "#htmlTestReport1"
         ));
         document.querySelector(
-            "#testRunButton1"
+            "#buttonTestRun1"
         ).textContent = "run internal test";
     }
 };
@@ -494,7 +536,7 @@ a {\n\
     overflow-wrap: break-word;\n\
 }\n\
 body {\n\
-    background: #eef;\n\
+    background: #f7f7f7;\n\
     font-family: Arial, Helvetica, sans-serif;\n\
     font-size: small;\n\
     margin: 0 40px;\n\
@@ -568,9 +610,6 @@ pre {\n\
     overflow-y: hidden;\n\
     transition: max-height ease-in 250ms, min-height ease-in 250ms, padding-bottom ease-in 250ms, padding-top ease-in 250ms;\n\
 }\n\
-.utility2FooterDiv {\n\
-    text-align: center;\n\
-}\n\
 .zeroPixel {\n\
     border: 0;\n\
     height: 0;\n\
@@ -581,7 +620,6 @@ pre {\n\
 </style>\n\
 </head>\n\
 <body>\n\
-<div id="ajaxProgressDiv1" style="background: #d00; height: 2px; left: 0; margin: 0; padding: 0; position: fixed; top: 0; transition: background 500ms, width 1500ms; width: 0%; z-index: 1;"></div>\n\
 <div class="uiAnimateSpin" style="animation: uiAnimateSpin 2s linear infinite; border: 5px solid #999; border-radius: 50%; border-top: 5px solid #7d7; display: none; height: 25px; vertical-align: middle; width: 25px;"></div>\n\
 <a class="zeroPixel" download="db.persistence.json" href="" id="dbExportA1"></a>\n\
 <input class="zeroPixel" data-onevent="onEventDomDb" data-onevent-db="dbImportInput" type="file">\n\
@@ -609,6 +647,121 @@ pre {\n\
             );\n\
         }, 100);\n\
     });\n\
+}());\n\
+\n\
+\n\
+\n\
+// init domOnEventAjaxProgressUpdate\n\
+(function () {\n\
+/*\n\
+ * this function will display incrementing ajax-progress-bar\n\
+ */\n\
+    "use strict";\n\
+    var opt;\n\
+    if (window.domOnEventAjaxProgressUpdate) {\n\
+        return;\n\
+    }\n\
+    window.domOnEventAjaxProgressUpdate = function (gotoState, onError) {\n\
+        gotoState = (gotoState | 0) + 1;\n\
+        switch (gotoState) {\n\
+        // ajaxProgress - show\n\
+        case 1:\n\
+            // init timerInterval and timerTimeout\n\
+            opt.timerInterval = (\n\
+                opt.timerInterval || setInterval(opt, 2000, 1, onError)\n\
+            );\n\
+            opt.timerTimeout = (\n\
+                opt.timerTimeout || setTimeout(opt, 30000, 2, onError)\n\
+            );\n\
+            // show ajaxProgress\n\
+            if (opt.width !== -1) {\n\
+                opt.style.background = opt.background;\n\
+            }\n\
+            setTimeout(opt, 50, gotoState, onError);\n\
+            break;\n\
+        // ajaxProgress - increment\n\
+        case 2:\n\
+            // show ajaxProgress\n\
+            if (opt.width === -1) {\n\
+                return;\n\
+            }\n\
+            opt.style.background = opt.background;\n\
+            // reset ajaxProgress if it goes too high\n\
+            if ((opt.style.width.slice(0, -1) | 0) > 95) {\n\
+                opt.width = 0;\n\
+            }\n\
+            // this algorithm will indefinitely increment ajaxProgress\n\
+            // with successively smaller increments without ever reaching 100%\n\
+            opt.width += 1;\n\
+            opt.style.width = Math.max(\n\
+                100 - 75 * Math.exp(-0.125 * opt.width),\n\
+                opt.style.width.slice(0, -1) | 0\n\
+            ) + "%";\n\
+            if (!opt.counter) {\n\
+                setTimeout(opt, 0, gotoState, onError);\n\
+            }\n\
+            break;\n\
+        // ajaxProgress - 100%\n\
+        case 3:\n\
+            opt.width = -1;\n\
+            opt.style.width = "100%";\n\
+            setTimeout(opt, 1000, gotoState, onError);\n\
+            break;\n\
+        // ajaxProgress - hide\n\
+        case 4:\n\
+            // cleanup timerInterval and timerTimeout\n\
+            clearInterval(opt.timerInterval);\n\
+            opt.timerInterval = null;\n\
+            clearTimeout(opt.timerTimeout);\n\
+            opt.timerTimeout = null;\n\
+            // hide ajaxProgress\n\
+            opt.style.background = "transparent";\n\
+            if (onError) {\n\
+                onError();\n\
+            }\n\
+            setTimeout(opt, 250, gotoState);\n\
+            break;\n\
+        // ajaxProgress - reset\n\
+        default:\n\
+            // reset ajaxProgress\n\
+            opt.counter = 0;\n\
+            opt.width = 0;\n\
+            opt.style.width = "0%";\n\
+        }\n\
+    };\n\
+    opt = window.domOnEventAjaxProgressUpdate;\n\
+    opt.end = function (onError) {\n\
+        opt.counter = 0;\n\
+        window.domOnEventAjaxProgressUpdate(2, onError);\n\
+    };\n\
+    opt.elem = document.getElementById("domElementAjaxProgress1");\n\
+    if (!opt.elem) {\n\
+        opt.elem = document.createElement("div");\n\
+        setTimeout(function () {\n\
+            document.body.insertBefore(opt.elem, document.body.firstChild);\n\
+        });\n\
+    }\n\
+    opt.elem.id = "domElementAjaxProgress1";\n\
+    opt.style = opt.elem.style;\n\
+    // init style\n\
+    Object.entries({\n\
+        background: "#d00",\n\
+        height: "2px",\n\
+        left: "0",\n\
+        margin: "0",\n\
+        padding: "0",\n\
+        position: "fixed",\n\
+        top: "0",\n\
+        transition: "background 250ms, width 750ms",\n\
+        width: "0%",\n\
+        "z-index": "1"\n\
+    }).forEach(function (entry) {\n\
+        opt.style[entry[0]] = opt.style[entry[0]] || entry[1];\n\
+    });\n\
+    // init state\n\
+    opt.background = opt.style.background;\n\
+    opt.counter = 0;\n\
+    opt.width = 0;\n\
 }());\n\
 \n\
 \n\
@@ -704,58 +857,6 @@ pre {\n\
 \n\
 \n\
 \n\
-// init timerIntervalAjaxProgressUpdate\n\
-(function () {\n\
-/*\n\
- * this function will increment ajax-progress-bar\n\
- * until webpage has loaded\n\
- */\n\
-    "use strict";\n\
-    var ajaxProgressDiv1;\n\
-    var ajaxProgressState;\n\
-    var ajaxProgressUpdate;\n\
-    if (\n\
-        window.timerIntervalAjaxProgressUpdate\n\
-        || !document.querySelector(\n\
-            "#ajaxProgressDiv1"\n\
-        )\n\
-    ) {\n\
-        return;\n\
-    }\n\
-    ajaxProgressDiv1 = document.querySelector(\n\
-        "#ajaxProgressDiv1"\n\
-    );\n\
-    setTimeout(function () {\n\
-        ajaxProgressDiv1.style.width = "25%";\n\
-    });\n\
-    ajaxProgressState = 0;\n\
-    ajaxProgressUpdate = (\n\
-        window.local\n\
-        && window.local.ajaxProgressUpdate\n\
-    ) || function () {\n\
-        ajaxProgressDiv1.style.width = "100%";\n\
-        setTimeout(function () {\n\
-            ajaxProgressDiv1.style.background = "transparent";\n\
-            setTimeout(function () {\n\
-                ajaxProgressDiv1.style.width = "0%";\n\
-            }, 500);\n\
-        }, 1000);\n\
-    };\n\
-    window.timerIntervalAjaxProgressUpdate = setInterval(function () {\n\
-        ajaxProgressState += 1;\n\
-        ajaxProgressDiv1.style.width = Math.max(\n\
-            100 - 75 * Math.exp(-0.125 * ajaxProgressState),\n\
-            ajaxProgressDiv1.style.width.slice(0, -1) | 0\n\
-        ) + "%";\n\
-    }, 1000);\n\
-    window.addEventListener("load", function () {\n\
-        clearInterval(window.timerIntervalAjaxProgressUpdate);\n\
-        ajaxProgressUpdate();\n\
-    });\n\
-}());\n\
-\n\
-\n\
-\n\
 // init domOnEventSelectAllWithinPre\n\
 (function () {\n\
 /*\n\
@@ -796,27 +897,28 @@ pre {\n\
 </script>\n\
 <h1>\n\
 <!-- utility2-comment\n\
-    <a\n\
-        {{#if env.npm_package_homepage}}\n\
-        href="{{env.npm_package_homepage}}"\n\
-        {{/if env.npm_package_homepage}}\n\
-        target="_blank"\n\
-    >\n\
+<a\n\
+    {{#if env.npm_package_homepage}}\n\
+    href="{{env.npm_package_homepage}}"\n\
+    {{/if env.npm_package_homepage}}\n\
+    target="_blank"\n\
+>\n\
 utility2-comment -->\n\
-        {{env.npm_package_name}} ({{env.npm_package_version}})\n\
+    {{env.npm_package_name}} ({{env.npm_package_version}})\n\
 <!-- utility2-comment\n\
-    </a>\n\
+</a>\n\
 utility2-comment -->\n\
 </h1>\n\
 <h3>{{env.npm_package_description}}</h3>\n\
 <!-- utility2-comment\n\
 <a class="button" download href="assets.app.js">download standalone app</a><br>\n\
-<button class="button" data-onevent="testRunBrowser" id="testRunButton1">run internal test</button><br>\n\
-<div class="uiAnimateSlide" id="testReportDiv1" style="border-bottom: 0; border-top: 0; margin-bottom: 0; margin-top: 0; max-height: 0; padding-bottom: 0; padding-top: 0;"></div>\n\
+<button class="button" data-onevent="testRunBrowser" id="buttonTestRun1">run internal test</button><br>\n\
+<div class="uiAnimateSlide" id="htmlTestReport1" style="border-bottom: 0; border-top: 0; margin-bottom: 0; margin-top: 0; max-height: 0; padding-bottom: 0; padding-top: 0;"></div>\n\
 utility2-comment -->\n\
 \n\
 \n\
 \n\
+<!-- custom-html-start -->\n\
 <label>edit or paste script below to\n\
     <a href="http://www.jslint.com" target="_blank">jslint</a>\n\
 </label>\n\
@@ -831,7 +933,7 @@ console.log(null);\n\
 \n\
 \n\
 \n\
-<button class="button" data-onevent="testRunBrowser" data-onevent-reset-output="1" id="jslintAutofixButton1">jslint autofix</button><br>\n\
+<button class="button" data-onevent="testRunBrowser" data-onevent-reset-output="1" id="buttonJslintAutofix1">jslint autofix</button><br>\n\
 <pre class= "colorError readonly textarea" id="outputJslint1"></pre>\n\
 <label>edit or paste script below to\n\
     <a\n\
@@ -851,6 +953,10 @@ body {\n\
 <pre class= "colorError readonly textarea" id="outputCsslint1"></pre>\n\
 <label>stderr and stdout</label>\n\
 <pre class="onevent-reset-output readonly textarea" id="outputStdout1"></pre>\n\
+<!-- custom-html-end -->\n\
+\n\
+\n\
+\n\
 <!-- utility2-comment\n\
 {{#if isRollup}}\n\
 <script src="assets.app.js"></script>\n\
@@ -863,12 +969,35 @@ utility2-comment -->\n\
 <script src="assets.example.js"></script>\n\
 <script src="assets.test.js"></script>\n\
 <script>window.utility2_onReadyBefore();</script>\n\
-<!-- utility2-comment\n\
 {{/if isRollup}}\n\
+<script>\n\
+/* jslint utility2:true */\n\
+(function () {\n\
+"use strict";\n\
+var htmlTestReport1;\n\
+var local;\n\
+htmlTestReport1 = document.querySelector("#htmlTestReport1");\n\
+if (!htmlTestReport1) {\n\
+    return;\n\
+}\n\
+local = window.utility2;\n\
+local.on("utility2.testRunProgressUpdate", function (testReport) {\n\
+    htmlTestReport1.innerHTML = local.testReportMerge(testReport, {});\n\
+});\n\
+local.on("utility2.testRunStart", function (testReport) {\n\
+    local.uiAnimateSlideDown(htmlTestReport1);\n\
+    htmlTestReport1.innerHTML = local.testReportMerge(testReport, {});\n\
+});\n\
+}());\n\
+</script>\n\
+<!-- utility2-comment\n\
 utility2-comment -->\n\
-<div class="utility2FooterDiv">\n\
-    [ this app was created with\n\
-    <a href="https://github.com/kaizhu256/node-utility2" target="_blank">utility2</a>\n\
+<div style="text-align: center;">\n\
+    [\n\
+    this app was created with\n\
+    <a\n\
+        href="https://github.com/kaizhu256/node-utility2" target="_blank"\n\
+    >utility2</a>\n\
     ]\n\
 </div>\n\
 </body>\n\
@@ -993,7 +1122,6 @@ local.http.createServer(function (req, res) {
     },
     "description": "this zero-dependency package will provide browser-compatible versions of jslint (v2019.8.3) and csslint (v1.0.5), with a working web-demo",
     "devDependencies": {
-        "electron-lite": "kaizhu256/node-electron-lite#alpha",
         "utility2": "kaizhu256/node-utility2#alpha"
     },
     "engines": {
@@ -1028,7 +1156,7 @@ local.http.createServer(function (req, res) {
         "test": "./npm_scripts.sh",
         "utility2": "./npm_scripts.sh"
     },
-    "version": "2019.8.12"
+    "version": "2019.9.6"
 }
 ```
 
