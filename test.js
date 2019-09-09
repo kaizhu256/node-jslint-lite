@@ -3,8 +3,8 @@
 /* jslint utility2:true */
 (function (globalThis) {
     "use strict";
-    var consoleError;
-    var local;
+    let consoleError;
+    let local;
     // init globalThis
     globalThis.globalThis = globalThis.globalThis || globalThis;
     // init debug_inline
@@ -35,11 +35,11 @@
         && typeof globalThis.navigator.userAgent === "string"
     );
     // init function
-    local.assertThrow = function (passed, message) {
+    local.assertOrThrow = function (passed, message) {
     /*
      * this function will throw err.<message> if <passed> is falsy
      */
-        var err;
+        let err;
         if (passed) {
             return;
         }
@@ -65,7 +65,7 @@
     /*
      * this function will sync "rm -rf" <dir>
      */
-        var child_process;
+        let child_process;
         try {
             child_process = require("child_process");
         } catch (ignore) {
@@ -83,7 +83,7 @@
     /*
      * this function will sync write <data> to <file> with "mkdir -p"
      */
-        var fs;
+        let fs;
         try {
             fs = require("fs");
         } catch (ignore) {
@@ -112,16 +112,10 @@
     local.functionOrNop = function (fnc) {
     /*
      * this function will if <fnc> exists,
-     * them return <fnc>,
+     * return <fnc>,
      * else return <nop>
      */
         return fnc || local.nop;
-    };
-    local.identity = function (value) {
-    /*
-     * this function will return <value>
-     */
-        return value;
     };
     local.nop = function () {
     /*
@@ -146,6 +140,30 @@
             }
         });
         return target;
+    };
+    local.value = function (val) {
+    /*
+     * this function will return <val>
+     */
+        return val;
+    };
+    local.valueOrEmptyList = function (val) {
+    /*
+     * this function will return <val> or []
+     */
+        return val || [];
+    };
+    local.valueOrEmptyObject = function (val) {
+    /*
+     * this function will return <val> or {}
+     */
+        return val || {};
+    };
+    local.valueOrEmptyString = function (val) {
+    /*
+     * this function will return <val> or ""
+     */
+        return val || "";
     };
     // require builtin
     if (!local.isBrowser) {
@@ -191,7 +209,7 @@
 // run shared js-env code - init-before
 (function () {
 // init local
-local = (
+local = globalThis.globalLocal.value(
     globalThis.utility2 || require("utility2")
 ).requireReadme();
 globalThis.local = local;
@@ -210,14 +228,14 @@ local._testCase_jslintAndPrintConditional_default = function (opt, onError) {
     local.testMock([
         [
             local.jslint, {
-                errText: ""
+                errMsg: ""
             }
         ]
     ], function (onError) {
         // test no csslint handling-behavior
         local.jslintAndPrintConditional("no csslint", "empty.css");
         // validate no err occurred
-        local.assertThrow(!local.jslint.errText, local.jslint.errText);
+        local.assertOrThrow(!local.jslint.errMsg, local.jslint.errMsg);
         // test csslint passed handling-behavior
         local.jslintAndPrintConditional(
             "/*csslint*/\nbody { display: block; }",
@@ -225,11 +243,11 @@ local._testCase_jslintAndPrintConditional_default = function (opt, onError) {
             "force"
         );
         // validate no err occurred
-        local.assertThrow(!local.jslint.errText, local.jslint.errText);
+        local.assertOrThrow(!local.jslint.errMsg, local.jslint.errMsg);
         // test no jslint handling-behavior
         local.jslintAndPrintConditional("no jslint", "empty.js");
         // validate no err occurred
-        local.assertThrow(!local.jslint.errText, local.jslint.errText);
+        local.assertOrThrow(!local.jslint.errMsg, local.jslint.errMsg);
         // test jslint passed handling-behavior
         local.jslintAndPrintConditional(
             "/*jslint node: true*/\nconsole.log(\"aa\");",
@@ -237,12 +255,12 @@ local._testCase_jslintAndPrintConditional_default = function (opt, onError) {
             "force"
         );
         // validate no err occurred
-        local.assertThrow(!local.jslint.errText, local.jslint.errText);
+        local.assertOrThrow(!local.jslint.errMsg, local.jslint.errMsg);
         onError(null, opt);
         // test no shlint handling-behavior
         local.jslintAndPrintConditional("no shlint", "empty.sh");
         // validate no err occurred
-        local.assertThrow(!local.jslint.errText, local.jslint.errText);
+        local.assertOrThrow(!local.jslint.errMsg, local.jslint.errMsg);
         // test shlint passed handling-behavior
         local.jslintAndPrintConditional((
             "# jslint utility2:true\n"
@@ -256,7 +274,7 @@ local._testCase_jslintAndPrintConditional_default = function (opt, onError) {
             + "}\n"
         ), "passed.sh", "force");
         // validate no err occurred
-        local.assertThrow(!local.jslint.errText, local.jslint.errText);
+        local.assertOrThrow(!local.jslint.errMsg, local.jslint.errMsg);
     }, onError);
 };
 
@@ -292,7 +310,7 @@ local.testCase_jslintAndPrint_default = function (opt, onError) {
             // test es6 handling-behavior
             "const aa = 1;\nwindow.aa = aa;",
             // test passed handling-behavior
-            "var aa = 1;\nwindow.aa = aa;",
+            "let aa = 1;\nwindow.aa = aa;",
             // test /* jslint ignore:xxx */ handling-behavior
             "/* jslint ignore:start */\nsyntax err\n/* jslint ignore:end */",
             // test // jslint ignore:line handling-behavior
@@ -306,7 +324,7 @@ local.testCase_jslintAndPrint_default = function (opt, onError) {
             // test syntax-err handling-behavior
             "syntax err"
             //!! // test validateLineSorted-err handling-behavior
-            //!! "(function () {\n    \"use strict\";\n    var local;\n"
+            //!! "(function () {\n    \"use strict\";\n    let local;\n"
             //!! + "    local = {};\n    local.bb = null;\n    local.cc = null;\n}());"
         // 4. test shlint passed handling-behavior
         ], [
@@ -341,14 +359,14 @@ local.testCase_jslintAndPrint_default = function (opt, onError) {
             }
             if (Boolean(ii & 1)) {
                 // validate err occurred
-                local.assertThrow(
-                    local.jslintResult.errText,
+                local.assertOrThrow(
+                    local.jslintResult.errMsg,
                     local.jslintResult
                 );
                 return;
             }
             // validate no err occurred
-            local.assertThrow(!local.jslintResult.errText, local.jslintResult);
+            local.assertOrThrow(!local.jslintResult.errMsg, local.jslintResult);
         });
     });
     onError(null, opt);

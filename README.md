@@ -10,8 +10,6 @@ this zero-dependency package will provide browser-compatible versions of jslint 
 
 [![travis-ci.org build-status](https://api.travis-ci.org/kaizhu256/node-jslint-lite.svg)](https://travis-ci.org/kaizhu256/node-jslint-lite) [![coverage](https://kaizhu256.github.io/node-jslint-lite/build/coverage.badge.svg)](https://kaizhu256.github.io/node-jslint-lite/build/coverage.html/index.html)
 
-[![NPM](https://nodei.co/npm/jslint-lite.png?downloads=true)](https://www.npmjs.com/package/jslint-lite)
-
 [![build commit status](https://kaizhu256.github.io/node-jslint-lite/build/build.badge.svg)](https://travis-ci.org/kaizhu256/node-jslint-lite)
 
 | git-branch : | [master](https://github.com/kaizhu256/node-jslint-lite/tree/master) | [beta](https://github.com/kaizhu256/node-jslint-lite/tree/beta) | [alpha](https://github.com/kaizhu256/node-jslint-lite/tree/alpha)|
@@ -23,8 +21,6 @@ this zero-dependency package will provide browser-compatible versions of jslint 
 | build-artifacts : | [![build-artifacts](https://kaizhu256.github.io/node-jslint-lite/glyphicons_144_folder_open.png)](https://github.com/kaizhu256/node-jslint-lite/tree/gh-pages/build..master..travis-ci.org) | [![build-artifacts](https://kaizhu256.github.io/node-jslint-lite/glyphicons_144_folder_open.png)](https://github.com/kaizhu256/node-jslint-lite/tree/gh-pages/build..beta..travis-ci.org) | [![build-artifacts](https://kaizhu256.github.io/node-jslint-lite/glyphicons_144_folder_open.png)](https://github.com/kaizhu256/node-jslint-lite/tree/gh-pages/build..alpha..travis-ci.org)|
 
 [![npmPackageListing](https://kaizhu256.github.io/node-jslint-lite/build/screenshot.npmPackageListing.svg)](https://github.com/kaizhu256/node-jslint-lite)
-
-![npmPackageDependencyTree](https://kaizhu256.github.io/node-jslint-lite/build/screenshot.npmPackageDependencyTree.svg)
 
 
 
@@ -47,13 +43,13 @@ this zero-dependency package will provide browser-compatible versions of jslint 
 
 
 # documentation
-#### cli help
-![screenshot](https://kaizhu256.github.io/node-jslint-lite/build/screenshot.npmPackageCliHelp.svg)
-
 #### api doc
 - [https://kaizhu256.github.io/node-jslint-lite/build..beta..travis-ci.org/apidoc.html](https://kaizhu256.github.io/node-jslint-lite/build..beta..travis-ci.org/apidoc.html)
 
 [![apidoc](https://kaizhu256.github.io/node-jslint-lite/build/screenshot.buildCi.browser.%252Ftmp%252Fbuild%252Fapidoc.html.png)](https://kaizhu256.github.io/node-jslint-lite/build..beta..travis-ci.org/apidoc.html)
+
+#### cli help
+![screenshot](https://kaizhu256.github.io/node-jslint-lite/build/screenshot.npmPackageCliHelp.svg)
 
 #### todo
 - improve test-coverage
@@ -62,17 +58,14 @@ this zero-dependency package will provide browser-compatible versions of jslint 
 - jslint - sort nested switch-statements
 - none
 
-#### changelog 2019.9.6
-- npm publish 2019.9.6
-- remove electron dependency
-- jslint - remove ternary-operator/newline comment preceding bra
-- jslint - remove allow-method-chain-newline hack
-- jslint - remove autofix - autofix-js-braket - remove leading-whitespace from bra
-- jslint - internalize hacks to function warn_at_extra
-- jslint - unhack const, let from var
-- jslint - upgrade to jslint edition 2019.8.3
-- jslint - add async/await support
-- jslint - remove autofix-js-whitespace - ...}()); to ...}());\n\n\n\n
+#### changelog 2019.9.7
+- npm publish 2019.9.7
+- jslint - remove unexpected_a hacks
+- jslint - reintroduce flag option.nomen to ignore bad_property_a
+- jslint - migrate from let-declaration to var-declaration
+- rename function assertThrow to assertOrThrow
+- jslint - rename errText to errMsg
+- inline lib.puppeteer.js into assets.app.js
 - none
 
 #### this package requires
@@ -122,7 +115,7 @@ this script will run a web-demo of jslint-lite
 instruction
     1. save this script as example.js
     2. run shell-command:
-        $ npm install jslint-lite && \
+        $ npm install kaizhu256/node-jslint-lite#alpha && \
             PORT=8081 node example.js
     3. open a browser to http://127.0.0.1:8081 and play with web-demo
     4. edit this script to suit your needs
@@ -135,8 +128,8 @@ instruction
 /* jslint utility2:true */
 (function (globalThis) {
     "use strict";
-    var consoleError;
-    var local;
+    let consoleError;
+    let local;
     // init globalThis
     globalThis.globalThis = globalThis.globalThis || globalThis;
     // init debug_inline
@@ -167,11 +160,11 @@ instruction
         && typeof globalThis.navigator.userAgent === "string"
     );
     // init function
-    local.assertThrow = function (passed, message) {
+    local.assertOrThrow = function (passed, message) {
     /*
      * this function will throw err.<message> if <passed> is falsy
      */
-        var err;
+        let err;
         if (passed) {
             return;
         }
@@ -197,7 +190,7 @@ instruction
     /*
      * this function will sync "rm -rf" <dir>
      */
-        var child_process;
+        let child_process;
         try {
             child_process = require("child_process");
         } catch (ignore) {
@@ -215,7 +208,7 @@ instruction
     /*
      * this function will sync write <data> to <file> with "mkdir -p"
      */
-        var fs;
+        let fs;
         try {
             fs = require("fs");
         } catch (ignore) {
@@ -244,16 +237,10 @@ instruction
     local.functionOrNop = function (fnc) {
     /*
      * this function will if <fnc> exists,
-     * them return <fnc>,
+     * return <fnc>,
      * else return <nop>
      */
         return fnc || local.nop;
-    };
-    local.identity = function (value) {
-    /*
-     * this function will return <value>
-     */
-        return value;
     };
     local.nop = function () {
     /*
@@ -278,6 +265,30 @@ instruction
             }
         });
         return target;
+    };
+    local.value = function (val) {
+    /*
+     * this function will return <val>
+     */
+        return val;
+    };
+    local.valueOrEmptyList = function (val) {
+    /*
+     * this function will return <val> or []
+     */
+        return val || [];
+    };
+    local.valueOrEmptyObject = function (val) {
+    /*
+     * this function will return <val> or {}
+     */
+        return val || {};
+    };
+    local.valueOrEmptyString = function (val) {
+    /*
+     * this function will return <val> or ""
+     */
+        return val || "";
     };
     // require builtin
     if (!local.isBrowser) {
@@ -342,8 +353,8 @@ if (!local.isBrowser) {
 }
 // log stderr and stdout to #outputStdout1
 ["error", "log"].forEach(function (key) {
-    var elem;
-    var fnc;
+    let elem;
+    let fnc;
     elem = document.querySelector(
         "#outputStdout1"
     );
@@ -398,7 +409,7 @@ local.testRunBrowser = function (evt) {
         );
         document.querySelector(
             "#outputCsslint1"
-        ).textContent = local.jslintResult.errText.replace((
+        ).textContent = local.jslintResult.errMsg.replace((
             /\u001b\[\d*m/g
         ), "").trim();
         // jslint #inputJslint1
@@ -420,7 +431,7 @@ local.testRunBrowser = function (evt) {
         }
         document.querySelector(
             "#outputJslint1"
-        ).textContent = local.jslintResult.errText.replace((
+        ).textContent = local.jslintResult.errMsg.replace((
             /\u001b\[\d*m/g
         ), "").trim();
         return;
@@ -657,7 +668,7 @@ pre {\n\
  * this function will display incrementing ajax-progress-bar\n\
  */\n\
     "use strict";\n\
-    var opt;\n\
+    let opt;\n\
     if (window.domOnEventAjaxProgressUpdate) {\n\
         return;\n\
     }\n\
@@ -772,7 +783,7 @@ pre {\n\
  * this function will handle delegated dom-event\n\
  */\n\
     "use strict";\n\
-    var timerTimeoutDict;\n\
+    let timerTimeoutDict;\n\
     if (window.domOnEventDelegateDict) {\n\
         return;\n\
     }\n\
@@ -868,8 +879,8 @@ pre {\n\
         return;\n\
     }\n\
     window.domOnEventSelectAllWithinPre = function (evt) {\n\
-        var range;\n\
-        var selection;\n\
+        let range;\n\
+        let selection;\n\
         if (\n\
             evt\n\
             && evt.key === "a"\n\
@@ -957,30 +968,36 @@ body {\n\
 \n\
 \n\
 \n\
-<!-- utility2-comment\n\
 {{#if isRollup}}\n\
+<!-- utility2-comment\n\
 <script src="assets.app.js"></script>\n\
-{{#unless isRollup}}\n\
 utility2-comment -->\n\
+{{#unless isRollup}}\n\
+<!-- utility2-comment\n\
 <script src="assets.utility2.rollup.js"></script>\n\
 <script>window.utility2_onReadyBefore.counter += 1;</script>\n\
 <script src="jsonp.utility2.stateInit?callback=window.utility2.stateInit"></script>\n\
+utility2-comment -->\n\
 <script src="assets.jslint.js"></script>\n\
 <script src="assets.example.js"></script>\n\
 <script src="assets.test.js"></script>\n\
-<script>window.utility2_onReadyBefore();</script>\n\
+<script>\n\
+if(window.utility2_onReadyBefore) {\n\
+    window.utility2_onReadyBefore();\n\
+}\n\
+</script>\n\
 {{/if isRollup}}\n\
 <script>\n\
 /* jslint utility2:true */\n\
 (function () {\n\
 "use strict";\n\
-var htmlTestReport1;\n\
-var local;\n\
+let htmlTestReport1;\n\
+let local;\n\
 htmlTestReport1 = document.querySelector("#htmlTestReport1");\n\
-if (!htmlTestReport1) {\n\
+local = window.utility2;\n\
+if (!(htmlTestReport1 && local)) {\n\
     return;\n\
 }\n\
-local = window.utility2;\n\
 local.on("utility2.testRunProgressUpdate", function (testReport) {\n\
     htmlTestReport1.innerHTML = local.testReportMerge(testReport, {});\n\
 });\n\
@@ -1156,7 +1173,7 @@ local.http.createServer(function (req, res) {
         "test": "./npm_scripts.sh",
         "utility2": "./npm_scripts.sh"
     },
-    "version": "2019.9.6"
+    "version": "2019.9.7"
 }
 ```
 
@@ -1182,7 +1199,7 @@ shBuildCiAfter () {(set -e
 )}
 
 shBuildCiBefore () {(set -e
-    shNpmTestPublished
+    #!! shNpmTestPublished
     shReadmeTest example.js
 )}
 
