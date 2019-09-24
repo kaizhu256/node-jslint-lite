@@ -54,12 +54,14 @@ this zero-dependency package will provide browser-compatible versions of jslint 
 #### todo
 - improve test-coverage
 - jslint - jslint embedded template-strings
-- jslint - remove bad_property_a and unexpected_a hacks
 - jslint - sort nested switch-statements
 - none
 
 #### changelog 2019.9.7
 - npm publish 2019.9.7
+- jslint - update function jslintAndPrint's opt.lineOffset with opt.iiStart, opt.iiEnd
+- streamline evt-handling in example.js
+- merge polyfills into assets.example.begin.js
 - jslint - remove unexpected_a hacks
 - jslint - reintroduce flag option.nomen to ignore bad_property_a
 - jslint - migrate from let-declaration to var-declaration
@@ -124,31 +126,178 @@ instruction
 
 
 /* istanbul instrument in package jslint */
+// assets.utility2.header.js - start
 /* istanbul ignore next */
 /* jslint utility2:true */
 (function (globalThis) {
     "use strict";
+    let ArrayPrototypeFlat;
+    let TextXxcoder;
     let consoleError;
+    let debugName;
     let local;
+    debugName = "debug" + String("Inline");
     // init globalThis
     globalThis.globalThis = globalThis.globalThis || globalThis;
     // init debug_inline
-    if (!globalThis["debug\u0049nline"]) {
+    if (!globalThis[debugName]) {
         consoleError = console.error;
-        globalThis["debug\u0049nline"] = function (...argList) {
+        globalThis[debugName] = function (...argList) {
         /*
          * this function will both print <argList> to stderr
          * and return <argList>[0]
          */
-            // debug argList
-            globalThis["debug\u0049nlineArgList"] = argList;
-            consoleError("\n\ndebug\u0049nline");
+            consoleError("\n\n" + debugName);
             consoleError.apply(console, argList);
             consoleError("\n");
             // return arg0 for inspection
             return argList[0];
         };
     }
+    // polyfill
+    ArrayPrototypeFlat = function (depth) {
+    /*
+     * this function will polyfill Array.prototype.flat
+     * https://github.com/jonathantneal/array-flat-polyfill
+     */
+        depth = (
+            globalThis.isNaN(depth)
+            ? 1
+            : Number(depth)
+        );
+        if (!depth) {
+            return Array.prototype.slice.call(this);
+        }
+        return Array.prototype.reduce.call(this, function (acc, cur) {
+            if (Array.isArray(cur)) {
+                // recurse
+                acc.push.apply(acc, ArrayPrototypeFlat.call(cur, depth - 1));
+            } else {
+                acc.push(cur);
+            }
+            return acc;
+        }, []);
+    };
+    Array.prototype.flat = Array.prototype.flat || ArrayPrototypeFlat;
+    Array.prototype.flatMap = Array.prototype.flatMap || function flatMap(
+        ...argList
+    ) {
+    /*
+     * this function will polyfill Array.prototype.flatMap
+     * https://github.com/jonathantneal/array-flat-polyfill
+     */
+        return this.map(...argList).flat();
+    };
+    (function () {
+        try {
+            globalThis.TextDecoder = (
+                globalThis.TextDecoder || require("util").TextDecoder
+            );
+            globalThis.TextEncoder = (
+                globalThis.TextEncoder || require("util").TextEncoder
+            );
+        } catch (ignore) {}
+    }());
+    TextXxcoder = function () {
+    /*
+     * this function will polyfill TextDecoder/TextEncoder
+     * https://gist.github.com/Yaffle/5458286
+     */
+        return;
+    };
+    TextXxcoder.prototype.decode = function (octets) {
+    /*
+     * this function will polyfill TextDecoder.prototype.decode
+     * https://gist.github.com/Yaffle/5458286
+     */
+        let bytesNeeded;
+        let codePoint;
+        let ii;
+        let kk;
+        let octet;
+        let string;
+        string = "";
+        ii = 0;
+        while (ii < octets.length) {
+            octet = octets[ii];
+            bytesNeeded = 0;
+            codePoint = 0;
+            if (octet <= 0x7F) {
+                bytesNeeded = 0;
+                codePoint = octet & 0xFF;
+            } else if (octet <= 0xDF) {
+                bytesNeeded = 1;
+                codePoint = octet & 0x1F;
+            } else if (octet <= 0xEF) {
+                bytesNeeded = 2;
+                codePoint = octet & 0x0F;
+            } else if (octet <= 0xF4) {
+                bytesNeeded = 3;
+                codePoint = octet & 0x07;
+            }
+            if (octets.length - ii - bytesNeeded > 0) {
+                kk = 0;
+                while (kk < bytesNeeded) {
+                    octet = octets[ii + kk + 1];
+                    codePoint = (codePoint << 6) | (octet & 0x3F);
+                    kk += 1;
+                }
+            } else {
+                codePoint = 0xFFFD;
+                bytesNeeded = octets.length - ii;
+            }
+            string += String.fromCodePoint(codePoint);
+            ii += bytesNeeded + 1;
+        }
+        return string;
+    };
+    TextXxcoder.prototype.encode = function (string) {
+    /*
+     * this function will polyfill TextEncoder.prototype.encode
+     * https://gist.github.com/Yaffle/5458286
+     */
+        let bits;
+        let cc;
+        let codePoint;
+        let ii;
+        let length;
+        let octets;
+        octets = [];
+        length = string.length;
+        ii = 0;
+        while (ii < length) {
+            codePoint = string.codePointAt(ii);
+            cc = 0;
+            bits = 0;
+            if (codePoint <= 0x0000007F) {
+                cc = 0;
+                bits = 0x00;
+            } else if (codePoint <= 0x000007FF) {
+                cc = 6;
+                bits = 0xC0;
+            } else if (codePoint <= 0x0000FFFF) {
+                cc = 12;
+                bits = 0xE0;
+            } else if (codePoint <= 0x001FFFFF) {
+                cc = 18;
+                bits = 0xF0;
+            }
+            octets.push(bits | (codePoint >> cc));
+            cc -= 6;
+            while (cc >= 0) {
+                octets.push(0x80 | ((codePoint >> cc) & 0x3F));
+                cc -= 6;
+            }
+            ii += (
+                codePoint >= 0x10000
+                ? 2
+                : 1
+            );
+        }
+        return octets;
+    };
+    globalThis.TextDecoder = globalThis.TextDecoder || TextXxcoder;
+    globalThis.TextEncoder = globalThis.TextEncoder || TextXxcoder;
     // init local
     local = {};
     local.local = local;
@@ -158,6 +307,10 @@ instruction
         typeof globalThis.XMLHttpRequest === "function"
         && globalThis.navigator
         && typeof globalThis.navigator.userAgent === "string"
+    );
+    // init isWebWorker
+    local.isWebWorker = (
+        local.isBrowser && typeof globalThis.importScript === "function"
     );
     // init function
     local.assertOrThrow = function (passed, message) {
@@ -266,6 +419,26 @@ instruction
         });
         return target;
     };
+    local.querySelector = function (selectors) {
+    /*
+     * this function will return first dom-elem that match <selectors>
+     */
+        return (
+            typeof document === "object" && document
+            && typeof document.querySelector === "function"
+            && document.querySelector(selectors)
+        ) || {};
+    };
+    local.querySelectorAll = function (selectors) {
+    /*
+     * this function will return dom-elem-list that match <selectors>
+     */
+        return (
+            typeof document === "object" && document
+            && typeof document.querySelectorAll === "function"
+            && Array.from(document.querySelectorAll(selectors))
+        ) || [];
+    };
     local.value = function (val) {
     /*
      * this function will return <val>
@@ -323,9 +496,12 @@ instruction
 }((typeof globalThis === "object" && globalThis) || (function () {
     return Function("return this")(); // jslint ignore:line
 }())));
+// assets.utility2.header.js - end
 
 
 
+/* istanbul ignore next */
+/* jslint utility2:true */
 (function (local) {
 "use strict";
 
@@ -355,9 +531,7 @@ if (!local.isBrowser) {
 ["error", "log"].forEach(function (key) {
     let elem;
     let fnc;
-    elem = document.querySelector(
-        "#outputStdout1"
-    );
+    elem = local.querySelector("#outputStdout1");
     if (!elem) {
         return;
     }
@@ -381,98 +555,11 @@ if (!local.isBrowser) {
 local.objectAssignDefault(local, globalThis.domOnEventDelegateDict);
 globalThis.domOnEventDelegateDict = local;
 local.onEventDomDb = local.db && local.db.onEventDomDb;
-local.testRunBrowser = function (evt) {
-/*
- * this function will run browser-tests
- */
-    switch (
-        !evt.ctrlKey
-        && !evt.metaKey
-        && (
-            evt.modeInit
-            || (evt.type + "." + (evt.target && evt.target.id))
-        )
-    ) {
-    // custom-case
-    case "click.inputCsslint1":
-    case "click.inputJslint1":
-    case "click.buttonJslintAutofix1":
-    case "keydown.inputCsslint1":
-    case "keydown.inputJslint1":
-    case true:
-        // csslint #inputCsslint1
-        local.jslintAndPrint(
-            document.querySelector(
-                "#inputCsslint1"
-            ).value,
-            "inputCsslint1.css"
-        );
-        document.querySelector(
-            "#outputCsslint1"
-        ).textContent = local.jslintResult.errMsg.replace((
-            /\u001b\[\d*m/g
-        ), "").trim();
-        // jslint #inputJslint1
-        local.jslintAndPrint(document.querySelector(
-            "#inputJslint1"
-        ).value, "inputJslint1.js", {
-            autofix: (
-                event
-                && event.targetOnEvent
-                && event.targetOnEvent.id === "buttonJslintAutofix1"
-            )
-        });
-        if (local.jslint.jslintResult.autofix) {
-            document.querySelector(
-                "#inputJslint1"
-            ).value = (
-                local.jslint.jslintResult.code
-            );
-        }
-        document.querySelector(
-            "#outputJslint1"
-        ).textContent = local.jslintResult.errMsg.replace((
-            /\u001b\[\d*m/g
-        ), "").trim();
-        return;
-    // run browser-tests
-    default:
-        if (
-            (evt.target && evt.target.id) !== "buttonTestRun1"
-            && !(evt.modeInit && (
-                /\bmodeTest=1\b/
-            ).test(location.search))
-        ) {
-            return;
-        }
-        // show browser-tests
-        if (document.querySelector(
-            "#htmlTestReport1"
-        ).style.maxHeight === "0px") {
-            globalThis.domOnEventDelegateDict.domOnEventResetOutput();
-            local.uiAnimateSlideDown(document.querySelector(
-                "#htmlTestReport1"
-            ));
-            document.querySelector(
-                "#buttonTestRun1"
-            ).textContent = "hide internal test";
-            local.modeTest = 1;
-            local.testRunDefault(local);
-            return;
-        }
-        // hide browser-tests
-        local.uiAnimateSlideUp(document.querySelector(
-            "#htmlTestReport1"
-        ));
-        document.querySelector(
-            "#buttonTestRun1"
-        ).textContent = "run internal test";
-    }
-};
-
-local.testRunBrowser({
-    modeInit: true
-});
+if ((
+    /\bmodeTest=1\b/
+).test(location.search)) {
+    local.testRunBrowser();
+}
 }());
 
 
@@ -485,11 +572,9 @@ if (local.isBrowser) {
 }
 // init exports
 module.exports = local;
-/* validateLineSortedReset */
 // init assets
 local.assetsDict = local.assetsDict || {};
 [
-    "assets.index.template.html",
     "assets.swgg.swagger.json",
     "assets.swgg.swagger.server.json"
 ].forEach(function (file) {
@@ -553,11 +638,6 @@ body {\n\
     margin: 0 40px;\n\
 }\n\
 body > div,\n\
-body > form > div,\n\
-body > form > input,\n\
-body > form > pre,\n\
-body > form > .button,\n\
-body > form > .textarea,\n\
 body > input,\n\
 body > pre,\n\
 body > .button,\n\
@@ -565,19 +645,17 @@ body > .textarea {\n\
     margin-bottom: 20px;\n\
     margin-top: 0;\n\
 }\n\
-body > form > input,\n\
-body > form > .button,\n\
 body > input,\n\
 body > .button {\n\
     width: 20rem;\n\
 }\n\
-body > form > .textarea,\n\
-body > .textarea {\n\
-    height: 10rem;\n\
-    width: 100%;\n\
-}\n\
 body > .readonly {\n\
     background: #ddd;\n\
+}\n\
+body > .textarea {\n\
+    height: 10rem;\n\
+    resize: vertical;\n\
+    width: 100%;\n\
 }\n\
 code,\n\
 pre,\n\
@@ -642,7 +720,10 @@ pre {\n\
  * this function will measure and print time-elapsed for window.onload\n\
  */\n\
     "use strict";\n\
-    if (window.domOnEventWindowOnloadTimeElapsed) {\n\
+    if (!(\n\
+        typeof window === "object" && window && window.document\n\
+        && typeof document.addEventListener === "function"\n\
+    ) || window.domOnEventWindowOnloadTimeElapsed) {\n\
         return;\n\
     }\n\
     window.domOnEventWindowOnloadTimeElapsed = Date.now() + 100;\n\
@@ -669,7 +750,10 @@ pre {\n\
  */\n\
     "use strict";\n\
     let opt;\n\
-    if (window.domOnEventAjaxProgressUpdate) {\n\
+    if (!(\n\
+        typeof window === "object" && window && window.document\n\
+        && typeof document.addEventListener === "function"\n\
+    ) || window.domOnEventAjaxProgressUpdate) {\n\
         return;\n\
     }\n\
     window.domOnEventAjaxProgressUpdate = function (gotoState, onError) {\n\
@@ -702,7 +786,7 @@ pre {\n\
                 opt.width = 0;\n\
             }\n\
             // this algorithm will indefinitely increment ajaxProgress\n\
-            // with successively smaller increments without ever reaching 100%\n\
+            // with successively smaller increments without reaching 100%\n\
             opt.width += 1;\n\
             opt.style.width = Math.max(\n\
                 100 - 75 * Math.exp(-0.125 * opt.width),\n\
@@ -780,49 +864,54 @@ pre {\n\
 // init domOnEventDelegateDict\n\
 (function () {\n\
 /*\n\
- * this function will handle delegated dom-event\n\
+ * this function will handle delegated dom-evt\n\
  */\n\
     "use strict";\n\
-    let timerTimeoutDict;\n\
-    if (window.domOnEventDelegateDict) {\n\
+    let debounce;\n\
+    let timerTimeout;\n\
+    debounce = function () {\n\
+        return setTimeout(function () {\n\
+            timerTimeout = undefined;\n\
+        }, 30);\n\
+    };\n\
+    if (!(\n\
+        typeof window === "object" && window && window.document\n\
+        && typeof document.addEventListener === "function"\n\
+    ) || window.domOnEventDelegateDict) {\n\
         return;\n\
     }\n\
     window.domOnEventDelegateDict = {};\n\
-    timerTimeoutDict = {};\n\
     window.domOnEventDelegateDict.domOnEventDelegate = function (evt) {\n\
-        evt.targetOnEvent = evt.target.closest(\n\
-            "[data-onevent]"\n\
-        );\n\
+        evt.targetOnEvent = evt.target.closest("[data-onevent]");\n\
         if (\n\
             !evt.targetOnEvent\n\
             || evt.targetOnEvent.dataset.onevent === "domOnEventNop"\n\
-            || evt.target.closest(\n\
-                ".disabled, .readonly"\n\
-            )\n\
+            || evt.target.closest(".disabled,.readonly")\n\
         ) {\n\
             return;\n\
         }\n\
-        // rate-limit high-frequency-event\n\
+        // filter evt-change\n\
+        switch (evt.type !== "change" && evt.target.type) {\n\
+        case "checkbox":\n\
+        case "file":\n\
+        case "select-one":\n\
+        case "radio":\n\
+            return;\n\
+        }\n\
+        // filter evt-keyup\n\
         switch (evt.type) {\n\
-        case "keydown":\n\
         case "keyup":\n\
-            // filter non-input keyboard-event\n\
-            if (!evt.target.closest(\n\
-                "input, option, select, textarea"\n\
+            if (!timerTimeout && (\n\
+                evt.target.tagName === "INPUT"\n\
+                || evt.target.tagName === "TEXTAREA"\n\
             )) {\n\
-                return;\n\
+                timerTimeout = debounce();\n\
+                if (evt.target.dataset.valueOld !== evt.target.value) {\n\
+                    evt.target.dataset.valueOld = evt.target.value;\n\
+                    break;\n\
+                }\n\
             }\n\
-            if (timerTimeoutDict[evt.type] !== true) {\n\
-                timerTimeoutDict[evt.type] = timerTimeoutDict[\n\
-                    evt.type\n\
-                ] || setTimeout(function () {\n\
-                    timerTimeoutDict[evt.type] = true;\n\
-                    window.domOnEventDelegateDict.domOnEventDelegate(evt);\n\
-                }, 50);\n\
-                return;\n\
-            }\n\
-            timerTimeoutDict[evt.type] = null;\n\
-            break;\n\
+            return;\n\
         }\n\
         switch (evt.targetOnEvent.tagName) {\n\
         case "BUTTON":\n\
@@ -831,32 +920,20 @@ pre {\n\
             break;\n\
         }\n\
         evt.stopPropagation();\n\
-        window.domOnEventDelegateDict[evt.targetOnEvent.dataset.onevent](\n\
-            evt\n\
-        );\n\
+        // handle domOnEventClickTarget\n\
+        if (evt.targetOnEvent.dataset.onevent === "domOnEventClickTarget") {\n\
+            document.querySelector(\n\
+                evt.targetOnEvent.dataset.clickTarget\n\
+            ).click();\n\
+            return;\n\
+        }\n\
+        window.domOnEventDelegateDict[evt.targetOnEvent.dataset.onevent](evt);\n\
     };\n\
-    window.domOnEventDelegateDict.domOnEventResetOutput = function () {\n\
-        document.querySelectorAll(\n\
-            ".onevent-reset-output"\n\
-        ).forEach(function (elem) {\n\
-            switch (elem.tagName) {\n\
-            case "INPUT":\n\
-            case "TEXTAREA":\n\
-                elem.value = "";\n\
-                break;\n\
-            case "PRE":\n\
-                elem.textContent = "";\n\
-                break;\n\
-            default:\n\
-                elem.innerHTML = "";\n\
-            }\n\
-        });\n\
-    };\n\
-    // init event-handling\n\
+    // handle evt\n\
     [\n\
         "change",\n\
         "click",\n\
-        "keydown",\n\
+        "keyup",\n\
         "submit"\n\
     ].forEach(function (eventType) {\n\
         document.addEventListener(\n\
@@ -871,35 +948,32 @@ pre {\n\
 // init domOnEventSelectAllWithinPre\n\
 (function () {\n\
 /*\n\
- * this function will limit select-all within <pre tabIndex="0"> elements\n\
+ * this function will limit select-all within <pre tabIndex="0"> elem\n\
  * https://stackoverflow.com/questions/985272/selecting-text-in-an-element-akin-to-highlighting-with-your-mouse\n\
  */\n\
     "use strict";\n\
-    if (window.domOnEventSelectAllWithinPre) {\n\
+    if (!(\n\
+        typeof window === "object" && window && window.document\n\
+        && typeof document.addEventListener === "function"\n\
+    ) || window.domOnEventSelectAllWithinPre) {\n\
         return;\n\
     }\n\
     window.domOnEventSelectAllWithinPre = function (evt) {\n\
         let range;\n\
         let selection;\n\
         if (\n\
-            evt\n\
-            && evt.key === "a"\n\
-            && (evt.ctrlKey || evt.metaKey)\n\
-            && evt.target.closest(\n\
-                "pre"\n\
-            )\n\
+            evt && (evt.ctrlKey || evt.metaKey) && evt.key === "a"\n\
+            && evt.target.closest("pre")\n\
         ) {\n\
             range = document.createRange();\n\
-            range.selectNodeContents(evt.target.closest(\n\
-                "pre"\n\
-            ));\n\
+            range.selectNodeContents(evt.target.closest("pre"));\n\
             selection = window.getSelection();\n\
             selection.removeAllRanges();\n\
             selection.addRange(range);\n\
             evt.preventDefault();\n\
         }\n\
     };\n\
-    // init event-handling\n\
+    // handle evt\n\
     document.addEventListener(\n\
         "keydown",\n\
         window.domOnEventSelectAllWithinPre\n\
@@ -923,7 +997,7 @@ utility2-comment -->\n\
 <h3>{{env.npm_package_description}}</h3>\n\
 <!-- utility2-comment\n\
 <a class="button" download href="assets.app.js">download standalone app</a><br>\n\
-<button class="button" data-onevent="testRunBrowser" id="buttonTestRun1">run internal test</button><br>\n\
+<button class="button" data-onevent="testRunBrowser" id="buttonTestRun1">run browser-tests</button><br>\n\
 <div class="uiAnimateSlide" id="htmlTestReport1" style="border-bottom: 0; border-top: 0; margin-bottom: 0; margin-top: 0; max-height: 0; padding-bottom: 0; padding-top: 0;"></div>\n\
 utility2-comment -->\n\
 \n\
@@ -933,7 +1007,7 @@ utility2-comment -->\n\
 <label>edit or paste script below to\n\
     <a href="http://www.jslint.com" target="_blank">jslint</a>\n\
 </label>\n\
-<textarea class="textarea" data-onevent="testRunBrowser" id="inputJslint1">\n\
+<textarea class="textarea" data-onevent="domOnEventInputChange" id="inputJslint1">\n\
 /*jslint\n\
     browser: true,\n\
 */\n\
@@ -941,18 +1015,15 @@ const message = "hello";\n\
 console.log(message);\n\
 console.log(null);\n\
 </textarea>\n\
+<button class="button" data-onevent="domOnEventInputChange" id="buttonJslintAutofix1">jslint autofix</button><br>\n\
+<textarea class= "colorError readonly textarea" id="outputJslint1" readonly></textarea>\n\
 \n\
 \n\
 \n\
-<button class="button" data-onevent="testRunBrowser" data-onevent-reset-output="1" id="buttonJslintAutofix1">jslint autofix</button><br>\n\
-<pre class= "colorError readonly textarea" id="outputJslint1"></pre>\n\
 <label>edit or paste script below to\n\
-    <a\n\
-        href="https://github.com/CSSLint/csslint/wiki/Command-line-interface#options"\n\
-        target="_blank"\n\
-    >csslint</a>\n\
+    <a href="https://github.com/CSSLint/csslint/wiki/Command-line-interface#options" target="_blank">csslint</a>\n\
 </label>\n\
-<textarea class="textarea" data-onevent="testRunBrowser" id="inputCsslint1">\n\
+<textarea class="textarea" data-onevent="domOnEventInputChange" id="inputCsslint1">\n\
 /*csslint\n\
     box-sizing: false,\n\
 */\n\
@@ -961,19 +1032,73 @@ body {\n\
     margin: 0px;\n\
 }\n\
 </textarea>\n\
-<pre class= "colorError readonly textarea" id="outputCsslint1"></pre>\n\
+<textarea class= "colorError readonly textarea" id="outputCsslint1" readonly></textarea>\n\
 <label>stderr and stdout</label>\n\
-<pre class="onevent-reset-output readonly textarea" id="outputStdout1"></pre>\n\
+<textarea class="onevent-reset-output readonly textarea" id="outputStdout1" readonly></textarea>\n\
+<script>\n\
+/* jslint utility2:true */\n\
+window.addEventListener("load", function () {\n\
+"use strict";\n\
+let htmlTestReport2;\n\
+let local;\n\
+document.querySelectorAll("#htmlTestReport1").forEach(function (elem) {\n\
+    elem.style.display = "none";\n\
+});\n\
+htmlTestReport2 = document.querySelector("#htmlTestReport2");\n\
+local = window.utility2_jslint;\n\
+local.domOnEventInputChange = function (evt) {\n\
+    switch (evt.type + "." + evt.target.id) {\n\
+    case "click.buttonJslintAutofix1":\n\
+    case "keyup.inputCsslint1":\n\
+    case "keyup.inputJslint1":\n\
+        // csslint #inputCsslint1\n\
+        local.jslintAndPrint(document.querySelector(\n\
+            "#inputCsslint1"\n\
+        ).value, "inputCsslint1.css");\n\
+        document.querySelector(\n\
+            "#outputCsslint1"\n\
+        ).value = local.jslintResult.errMsg.replace((\n\
+            /\\u001b\\[\\d*m/g\n\
+        ), "").trim();\n\
+        // jslint #inputJslint1\n\
+        local.jslintAndPrint(document.querySelector(\n\
+            "#inputJslint1"\n\
+        ).value, "inputJslint1.js", {\n\
+            autofix: evt.target.id === "buttonJslintAutofix1"\n\
+        });\n\
+        if (local.jslint.jslintResult.autofix) {\n\
+            document.querySelector(\n\
+                "#inputJslint1"\n\
+            ).value = local.jslint.jslintResult.code;\n\
+        }\n\
+        document.querySelector(\n\
+            "#outputJslint1"\n\
+        ).value = local.jslintResult.errMsg.replace((\n\
+            /\\u001b\\[\\d*m/g\n\
+        ), "").trim();\n\
+        break;\n\
+    }\n\
+};\n\
+// handle evt\n\
+local.on("utility2.testRunProgressUpdate", function (testReport) {\n\
+    htmlTestReport2.innerHTML = local.testReportMerge(testReport, {});\n\
+});\n\
+local.domOnEventInputChange({\n\
+    target: {\n\
+        id: "inputJslint1"\n\
+    },\n\
+    type: "keyup"\n\
+});\n\
+});\n\
+</script>\n\
 <!-- custom-html-end -->\n\
 \n\
 \n\
 \n\
+<!-- utility2-comment\n\
 {{#if isRollup}}\n\
-<!-- utility2-comment\n\
 <script src="assets.app.js"></script>\n\
-utility2-comment -->\n\
 {{#unless isRollup}}\n\
-<!-- utility2-comment\n\
 <script src="assets.utility2.rollup.js"></script>\n\
 <script>window.utility2_onReadyBefore.counter += 1;</script>\n\
 <script src="jsonp.utility2.stateInit?callback=window.utility2.stateInit"></script>\n\
@@ -982,32 +1107,12 @@ utility2-comment -->\n\
 <script src="assets.example.js"></script>\n\
 <script src="assets.test.js"></script>\n\
 <script>\n\
-if(window.utility2_onReadyBefore) {\n\
+if (window.utility2_onReadyBefore) {\n\
     window.utility2_onReadyBefore();\n\
 }\n\
 </script>\n\
-{{/if isRollup}}\n\
-<script>\n\
-/* jslint utility2:true */\n\
-(function () {\n\
-"use strict";\n\
-let htmlTestReport1;\n\
-let local;\n\
-htmlTestReport1 = document.querySelector("#htmlTestReport1");\n\
-local = window.utility2;\n\
-if (!(htmlTestReport1 && local)) {\n\
-    return;\n\
-}\n\
-local.on("utility2.testRunProgressUpdate", function (testReport) {\n\
-    htmlTestReport1.innerHTML = local.testReportMerge(testReport, {});\n\
-});\n\
-local.on("utility2.testRunStart", function (testReport) {\n\
-    local.uiAnimateSlideDown(htmlTestReport1);\n\
-    htmlTestReport1.innerHTML = local.testReportMerge(testReport, {});\n\
-});\n\
-}());\n\
-</script>\n\
 <!-- utility2-comment\n\
+{{/if isRollup}}\n\
 utility2-comment -->\n\
 <div style="text-align: center;">\n\
     [\n\
@@ -1021,13 +1126,15 @@ utility2-comment -->\n\
 </html>\n\
 ';
 /* jslint ignore:end */
-/* validateLineSortedReset */
-/* jslint ignore:start */
-local.assetsDict["/assets.jslint.js"] =
-    local.assetsDict["/assets.jslint.js"] ||
-    local.fs.readFileSync(local.__dirname + "/lib.jslint.js", "utf8"
-).replace((/^#!\//), "// ");
-/* jslint ignore:end */
+local.assetsDict["/assets.jslint.js"] = (
+    local.assetsDict["/assets.jslint.js"]
+    || local.fs.readFileSync(
+        local.__dirname + "/lib.jslint.js",
+        "utf8"
+    ).replace((
+        /^#!\//
+    ), "// ")
+);
 /* validateLineSortedReset */
 local.assetsDict["/"] = local.assetsDict[
     "/assets.index.template.html"
@@ -1048,17 +1155,16 @@ local.assetsDict["/"] = local.assetsDict[
     }
 });
 local.assetsDict["/assets.example.html"] = local.assetsDict["/"];
-local.assetsDict["/index.html"] = local.assetsDict["/"];
 // init cli
 if (module !== require.main || globalThis.utility2_rollup) {
     return;
 }
-/* validateLineSortedReset */
 local.assetsDict["/assets.example.js"] = (
     local.assetsDict["/assets.example.js"]
     || local.fs.readFileSync(__filename, "utf8")
 );
 local.assetsDict["/favicon.ico"] = local.assetsDict["/favicon.ico"] || "";
+local.assetsDict["/index.html"] = local.assetsDict["/"];
 // if $npm_config_timeout_exit exists,
 // then exit this process after $npm_config_timeout_exit ms
 if (Number(process.env.npm_config_timeout_exit)) {
