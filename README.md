@@ -10,6 +10,8 @@ this zero-dependency package will provide browser-compatible versions of jslint 
 
 [![travis-ci.org build-status](https://api.travis-ci.org/kaizhu256/node-jslint-lite.svg)](https://travis-ci.org/kaizhu256/node-jslint-lite) [![coverage](https://kaizhu256.github.io/node-jslint-lite/build/coverage.badge.svg)](https://kaizhu256.github.io/node-jslint-lite/build/coverage.html/index.html)
 
+[![NPM](https://nodei.co/npm/jslint-lite.png?downloads=true)](https://www.npmjs.com/package/jslint-lite)
+
 [![build commit status](https://kaizhu256.github.io/node-jslint-lite/build/build.badge.svg)](https://travis-ci.org/kaizhu256/node-jslint-lite)
 
 | git-branch : | [master](https://github.com/kaizhu256/node-jslint-lite/tree/master) | [beta](https://github.com/kaizhu256/node-jslint-lite/tree/beta) | [alpha](https://github.com/kaizhu256/node-jslint-lite/tree/alpha)|
@@ -21,6 +23,8 @@ this zero-dependency package will provide browser-compatible versions of jslint 
 | build-artifacts : | [![build-artifacts](https://kaizhu256.github.io/node-jslint-lite/glyphicons_144_folder_open.png)](https://github.com/kaizhu256/node-jslint-lite/tree/gh-pages/build..master..travis-ci.org) | [![build-artifacts](https://kaizhu256.github.io/node-jslint-lite/glyphicons_144_folder_open.png)](https://github.com/kaizhu256/node-jslint-lite/tree/gh-pages/build..beta..travis-ci.org) | [![build-artifacts](https://kaizhu256.github.io/node-jslint-lite/glyphicons_144_folder_open.png)](https://github.com/kaizhu256/node-jslint-lite/tree/gh-pages/build..alpha..travis-ci.org)|
 
 [![npmPackageListing](https://kaizhu256.github.io/node-jslint-lite/build/screenshot.npmPackageListing.svg)](https://github.com/kaizhu256/node-jslint-lite)
+
+![npmPackageDependencyTree](https://kaizhu256.github.io/node-jslint-lite/build/screenshot.npmPackageDependencyTree.svg)
 
 
 
@@ -57,8 +61,9 @@ this zero-dependency package will provide browser-compatible versions of jslint 
 - jslint - sort nested switch-statements
 - none
 
-#### changelog 2019.9.7
-- npm publish 2019.9.7
+#### changelog 2019.10.8
+- npm publish 2019.10.8
+- merge function local.valueOrEmptyXxx into local.coalesce
 - jslint - update function jslintAndPrint's opt.lineOffset with opt.iiStart, opt.iiEnd
 - streamline evt-handling in example.js
 - merge polyfills into assets.example.begin.js
@@ -117,7 +122,7 @@ this script will run a web-demo of jslint-lite
 instruction
     1. save this script as example.js
     2. run shell-command:
-        $ npm install kaizhu256/node-jslint-lite#alpha && \
+        $ npm install jslint-lite && \
             PORT=8081 node example.js
     3. open a browser to http://127.0.0.1:8081 and play with web-demo
     4. edit this script to suit your needs
@@ -125,7 +130,6 @@ instruction
 
 
 
-/* istanbul instrument in package jslint */
 // assets.utility2.header.js - start
 /* istanbul ignore next */
 /* jslint utility2:true */
@@ -188,6 +192,12 @@ instruction
      */
         return this.map(...argList).flat();
     };
+    String.prototype.trimEnd = (
+        String.prototype.trimEnd || String.prototype.trimRight
+    );
+    String.prototype.trimStart = (
+        String.prototype.trimStart || String.prototype.trimLeft
+    );
     (function () {
         try {
             globalThis.TextDecoder = (
@@ -334,10 +344,26 @@ instruction
                 // if message is a string, then leave as is
                 ? message
                 // else JSON.stringify message
-                : JSON.stringify(message, null, 4)
+                : JSON.stringify(message, undefined, 4)
             )
         );
         throw err;
+    };
+    local.coalesce = function (...argList) {
+    /*
+     * this function will coalesce null, undefined, or "" in <argList>
+     */
+        let arg;
+        let ii;
+        ii = 0;
+        while (ii < argList.length) {
+            arg = argList[ii];
+            if (arg !== null && arg !== undefined && arg !== "") {
+                break;
+            }
+            ii += 1;
+        }
+        return arg;
     };
     local.fsRmrfSync = function (dir) {
     /*
@@ -395,6 +421,12 @@ instruction
      */
         return fnc || local.nop;
     };
+    local.identity = function (val) {
+    /*
+     * this function will return <val>
+     */
+        return val;
+    };
     local.nop = function () {
     /*
      * this function will do nothing
@@ -403,8 +435,7 @@ instruction
     };
     local.objectAssignDefault = function (target, source) {
     /*
-     * this function will if items from <target> are
-     * null, undefined, or empty-string,
+     * this function will if items from <target> are null, undefined, or "",
      * then overwrite them with items from <source>
      */
         target = target || {};
@@ -438,30 +469,6 @@ instruction
             && typeof document.querySelectorAll === "function"
             && Array.from(document.querySelectorAll(selectors))
         ) || [];
-    };
-    local.value = function (val) {
-    /*
-     * this function will return <val>
-     */
-        return val;
-    };
-    local.valueOrEmptyList = function (val) {
-    /*
-     * this function will return <val> or []
-     */
-        return val || [];
-    };
-    local.valueOrEmptyObject = function (val) {
-    /*
-     * this function will return <val> or {}
-     */
-        return val || {};
-    };
-    local.valueOrEmptyString = function (val) {
-    /*
-     * this function will return <val> or ""
-     */
-        return val || "";
     };
     // require builtin
     if (!local.isBrowser) {
@@ -500,7 +507,6 @@ instruction
 
 
 
-/* istanbul ignore next */
 /* jslint utility2:true */
 (function (local) {
 "use strict";
@@ -543,7 +549,7 @@ if (!local.isBrowser) {
             return (
                 typeof arg === "string"
                 ? arg
-                : JSON.stringify(arg, null, 4)
+                : JSON.stringify(arg, undefined, 4)
             );
         }).join(" ").replace((
             /\u001b\[\d*m/g
@@ -554,7 +560,6 @@ if (!local.isBrowser) {
 });
 local.objectAssignDefault(local, globalThis.domOnEventDelegateDict);
 globalThis.domOnEventDelegateDict = local;
-local.onEventDomDb = local.db && local.db.onEventDomDb;
 if ((
     /\bmodeTest=1\b/
 ).test(location.search)) {
@@ -564,7 +569,6 @@ if ((
 
 
 
-/* istanbul ignore next */
 // run node js-env code - init-test
 (function () {
 if (local.isBrowser) {
@@ -607,19 +611,6 @@ local.assetsDict["/assets.index.template.html"] = '\
     box-sizing: border-box;\n\
 }\n\
 /* csslint ignore:end */\n\
-@keyframes uiAnimateShake {\n\
-0%,\n\
-50% {\n\
-    transform: translateX(10px);\n\
-}\n\
-100% {\n\
-    transform: translateX(0);\n\
-}\n\
-25%,\n\
-75% {\n\
-    transform: translateX(-10px);\n\
-}\n\
-}\n\
 @keyframes uiAnimateSpin {\n\
 0% {\n\
     transform: rotate(0deg);\n\
@@ -691,10 +682,6 @@ pre {\n\
     overflow: auto;\n\
     padding: 2px;\n\
 }\n\
-.uiAnimateShake {\n\
-    animation-duration: 500ms;\n\
-    animation-name: uiAnimateShake;\n\
-}\n\
 .uiAnimateSlide {\n\
     overflow-y: hidden;\n\
     transition: max-height ease-in 250ms, min-height ease-in 250ms, padding-bottom ease-in 250ms, padding-top ease-in 250ms;\n\
@@ -710,8 +697,6 @@ pre {\n\
 </head>\n\
 <body>\n\
 <div class="uiAnimateSpin" style="animation: uiAnimateSpin 2s linear infinite; border: 5px solid #999; border-radius: 50%; border-top: 5px solid #7d7; display: none; height: 25px; vertical-align: middle; width: 25px;"></div>\n\
-<a class="zeroPixel" download="db.persistence.json" href="" id="dbExportA1"></a>\n\
-<input class="zeroPixel" data-onevent="onEventDomDb" data-onevent-db="dbImportInput" type="file">\n\
 <script>\n\
 /* jslint utility2:true */\n\
 // init domOnEventWindowOnloadTimeElapsed\n\
@@ -1279,7 +1264,7 @@ local.http.createServer(function (req, res) {
         "test": "./npm_scripts.sh",
         "utility2": "./npm_scripts.sh"
     },
-    "version": "2019.9.7"
+    "version": "2019.10.8"
 }
 ```
 
@@ -1305,7 +1290,7 @@ shBuildCiAfter () {(set -e
 )}
 
 shBuildCiBefore () {(set -e
-    #!! shNpmTestPublished
+    shNpmTestPublished
     shReadmeTest example.js
 )}
 

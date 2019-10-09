@@ -61,6 +61,12 @@
      */
         return this.map(...argList).flat();
     };
+    String.prototype.trimEnd = (
+        String.prototype.trimEnd || String.prototype.trimRight
+    );
+    String.prototype.trimStart = (
+        String.prototype.trimStart || String.prototype.trimLeft
+    );
     (function () {
         try {
             globalThis.TextDecoder = (
@@ -207,10 +213,26 @@
                 // if message is a string, then leave as is
                 ? message
                 // else JSON.stringify message
-                : JSON.stringify(message, null, 4)
+                : JSON.stringify(message, undefined, 4)
             )
         );
         throw err;
+    };
+    local.coalesce = function (...argList) {
+    /*
+     * this function will coalesce null, undefined, or "" in <argList>
+     */
+        let arg;
+        let ii;
+        ii = 0;
+        while (ii < argList.length) {
+            arg = argList[ii];
+            if (arg !== null && arg !== undefined && arg !== "") {
+                break;
+            }
+            ii += 1;
+        }
+        return arg;
     };
     local.fsRmrfSync = function (dir) {
     /*
@@ -268,6 +290,12 @@
      */
         return fnc || local.nop;
     };
+    local.identity = function (val) {
+    /*
+     * this function will return <val>
+     */
+        return val;
+    };
     local.nop = function () {
     /*
      * this function will do nothing
@@ -276,8 +304,7 @@
     };
     local.objectAssignDefault = function (target, source) {
     /*
-     * this function will if items from <target> are
-     * null, undefined, or empty-string,
+     * this function will if items from <target> are null, undefined, or "",
      * then overwrite them with items from <source>
      */
         target = target || {};
@@ -311,30 +338,6 @@
             && typeof document.querySelectorAll === "function"
             && Array.from(document.querySelectorAll(selectors))
         ) || [];
-    };
-    local.value = function (val) {
-    /*
-     * this function will return <val>
-     */
-        return val;
-    };
-    local.valueOrEmptyList = function (val) {
-    /*
-     * this function will return <val> or []
-     */
-        return val || [];
-    };
-    local.valueOrEmptyObject = function (val) {
-    /*
-     * this function will return <val> or {}
-     */
-        return val || {};
-    };
-    local.valueOrEmptyString = function (val) {
-    /*
-     * this function will return <val> or ""
-     */
-        return val || "";
     };
     // require builtin
     if (!local.isBrowser) {
@@ -383,9 +386,8 @@
 // run shared js-env code - init-before
 (function () {
 // init local
-local = globalThis.globalLocal.value(
-    globalThis.utility2 || require("utility2")
-).requireReadme();
+local = globalThis.utility2 || require("utility2");
+local = local.requireReadme();
 globalThis.local = local;
 // init test
 local.testRunDefault(local);
