@@ -61,18 +61,9 @@ this zero-dependency package will provide browser-compatible versions of jslint 
 - jslint - sort nested switch-statements
 - none
 
-#### changelog 2019.10.8
-- npm publish 2019.10.8
-- merge function local.valueOrEmptyXxx into local.coalesce
-- jslint - update function jslintAndPrint's opt.lineOffset with opt.iiStart, opt.iiEnd
-- streamline evt-handling in example.js
-- merge polyfills into assets.example.begin.js
-- jslint - remove unexpected_a hacks
-- jslint - reintroduce flag option.nomen to ignore bad_property_a
-- jslint - migrate from let-declaration to var-declaration
-- rename function assertThrow to assertOrThrow
-- jslint - rename errText to errMsg
-- inline lib.puppeteer.js into assets.app.js
+#### changelog 2019.10.9
+- npm publish 2019.10.9
+- fix build-ci for bootstrap-lite, jslint-lite
 - none
 
 #### this package requires
@@ -1024,12 +1015,7 @@ body {\n\
 /* jslint utility2:true */\n\
 window.addEventListener("load", function () {\n\
 "use strict";\n\
-let htmlTestReport2;\n\
 let local;\n\
-document.querySelectorAll("#htmlTestReport1").forEach(function (elem) {\n\
-    elem.style.display = "none";\n\
-});\n\
-htmlTestReport2 = document.querySelector("#htmlTestReport2");\n\
 local = window.utility2_jslint;\n\
 local.domOnEventInputChange = function (evt) {\n\
     switch (evt.type + "." + evt.target.id) {\n\
@@ -1037,26 +1023,27 @@ local.domOnEventInputChange = function (evt) {\n\
     case "keyup.inputCsslint1":\n\
     case "keyup.inputJslint1":\n\
         // csslint #inputCsslint1\n\
-        local.jslintAndPrint(document.querySelector(\n\
+        local.jslintAndPrint(local.querySelector(\n\
             "#inputCsslint1"\n\
         ).value, "inputCsslint1.css");\n\
-        document.querySelector(\n\
+        local.querySelector(\n\
             "#outputCsslint1"\n\
         ).value = local.jslintResult.errMsg.replace((\n\
             /\\u001b\\[\\d*m/g\n\
         ), "").trim();\n\
         // jslint #inputJslint1\n\
-        local.jslintAndPrint(document.querySelector(\n\
+        local.jslintAndPrint(local.querySelector(\n\
             "#inputJslint1"\n\
         ).value, "inputJslint1.js", {\n\
-            autofix: evt.target.id === "buttonJslintAutofix1"\n\
+            autofix: evt.target.id === "buttonJslintAutofix1",\n\
+            conditional: evt.target.id !== "buttonJslintAutofix1"\n\
         });\n\
         if (local.jslint.jslintResult.autofix) {\n\
-            document.querySelector(\n\
+            local.querySelector(\n\
                 "#inputJslint1"\n\
             ).value = local.jslint.jslintResult.code;\n\
         }\n\
-        document.querySelector(\n\
+        local.querySelector(\n\
             "#outputJslint1"\n\
         ).value = local.jslintResult.errMsg.replace((\n\
             /\\u001b\\[\\d*m/g\n\
@@ -1065,9 +1052,6 @@ local.domOnEventInputChange = function (evt) {\n\
     }\n\
 };\n\
 // handle evt\n\
-local.on("utility2.testRunProgressUpdate", function (testReport) {\n\
-    htmlTestReport2.innerHTML = local.testReportMerge(testReport, {});\n\
-});\n\
 local.domOnEventInputChange({\n\
     target: {\n\
         id: "inputJslint1"\n\
@@ -1264,7 +1248,7 @@ local.http.createServer(function (req, res) {
         "test": "./npm_scripts.sh",
         "utility2": "./npm_scripts.sh"
     },
-    "version": "2019.10.8"
+    "version": "2019.10.9"
 }
 ```
 

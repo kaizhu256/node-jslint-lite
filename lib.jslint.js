@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /*
- * lib.jslint.js (2019.10.8)
+ * lib.jslint.js (2019.10.9)
  * https://github.com/kaizhu256/node-jslint-lite
  * this zero-dependency package will provide browser-compatible versions of jslint (v2019.8.3) and csslint (v1.0.5), with a working web-demo
  *
@@ -16899,6 +16899,7 @@ local.jslintAndPrint = function (code = "", file = "undefined", opt = {}) {
             // print err to stderr
             console.error(opt.errMsg);
         }
+        opt.code = code;
         return code;
     }
     // recurse
