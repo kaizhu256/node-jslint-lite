@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 /*
- * lib.jslint.js (2019.10.9)
+ * lib.jslint.js (2020.1.27)
  * https://github.com/kaizhu256/node-jslint-lite
- * this zero-dependency package will provide browser-compatible versions of jslint (v2019.8.3) and csslint (v1.0.5), with a working web-demo
+ * this zero-dependency package will provide browser-compatible versions of jslint (v2020.1.17) and csslint (v2018.2.25), with a working web-demo
  *
  */
 
@@ -31,9 +31,8 @@
          * and return <argList>[0]
          */
             consoleError("\n\n" + debugName);
-            consoleError.apply(console, argList);
+            consoleError(...argList);
             consoleError("\n");
-            // return arg0 for inspection
             return argList[0];
         };
     }
@@ -576,6 +575,70 @@ local.cliRun = function (opt) {
     local.cliDict._default();
 };
 
+local.jsonStringifyOrdered = function (obj, replacer, space) {
+/*
+ * this function will JSON.stringify <obj>,
+ * with object-keys sorted and circular-references removed
+ * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify#Syntax
+ */
+    let circularSet;
+    let stringify;
+    let tmp;
+    stringify = function (obj) {
+    /*
+     * this function will recursively JSON.stringify obj,
+     * with object-keys sorted and circular-references removed
+     */
+        // if obj is not an object or function, then JSON.stringify as normal
+        if (!(
+            obj
+            && typeof obj === "object"
+            && typeof obj.toJSON !== "function"
+        )) {
+            return JSON.stringify(obj);
+        }
+        // ignore circular-reference
+        if (circularSet.has(obj)) {
+            return;
+        }
+        circularSet.add(obj);
+        // if obj is an array, then recurse items
+        if (Array.isArray(obj)) {
+            tmp = "[" + obj.map(function (obj) {
+                // recurse
+                tmp = stringify(obj);
+                return (
+                    typeof tmp === "string"
+                    ? tmp
+                    : "null"
+                );
+            }).join(",") + "]";
+            circularSet.delete(obj);
+            return tmp;
+        }
+        // if obj is not an array,
+        // then recurse its items with object-keys sorted
+        tmp = "{" + Object.keys(obj).sort().map(function (key) {
+            // recurse
+            tmp = stringify(obj[key]);
+            if (typeof tmp === "string") {
+                return JSON.stringify(key) + ":" + tmp;
+            }
+        }).filter(function (obj) {
+            return typeof obj === "string";
+        }).join(",") + "}";
+        circularSet.delete(obj);
+        return tmp;
+    };
+    circularSet = new Set();
+    return JSON.stringify((
+        (typeof obj === "object" && obj)
+        // recurse
+        ? JSON.parse(stringify(obj))
+        : obj
+    ), replacer, space);
+};
+
 local.onErrorWithStack = function (onError) {
 /*
  * this function will wrap <onError> with wrapper preserving current-stack
@@ -608,7 +671,7 @@ local.onParallel = function (onError, onEach, onRetry) {
 /*
  * this function will create a function that will
  * 1. run async tasks in parallel
- * 2. if counter === 0 or err occurred, then call onError(err)
+ * 2. if cnt === 0 or err occurred, then call onError(err)
  */
     let onParallel;
     onError = local.onErrorWithStack(onError);
@@ -618,32 +681,32 @@ local.onParallel = function (onError, onEach, onRetry) {
         if (onRetry(err, data)) {
             return;
         }
-        // decrement counter
-        onParallel.counter -= 1;
-        // validate counter
-        if (!(onParallel.counter >= 0 || err || onParallel.err)) {
+        // decrement cnt
+        onParallel.cnt -= 1;
+        // validate cnt
+        if (!(onParallel.cnt >= 0 || err || onParallel.err)) {
             err = new Error(
-                "invalid onParallel.counter = " + onParallel.counter
+                "invalid onParallel.cnt = " + onParallel.cnt
             );
         // ensure onError is run only once
-        } else if (onParallel.counter < 0) {
+        } else if (onParallel.cnt < 0) {
             return;
         }
         // handle err
         if (err) {
             onParallel.err = err;
-            // ensure counter <= 0
-            onParallel.counter = -Math.abs(onParallel.counter);
+            // ensure cnt <= 0
+            onParallel.cnt = -Math.abs(onParallel.cnt);
         }
         // call onError when isDone
-        if (onParallel.counter <= 0) {
+        if (onParallel.cnt <= 0) {
             onError(err, data);
             return;
         }
         onEach();
     };
-    // init counter
-    onParallel.counter = 0;
+    // init cnt
+    onParallel.cnt = 0;
     // return callback
     return onParallel;
 };
@@ -655,12 +718,12 @@ local.onParallel = function (onError, onEach, onRetry) {
 // run shared js-env code - function
 (function () {
 /*
-file https://github.com/CSSLint/csslint/blob/v1.0.5/dist/csslint.js
+file https://github.com/CSSLint/csslint/blob/e8aeeda06c928636e21428e09b1af93f66621209/dist/csslint.js
 */
 /* jslint ignore:start */
 /*!
-CSSLint v1.0.4
-Copyright (c) 2016 Nicole Sullivan and Nicholas C. Zakas. All rights reserved.
+CSSLint v1.0.5
+Copyright (c) 2017 Nicole Sullivan and Nicholas C. Zakas. All rights reserved.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the 'Software'), to deal
@@ -7876,6 +7939,10 @@ return require('parserlib');
 var clone = (function() {
 'use strict';
 
+function _instanceof(obj, type) {
+  return type != null && obj instanceof type;
+}
+
 var nativeMap;
 try {
   nativeMap = Map;
@@ -7955,11 +8022,11 @@ function clone(parent, circular, depth, prototype, includeNonEnumerable) {
       return parent;
     }
 
-    if (parent instanceof nativeMap) {
+    if (_instanceof(parent, nativeMap)) {
       child = new nativeMap();
-    } else if (parent instanceof nativeSet) {
+    } else if (_instanceof(parent, nativeSet)) {
       child = new nativeSet();
-    } else if (parent instanceof nativePromise) {
+    } else if (_instanceof(parent, nativePromise)) {
       child = new nativePromise(function (resolve, reject) {
         parent.then(function(value) {
           resolve(_clone(value, depth - 1));
@@ -7978,7 +8045,7 @@ function clone(parent, circular, depth, prototype, includeNonEnumerable) {
       child = new Buffer(parent.length);
       parent.copy(child);
       return child;
-    } else if (parent instanceof Error) {
+    } else if (_instanceof(parent, Error)) {
       child = Object.create(parent);
     } else {
       if (typeof prototype == 'undefined') {
@@ -8001,28 +8068,18 @@ function clone(parent, circular, depth, prototype, includeNonEnumerable) {
       allChildren.push(child);
     }
 
-    if (parent instanceof nativeMap) {
-      var keyIterator = parent.keys();
-      while(true) {
-        var next = keyIterator.next();
-        if (next.done) {
-          break;
-        }
-        var keyChild = _clone(next.value, depth - 1);
-        var valueChild = _clone(parent.get(next.value), depth - 1);
+    if (_instanceof(parent, nativeMap)) {
+      parent.forEach(function(value, key) {
+        var keyChild = _clone(key, depth - 1);
+        var valueChild = _clone(value, depth - 1);
         child.set(keyChild, valueChild);
-      }
+      });
     }
-    if (parent instanceof nativeSet) {
-      var iterator = parent.keys();
-      while(true) {
-        var next = iterator.next();
-        if (next.done) {
-          break;
-        }
-        var entryChild = _clone(next.value, depth - 1);
+    if (_instanceof(parent, nativeSet)) {
+      parent.forEach(function(value) {
+        var entryChild = _clone(value, depth - 1);
         child.add(entryChild);
-      }
+      });
     }
 
     for (var i in parent) {
@@ -8149,7 +8206,7 @@ var CSSLint = (function() {
         embeddedRuleset = /\/\*\s*csslint([^\*]*)\*\//,
         api             = new parserlib.util.EventTarget();
 
-    api.version = "1.0.4";
+    api.version = "1.0.5";
 
     //-------------------------------------------------------------------------
     // Rule Management
@@ -8270,7 +8327,7 @@ var CSSLint = (function() {
      * @method format
      */
     api.format = function(results, filename, formatId, options) {
-        var formatter = this.getFormatter(formatId),
+        var formatter = api.getFormatter(formatId),
             result = null;
 
         if (formatter) {
@@ -8363,7 +8420,7 @@ var CSSLint = (function() {
         }
 
         if (!ruleset) {
-            ruleset = this.getRuleset();
+            ruleset = api.getRuleset();
         }
 
         if (embeddedRuleset.test(text)) {
@@ -8988,13 +9045,13 @@ CSSLint.addRule({
             "border-start-color"         : "webkit moz",
             "border-start-style"         : "webkit moz",
             "border-start-width"         : "webkit moz",
-            "box-align"                  : "webkit moz ms",
-            "box-direction"              : "webkit moz ms",
-            "box-flex"                   : "webkit moz ms",
-            "box-lines"                  : "webkit ms",
-            "box-ordinal-group"          : "webkit moz ms",
-            "box-orient"                 : "webkit moz ms",
-            "box-pack"                   : "webkit moz ms",
+            "box-align"                  : "webkit moz",
+            "box-direction"              : "webkit moz",
+            "box-flex"                   : "webkit moz",
+            "box-lines"                  : "webkit",
+            "box-ordinal-group"          : "webkit moz",
+            "box-orient"                 : "webkit moz",
+            "box-pack"                   : "webkit moz",
             "box-sizing"                 : "",
             "box-shadow"                 : "",
             "column-count"               : "webkit moz ms",
@@ -9004,6 +9061,12 @@ CSSLint.addRule({
             "column-rule-style"          : "webkit moz ms",
             "column-rule-width"          : "webkit moz ms",
             "column-width"               : "webkit moz ms",
+            "flex"                       : "webkit ms",
+            "flex-basis"                 : "webkit",
+            "flex-direction"             : "webkit ms",
+            "flex-flow"                  : "webkit",
+            "flex-grow"                  : "webkit",
+            "flex-shrink"                : "webkit",
             "hyphens"                    : "epub moz",
             "line-break"                 : "webkit ms",
             "margin-end"                 : "webkit moz",
@@ -10014,6 +10077,45 @@ CSSLint.addRule({
             }
         });
     }
+});
+
+CSSLint.addRule({
+  id: "performant-transitions",
+  name: "Allow only performant transisitons",
+  desc: "Only allow transitions that trigger compositing for performant, 60fps transformations.",
+  url: "",
+  browsers: "All",
+
+  init: function(parser, reporter){
+    "use strict";
+    var rule = this;
+
+    var transitionProperties = ["transition-property", "transition", "-webkit-transition", "-o-transition"];
+    var allowedTransitions = [/-webkit-transform/g, /-ms-transform/g, /transform/g, /opacity/g];
+
+    parser.addListener("property", function(event) {
+      var propertyName    = event.property.toString().toLowerCase(),
+          propertyValue           = event.value.toString(),
+          line            = event.line,
+          col             = event.col;
+
+      var values = propertyValue.split(",");
+      if (transitionProperties.indexOf(propertyName) !== -1) {
+        var reportValues = values.filter(function(value) {
+          var didMatch = [];
+          for (var i = 0; i < allowedTransitions.length; i++) {
+            if(value.match(allowedTransitions[i])) {
+              didMatch.push(i);
+            }
+          }
+          return didMatch.length === 0;
+        });
+        if(reportValues.length > 0) {
+            reporter.report("Unexpected transition property '"+reportValues.join(",").trim()+"'", line, col, rule);
+        }
+      }
+    });
+  }
 });
 
 /*
@@ -11340,13 +11442,13 @@ let jslint_result;
 let line_ignore;
 let lines_extra;
 /*
-file https://github.com/douglascrockford/JSLint/blob/efefb7d4e22359b6fb1977d33712bcc2fda95f14/jslint.js
+file https://github.com/douglascrockford/JSLint/blob/95c4e8a2cfd424d15e90745dbadadf3251533183/jslint.js
 */
 /* jslint utility2:true */
 let next_line_extra = null;
 let warn_at_extra = null;
 // jslint.js
-// 2019-08-03
+// 2020-01-17
 // Copyright (c) 2015 Douglas Crockford  (www.JSLint.com)
 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -11498,8 +11600,9 @@ const allowed_option = {
 
     bitwise: true,
     browser: [
-        "caches", "clearInterval", "clearTimeout", "document", "DOMException",
-        "Element", "Event", "event", "FileReader", "FormData", "history",
+        "caches", "CharacterData", "clearInterval", "clearTimeout", "document",
+        "DocumentType", "DOMException", "Element", "Event", "event", "fetch",
+        "FileReader", "FontFace", "FormData", "history", "IntersectionObserver",
         "localStorage", "location", "MutationObserver", "name", "navigator",
         "screen", "sessionStorage", "setInterval", "setTimeout", "Storage",
         "TextDecoder", "TextEncoder", "URL", "window", "Worker",
@@ -11524,6 +11627,7 @@ const allowed_option = {
         "setImmediate", "setInterval", "setTimeout", "TextDecoder",
         "TextEncoder", "URL", "URLSearchParams", "__dirname", "__filename"
     ],
+    // hack-jslint - nomen
     nomen: true,
     single: true,
     this: true,
@@ -11755,20 +11859,21 @@ const rx_directive_part = (
     /^([a-zA-Z$_][a-zA-Z0-9$_]*)(?::\s*(true|false))?,?\s*(.*)$/
 );
 // token (sorry it is so long)
+// hack-jslint - bigint
 const rx_token = (
-    /^((\s+)|([a-zA-Z_$][a-zA-Z0-9_$]*)|[(){}\[\],:;'"~`]|\?\.?|=(?:==?|>)?|\.+|[*\/][*\/=]?|\+[=+]?|-[=\-]?|[\^%]=?|&[&=]?|\|[|=]?|>{1,3}=?|<<?=?|!(?:!|==?)?|(0|[1-9][0-9]*))(.*)$/
+    /^((\s+)|([a-zA-Z_$][a-zA-Z0-9_$]*)|[(){}\[\],:;'"~`]|\?\.?|=(?:==?|>)?|\.+|[*\/][*\/=]?|\+[=+]?|-[=\-]?|[\^%]=?|&[&=]?|\|[|=]?|>{1,3}=?|<<?=?|!(?:!|==?)?|(0n?|[1-9][0-9]*n?))(.*)$/
 );
 const rx_digits = (
     /^([0-9]+)(.*)$/
 );
 const rx_hexs = (
-    /^([0-9a-fA-F]+)(.*)$/
+    /^([0-9a-fA-F]+n?)(.*)$/
 );
 const rx_octals = (
-    /^([0-7]+)(.*)$/
+    /^([0-7]+n?)(.*)$/
 );
 const rx_bits = (
-    /^([01]+)(.*)$/
+    /^([01]+n?)(.*)$/
 );
 // mega
 const rx_mega = (
@@ -12438,7 +12543,7 @@ function tokenize(source) {
                     return true;
                 }
                 if (char === "\\") {
-                    escape("BbDdSsWw^${}[]():=!.-|*+?");
+                    escape("BbDdSsWw^${}[]():=!.|*+?");
                     return true;
                 }
                 if (
@@ -12970,6 +13075,7 @@ function survey(name) {
                 warn("unregistered_property_a", name);
             }
         } else {
+            // hack-jslint - nomen
             if (!option.nomen && name.identifier && rx_bad_property.test(id)) {
                 warn("bad_property_a", name);
             }
@@ -14507,7 +14613,7 @@ prefix("{", function () {
                     let the_colon = next_token;
                     advance(":");
                     value = expression(0);
-                    if (value.id === name.id) {
+                    if (value.id === name.id && value.id !== "function") {
                         warn("unexpected_a", the_colon, ": " + name.id);
                     }
                 }
@@ -16384,7 +16490,7 @@ const jslint0 = Object.freeze(function (
     }
     return {
         directives,
-        edition: "2019-08-03",
+        edition: "2020-01-17",
         exports,
         froms,
         functions,
@@ -16686,6 +16792,9 @@ local.jslintAndPrint = function (code = "", file = "undefined", opt = {}) {
             ".js": (
                 /^\/\*jslint\b|(^\/\*\u0020jslint\u0020utility2:true\u0020\*\/$)/m
             ),
+            ".json": (
+                /^\s*?(?:\[|\{)/
+            ),
             ".md": (
                 /(^\/\*\u0020jslint\u0020utility2:true\u0020\*\/$)/m
             ),
@@ -16698,38 +16807,14 @@ local.jslintAndPrint = function (code = "", file = "undefined", opt = {}) {
             ).exec(file)[0]
         });
         // jslint - .json
-        if (
-            code && (opt.fileType === ".js" || opt.fileType === ".json")
-            && !opt.fileType0
-        ) {
-            try {
-                tmp = JSON.parse(code);
-                opt.fileType = ".json";
-                if (opt.autofix) {
-                    code = JSON.stringify(tmp, null, 4) + "\n";
-                    opt.code0 = code;
-                }
-                opt.gotoState = Infinity;
-                break;
-            } catch (errCaught) {
-                if (opt.fileType === ".json") {
-                    opt.errList.push({
-                        column: 0,
-                        evidence: code.slice(0, 100),
-                        line: 0,
-                        message: errCaught.message
-                    });
-                    opt.gotoState = Infinity;
-                    break;
-                }
-            }
+        if (opt.fileType === ".js" && opt[".json"].test(code)) {
+            opt.fileType = ".json";
         }
         try {
             opt.conditionalPassed = opt[opt.fileType].exec(code);
         } catch (ignore) {}
         opt.utility2 = (
-            opt.conditionalPassed
-            && opt.conditionalPassed[1]
+            opt.conditionalPassed && opt.conditionalPassed[1]
         ) || opt.autofix;
         if (
             opt.conditional
@@ -16929,7 +17014,7 @@ local.jslintAndPrintDir = function (dir, opt, onError) {
             ).test(file)) {
                 return;
             }
-            onParallel.counter += 1;
+            onParallel.cnt += 1;
             // jslint file
             local.fs.readFile(file, "utf8", function (err, data) {
                 // handle err
@@ -17029,6 +17114,7 @@ local.jslintAutofix = function (code, file, opt) {
         });
         break;
     case ".js":
+    case ".json":
         // autofix-js - demux code to [code, ignoreList]
         ignoreList = [];
         code = code.replace((
@@ -17310,6 +17396,11 @@ local.jslintAutofix = function (code, file, opt) {
             if (ii >= 10 || opt.stop || code0 === code) {
                 break;
             }
+        }
+        // autofix-json - jsonStringifyOrdered
+        if (opt.fileType === ".json") {
+            code = local.jsonStringifyOrdered(JSON.parse(code), null, 4);
+            break;
         }
         // autofix-js - remux - code, dataList.</_/> to code
         code = code.replace((

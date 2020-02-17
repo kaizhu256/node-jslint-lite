@@ -1,5 +1,5 @@
 # jslint-lite
-this zero-dependency package will provide browser-compatible versions of jslint (v2019.8.3) and csslint (v1.0.5), with a working web-demo
+this zero-dependency package will provide browser-compatible versions of jslint (v2020.1.17) and csslint (v2018.2.25), with a working web-demo
 
 # live web demo
 - [https://kaizhu256.github.io/node-jslint-lite/build..beta..travis-ci.org/app](https://kaizhu256.github.io/node-jslint-lite/build..beta..travis-ci.org/app)
@@ -55,15 +55,20 @@ this zero-dependency package will provide browser-compatible versions of jslint 
 #### cli help
 ![screenshot](https://kaizhu256.github.io/node-jslint-lite/build/screenshot.npmPackageCliHelp.svg)
 
+#### changelog 2020.1.27
+- npm publish 2020.1.27
+- update jslint to v2020.1.17
+- update csslint to v2018.2.25
+- jslint - autofix json with jslintStringifyOrdered
+- jslint - revert to using jslint (instead of JSON.parse) to lint json
+- jslint - add bigint support
+- fix build-ci for bootstrap-lite, jslint-lite
+- none
+
 #### todo
 - improve test-coverage
 - jslint - jslint embedded template-strings
 - jslint - sort nested switch-statements
-- none
-
-#### changelog 2019.10.9
-- npm publish 2019.10.9
-- fix build-ci for bootstrap-lite, jslint-lite
 - none
 
 #### this package requires
@@ -143,9 +148,8 @@ instruction
          * and return <argList>[0]
          */
             consoleError("\n\n" + debugName);
-            consoleError.apply(console, argList);
+            consoleError(...argList);
             consoleError("\n");
-            // return arg0 for inspection
             return argList[0];
         };
     }
@@ -551,11 +555,6 @@ if (!local.isBrowser) {
 });
 local.objectAssignDefault(local, globalThis.domOnEventDelegateDict);
 globalThis.domOnEventDelegateDict = local;
-if ((
-    /\bmodeTest=1\b/
-).test(location.search)) {
-    local.testRunBrowser();
-}
 }());
 
 
@@ -567,7 +566,7 @@ if (local.isBrowser) {
 }
 // init exports
 module.exports = local;
-// init assets
+// init assetsDict
 local.assetsDict = local.assetsDict || {};
 [
     "assets.swgg.swagger.json",
@@ -600,6 +599,10 @@ local.assetsDict["/assets.index.template.html"] = '\
 *:after,\n\
 *:before {\n\
     box-sizing: border-box;\n\
+}\n\
+.uiAnimateSlide {\n\
+    overflow-y: hidden;\n\
+    transition: max-height ease-in 250ms, min-height ease-in 250ms, padding-bottom ease-in 250ms, padding-top ease-in 250ms;\n\
 }\n\
 /* csslint ignore:end */\n\
 @keyframes uiAnimateSpin {\n\
@@ -672,10 +675,6 @@ pre {\n\
     cursor: auto;\n\
     overflow: auto;\n\
     padding: 2px;\n\
-}\n\
-.uiAnimateSlide {\n\
-    overflow-y: hidden;\n\
-    transition: max-height ease-in 250ms, min-height ease-in 250ms, padding-bottom ease-in 250ms, padding-top ease-in 250ms;\n\
 }\n\
 .zeroPixel {\n\
     border: 0;\n\
@@ -768,7 +767,7 @@ pre {\n\
                 100 - 75 * Math.exp(-0.125 * opt.width),\n\
                 opt.style.width.slice(0, -1) | 0\n\
             ) + "%";\n\
-            if (!opt.counter) {\n\
+            if (!opt.cnt) {\n\
                 setTimeout(opt, 0, gotoState, onError);\n\
             }\n\
             break;\n\
@@ -795,14 +794,14 @@ pre {\n\
         // ajaxProgress - reset\n\
         default:\n\
             // reset ajaxProgress\n\
-            opt.counter = 0;\n\
+            opt.cnt = 0;\n\
             opt.width = 0;\n\
             opt.style.width = "0%";\n\
         }\n\
     };\n\
     opt = window.domOnEventAjaxProgressUpdate;\n\
     opt.end = function (onError) {\n\
-        opt.counter = 0;\n\
+        opt.cnt = 0;\n\
         window.domOnEventAjaxProgressUpdate(2, onError);\n\
     };\n\
     opt.elem = document.getElementById("domElementAjaxProgress1");\n\
@@ -831,7 +830,7 @@ pre {\n\
     });\n\
     // init state\n\
     opt.background = opt.style.background;\n\
-    opt.counter = 0;\n\
+    opt.cnt = 0;\n\
     opt.width = 0;\n\
 }());\n\
 \n\
@@ -1069,7 +1068,7 @@ local.domOnEventInputChange({\n\
 <script src="assets.app.js"></script>\n\
 {{#unless isRollup}}\n\
 <script src="assets.utility2.rollup.js"></script>\n\
-<script>window.utility2_onReadyBefore.counter += 1;</script>\n\
+<script>window.utility2_onReadyBefore.cnt += 1;</script>\n\
 <script src="jsonp.utility2.stateInit?callback=window.utility2.stateInit"></script>\n\
 utility2-comment -->\n\
 <script src="assets.jslint.js"></script>\n\
@@ -1212,7 +1211,7 @@ local.http.createServer(function (req, res) {
     "bin": {
         "jslint-lite": "lib.jslint.js"
     },
-    "description": "this zero-dependency package will provide browser-compatible versions of jslint (v2019.8.3) and csslint (v1.0.5), with a working web-demo",
+    "description": "this zero-dependency package will provide browser-compatible versions of jslint (v2020.1.17) and csslint (v2018.2.25), with a working web-demo",
     "devDependencies": {
         "utility2": "kaizhu256/node-utility2#alpha"
     },
@@ -1248,7 +1247,7 @@ local.http.createServer(function (req, res) {
         "test": "./npm_scripts.sh",
         "utility2": "./npm_scripts.sh"
     },
-    "version": "2019.10.9"
+    "version": "2020.1.27"
 }
 ```
 
