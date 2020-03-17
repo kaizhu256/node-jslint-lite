@@ -10,6 +10,7 @@
     "engines": {
         "node": ">=10.0"
     },
+    "fileCount": 8,
     "homepage": "https://github.com/kaizhu256/node-jslint-lite",
     "keywords": [
         "csslint",
@@ -39,5 +40,5 @@
         "test": "./npm_scripts.sh",
         "utility2": "./npm_scripts.sh"
     },
-    "version": "2020.1.27"
+    "version": "2020.3.16"
 }

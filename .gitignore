@@ -9,5 +9,6 @@ example.js
 external
 node_modules
 package-lock.json
+temp*
 tmp
 utility2
