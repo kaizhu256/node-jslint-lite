@@ -8,7 +8,7 @@
         "utility2": "kaizhu256/node-utility2#alpha"
     },
     "engines": {
-        "node": ">=10.0"
+        "node": ">=12.0"
     },
     "fileCount": 8,
     "homepage": "https://github.com/kaizhu256/node-jslint-lite",
@@ -40,5 +40,5 @@
         "test": "./npm_scripts.sh",
         "utility2": "./npm_scripts.sh"
     },
-    "version": "2020.3.16"
+    "version": "2020.5.20"
 }

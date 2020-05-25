@@ -55,10 +55,13 @@ this zero-dependency package will provide browser-compatible versions of jslint 
 #### cli help
 ![screenshot](https://kaizhu256.github.io/node-jslint-lite/build/screenshot.npmPackageCliHelp.svg)
 
-#### changelog 2020.3.16
-- npm publish 2020.3.16
-- update function shRawLibFetch to inline-fetch resources to raw.xxx.js
-- remove polyfills Array.p.flat, Array.p.flatMap, TextDecoder, TextEncoder
+#### changelog 2020.5.20
+- npm publish 2020.5.20
+- jslint - add debug-option to pring stack-trace of first warning
+- jslint - prefer undefined over null in file lib.jslint.js
+- jslint - validate sort nested switch-statements
+- update to jslint v2020.03.28
+- remove excessive "the" from comments
 - update build
 - none
 
@@ -247,17 +250,9 @@ instruction
             fs.writeFileSync(file, data);
         } catch (ignore) {
             // mkdir -p
-            require("child_process").spawnSync(
-                "mkdir",
-                [
-                    "-p", require("path").dirname(file)
-                ],
-                {
-                    stdio: [
-                        "ignore", 1, 2
-                    ]
-                }
-            );
+            fs.mkdirSync(require("path").dirname(file), {
+                recursive: true
+            });
             // rewrite file
             fs.writeFileSync(file, data);
         }
@@ -880,7 +875,7 @@ console.log(message);\n\
 console.log(null);\n\
 </textarea>\n\
 <button class="button" data-onevent="domOnEventInputChange" id="buttonJslintAutofix1">jslint autofix</button><br>\n\
-<textarea class= "colorError readonly textarea" id="outputJslint1" readonly></textarea>\n\
+<textarea class="colorError readonly textarea" id="outputJslint1" readonly></textarea>\n\
 \n\
 \n\
 \n\
@@ -896,7 +891,7 @@ body {\n\
     margin: 0px;\n\
 }\n\
 </textarea>\n\
-<textarea class= "colorError readonly textarea" id="outputCsslint1" readonly></textarea>\n\
+<textarea class="colorError readonly textarea" id="outputCsslint1" readonly></textarea>\n\
 <label>stderr and stdout</label>\n\
 <textarea class="onevent-reset-output readonly textarea" id="outputStdout1" readonly></textarea>\n\
 <script>\n\
@@ -1105,7 +1100,7 @@ local.http.createServer(function (req, res) {
         "utility2": "kaizhu256/node-utility2#alpha"
     },
     "engines": {
-        "node": ">=10.0"
+        "node": ">=12.0"
     },
     "fileCount": 8,
     "homepage": "https://github.com/kaizhu256/node-jslint-lite",
@@ -1137,7 +1132,7 @@ local.http.createServer(function (req, res) {
         "test": "./npm_scripts.sh",
         "utility2": "./npm_scripts.sh"
     },
-    "version": "2020.3.16"
+    "version": "2020.5.20"
 }
 ```
 
