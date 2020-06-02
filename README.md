@@ -1,5 +1,5 @@
 # jslint-lite
-this zero-dependency package will provide browser-compatible versions of jslint (v2020.1.17) and csslint (v2018.2.25), with a working web-demo
+this zero-dependency package will provide browser-compatible versions of jslint (v2020.3.28) and csslint (v2018.2.25), with a working web-demo
 
 # live web demo
 - [https://kaizhu256.github.io/node-jslint-lite/build..beta..travis-ci.org/app](https://kaizhu256.github.io/node-jslint-lite/build..beta..travis-ci.org/app)
@@ -55,14 +55,11 @@ this zero-dependency package will provide browser-compatible versions of jslint 
 #### cli help
 ![screenshot](https://kaizhu256.github.io/node-jslint-lite/build/screenshot.npmPackageCliHelp.svg)
 
-#### changelog 2020.5.20
-- npm publish 2020.5.20
-- jslint - add debug-option to pring stack-trace of first warning
-- jslint - prefer undefined over null in file lib.jslint.js
-- jslint - validate sort nested switch-statements
-- update to jslint v2020.03.28
-- remove excessive "the" from comments
-- update build
+#### changelog 2020.5.31
+- npm publish 2020.5.31
+- replace process.cwd() with path.resolve()
+- replace function fsReadFileOrEmptyStringSync with fsReadFileOrDefaultSync
+- remove dependency to file lib.swgg.js
 - none
 
 #### todo
@@ -129,6 +126,7 @@ instruction
 
 
 
+/* istanbul instrument in package jslint */
 // assets.utility2.header.js - start
 /* istanbul ignore next */
 /* jslint utility2:true */
@@ -215,9 +213,32 @@ instruction
         }
         return arg;
     };
-    local.fsRmrfSync = function (dir) {
+    local.fsReadFileOrDefaultSync = function (pathname, type, dflt) {
     /*
-     * this function will sync "rm -rf" <dir>
+     * this function will sync-read <pathname> with given <type> and <dflt>
+     */
+        let fs;
+        // do nothing if module does not exist
+        try {
+            fs = require("fs");
+        } catch (ignore) {
+            return dflt;
+        }
+        pathname = require("path").resolve(pathname);
+        // try to read pathname
+        try {
+            return (
+                type === "json"
+                ? JSON.parse(fs.readFileSync(pathname, "utf8"))
+                : fs.readFileSync(pathname, type)
+            );
+        } catch (ignore) {
+            return dflt;
+        }
+    };
+    local.fsRmrfSync = function (pathname) {
+    /*
+     * this function will sync "rm -rf" <pathname>
      */
         let child_process;
         // do nothing if module does not exist
@@ -226,44 +247,57 @@ instruction
         } catch (ignore) {
             return;
         }
-        child_process.spawnSync("rm", [
-            "-rf", dir
-        ], {
-            stdio: [
-                "ignore", 1, 2
-            ]
-        });
+        pathname = require("path").resolve(pathname);
+        if (process.platform !== "win32") {
+            child_process.spawnSync("rm", [
+                "-rf", pathname
+            ], {
+                stdio: [
+                    "ignore", 1, 2
+                ]
+            });
+            return;
+        }
+        try {
+            child_process.spawnSync("rd", [
+                "/s", "/q", pathname
+            ], {
+                stdio: [
+                    "ignore", 1, "ignore"
+                ]
+            });
+        } catch (ignore) {}
     };
-    local.fsWriteFileWithMkdirpSync = function (file, data) {
+    local.fsWriteFileWithMkdirpSync = function (pathname, data, msg) {
     /*
-     * this function will sync write <data> to <file> with "mkdir -p"
+     * this function will sync write <data> to <pathname> with "mkdir -p"
      */
         let fs;
+        let success;
         // do nothing if module does not exist
         try {
             fs = require("fs");
         } catch (ignore) {
             return;
         }
-        // try to write file
+        pathname = require("path").resolve(pathname);
+        // try to write pathname
         try {
-            fs.writeFileSync(file, data);
+            fs.writeFileSync(pathname, data);
+            success = true;
         } catch (ignore) {
             // mkdir -p
-            fs.mkdirSync(require("path").dirname(file), {
+            fs.mkdirSync(require("path").dirname(pathname), {
                 recursive: true
             });
-            // rewrite file
-            fs.writeFileSync(file, data);
+            // re-write pathname
+            fs.writeFileSync(pathname, data);
+            success = true;
         }
-    };
-    local.functionOrNop = function (fnc) {
-    /*
-     * this function will if <fnc> exists,
-     * return <fnc>,
-     * else return <nop>
-     */
-        return fnc || local.nop;
+        if (success && msg) {
+            console.error(msg.replace("{{pathname}}", pathname));
+        }
+        return success;
     };
     local.identity = function (val) {
     /*
@@ -277,42 +311,33 @@ instruction
      */
         return;
     };
-    local.objectAssignDefault = function (target, source) {
+    local.objectAssignDefault = function (tgt = {}, src = {}, depth = 0) {
     /*
-     * this function will if items from <target> are null, undefined, or "",
-     * then overwrite them with items from <source>
+     * this function will if items from <tgt> are null, undefined, or "",
+     * then overwrite them with items from <src>
      */
-        target = target || {};
-        Object.keys(source || {}).forEach(function (key) {
-            if (
-                target[key] === null
-                || target[key] === undefined
-                || target[key] === ""
-            ) {
-                target[key] = target[key] || source[key];
-            }
-        });
-        return target;
-    };
-    local.querySelector = function (selectors) {
-    /*
-     * this function will return first dom-elem that match <selectors>
-     */
-        return (
-            typeof document === "object" && document
-            && typeof document.querySelector === "function"
-            && document.querySelector(selectors)
-        ) || {};
-    };
-    local.querySelectorAll = function (selectors) {
-    /*
-     * this function will return dom-elem-list that match <selectors>
-     */
-        return (
-            typeof document === "object" && document
-            && typeof document.querySelectorAll === "function"
-            && Array.from(document.querySelectorAll(selectors))
-        ) || [];
+        let recurse;
+        recurse = function (tgt, src, depth) {
+            Object.entries(src).forEach(function ([
+                key, bb
+            ]) {
+                let aa;
+                aa = tgt[key];
+                if (aa === undefined || aa === null || aa === "") {
+                    tgt[key] = bb;
+                    return;
+                }
+                if (
+                    depth !== 0
+                    && typeof aa === "object" && aa && !Array.isArray(aa)
+                    && typeof bb === "object" && bb && !Array.isArray(bb)
+                ) {
+                    recurse(aa, bb, depth - 1);
+                }
+            });
+        };
+        recurse(tgt, src, depth | 0);
+        return tgt;
     };
     // require builtin
     if (!local.isBrowser) {
@@ -379,7 +404,7 @@ if (!local.isBrowser) {
 ["error", "log"].forEach(function (key) {
     let elem;
     let fnc;
-    elem = local.querySelector("#outputStdout1");
+    elem = document.querySelector("#outputStdout1");
     if (!elem) {
         return;
     }
@@ -415,19 +440,6 @@ if (local.isBrowser) {
 module.exports = local;
 // init assetsDict
 local.assetsDict = local.assetsDict || {};
-[
-    "assets.swgg.swagger.json",
-    "assets.swgg.swagger.server.json"
-].forEach(function (file) {
-    file = "/" + file;
-    local.assetsDict[file] = local.assetsDict[file] || "";
-    if (local.fs.existsSync(local.__dirname + file)) {
-        local.assetsDict[file] = local.fs.readFileSync(
-            local.__dirname + file,
-            "utf8"
-        );
-    }
-});
 /* jslint ignore:start */
 local.assetsDict["/assets.index.template.html"] = '\
 <!doctype html>\n\
@@ -596,7 +608,7 @@ pre {\n\
         switch (gotoState) {\n\
         // ajaxProgress - show\n\
         case 1:\n\
-            // init <timerInterval> and <timerTimeout>\n\
+            // init timerInterval and timerTimeout\n\
             if (!timerTimeout) {\n\
                 timeStart = Date.now();\n\
                 timerInterval = setInterval(opt, 2000, 1, onError);\n\
@@ -648,12 +660,12 @@ pre {\n\
                 + (tmp - timeStart)\n\
                 + " ms"\n\
             );\n\
-            // cleanup <timerInterval> and <timerTimeout>\n\
+            // cleanup timerInterval and timerTimeout\n\
             timeStart = tmp;\n\
             clearInterval(timerInterval);\n\
-            timerInterval = null;\n\
+            timerInterval = undefined;\n\
             clearTimeout(timerTimeout);\n\
-            timerTimeout = null;\n\
+            timerTimeout = undefined;\n\
             // hide ajaxProgressBar\n\
             styleBar.background = "transparent";\n\
             // hide ajaxProgressModal\n\
@@ -676,7 +688,7 @@ pre {\n\
         opt.cnt = 0;\n\
         window.domOnEventAjaxProgressUpdate(2, onError);\n\
     };\n\
-    // init <styleBar>\n\
+    // init styleBar\n\
     styleBar = document.getElementById("domElementAjaxProgressBar1").style;\n\
     styleBar0 = Object.assign({}, styleBar);\n\
     Object.entries({\n\
@@ -693,7 +705,7 @@ pre {\n\
     }).forEach(function (entry) {\n\
         styleBar[entry[0]] = styleBar[entry[0]] || entry[1];\n\
     });\n\
-    // init <styleModal>\n\
+    // init styleModal\n\
     styleModal = document.getElementById("domElementAjaxProgressModal1") || {};\n\
     styleModal = styleModal.style || {};\n\
     styleModal0 = Object.assign({}, styleModal);\n\
@@ -906,27 +918,27 @@ local.domOnEventInputChange = function (evt) {\n\
     case "keyup.inputCsslint1":\n\
     case "keyup.inputJslint1":\n\
         // csslint #inputCsslint1\n\
-        local.jslintAndPrint(local.querySelector(\n\
+        local.jslintAndPrint(document.querySelector(\n\
             "#inputCsslint1"\n\
         ).value, "inputCsslint1.css");\n\
-        local.querySelector(\n\
+        document.querySelector(\n\
             "#outputCsslint1"\n\
         ).value = local.jslintResult.errMsg.replace((\n\
             /\\u001b\\[\\d*m/g\n\
         ), "").trim();\n\
         // jslint #inputJslint1\n\
-        local.jslintAndPrint(local.querySelector(\n\
+        local.jslintAndPrint(document.querySelector(\n\
             "#inputJslint1"\n\
         ).value, "inputJslint1.js", {\n\
             autofix: evt.target.id === "buttonJslintAutofix1",\n\
             conditional: evt.target.id !== "buttonJslintAutofix1"\n\
         });\n\
         if (local.jslint.jslintResult.autofix) {\n\
-            local.querySelector(\n\
+            document.querySelector(\n\
                 "#inputJslint1"\n\
             ).value = local.jslint.jslintResult.code;\n\
         }\n\
-        local.querySelector(\n\
+        document.querySelector(\n\
             "#outputJslint1"\n\
         ).value = local.jslintResult.errMsg.replace((\n\
             /\\u001b\\[\\d*m/g\n\
@@ -981,7 +993,7 @@ utility2-comment -->\n\
 local.assetsDict["/assets.jslint.js"] = (
     local.assetsDict["/assets.jslint.js"]
     || local.fs.readFileSync(
-        local.__dirname + "/lib.jslint.js",
+        local.path.resolve(local.__dirname + "/lib.jslint.js"),
         "utf8"
     ).replace((
         /^#!\//
@@ -1059,17 +1071,11 @@ local.http.createServer(function (req, res) {
 1. [https://kaizhu256.github.io/node-jslint-lite/build/screenshot.buildCi.browser.%252Ftmp%252Fbuild%252Ftest-report.html.png](https://kaizhu256.github.io/node-jslint-lite/build/screenshot.buildCi.browser.%252Ftmp%252Fbuild%252Ftest-report.html.png)
 [![screenshot](https://kaizhu256.github.io/node-jslint-lite/build/screenshot.buildCi.browser.%252Ftmp%252Fbuild%252Ftest-report.html.png)](https://kaizhu256.github.io/node-jslint-lite/build/screenshot.buildCi.browser.%252Ftmp%252Fbuild%252Ftest-report.html.png)
 
-1. [https://kaizhu256.github.io/node-jslint-lite/build/screenshot.deployGithub.browser.%252Fnode-jslint-lite%252Fbuild%252Fapp%252Fassets.swgg.html.png](https://kaizhu256.github.io/node-jslint-lite/build/screenshot.deployGithub.browser.%252Fnode-jslint-lite%252Fbuild%252Fapp%252Fassets.swgg.html.png)
-[![screenshot](https://kaizhu256.github.io/node-jslint-lite/build/screenshot.deployGithub.browser.%252Fnode-jslint-lite%252Fbuild%252Fapp%252Fassets.swgg.html.png)](https://kaizhu256.github.io/node-jslint-lite/build/screenshot.deployGithub.browser.%252Fnode-jslint-lite%252Fbuild%252Fapp%252Fassets.swgg.html.png)
-
 1. [https://kaizhu256.github.io/node-jslint-lite/build/screenshot.deployGithub.browser.%252Fnode-jslint-lite%252Fbuild%252Fapp.png](https://kaizhu256.github.io/node-jslint-lite/build/screenshot.deployGithub.browser.%252Fnode-jslint-lite%252Fbuild%252Fapp.png)
 [![screenshot](https://kaizhu256.github.io/node-jslint-lite/build/screenshot.deployGithub.browser.%252Fnode-jslint-lite%252Fbuild%252Fapp.png)](https://kaizhu256.github.io/node-jslint-lite/build/screenshot.deployGithub.browser.%252Fnode-jslint-lite%252Fbuild%252Fapp.png)
 
 1. [https://kaizhu256.github.io/node-jslint-lite/build/screenshot.deployGithubTest.browser.%252Fnode-jslint-lite%252Fbuild%252Fapp.png](https://kaizhu256.github.io/node-jslint-lite/build/screenshot.deployGithubTest.browser.%252Fnode-jslint-lite%252Fbuild%252Fapp.png)
 [![screenshot](https://kaizhu256.github.io/node-jslint-lite/build/screenshot.deployGithubTest.browser.%252Fnode-jslint-lite%252Fbuild%252Fapp.png)](https://kaizhu256.github.io/node-jslint-lite/build/screenshot.deployGithubTest.browser.%252Fnode-jslint-lite%252Fbuild%252Fapp.png)
-
-1. [https://kaizhu256.github.io/node-jslint-lite/build/screenshot.deployHeroku.browser.%252Fassets.swgg.html.png](https://kaizhu256.github.io/node-jslint-lite/build/screenshot.deployHeroku.browser.%252Fassets.swgg.html.png)
-[![screenshot](https://kaizhu256.github.io/node-jslint-lite/build/screenshot.deployHeroku.browser.%252Fassets.swgg.html.png)](https://kaizhu256.github.io/node-jslint-lite/build/screenshot.deployHeroku.browser.%252Fassets.swgg.html.png)
 
 1. [https://kaizhu256.github.io/node-jslint-lite/build/screenshot.deployHeroku.browser.%252F.png](https://kaizhu256.github.io/node-jslint-lite/build/screenshot.deployHeroku.browser.%252F.png)
 [![screenshot](https://kaizhu256.github.io/node-jslint-lite/build/screenshot.deployHeroku.browser.%252F.png)](https://kaizhu256.github.io/node-jslint-lite/build/screenshot.deployHeroku.browser.%252F.png)
@@ -1095,7 +1101,7 @@ local.http.createServer(function (req, res) {
     "bin": {
         "jslint-lite": "lib.jslint.js"
     },
-    "description": "this zero-dependency package will provide browser-compatible versions of jslint (v2020.1.17) and csslint (v2018.2.25), with a working web-demo",
+    "description": "this zero-dependency package will provide browser-compatible versions of jslint (v2020.3.28) and csslint (v2018.2.25), with a working web-demo",
     "devDependencies": {
         "utility2": "kaizhu256/node-utility2#alpha"
     },
@@ -1111,7 +1117,7 @@ local.http.createServer(function (req, res) {
     "license": "MIT",
     "main": "lib.jslint.js",
     "name": "jslint-lite",
-    "nameAliasPublish": "csslint-lite",
+    "nameAliasPublish": "csslint-lite kslint",
     "nameLib": "jslint",
     "nameOriginal": "jslint-lite",
     "os": [
@@ -1132,7 +1138,7 @@ local.http.createServer(function (req, res) {
         "test": "./npm_scripts.sh",
         "utility2": "./npm_scripts.sh"
     },
-    "version": "2020.5.20"
+    "version": "2020.5.31"
 }
 ```
 
