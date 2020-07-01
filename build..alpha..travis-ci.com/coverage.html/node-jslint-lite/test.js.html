@@ -302,11 +302,11 @@
         </td>
         <td>
             100%<br>
-            (108 / 108)
+            (113 / 113)
         </td>
         <td>
             100%<br>
-            (59 / 59)
+            (61 / 61)
         </td>
         <td>
             100%<br>
@@ -314,7 +314,7 @@
         </td>
         <td>
             100%<br>
-            (108 / 108)
+            (113 / 113)
         </td>
     </tbody>
     </table>
@@ -880,6 +880,25 @@
 <a href="#l555" id="l555">555</a>
 <a href="#l556" id="l556">556</a>
 <a href="#l557" id="l557">557</a>
+<a href="#l558" id="l558">558</a>
+<a href="#l559" id="l559">559</a>
+<a href="#l560" id="l560">560</a>
+<a href="#l561" id="l561">561</a>
+<a href="#l562" id="l562">562</a>
+<a href="#l563" id="l563">563</a>
+<a href="#l564" id="l564">564</a>
+<a href="#l565" id="l565">565</a>
+<a href="#l566" id="l566">566</a>
+<a href="#l567" id="l567">567</a>
+<a href="#l568" id="l568">568</a>
+<a href="#l569" id="l569">569</a>
+<a href="#l570" id="l570">570</a>
+<a href="#l571" id="l571">571</a>
+<a href="#l572" id="l572">572</a>
+<a href="#l573" id="l573">573</a>
+<a href="#l574" id="l574">574</a>
+<a href="#l575" id="l575">575</a>
+<a href="#l576" id="l576">576</a>
 </td>
         <td class="line-coverage"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1074,6 +1093,20 @@
 <span class="cline-any cline-yes">2</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2</span>
@@ -1295,7 +1328,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">142</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">152</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2</span>
@@ -1634,6 +1672,20 @@ local.testCase_jslint0_coverage = function (opt, onError) {
 /*
  * this function will test jslintAndPrint's coverage handling-behavior
  */
+    // jslint self
+    if (!local.isBrowser) {
+        local.jslint0(require("fs").readFileSync(__filename, "utf8"));
+        local.jslint0(require("fs").readFileSync("lib.jslint.js", "utf8"));
+        local.jslint0(require("fs").readFileSync(
+            "lib.jslint.js",
+            "utf8"
+        ).replace((
+            /[\S\s]*?\n\/\/\u0020jslint\.js/
+        ), "").replace((
+            /\n\/\*\u0020jslint\u0020ignore:end\u0020\*\/\n[\S\s]*/
+        ), ""));
+        local.jslint0(require("fs").readFileSync("package.json", "utf8"));
+    }
     // test option handling-behavior
     local.jslint0([
         // source
@@ -1783,8 +1835,8 @@ local.testCase_jslint0_coverage = function (opt, onError) {
         "((1));",
         "/_/;",
         ";;",
-        "`${/[`]/}`",
         "Function;",
+        "`${/[`]/}`",
         "aa/=2;",
         "aa=/_//;",
         "aa=/_/z;",
@@ -1793,8 +1845,13 @@ local.testCase_jslint0_coverage = function (opt, onError) {
         "ignore;",
         "this;",
         "yield /_/;",
-        "{//aa\n}",
+        "{//\n}",
         "{\"\\u{1234}\":1}",
+        "{\"aa\":",
+        "{\"aa\":'aa'}",
+        "{\"aa\":-0x0}",
+        "{\"aa\":0x0}",
+        "{\"aa\":{1:2}}",
         // unexpected_a_after_b: "Unexpected '{a}' after '{b}'.",
         // unexpected_a_before_b: "Unexpected '{a}' before '{b}'.",
         "aa=/=/;",

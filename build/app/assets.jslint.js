@@ -12992,6 +12992,10 @@ function json_value() {
         negative.arity = "unary";
         advance("-");
         advance("(number)");
+        // jslint-hack lint negative-number
+        if (!rx_JSON_number.test(token.value)) {
+            warn("unexpected_a");
+        }
         negative.expression = token;
         return negative;
     }
@@ -14906,9 +14910,6 @@ stmt("switch", function () {
             )
             || lines[aa.line] < lines[bb.line]
         )) {
-            the_cases.map(function (elem) {
-                return elem.expression[0];
-            });
             warn_at(
                 "Unsorted case-statements.",
                 the_cases[ii].expression[0].line,

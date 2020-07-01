@@ -1019,21 +1019,22 @@ cliDict._version = cliDict._version || function () {
         // expected_a_at_b_c: &quot;Expected &apos;{a}&apos; at column {b}, not column {c}.&quot;,
         case &quot;expected_a_at_b_c&quo...</pre></li>
     <li>example use<pre class="apidocCodePre">...
-// run shared js-env code - function
 (function () {
 local.testCase_jslint0_coverage = function (opt, onError) {
 /*
 * this function will test jslintAndPrint&apos;s coverage handling-behavior
 */
-   // test option handling-behavior
-   local.<span class="apidocCodeKeywordSpan">jslint0</span>([
-       // source
-       &quot;&quot;
-   ], {
-       // option
-       bitwise: true,
-       browser: true,
-       convert: true,
+   // jslint self
+   if (!local.isBrowser) {
+       local.<span class="apidocCodeKeywordSpan">jslint0</span>(require(&quot;fs&quot;).readFileSync(__filename, &quot;utf8&quot
+;));
+       local.jslint0(require(&quot;fs&quot;).readFileSync(&quot;lib.jslint.js&quot;, &quot;utf8&quot;));
+       local.jslint0(require(&quot;fs&quot;).readFileSync(
+           &quot;lib.jslint.js&quot;,
+           &quot;utf8&quot;
+       ).replace((
+           /[\S\s]*?\n\/\/\u0020jslint\.js/
+       ), &quot;&quot;).replace((
 ...</pre></li>
     </ul>
 

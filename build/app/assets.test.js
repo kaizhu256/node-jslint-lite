@@ -192,6 +192,20 @@ local.testCase_jslint0_coverage = function (opt, onError) {
 /*
  * this function will test jslintAndPrint's coverage handling-behavior
  */
+    // jslint self
+    if (!local.isBrowser) {
+        local.jslint0(require("fs").readFileSync(__filename, "utf8"));
+        local.jslint0(require("fs").readFileSync("lib.jslint.js", "utf8"));
+        local.jslint0(require("fs").readFileSync(
+            "lib.jslint.js",
+            "utf8"
+        ).replace((
+            /[\S\s]*?\n\/\/\u0020jslint\.js/
+        ), "").replace((
+            /\n\/\*\u0020jslint\u0020ignore:end\u0020\*\/\n[\S\s]*/
+        ), ""));
+        local.jslint0(require("fs").readFileSync("package.json", "utf8"));
+    }
     // test option handling-behavior
     local.jslint0([
         // source
@@ -341,8 +355,8 @@ local.testCase_jslint0_coverage = function (opt, onError) {
         "((1));",
         "/_/;",
         ";;",
-        "`${/[`]/}`",
         "Function;",
+        "`${/[`]/}`",
         "aa/=2;",
         "aa=/_//;",
         "aa=/_/z;",
@@ -351,8 +365,13 @@ local.testCase_jslint0_coverage = function (opt, onError) {
         "ignore;",
         "this;",
         "yield /_/;",
-        "{//aa\n}",
+        "{//\n}",
         "{\"\\u{1234}\":1}",
+        "{\"aa\":",
+        "{\"aa\":'aa'}",
+        "{\"aa\":-0x0}",
+        "{\"aa\":0x0}",
+        "{\"aa\":{1:2}}",
         // unexpected_a_after_b: "Unexpected '{a}' after '{b}'.",
         // unexpected_a_before_b: "Unexpected '{a}' before '{b}'.",
         "aa=/=/;",

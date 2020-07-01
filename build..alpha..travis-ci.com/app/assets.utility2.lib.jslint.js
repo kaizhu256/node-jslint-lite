@@ -14906,9 +14906,6 @@ stmt("switch", function () {
             )
             || lines[aa.line] < lines[bb.line]
         )) {
-            the_cases.map(function (elem) {
-                return elem.expression[0];
-            });
             warn_at(
                 "Unsorted case-statements.",
                 the_cases[ii].expression[0].line,
