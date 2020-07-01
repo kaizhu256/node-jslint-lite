@@ -1029,6 +1029,8 @@
 <a href="#l704" id="l704">704</a>
 <a href="#l705" id="l705">705</a>
 <a href="#l706" id="l706">706</a>
+<a href="#l707" id="l707">707</a>
+<a href="#l708" id="l708">708</a>
 </td>
         <td class="line-coverage"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1589,11 +1591,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">348</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">352</span>
 <span class="cline-any cline-yes">170</span>
 <span class="cline-any cline-yes">170</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">178</span>
+<span class="cline-any cline-yes">182</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -2061,6 +2065,8 @@ local.testCase_jslint0_err = function (opt, onError) {
         "`${`",
         "aa=/[ ]/;",
         "isFinite(1);",
+        "let aa=(aa?1:aa);",
+        "let aa=(aa?aa:1);",
         // expected_a_b_from_c_d:
         // "Expected '{a}' to match '{b}' from line {c} and instead saw '{d}'."
         "__expected_a_b_from_c_d__",

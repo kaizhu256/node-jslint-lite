@@ -1,9 +1,9 @@
-<svg height="1822" width="720" xmlns="http://www.w3.org/2000/svg">
-<rect height="1822" fill="#555" width="720"></rect>
+<svg height="1694" width="720" xmlns="http://www.w3.org/2000/svg">
+<rect height="1694" fill="#555" width="720"></rect>
 <text fill="#7f7" font-family="Courier New" font-size="12" xml:space="preserve">
 <tspan x="10" y="26"></tspan>
 
-<tspan x="10" y="42">\x1b[35m[MODE_BUILD=npmTestPublished]\x1b[0m - 2020-07-01T21:33:28.525Z - npm-testing /tmp/npmTe\</tspan>
+<tspan x="10" y="42">\x1b[35m[MODE_BUILD=npmTestPublished]\x1b[0m - 2020-07-01T21:41:42.943Z - npm-testing /tmp/npmTe\</tspan>
 <tspan x="10" y="58">stPublished/node_modules/jslint-lite</tspan>
 
 <tspan x="10" y="74"></tspan>
@@ -15,187 +15,175 @@
 
 <tspan x="10" y="138">&gt; jslint - 4ms - /tmp/npmTestPublished/node_modules/jslint-lite/README.md</tspan>
 
-<tspan x="10" y="154">jslint - 11ms - /tmp/npmTestPublished/node_modules/jslint-lite/npm_scripts.sh</tspan>
+<tspan x="10" y="154">jslint - 10ms - /tmp/npmTestPublished/node_modules/jslint-lite/npm_scripts.sh</tspan>
 
-<tspan x="10" y="170">jslint - 19ms - /tmp/npmTestPublished/node_modules/jslint-lite/package.json</tspan>
+<tspan x="10" y="170">jslint - 17ms - /tmp/npmTestPublished/node_modules/jslint-lite/package.json</tspan>
 
-<tspan x="10" y="186">jslint - 40ms - /tmp/npmTestPublished/node_modules/jslint-lite/test.js</tspan>
+<tspan x="10" y="186">jslint - 38ms - /tmp/npmTestPublished/node_modules/jslint-lite/test.js</tspan>
 
-<tspan x="10" y="202">jslint - 249ms - /tmp/npmTestPublished/node_modules/jslint-lite/lib.jslint.js</tspan>
+<tspan x="10" y="202">jslint - 256ms - /tmp/npmTestPublished/node_modules/jslint-lite/lib.jslint.js</tspan>
 
-<tspan x="10" y="218">http-server listening on port 61351</tspan>
+<tspan x="10" y="218">http-server listening on port 38622</tspan>
 
-<tspan x="10" y="234">testRunDefault - 176 ms - [node test-case 1 of 5 passed] - testCase_jslintAndPrint_default</tspan>
+<tspan x="10" y="234">testRunDefault - 184 ms - [node test-case 1 of 5 passed] - testCase_jslintAndPrint_default</tspan>
 
-<tspan x="10" y="250">testRunDefault - 176 ms - [node test-case 2 of 5 passed] - testCase_nop_default</tspan>
+<tspan x="10" y="250">testRunDefault - 184 ms - [node test-case 2 of 5 passed] - testCase_nop_default</tspan>
 
-<tspan x="10" y="266">testRunDefault - 209 ms - [node test-case 3 of 5 passed] - testCase_buildApidoc_default</tspan>
+<tspan x="10" y="266">testRunDefault - 221 ms - [node test-case 3 of 5 passed] - testCase_buildApidoc_default</tspan>
 
-<tspan x="10" y="282">jslint - 5ms - /tmp/npmTestPublished/node_modules/jslint-lite/tmp/build/app/assets.example.html</tspan>
+<tspan x="10" y="282"></tspan>
 
-<tspan x="10" y="298">jslint - 11ms - /tmp/npmTestPublished/node_modules/jslint-lite/tmp/build/app/assets.example.js</tspan>
+<tspan x="10" y="298">DevTools listening on ws://127.0.0.1:40625/devtools/browser/dafa75d3-7518-4bea-8e36-355b5be1cd08</tspan>
 
-<tspan x="10" y="314">jslint - 12ms - /tmp/npmTestPublished/node_modules/jslint-lite/tmp/build/app/assets.jslint.css</tspan>
+<tspan x="10" y="314">jslint - 8ms - /tmp/npmTestPublished/node_modules/jslint-lite/tmp/build/app/assets.example.html</tspan>
 
-<tspan x="10" y="330">jslint - 13ms - /tmp/npmTestPublished/node_modules/jslint-lite/tmp/build/app/assets.jslint.html</tspan>
+<tspan x="10" y="330">jslint - 51ms - /tmp/npmTestPublished/node_modules/jslint-lite/tmp/build/app/assets.example.js</tspan>
 
-<tspan x="10" y="346">jslint - 14ms - /tmp/npmTestPublished/node_modules/jslint-lite/tmp/build/app/assets.test.js</tspan>
+<tspan x="10" y="346">jslint - 51ms - /tmp/npmTestPublished/node_modules/jslint-lite/tmp/build/app/assets.jslint.css</tspan>
 
-<tspan x="10" y="362">jslint - 17ms - /tmp/npmTestPublished/node_modules/jslint-lite/tmp/build/app/assets.utility2.htm\</tspan>
-<tspan x="10" y="378">l</tspan>
+<tspan x="10" y="362">jslint - 65ms - /tmp/npmTestPublished/node_modules/jslint-lite/tmp/build/app/assets.jslint.html</tspan>
 
-<tspan x="10" y="394">jslint - 18ms - /tmp/npmTestPublished/node_modules/jslint-lite/tmp/build/app/index.html</tspan>
+<tspan x="10" y="378">jslint - 69ms - /tmp/npmTestPublished/node_modules/jslint-lite/tmp/build/app/assets.test.js</tspan>
 
-<tspan x="10" y="410">jslint - 19ms - /tmp/npmTestPublished/node_modules/jslint-lite/tmp/build/app/utility2.state.init\</tspan>
-<tspan x="10" y="426">.js</tspan>
+<tspan x="10" y="394">jslint - 81ms - /tmp/npmTestPublished/node_modules/jslint-lite/tmp/build/app/assets.utility2.htm\</tspan>
+<tspan x="10" y="410">l</tspan>
 
-<tspan x="10" y="442"></tspan>
+<tspan x="10" y="426">jslint - 82ms - /tmp/npmTestPublished/node_modules/jslint-lite/tmp/build/app/index.html</tspan>
 
-<tspan x="10" y="458">DevTools listening on ws://127.0.0.1:45657/devtools/browser/aa57a2a3-5d8b-408e-a79a-17b0a590ee90</tspan>
+<tspan x="10" y="442">jslint - 89ms - /tmp/npmTestPublished/node_modules/jslint-lite/tmp/build/app/utility2.state.init\</tspan>
+<tspan x="10" y="458">.js</tspan>
 
-<tspan x="10" y="474">[0701/213331.333542:ERROR:command_buffer_proxy_impl.cc(122)] ContextResult::kTransientFailure: F\</tspan>
-<tspan x="10" y="490">ailed to send GpuChannelMsg_CreateCommandBuffer.</tspan>
+<tspan x="10" y="474">[0701/214145.952023:WARNING:ipc_message_attachment_set.cc(49)] MessageAttachmentSet destroyed wi\</tspan>
+<tspan x="10" y="490">th unconsumed attachments: 0/1</tspan>
 
-<tspan x="10" y="506">[0701/213331.372792:WARNING:ipc_message_attachment_set.cc(49)] MessageAttachmentSet destroyed wi\</tspan>
-<tspan x="10" y="522">th unconsumed attachments: 0/1</tspan>
+<tspan x="10" y="506">jslint - 390ms - /tmp/npmTestPublished/node_modules/jslint-lite/tmp/build/app/assets.utility2.li\</tspan>
+<tspan x="10" y="522">b.jslint.js</tspan>
 
-<tspan x="10" y="538">[0701/213331.375065:WARNING:ipc_message_attachment_set.cc(49)] MessageAttachmentSet destroyed wi\</tspan>
-<tspan x="10" y="554">th unconsumed attachments: 0/1</tspan>
+<tspan x="10" y="538">jslint - 434ms - /tmp/npmTestPublished/node_modules/jslint-lite/tmp/build/app/assets.jslint.js</tspan>
 
-<tspan x="10" y="570">[0701/213331.375940:ERROR:command_buffer_proxy_impl.cc(122)] ContextResult::kTransientFailure: F\</tspan>
-<tspan x="10" y="586">ailed to send GpuChannelMsg_CreateCommandBuffer.</tspan>
+<tspan x="10" y="554">&gt; http-server listening on port 64763</tspan>
 
-<tspan x="10" y="602">[0701/213331.377073:WARNING:ipc_message_attachment_set.cc(49)] MessageAttachmentSet destroyed wi\</tspan>
-<tspan x="10" y="618">th unconsumed attachments: 0/1</tspan>
+<tspan x="10" y="570">[0701/214146.704709:INFO:CONSOLE(9)] "jslint inputCsslint1.css</tspan>
 
-<tspan x="10" y="634">jslint - 326ms - /tmp/npmTestPublished/node_modules/jslint-lite/tmp/build/app/assets.utility2.li\</tspan>
-<tspan x="10" y="650">b.jslint.js</tspan>
+<tspan x="10" y="586">  1 warning - zero-units - Values of 0 shouldn't have units specified.</tspan>
 
-<tspan x="10" y="666">jslint - 368ms - /tmp/npmTestPublished/node_modules/jslint-lite/tmp/build/app/assets.jslint.js</tspan>
+<tspan x="10" y="602">    You don't need to specify units when a value is 0. // line 6, column 13</tspan>
 
-<tspan x="10" y="682">&gt; http-server listening on port 59378</tspan>
+<tspan x="10" y="618">    margin: 0px;", source: http://127.0.0.1:38622/assets.example.js (9)</tspan>
 
-<tspan x="10" y="698">[0701/213332.248776:INFO:CONSOLE(9)] "jslint inputCsslint1.css</tspan>
+<tspan x="10" y="634">[0701/214146.725628:INFO:CONSOLE(9)] "jslint inputJslint1.js</tspan>
 
-<tspan x="10" y="714">  1 warning - zero-units - Values of 0 shouldn't have units specified.</tspan>
+<tspan x="10" y="650">  1 Undeclared 'console'. // line 5, column 1</tspan>
 
-<tspan x="10" y="730">    You don't need to specify units when a value is 0. // line 6, column 13</tspan>
+<tspan x="10" y="666">    console.log(message);</tspan>
 
-<tspan x="10" y="746">    margin: 0px;", source: http://127.0.0.1:61351/assets.example.js (9)</tspan>
+<tspan x="10" y="682">  2 Undeclared 'console'. // line 6, column 1</tspan>
 
-<tspan x="10" y="762">[0701/213332.276191:INFO:CONSOLE(9)] "jslint inputJslint1.js</tspan>
+<tspan x="10" y="698">    console.log(null);", source: http://127.0.0.1:38622/assets.example.js (9)</tspan>
 
-<tspan x="10" y="778">  1 Undeclared 'console'. // line 5, column 1</tspan>
+<tspan x="10" y="714">[0701/214147.009749:INFO:CONSOLE(9)] "testRunDefault - 263 ms - [browser test-case 1 of 2 passed\</tspan>
+<tspan x="10" y="730">] - testCase_jslintAndPrint_default", source: http://127.0.0.1:38622/assets.example.js (9)</tspan>
 
-<tspan x="10" y="794">    console.log(message);</tspan>
+<tspan x="10" y="746">[0701/214147.023767:INFO:CONSOLE(9)] "testRunDefault - 278 ms - [browser test-case 2 of 2 passed\</tspan>
+<tspan x="10" y="762">] - testCase_nop_default", source: http://127.0.0.1:38622/assets.example.js (9)</tspan>
 
-<tspan x="10" y="810">  2 Undeclared 'console'. // line 6, column 1</tspan>
+<tspan x="10" y="778">[0701/214147.093380:INFO:CONSOLE(9)] "domOnEventWindowOnloadTimeElapsed = 839", source: http://1\</tspan>
+<tspan x="10" y="794">27.0.0.1:38622/assets.example.js (9)</tspan>
 
-<tspan x="10" y="826">    console.log(null);", source: http://127.0.0.1:61351/assets.example.js (9)</tspan>
+<tspan x="10" y="810">testRunDefault - 2137 ms - [node test-case 4 of 5 passed] - testCase_webpage_default</tspan>
 
-<tspan x="10" y="842">[0701/213332.464420:INFO:CONSOLE(9)] "testRunDefault - 171 ms - [browser test-case 1 of 2 passed\</tspan>
-<tspan x="10" y="858">] - testCase_jslintAndPrint_default", source: http://127.0.0.1:61351/assets.example.js (9)</tspan>
+<tspan x="10" y="826">testRunDefault - 4976 ms - [node test-case 5 of 5 passed] - testCase_buildApp_default</tspan>
 
-<tspan x="10" y="874">[0701/213332.471473:INFO:CONSOLE(9)] "testRunDefault - 179 ms - [browser test-case 2 of 2 passed\</tspan>
-<tspan x="10" y="890">] - testCase_nop_default", source: http://127.0.0.1:61351/assets.example.js (9)</tspan>
+<tspan x="10" y="842">----------------|---------|---------|---------|---------|</tspan>
 
-<tspan x="10" y="906">[0701/213332.535616:INFO:CONSOLE(9)] "domOnEventWindowOnloadTimeElapsed = 958", source: http://1\</tspan>
-<tspan x="10" y="922">27.0.0.1:61351/assets.example.js (9)</tspan>
+<tspan x="10" y="858">File            | % Stmts | % Brchs | % Funcs | % Lines |</tspan>
 
-<tspan x="10" y="938">testRunDefault - 2105 ms - [node test-case 4 of 5 passed] - testCase_webpage_default</tspan>
+<tspan x="10" y="874">----------------|---------|---------|---------|---------|</tspan>
 
-<tspan x="10" y="954">testRunDefault - 5076 ms - [node test-case 5 of 5 passed] - testCase_buildApp_default</tspan>
+<tspan x="10" y="890">All files       |   96.62 |    96.6 |   97.23 |   96.61 |</tspan>
+
+<tspan x="10" y="906">jslint-lite/    |   96.62 |    96.6 |   97.23 |   96.61 |</tspan>
+
+<tspan x="10" y="922">  example.js    |     100 |     100 |     100 |     100 |</tspan>
+
+<tspan x="10" y="938">  lib.jslint.js |   96.49 |   96.46 |   97.07 |   96.48 |</tspan>
+
+<tspan x="10" y="954">  test.js       |     100 |     100 |     100 |     100 |</tspan>
 
 <tspan x="10" y="970">----------------|---------|---------|---------|---------|</tspan>
 
-<tspan x="10" y="986">File            | % Stmts | % Brchs | % Funcs | % Lines |</tspan>
+<tspan x="10" y="986"></tspan>
 
-<tspan x="10" y="1002">----------------|---------|---------|---------|---------|</tspan>
+<tspan x="10" y="1002">fsWriteFileWithMkdirpSync - /tmp/npmTestPublished/node_modules/jslint-lite/tmp/build/coverage.ht\</tspan>
+<tspan x="10" y="1018">ml/coverage.txt</tspan>
 
-<tspan x="10" y="1018">All files       |   96.62 |    96.6 |   97.23 |   96.61 |</tspan>
+<tspan x="10" y="1034">fsWriteFileWithMkdirpSync - /tmp/npmTestPublished/node_modules/jslint-lite/tmp/build/coverage.ht\</tspan>
+<tspan x="10" y="1050">ml/index.html</tspan>
 
-<tspan x="10" y="1034">jslint-lite/    |   96.62 |    96.6 |   97.23 |   96.61 |</tspan>
+<tspan x="10" y="1066">fsWriteFileWithMkdirpSync - /tmp/npmTestPublished/node_modules/jslint-lite/tmp/build/coverage.ht\</tspan>
+<tspan x="10" y="1082">ml/jslint-lite/index.html</tspan>
 
-<tspan x="10" y="1050">  example.js    |     100 |     100 |     100 |     100 |</tspan>
-
-<tspan x="10" y="1066">  lib.jslint.js |   96.49 |   96.46 |   97.07 |   96.48 |</tspan>
-
-<tspan x="10" y="1082">  test.js       |     100 |     100 |     100 |     100 |</tspan>
-
-<tspan x="10" y="1098">----------------|---------|---------|---------|---------|</tspan>
-
-<tspan x="10" y="1114"></tspan>
+<tspan x="10" y="1098">fsWriteFileWithMkdirpSync - /tmp/npmTestPublished/node_modules/jslint-lite/tmp/build/coverage.ht\</tspan>
+<tspan x="10" y="1114">ml/jslint-lite/example.js.html</tspan>
 
 <tspan x="10" y="1130">fsWriteFileWithMkdirpSync - /tmp/npmTestPublished/node_modules/jslint-lite/tmp/build/coverage.ht\</tspan>
-<tspan x="10" y="1146">ml/coverage.txt</tspan>
+<tspan x="10" y="1146">ml/jslint-lite/lib.jslint.js.html</tspan>
 
 <tspan x="10" y="1162">fsWriteFileWithMkdirpSync - /tmp/npmTestPublished/node_modules/jslint-lite/tmp/build/coverage.ht\</tspan>
-<tspan x="10" y="1178">ml/index.html</tspan>
+<tspan x="10" y="1178">ml/jslint-lite/test.js.html</tspan>
 
 <tspan x="10" y="1194">fsWriteFileWithMkdirpSync - /tmp/npmTestPublished/node_modules/jslint-lite/tmp/build/coverage.ht\</tspan>
-<tspan x="10" y="1210">ml/jslint-lite/index.html</tspan>
+<tspan x="10" y="1210">ml/coverage.all.html</tspan>
 
 <tspan x="10" y="1226">fsWriteFileWithMkdirpSync - /tmp/npmTestPublished/node_modules/jslint-lite/tmp/build/coverage.ht\</tspan>
-<tspan x="10" y="1242">ml/jslint-lite/example.js.html</tspan>
+<tspan x="10" y="1242">ml/coverage.json</tspan>
 
 <tspan x="10" y="1258">fsWriteFileWithMkdirpSync - /tmp/npmTestPublished/node_modules/jslint-lite/tmp/build/coverage.ht\</tspan>
-<tspan x="10" y="1274">ml/jslint-lite/lib.jslint.js.html</tspan>
+<tspan x="10" y="1274">ml/coverage.include.json</tspan>
 
-<tspan x="10" y="1290">fsWriteFileWithMkdirpSync - /tmp/npmTestPublished/node_modules/jslint-lite/tmp/build/coverage.ht\</tspan>
-<tspan x="10" y="1306">ml/jslint-lite/test.js.html</tspan>
+<tspan x="10" y="1290">fsWriteFileWithMkdirpSync - /tmp/npmTestPublished/node_modules/jslint-lite/tmp/build/coverage.ba\</tspan>
+<tspan x="10" y="1306">dge.svg</tspan>
 
-<tspan x="10" y="1322">fsWriteFileWithMkdirpSync - /tmp/npmTestPublished/node_modules/jslint-lite/tmp/build/coverage.ht\</tspan>
-<tspan x="10" y="1338">ml/coverage.all.html</tspan>
+<tspan x="10" y="1322">istanbul - created coverage file /tmp/npmTestPublished/node_modules/jslint-lite/tmp/build/covera\</tspan>
+<tspan x="10" y="1338">ge.html/index.html</tspan>
 
-<tspan x="10" y="1354">fsWriteFileWithMkdirpSync - /tmp/npmTestPublished/node_modules/jslint-lite/tmp/build/coverage.ht\</tspan>
-<tspan x="10" y="1370">ml/coverage.json</tspan>
+<tspan x="10" y="1354"></tspan>
 
-<tspan x="10" y="1386">fsWriteFileWithMkdirpSync - /tmp/npmTestPublished/node_modules/jslint-lite/tmp/build/coverage.ht\</tspan>
-<tspan x="10" y="1402">ml/coverage.include.json</tspan>
+<tspan x="10" y="1370">-------------------------------------------------------</tspan>
 
-<tspan x="10" y="1418">fsWriteFileWithMkdirpSync - /tmp/npmTestPublished/node_modules/jslint-lite/tmp/build/coverage.ba\</tspan>
-<tspan x="10" y="1434">dge.svg</tspan>
+<tspan x="10" y="1386">| test-report - npmTestPublished - browser - / - Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537\</tspan>
+<tspan x="10" y="1402">.36 (KHTML, like Gecko) HeadlessChrome/83.0.4103.116 Safari/537.36 - 2020-07-01T21:41:46.420Z</tspan>
 
-<tspan x="10" y="1450">istanbul - created coverage file /tmp/npmTestPublished/node_modules/jslint-lite/tmp/build/covera\</tspan>
-<tspan x="10" y="1466">ge.html/index.html</tspan>
+<tspan x="10" y="1418">|     287 ms            0 failed        2 passed      |</tspan>
 
-<tspan x="10" y="1482"></tspan>
+<tspan x="10" y="1434">-------------------------------------------------------</tspan>
 
-<tspan x="10" y="1498">-------------------------------------------------------</tspan>
+<tspan x="10" y="1450">| test-report - npmTestPublished - node - linux v14.5.0 - 2020-07-01T21:41:43.086Z</tspan>
 
-<tspan x="10" y="1514">| test-report - npmTestPublished - browser - / - Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537\</tspan>
-<tspan x="10" y="1530">.36 (KHTML, like Gecko) HeadlessChrome/83.0.4103.116 Safari/537.36 - 2020-07-01T21:33:31.675Z</tspan>
+<tspan x="10" y="1466">|    4977 ms            0 failed        5 passed      |</tspan>
 
-<tspan x="10" y="1546">|     180 ms            0 failed        2 passed      |</tspan>
+<tspan x="10" y="1482">-------------------------------------------------------</tspan>
 
-<tspan x="10" y="1562">-------------------------------------------------------</tspan>
+<tspan x="10" y="1498"></tspan>
 
-<tspan x="10" y="1578">| test-report - npmTestPublished - node - linux v14.5.0 - 2020-07-01T21:33:28.657Z</tspan>
+<tspan x="10" y="1514">fsWriteFileWithMkdirpSync - /tmp/npmTestPublished/node_modules/jslint-lite/tmp/build/test-report\</tspan>
+<tspan x="10" y="1530">.html</tspan>
 
-<tspan x="10" y="1594">|    5076 ms            0 failed        5 passed      |</tspan>
+<tspan x="10" y="1546">fsWriteFileWithMkdirpSync - /tmp/npmTestPublished/node_modules/jslint-lite/tmp/build/build.badge\</tspan>
+<tspan x="10" y="1562">.svg</tspan>
 
-<tspan x="10" y="1610">-------------------------------------------------------</tspan>
+<tspan x="10" y="1578">fsWriteFileWithMkdirpSync - /tmp/npmTestPublished/node_modules/jslint-lite/tmp/build/test-report\</tspan>
+<tspan x="10" y="1594">.badge.svg</tspan>
 
-<tspan x="10" y="1626"></tspan>
+<tspan x="10" y="1610"></tspan>
 
-<tspan x="10" y="1642">fsWriteFileWithMkdirpSync - /tmp/npmTestPublished/node_modules/jslint-lite/tmp/build/test-report\</tspan>
-<tspan x="10" y="1658">.html</tspan>
+<tspan x="10" y="1626">npmTestPublished - 0 failed tests</tspan>
 
-<tspan x="10" y="1674">fsWriteFileWithMkdirpSync - /tmp/npmTestPublished/node_modules/jslint-lite/tmp/build/build.badge\</tspan>
-<tspan x="10" y="1690">.svg</tspan>
+<tspan x="10" y="1642"></tspan>
 
-<tspan x="10" y="1706">fsWriteFileWithMkdirpSync - /tmp/npmTestPublished/node_modules/jslint-lite/tmp/build/test-report\</tspan>
-<tspan x="10" y="1722">.badge.svg</tspan>
+<tspan x="10" y="1658"></tspan>
 
-<tspan x="10" y="1738"></tspan>
-
-<tspan x="10" y="1754">npmTestPublished - 0 failed tests</tspan>
-
-<tspan x="10" y="1770"></tspan>
-
-<tspan x="10" y="1786"></tspan>
-
-<tspan x="10" y="1802">\x1b[35m[MODE_BUILD=npmTestPublished]\x1b[0m - 2020-07-01T21:33:35.997Z - EXIT_CODE - 0</tspan>
+<tspan x="10" y="1674">\x1b[35m[MODE_BUILD=npmTestPublished]\x1b[0m - 2020-07-01T21:41:50.435Z - EXIT_CODE - 0</tspan>
 
 </text>
 </svg>

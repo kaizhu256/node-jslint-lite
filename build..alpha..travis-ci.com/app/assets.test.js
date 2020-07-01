@@ -321,6 +321,8 @@ local.testCase_jslint0_err = function (opt, onError) {
         "`${`",
         "aa=/[ ]/;",
         "isFinite(1);",
+        "let aa=(aa?1:aa);",
+        "let aa=(aa?aa:1);",
         // expected_a_b_from_c_d:
         // "Expected '{a}' to match '{b}' from line {c} and instead saw '{d}'."
         "__expected_a_b_from_c_d__",
