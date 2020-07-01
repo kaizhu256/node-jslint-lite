@@ -16434,6 +16434,7 @@ local.jslint0 = Object.freeze(function (
             ) || (a.line - b.line);
         }),
         // hack-jslint - autofix
+        source,
         source_autofixed: lines_extra.map(function (element, ii) {
             return element.source_autofixed || lines[ii];
         }).join("\n")

@@ -192,7 +192,6 @@ local.testCase_jslint0_coverage = function (opt, onError) {
 /*
  * this function will test jslintAndPrint's coverage handling-behavior
  */
-    let errCode;
     // jslint self
     if (!local.isBrowser) {
         local.jslint0(require("fs").readFileSync(__filename, "utf8"));
@@ -208,7 +207,7 @@ local.testCase_jslint0_coverage = function (opt, onError) {
         local.jslint0(require("fs").readFileSync("package.json", "utf8"));
     }
     // test option handling-behavior
-    local.jslint0([
+    opt = local.jslint0([
         // source
         ""
     ], {
@@ -228,28 +227,58 @@ local.testCase_jslint0_coverage = function (opt, onError) {
         this: true,
         white: true
     });
+    local.assertOrThrow(!opt.warnings.length, opt.source);
+    //!! [
+        //!! //!! // option - utility2
+        //!! //!! "/* jslint utility2:true */\nlet aa;aa=1;",
+        //!! // option - browser
+        //!! "/*jslint browser*/;\n",
+        //!! // option - eval
+        //!! "/*jslint eval*/\nFunction();\neval();\n",
+        //!! // option - node
+        //!! "#!\n/*jslint browser:false, node*/\n\"use strict\";\n",
+        //!! // option - this
+        //!! "/*jslint this*/\nthis;",
+        //!! //!! // option - throw_error
+        //!! //!! "/*jslint throw_error*/",
+        //!! // option - white
+        //!! "/*jslint white*/\n\t",
+        //!! // property
+        //!! "/*property aa bb*/",
+        //!! ""
+    //!! ].forEach(function (src) {
+        //!! opt = local.jslint0(src);
+        //!! local.assertOrThrow(!opt.warnings.length, opt.warnings);
+    //!! });
+    // test misc handling-behavior
     [
-        // option - utility2
-        "/* jslint utility2:true */\nlet aa;aa=1;",
-        // option - browser
-        "/*jslint browser*/;\n",
-        // option - eval
-        "/*jslint eval*/\nFunction();\neval();\n",
-        // option - node
-        "#!\n/*jslint browser:false, node*/\n\"use strict\";\n",
-        // option - this
-        "/*jslint this*/\nthis;",
-        // option - throw_error
-        "/*jslint throw_error*/",
-        // option - white
-        "/*jslint white*/\n\t",
-        // property
-        "/*property aa bb*/",
+        // async/await
+        "async function aa() {\n    await aa();\n}",
+        // fart
+        "function aa() {\n    return () => 1;\n}",
+        // json
+        "{\"aa\":[[],-1,null]}",
+        // label
+        "function aa() {\nbb:\n    while (true) {\n        if (true) {\n"
+        + "            break bb;\n        }\n    }\n}",
+        // module
+        "export default Object.freeze();",
+        "import {aa, bb} from \"aa\";\naa(bb);",
+        "import {} from \"aa\";",
+        "import(\"aa\").then(function () {\n    return;\n});",
         ""
     ].forEach(function (src) {
-        local.jslint0(src);
+        opt = local.jslint0(src);
+        local.assertOrThrow(!opt.warnings.length, src);
     });
-    // test err handling-behavior
+    onError(undefined, opt);
+};
+
+local.testCase_jslint0_err = function (opt, onError) {
+/*
+ * this function will test jslintAndPrint's err handling-behavior
+ */
+    let errCode;
     [
         // and: "The '&&' subexpression should be wrapped in parens.",
         "__and__",
@@ -334,10 +363,11 @@ local.testCase_jslint0_coverage = function (opt, onError) {
         // freeze_exports:
         // "Expected 'Object.freeze('. All export values should be frozen."
         "__freeze_exports__",
-        "export default aa;",
+        "export default Object.aa()",
+        "export function aa(){return;}",
         // function_in_loop: "Don't make functions within a loop.",
         "__function_in_loop__",
-        "function aa(){while (true) {aa.map(function(){});}}",
+        "function aa(){while (true) {aa.map(function(){return;});}}",
         "function aa(){while (true) {aa.map(()=>1);}}",
         // infix_in:
         // "Unexpected 'in'. Compare with undefined, "
@@ -418,6 +448,8 @@ local.testCase_jslint0_coverage = function (opt, onError) {
         "aa=/_/z;",
         "arguments;",
         "eval;",
+        "export aa;",
+        "export const aa=1;",
         "function aa(){try{return;}catch(ignore){}finally{return;}}",
         "function aa(){try{return;}catch(ignore){}finally{switch(1){case 1:}}}",
         "ignore:",
@@ -533,24 +565,6 @@ local.testCase_jslint0_coverage = function (opt, onError) {
             local.jslint0(src).warnings[0].code === errCode || !errCode,
             src
         );
-    });
-    // test misc handling-behavior
-    [
-        // async/await
-        "async function (aa) { await aa(); }",
-        // fart
-        "(aa)=>1;",
-        // json
-        "{\"aa\":[[],-1,null]}",
-        // label
-        "aa:\nwhile(true){}",
-        // module
-        "import {aa,bb} from \"aa\";",
-        "import {} from \"aa\";",
-        "import(\"aa\").then(aa);",
-        ""
-    ].forEach(function (src) {
-        local.jslint0(src);
     });
     onError(undefined, opt);
 };
