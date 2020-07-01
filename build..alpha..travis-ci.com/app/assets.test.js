@@ -291,6 +291,7 @@ local.testCase_jslint0_coverage = function (opt, onError) {
         // expected_four_digits: "Expected four digits after '\\u'.",
         // expected_identifier_a:
         // "Expected an identifier and instead saw '{a}'.",
+        "import {",
         // expected_line_break_a_b:
         // "Expected a line break between '{a}' and '{b}'.",
         // expected_regexp_factor_a:
@@ -299,6 +300,7 @@ local.testCase_jslint0_coverage = function (opt, onError) {
         "/**//**/",
         // expected_statements_a: "Expected statements before '{a}'.",
         // expected_string_a: "Expected a string and instead saw '{a}'.",
+        "import(aa);",
         // expected_type_string_a:
         // "Expected a type string and instead saw '{a}'.",
         // freeze_exports:
@@ -362,7 +364,12 @@ local.testCase_jslint0_coverage = function (opt, onError) {
         "aa=/_/z;",
         "arguments;",
         "eval;",
+        "function aa(){try{return;}catch(ignore){}finally{return;}}",
+        "function aa(){try{return;}catch(ignore){}finally{switch(1){}}}",
+        "ignore:",
         "ignore;",
+        "import ignore from \"aa\";",
+        "import {ignore} from \"aa\";",
         "this;",
         "yield /_/;",
         "{//\n}",
@@ -380,6 +387,7 @@ local.testCase_jslint0_coverage = function (opt, onError) {
         // unexpected_comment: "Unexpected comment.",
         // unexpected_directive_a:
         // "When using modules, don't use directive '/*{a}'.",
+        "/*global aa*/\nimport aa from \"aa\";",
         // unexpected_expression_a:
         // "Unexpected expression '{a}' in statement position."
         "ii++;",
@@ -441,6 +449,12 @@ local.testCase_jslint0_coverage = function (opt, onError) {
         "(aa)=>1;",
         // json
         "{\"aa\":[[],-1,null]}",
+        // label
+        "aa:\nwhile(1){}",
+        // module
+        "import {aa,bb} from \"aa\";",
+        "import {} from \"aa\";",
+        "import(\"aa\").then(aa);",
         ""
     ].forEach(function (src) {
         local.jslint0(src);

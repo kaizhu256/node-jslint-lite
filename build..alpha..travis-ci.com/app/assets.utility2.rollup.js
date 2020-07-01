@@ -26373,6 +26373,10 @@ function json_value() {
         negative.arity = "unary";
         advance("-");
         advance("(number)");
+        // jslint-hack lint negative-number
+        if (!rx_JSON_number.test(token.value)) {
+            warn("unexpected_a");
+        }
         negative.expression = token;
         return negative;
     }
@@ -65360,6 +65364,10 @@ function json_value() {\n\
         negative.arity = \"unary\";\n\
         advance(\"-\");\n\
         advance(\"(number)\");\n\
+        // jslint-hack lint negative-number\n\
+        if (!rx_JSON_number.test(token.value)) {\n\
+            warn(\"unexpected_a\");\n\
+        }\n\
         negative.expression = token;\n\
         return negative;\n\
     }\n\
