@@ -439,6 +439,8 @@ local.testCase_jslint0_coverage = function (opt, onError) {
         "async function (aa) { await aa(); }",
         // fart
         "(aa)=>1;",
+        // json
+        "{\"aa\":[[],-1,null]}",
         ""
     ].forEach(function (src) {
         local.jslint0(src);

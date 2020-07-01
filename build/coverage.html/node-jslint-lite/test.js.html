@@ -899,6 +899,8 @@
 <a href="#l574" id="l574">574</a>
 <a href="#l575" id="l575">575</a>
 <a href="#l576" id="l576">576</a>
+<a href="#l577" id="l577">577</a>
+<a href="#l578" id="l578">578</a>
 </td>
         <td class="line-coverage"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1343,7 +1345,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1919,6 +1923,8 @@ local.testCase_jslint0_coverage = function (opt, onError) {
         "async function (aa) { await aa(); }",
         // fart
         "(aa)=&gt;1;",
+        // json
+        "{\"aa\":[[],-1,null]}",
         ""
     ].forEach(function (src) {
         local.jslint0(src);
