@@ -218,8 +218,12 @@ local.testCase_jslint0_coverage = function (opt, onError) {
         "/* jslint utility2:true */\nlet aa;aa=1;",
         // option - browser
         "/*jslint browser*/;\n",
+        // option - eval
+        "/*jslint eval*/\nFunction();\neval();\n",
         // option - node
         "#!\n/*jslint browser:false, node*/\n\"use strict\";\n",
+        // option - this
+        "/*jslint this*/\nthis;",
         // option - throw_error
         "/*jslint throw_error*/",
         // option - white
@@ -261,6 +265,7 @@ local.testCase_jslint0_coverage = function (opt, onError) {
         ";{;",
         "`${`",
         "aa=/[ ]/;",
+        "isFinite(1);",
         // expected_a_b_from_c_d:
         // "Expected '{a}' to match '{b}' from line {c} and instead saw '{d}'."
         "{\"aa\":1",
@@ -307,7 +312,7 @@ local.testCase_jslint0_coverage = function (opt, onError) {
         "/* /* aa */",
         // not_label_a: "'{a}' is not a label.",
         // number_isNaN: "Use Number.isNaN function to compare with NaN.",
-        "isNan(1);",
+        "isNaN(1);",
         // out_of_scope_a: "'{a}' is out of scope.",
         // redefinition_a_b: "Redefinition of '{a}' from line {b}.",
         "let aa; let aa;",
@@ -343,6 +348,8 @@ local.testCase_jslint0_coverage = function (opt, onError) {
         "aa=/_/z;",
         "arguments;",
         "eval;",
+        "ignore;",
+        "this;",
         "yield /_/;",
         "{//aa\n}",
         "{\"\\u{1234}\":1}",

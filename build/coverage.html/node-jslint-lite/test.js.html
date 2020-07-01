@@ -873,6 +873,13 @@
 <a href="#l548" id="l548">548</a>
 <a href="#l549" id="l549">549</a>
 <a href="#l550" id="l550">550</a>
+<a href="#l551" id="l551">551</a>
+<a href="#l552" id="l552">552</a>
+<a href="#l553" id="l553">553</a>
+<a href="#l554" id="l554">554</a>
+<a href="#l555" id="l555">555</a>
+<a href="#l556" id="l556">556</a>
+<a href="#l557" id="l557">557</a>
 </td>
         <td class="line-coverage"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1104,7 +1111,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">14</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">18</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2</span>
@@ -1281,7 +1292,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">136</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">142</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2</span>
@@ -1646,8 +1660,12 @@ local.testCase_jslint0_coverage = function (opt, onError) {
         "/* jslint utility2:true */\nlet aa;aa=1;",
         // option - browser
         "/*jslint browser*/;\n",
+        // option - eval
+        "/*jslint eval*/\nFunction();\neval();\n",
         // option - node
         "#!\n/*jslint browser:false, node*/\n\"use strict\";\n",
+        // option - this
+        "/*jslint this*/\nthis;",
         // option - throw_error
         "/*jslint throw_error*/",
         // option - white
@@ -1689,6 +1707,7 @@ local.testCase_jslint0_coverage = function (opt, onError) {
         ";{;",
         "`${`",
         "aa=/[ ]/;",
+        "isFinite(1);",
         // expected_a_b_from_c_d:
         // "Expected '{a}' to match '{b}' from line {c} and instead saw '{d}'."
         "{\"aa\":1",
@@ -1735,7 +1754,7 @@ local.testCase_jslint0_coverage = function (opt, onError) {
         "/* /* aa */",
         // not_label_a: "'{a}' is not a label.",
         // number_isNaN: "Use Number.isNaN function to compare with NaN.",
-        "isNan(1);",
+        "isNaN(1);",
         // out_of_scope_a: "'{a}' is out of scope.",
         // redefinition_a_b: "Redefinition of '{a}' from line {b}.",
         "let aa; let aa;",
@@ -1771,6 +1790,8 @@ local.testCase_jslint0_coverage = function (opt, onError) {
         "aa=/_/z;",
         "arguments;",
         "eval;",
+        "ignore;",
+        "this;",
         "yield /_/;",
         "{//aa\n}",
         "{\"\\u{1234}\":1}",
