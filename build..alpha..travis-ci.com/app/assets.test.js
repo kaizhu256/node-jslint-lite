@@ -326,7 +326,7 @@ local.testCase_jslint0_coverage = function (opt, onError) {
         "__expected_statements_a__",
         // expected_string_a: "Expected a string and instead saw '{a}'.",
         "__expected_string_a__",
-        "import(aa);",
+        "import(aa).then(aa);;",
         "typeof 1 === 1;",
         // expected_type_string_a:
         // "Expected a type string and instead saw '{a}'.",
@@ -337,8 +337,8 @@ local.testCase_jslint0_coverage = function (opt, onError) {
         "export default aa;",
         // function_in_loop: "Don't make functions within a loop.",
         "__function_in_loop__",
-        "while(1){function aa(){}}",
-        "while(1){(aa)=>1}",
+        "function aa(){while (true) {aa.map(function(){});}}",
+        "function aa(){while (true) {aa.map(()=>1);}}",
         // infix_in:
         // "Unexpected 'in'. Compare with undefined, "
         // + "or use the hasOwnProperty method instead."
@@ -348,7 +348,7 @@ local.testCase_jslint0_coverage = function (opt, onError) {
         "__label_a__",
         // misplaced_a: "Place '{a}' at the outermost level.",
         "__misplaced_a__",
-        "if(1){import aa from \"aa\";}",
+        "if(true){import aa from \"aa\";}",
         // misplaced_directive_a:
         // "Place the '/*{a}*/' directive before the first statement."
         "__misplaced_directive_a__",
@@ -392,7 +392,7 @@ local.testCase_jslint0_coverage = function (opt, onError) {
         + "/////////////////////////////////////////",
         // too_many_digits: "Too many digits.",
         "__too_many_digits__",
-        "\"\\u{123456\"",
+        "\"\\u{123456}\"",
         // unclosed_comment: "Unclosed comment.",
         "__unclosed_comment__",
         "/*",
@@ -419,7 +419,7 @@ local.testCase_jslint0_coverage = function (opt, onError) {
         "arguments;",
         "eval;",
         "function aa(){try{return;}catch(ignore){}finally{return;}}",
-        "function aa(){try{return;}catch(ignore){}finally{switch(1){}}}",
+        "function aa(){try{return;}catch(ignore){}finally{switch(1){case 1:}}}",
         "ignore:",
         "ignore;",
         "import ignore from \"aa\";",
@@ -430,10 +430,10 @@ local.testCase_jslint0_coverage = function (opt, onError) {
         "{//\n}",
         "{\"\\u{1234}\":1}",
         "{\"aa\":",
-        "{\"aa\":'aa'}",
+        //!! "{\"aa\":'aa'}",
         "{\"aa\":-0x0}",
         "{\"aa\":0x0}",
-        "{\"aa\":{1:2}}",
+        //!! "{\"aa\":{1:2}}",
         // unexpected_a_after_b: "Unexpected '{a}' after '{b}'.",
         "__unexpected_a_after_b__",
         // unexpected_a_before_b: "Unexpected '{a}' before '{b}'.",
@@ -452,7 +452,7 @@ local.testCase_jslint0_coverage = function (opt, onError) {
         // unexpected_expression_a:
         // "Unexpected expression '{a}' in statement position."
         "__unexpected_expression_a__",
-        "ii++;",
+        "let ii;ii++;",
         // unexpected_label_a: "Unexpected label '{a}'.",
         "__unexpected_label_a__",
         "aa:aa;",
@@ -473,7 +473,7 @@ local.testCase_jslint0_coverage = function (opt, onError) {
         "__uninitialized_a__",
         // unreachable_a: "Unreachable '{a}'.",
         "__unreachable_a__",
-        "while(1){break;1;}",
+        "function aa(){while(true){break;1;}}",
         // unregistered_property_a: "Unregistered property name '{a}'.",
         "__unregistered_property_a__",
         // unsafe: "Unsafe character '{a}'.",
@@ -493,19 +493,19 @@ local.testCase_jslint0_coverage = function (opt, onError) {
         "\t",
         // var_loop: "Don't declare variables in a loop.",
         "__var_loop__",
-        "while(1){var aa;}",
+        "function aa(){while(true){var aa;}}",
         // var_switch: "Don't declare variables in a switch.",
         "__var_switch__",
-        "switch(1){case 1:var aa;}",
+        "function aa(){switch(1){case 1:var aa;}}",
         // weird_condition_a: "Weird condition '{a}'.",
         "__weird_condition_a__",
-        "if(1&&1) {}",
-        "if(1||1) {}",
+        "if(1&&1){1;}",
+        "if(1||1){1;}",
         // weird_expression_a: "Weird expression '{a}'.",
         "__weird_expression_a__",
         // weird_loop: "Weird loop.",
-        //!! "__weird_loop__",
-        //!! "while(1){1;}",
+        "__weird_loop__",
+        "function aa(){while(true){break;}}",
         // weird_relation_a: "Weird relation '{a}'.",
         "__weird_relation_a__",
         "if(1===1){1;}",
@@ -528,10 +528,10 @@ local.testCase_jslint0_coverage = function (opt, onError) {
             errCode = src.slice(2, -2);
             return;
         }
-        opt = local.jslint0(src);
-        local.assertOrThrow(opt.warnings.some(function (err) {
-            return err.code === errCode;
-        }), errCode);
+        local.assertOrThrow(
+            local.jslint0(src).warnings[0].code === errCode,
+            src
+        );
     });
     // test misc handling-behavior
     [
@@ -542,7 +542,7 @@ local.testCase_jslint0_coverage = function (opt, onError) {
         // json
         "{\"aa\":[[],-1,null]}",
         // label
-        "aa:\nwhile(1){}",
+        "aa:\nwhile(true){}",
         // module
         "import {aa,bb} from \"aa\";",
         "import {} from \"aa\";",
