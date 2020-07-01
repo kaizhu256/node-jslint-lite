@@ -430,15 +430,15 @@ local.testCase_jslint0_coverage = function (opt, onError) {
         "{//\n}",
         "{\"\\u{1234}\":1}",
         "{\"aa\":",
-        //!! "{\"aa\":'aa'}",
         "{\"aa\":-0x0}",
         "{\"aa\":0x0}",
-        //!! "{\"aa\":{1:2}}",
+        "____",
+        "{\"aa\":'aa'}",
+        "{\"aa\":{1:2}}",
         // unexpected_a_after_b: "Unexpected '{a}' after '{b}'.",
         "__unexpected_a_after_b__",
         // unexpected_a_before_b: "Unexpected '{a}' before '{b}'.",
-        //!! "__unexpected_a_before_b__",
-        //!! "aa=/=/;",
+        "__unexpected_a_before_b__",
         // unexpected_at_top_level_a: "Expected '{a}' to be in a function.",
         "__unexpected_at_top_level_a__",
         // unexpected_char_a: "Unexpected character '{a}'.",
@@ -521,15 +521,16 @@ local.testCase_jslint0_coverage = function (opt, onError) {
         "aa => 1;",
         // wrap_regexp: "Wrap this regexp in parens to avoid confusion.",
         "__wrap_regexp__",
-        "!/_/;"
+        "!/_/;",
         // wrap_unary: "Wrap the unary expression in parens."
+        "__wrap_unary__"
     ].forEach(function (src) {
         if (src.slice(0, 2) === "__") {
             errCode = src.slice(2, -2);
             return;
         }
         local.assertOrThrow(
-            local.jslint0(src).warnings[0].code === errCode,
+            local.jslint0(src).warnings[0].code === errCode || !errCode,
             src
         );
     });
