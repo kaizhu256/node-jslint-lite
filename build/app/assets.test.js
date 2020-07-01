@@ -192,6 +192,7 @@ local.testCase_jslint0_coverage = function (opt, onError) {
 /*
  * this function will test jslintAndPrint's coverage handling-behavior
  */
+    let errCode;
     // jslint self
     if (!local.isBrowser) {
         local.jslint0(require("fs").readFileSync(__filename, "utf8"));
@@ -251,30 +252,44 @@ local.testCase_jslint0_coverage = function (opt, onError) {
     // test err handling-behavior
     [
         // and: "The '&&' subexpression should be wrapped in parens.",
+        "__and__",
         "aa && bb || cc;",
         // bad_assignment_a: "Bad assignment to '{a}'.",
+        "__bad_assignment_a__",
         "1 = 2;",
         // bad_directive_a: "Bad directive '{a}'.",
+        "__bad_directive_a__",
         "/*jslint !*/",
         // bad_get: "A get function takes no parameters.",
+        "____",
         // bad_module_name_a: "Bad module name '{a}'.",
+        "__bad_module_name_a__",
         "import aa from \"!aa\";",
         // bad_option_a: "Bad option '{a}'.",
+        "__bad_option_a__",
         "/*global aa:true*/",
         "/*jslint undefined*/",
         // bad_property_a: "Bad property name '{a}'.",
+        "__bad_property_a__",
         "{\"__proto__\":1}",
         "aa._;",
         // bad_set: "A set function takes one parameter.",
+        "____",
         // duplicate_a: "Duplicate '{a}'.",
+        "__duplicate_a__",
         "{\"aa\":1,\"aa\":2}",
         // empty_block: "Empty block.",
+        "__empty_block__",
         "function aa() {}",
         // escape_mega: "Unexpected escapement in mega literal.",
+        "____",
         // expected_a: "Expected '{a}'.",
+        "__expected_a__",
         "aa=/_{}/;",
         // expected_a_at_b_c: "Expected '{a}' at column {b}, not column {c}.",
+        "____",
         // expected_a_b: "Expected '{a}' and instead saw '{b}'.",
+        "__expected_a_b__",
         "(aa)=>{return 1;}",
         ";{;",
         "`${`",
@@ -282,78 +297,117 @@ local.testCase_jslint0_coverage = function (opt, onError) {
         "isFinite(1);",
         // expected_a_b_from_c_d:
         // "Expected '{a}' to match '{b}' from line {c} and instead saw '{d}'."
+        "__expected_a_b_from_c_d__",
         "{\"aa\":1",
         // expected_a_before_b: "Expected '{a}' before '{b}'.",
+        "__expected_a_before_b__",
         "/*jslint eval*/\nFunction;eval;",
         // expected_a_next_at_b:
         // "Expected '{a}' at column {b} on the next line.",
+        "____",
         // expected_digits_after_a: "Expected digits after '{a}'.",
+        "____",
         // expected_four_digits: "Expected four digits after '\\u'.",
+        "____",
         // expected_identifier_a:
         // "Expected an identifier and instead saw '{a}'.",
+        "__expected_identifier_a__",
         "import {",
         // expected_line_break_a_b:
         // "Expected a line break between '{a}' and '{b}'.",
+        "____",
         // expected_regexp_factor_a:
         // "Expected a regexp factor and instead saw '{a}'.",
+        "____",
         // expected_space_a_b: "Expected one space between '{a}' and '{b}'.",
+        "__expected_space_a_b__",
         "/**//**/",
         // expected_statements_a: "Expected statements before '{a}'.",
+        "____",
         // expected_string_a: "Expected a string and instead saw '{a}'.",
+        "__expected_string_a__",
         "import(aa);",
+        "typeof 1 === 1;",
         // expected_type_string_a:
         // "Expected a type string and instead saw '{a}'.",
+        "____",
         // freeze_exports:
         // "Expected 'Object.freeze('. All export values should be frozen."
+        "__freeze_exports__",
         "export default aa;",
         // function_in_loop: "Don't make functions within a loop.",
+        "__function_in_loop__",
         "while(1){function aa(){}}",
         "while(1){(aa)=>1}",
         // infix_in:
         // "Unexpected 'in'. Compare with undefined, "
         // + "or use the hasOwnProperty method instead."
+        "__infix_in__",
         "aa in bb;",
         // label_a: "'{a}' is a statement label.",
+        "____",
         // misplaced_a: "Place '{a}' at the outermost level.",
+        "__misplaced_a__",
         "if(1){import aa from \"aa\";}",
         // misplaced_directive_a:
+        "__misplaced_directive_a__",
         "let aa;\n/*global aa*/",
         // "Place the '/*{a}*/' directive before the first statement."
         // missing_browser: "/*global*/ requires the Assume a browser option.",
+        "____",
         "/*global aa*/",
         // missing_m: "Expected 'm' flag on a multiline regular expression.",
+        "____",
         "aa=/$^/;",
         // naked_block: "Naked block.",
+        "____",
         // nested_comment: "Nested comment.",
+        "____",
         "/* /* aa */",
         // not_label_a: "'{a}' is not a label.",
+        "____",
         // number_isNaN: "Use Number.isNaN function to compare with NaN.",
+        "____",
+        "NaN===NaN;",
         "isNaN(1);",
         // out_of_scope_a: "'{a}' is out of scope.",
+        "____",
         // redefinition_a_b: "Redefinition of '{a}' from line {b}.",
+        "____",
         "let aa; let aa;",
         // required_a_optional_b:
         // "Required parameter '{a}' after optional parameter '{b}'."
+        "____",
         // reserved_a: "Reserved name '{a}'.",
+        "____",
         "let undefined;",
         // subscript_a: "['{a}'] is better written in dot notation.",
+        "____",
         // todo_comment: "Unexpected TO\u0044O comment.",
+        "____",
         "// todo",
         // too_long: "Line is longer than 80 characters.",
+        "____",
         "/////////////////////////////////////////"
         + "/////////////////////////////////////////",
         // too_many_digits: "Too many digits.",
+        "____",
         "\"\\u{123456\"",
         // unclosed_comment: "Unclosed comment.",
+        "____",
         "/*",
         // unclosed_mega: "Unclosed mega literal.",
+        "____",
         "`aa",
         // unclosed_string: "Unclosed string.",
+        "____",
         "\"\\",
         "\"aa",
         // undeclared_a: "Undeclared '{a}'.",
+        "____",
         "aa;",
         // unexpected_a: "Unexpected '{a}'.",
+        "____",
         "((1));",
         "/_/;",
         ";;",
@@ -371,6 +425,7 @@ local.testCase_jslint0_coverage = function (opt, onError) {
         "import ignore from \"aa\";",
         "import {ignore} from \"aa\";",
         "this;",
+        "void 1;",
         "yield /_/;",
         "{//\n}",
         "{\"\\u{1234}\":1}",
@@ -380,66 +435,105 @@ local.testCase_jslint0_coverage = function (opt, onError) {
         "{\"aa\":0x0}",
         "{\"aa\":{1:2}}",
         // unexpected_a_after_b: "Unexpected '{a}' after '{b}'.",
+        "____",
         // unexpected_a_before_b: "Unexpected '{a}' before '{b}'.",
+        "____",
         "aa=/=/;",
         // unexpected_at_top_level_a: "Expected '{a}' to be in a function.",
+        "____",
         // unexpected_char_a: "Unexpected character '{a}'.",
+        "____",
         // unexpected_comment: "Unexpected comment.",
+        "____",
         // unexpected_directive_a:
         // "When using modules, don't use directive '/*{a}'.",
+        "____",
         "/*global aa*/\nimport aa from \"aa\";",
         // unexpected_expression_a:
         // "Unexpected expression '{a}' in statement position."
+        "____",
         "ii++;",
         // unexpected_label_a: "Unexpected label '{a}'.",
+        "____",
         "aa:aa;",
         // unexpected_parens: "Don't wrap function literals in parens.",
+        "____",
         // unexpected_space_a_b: "Unexpected space between '{a}' and '{b}'.",
+        "____",
         // unexpected_statement_a:
         // "Unexpected statement '{a}' in expression position."
+        "____",
         // unexpected_trailing_space: "Unexpected trailing space.",
+        "____",
         // unexpected_typeof_a:
         // "Unexpected 'typeof'. Use '===' to compare directly with {a}."
+        "____",
         "typeof aa===\"undefined\";",
         // uninitialized_a: "Uninitialized '{a}'.",
+        "____",
         // unreachable_a: "Unreachable '{a}'.",
+        "____",
         "while(1){break;1;}",
         // unregistered_property_a: "Unregistered property name '{a}'.",
+        "____",
         // unsafe: "Unsafe character '{a}'.",
+        "____",
         // unused_a: "Unused '{a}'.",
+        "____",
         // use_double: "Use double quotes, not single quotes.",
+        "____",
         "''",
         // use_open:
         // "Wrap a ternary expression in parens, "
         // + "with a line break after the left paren."
+        "____",
         "1?2:3;",
         // use_spaces: "Use spaces, not tabs.",
+        "____",
         "\t",
         // var_loop: "Don't declare variables in a loop.",
+        "____",
         "while(1){var aa;}",
         // var_switch: "Don't declare variables in a switch.",
+        "____",
         "switch(1){case 1:var aa;}",
         // weird_condition_a: "Weird condition '{a}'.",
+        "____",
         "if(1&&1) {}",
         "if(1||1) {}",
         // weird_expression_a: "Weird expression '{a}'.",
+        "____",
         // weird_loop: "Weird loop.",
+        "____",
         "while(1){1;}",
         // weird_relation_a: "Weird relation '{a}'.",
+        "____",
         "if(1===1){1;}",
         // wrap_condition: "Wrap the condition in parens.",
+        "____",
         // wrap_immediate:
         // "Wrap an immediate function invocation in parentheses to assist "
         // + "the reader in understanding that the expression is the result "
         // + "of a function, and not the function itself."
+        "____",
         // wrap_parameter: "Wrap the parameter in parens.",
+        "____",
         "aa => 1;",
         // wrap_regexp: "Wrap this regexp in parens to avoid confusion.",
+        "____",
         "!/_/;",
         // wrap_unary: "Wrap the unary expression in parens."
+        "____",
         ""
     ].forEach(function (src) {
-        local.jslint0(src);
+        if (src.slice(0, 2) === "__") {
+            errCode = src.slice(2, -2);
+            return;
+        }
+        opt = local.jslint0(src);
+        local.assertOrThrow(!errCode || opt.warnings.some(function (err) {
+            return err.code === errCode;
+        }), errCode);
     });
     // test misc handling-behavior
     [
@@ -504,6 +598,13 @@ local.testCase_jslintAndPrint_coverage = function (opt, onError) {
     local.assertJsonEqual(local.jslintAndPrint(""), "\n");
     // test early_stop handling-behavior
     local.jslintAndPrint("aa = 1\naa = [1,2,]", "aa.js");
+    // test utility2 handling-behavior
+    if (!local.isBrowser) {
+        local.jslintAndPrint(
+            require("utility2").__dirname + "/lib.utility2.js",
+            "lib.utility2.js"
+        );
+    }
     onError(undefined, opt);
 };
 
