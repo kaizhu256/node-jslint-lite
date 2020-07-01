@@ -302,7 +302,7 @@
         </td>
         <td>
             100%<br>
-            (121 / 121)
+            (123 / 123)
         </td>
         <td>
             100%<br>
@@ -310,11 +310,11 @@
         </td>
         <td>
             100%<br>
-            (29 / 29)
+            (30 / 30)
         </td>
         <td>
             100%<br>
-            (121 / 121)
+            (123 / 123)
         </td>
     </tbody>
     </table>
@@ -1260,6 +1260,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1276,11 +1277,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">16</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2</span>
@@ -1589,11 +1586,14 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">344</span>
-<span class="cline-any cline-yes">168</span>
-<span class="cline-any cline-yes">168</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">176</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">348</span>
+<span class="cline-any cline-yes">170</span>
+<span class="cline-any cline-yes">170</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">178</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1968,28 +1968,25 @@ local.testCase_jslint0_coverage = function (opt, onError) {
         white: true
     });
     local.assertOrThrow(!opt.warnings.length, opt.source);
-    //!! [
-        //!! //!! // option - utility2
-        //!! //!! "/* jslint utility2:true */\nlet aa;aa=1;",
-        //!! // option - browser
-        //!! "/*jslint browser*/;\n",
-        //!! // option - eval
-        //!! "/*jslint eval*/\nFunction();\neval();\n",
-        //!! // option - node
-        //!! "#!\n/*jslint browser:false, node*/\n\"use strict\";\n",
-        //!! // option - this
-        //!! "/*jslint this*/\nthis;",
-        //!! //!! // option - throw_error
-        //!! //!! "/*jslint throw_error*/",
-        //!! // option - white
-        //!! "/*jslint white*/\n\t",
-        //!! // property
-        //!! "/*property aa bb*/",
-        //!! ""
-    //!! ].forEach(function (src) {
-        //!! opt = local.jslint0(src);
-        //!! local.assertOrThrow(!opt.warnings.length, opt.warnings);
-    //!! });
+    [
+        // option - utility2
+        "/* jslint utility2:true */\nlet aa = 1;\naa();",
+        // option - browser
+        "/*jslint browser*/;\n",
+        // option - eval
+        "/*jslint eval*/\nnew Function();\neval();\n",
+        // option - node
+        "#!\n/*jslint browser:false, node*/\n\"use strict\";\n",
+        // option - this
+        "/*jslint this*/\nlet aa = this;",
+        // option - white
+        "/*jslint white*/\n\t",
+        // property
+        "/*property aa bb*/",
+        ""
+    ].forEach(function (src) {
+        local.assertOrThrow(!local.jslint0(src).warnings.length, src);
+    });
     // test misc handling-behavior
     [
         // async/await
@@ -2295,7 +2292,10 @@ local.testCase_jslint0_err = function (opt, onError) {
         "__wrap_regexp__",
         "!/_/;",
         // wrap_unary: "Wrap the unary expression in parens."
-        "__wrap_unary__"
+        "__wrap_unary__",
+        // throw_error
+        "____",
+        "/*jslint throw_error*/"
     ].forEach(function (src) {
         if (src.slice(0, 2) === "__") {
             errCode = src.slice(2, -2);

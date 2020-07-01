@@ -228,28 +228,25 @@ local.testCase_jslint0_coverage = function (opt, onError) {
         white: true
     });
     local.assertOrThrow(!opt.warnings.length, opt.source);
-    //!! [
-        //!! //!! // option - utility2
-        //!! //!! "/* jslint utility2:true */\nlet aa;aa=1;",
-        //!! // option - browser
-        //!! "/*jslint browser*/;\n",
-        //!! // option - eval
-        //!! "/*jslint eval*/\nFunction();\neval();\n",
-        //!! // option - node
-        //!! "#!\n/*jslint browser:false, node*/\n\"use strict\";\n",
-        //!! // option - this
-        //!! "/*jslint this*/\nthis;",
-        //!! //!! // option - throw_error
-        //!! //!! "/*jslint throw_error*/",
-        //!! // option - white
-        //!! "/*jslint white*/\n\t",
-        //!! // property
-        //!! "/*property aa bb*/",
-        //!! ""
-    //!! ].forEach(function (src) {
-        //!! opt = local.jslint0(src);
-        //!! local.assertOrThrow(!opt.warnings.length, opt.warnings);
-    //!! });
+    [
+        // option - utility2
+        "/* jslint utility2:true */\nlet aa = 1;\naa();",
+        // option - browser
+        "/*jslint browser*/;\n",
+        // option - eval
+        "/*jslint eval*/\nnew Function();\neval();\n",
+        // option - node
+        "#!\n/*jslint browser:false, node*/\n\"use strict\";\n",
+        // option - this
+        "/*jslint this*/\nlet aa = this;",
+        // option - white
+        "/*jslint white*/\n\t",
+        // property
+        "/*property aa bb*/",
+        ""
+    ].forEach(function (src) {
+        local.assertOrThrow(!local.jslint0(src).warnings.length, src);
+    });
     // test misc handling-behavior
     [
         // async/await
@@ -555,7 +552,10 @@ local.testCase_jslint0_err = function (opt, onError) {
         "__wrap_regexp__",
         "!/_/;",
         // wrap_unary: "Wrap the unary expression in parens."
-        "__wrap_unary__"
+        "__wrap_unary__",
+        // throw_error
+        "____",
+        "/*jslint throw_error*/"
     ].forEach(function (src) {
         if (src.slice(0, 2) === "__") {
             errCode = src.slice(2, -2);
