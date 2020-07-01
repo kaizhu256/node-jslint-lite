@@ -323,6 +323,8 @@ local.testCase_jslint0_err = function (opt, onError) {
         "isFinite(1);",
         "let aa=(aa?1:aa);",
         "let aa=(aa?aa:1);",
+        "let aa=(aa?false:true);",
+        "let aa=(aa?true:false);",
         // expected_a_b_from_c_d:
         // "Expected '{a}' to match '{b}' from line {c} and instead saw '{d}'."
         "__expected_a_b_from_c_d__",
@@ -542,6 +544,7 @@ local.testCase_jslint0_err = function (opt, onError) {
         "if(1===1){1;}",
         // wrap_condition: "Wrap the condition in parens.",
         "__wrap_condition__",
+        "let aa=(aa||1?1:2);",
         // wrap_immediate:
         // "Wrap an immediate function invocation in parentheses to assist "
         // + "the reader in understanding that the expression is the result "

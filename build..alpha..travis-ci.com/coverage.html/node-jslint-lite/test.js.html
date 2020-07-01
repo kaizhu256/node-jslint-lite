@@ -1031,6 +1031,9 @@
 <a href="#l706" id="l706">706</a>
 <a href="#l707" id="l707">707</a>
 <a href="#l708" id="l708">708</a>
+<a href="#l709" id="l709">709</a>
+<a href="#l710" id="l710">710</a>
+<a href="#l711" id="l711">711</a>
 </td>
         <td class="line-coverage"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1593,11 +1596,14 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">352</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">358</span>
 <span class="cline-any cline-yes">170</span>
 <span class="cline-any cline-yes">170</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">182</span>
+<span class="cline-any cline-yes">188</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -2067,6 +2073,8 @@ local.testCase_jslint0_err = function (opt, onError) {
         "isFinite(1);",
         "let aa=(aa?1:aa);",
         "let aa=(aa?aa:1);",
+        "let aa=(aa?false:true);",
+        "let aa=(aa?true:false);",
         // expected_a_b_from_c_d:
         // "Expected '{a}' to match '{b}' from line {c} and instead saw '{d}'."
         "__expected_a_b_from_c_d__",
@@ -2286,6 +2294,7 @@ local.testCase_jslint0_err = function (opt, onError) {
         "if(1===1){1;}",
         // wrap_condition: "Wrap the condition in parens.",
         "__wrap_condition__",
+        "let aa=(aa||1?1:2);",
         // wrap_immediate:
         // "Wrap an immediate function invocation in parentheses to assist "
         // + "the reader in understanding that the expression is the result "
