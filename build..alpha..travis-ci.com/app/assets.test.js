@@ -249,10 +249,18 @@ local.testCase_jslint0_coverage = function (opt, onError) {
     });
     // test misc handling-behavior
     [
+        // Array
+        "new Array(1);",
+        // Date.getTime
+        "let aa = aa.aa().getTime();",
+        "let aa = aa().getTime();",
+        "Date.getTime();",
         // async/await
         "async function aa() {\n    await aa();\n}",
         // fart
         "function aa() {\n    return () => 1;\n}",
+        // for
+        "/*ignore*/let aa;for(aa in bb){}",
         // json
         "{\"aa\":[[],-1,null]}",
         // label
@@ -265,8 +273,9 @@ local.testCase_jslint0_coverage = function (opt, onError) {
         "import(\"aa\").then(function () {\n    return;\n});",
         ""
     ].forEach(function (src) {
-        opt = local.jslint0(src);
-        local.assertOrThrow(!opt.warnings.length, src);
+        local.assertOrThrow(!local.jslint0(src).warnings.length || src.indexOf(
+            "/*ignore*/"
+        ) === 0, src);
     });
     onError(undefined, opt);
 };
@@ -283,6 +292,8 @@ local.testCase_jslint0_err = function (opt, onError) {
         // bad_assignment_a: "Bad assignment to '{a}'.",
         "__bad_assignment_a__",
         "1 = 2;",
+        "____",
+        "const aa=1;for(aa in bb){}",
         // bad_directive_a: "Bad directive '{a}'.",
         "__bad_directive_a__",
         "/*jslint !*/",
@@ -314,6 +325,7 @@ local.testCase_jslint0_err = function (opt, onError) {
         "aa=/_{}/;",
         // expected_a_at_b_c: "Expected '{a}' at column {b}, not column {c}.",
         "__expected_a_at_b_c__",
+        "let aa = {\n    aa:\n1\n};",
         // expected_a_b: "Expected '{a}' and instead saw '{b}'.",
         "__expected_a_b__",
         "(aa)=>{return 1;}",
@@ -321,10 +333,17 @@ local.testCase_jslint0_err = function (opt, onError) {
         "`${`",
         "aa=/[ ]/;",
         "isFinite(1);",
+        "let aa=!!aa;",
         "let aa=(aa?1:aa);",
         "let aa=(aa?aa:1);",
         "let aa=(aa?false:true);",
         "let aa=(aa?true:false);",
+        "let aa=+aa;",
+        "let aa=1+\"\";",
+        "let aa=\"\"+\"\";",
+        "new Array(\"\");",
+        "new Date().getTime();",
+        "new Object();",
         // expected_a_b_from_c_d:
         // "Expected '{a}' to match '{b}' from line {c} and instead saw '{d}'."
         "__expected_a_b_from_c_d__",
@@ -332,6 +351,8 @@ local.testCase_jslint0_err = function (opt, onError) {
         // expected_a_before_b: "Expected '{a}' before '{b}'.",
         "__expected_a_before_b__",
         "/*jslint eval*/\nFunction;eval;",
+        "let Aa = Aa();",
+        "let Aa = Aa.Bb();",
         // expected_a_next_at_b:
         // "Expected '{a}' at column {b} on the next line.",
         "__expected_a_next_at_b__",
@@ -352,6 +373,7 @@ local.testCase_jslint0_err = function (opt, onError) {
         // expected_space_a_b: "Expected one space between '{a}' and '{b}'.",
         "__expected_space_a_b__",
         "/**//**/",
+        "let aa=1;",
         // expected_statements_a: "Expected statements before '{a}'.",
         "__expected_statements_a__",
         // expected_string_a: "Expected a string and instead saw '{a}'.",
@@ -444,6 +466,7 @@ local.testCase_jslint0_err = function (opt, onError) {
         ";;",
         "Function;",
         "`${/[`]/}`",
+        "1 instanceof 1;",
         "aa/=2;",
         "aa=/_//;",
         "aa=/_/z;",
@@ -451,20 +474,24 @@ local.testCase_jslint0_err = function (opt, onError) {
         "eval;",
         "export aa;",
         "export const aa=1;",
+        "for(aa in bb){}",
         "function aa(){try{return;}catch(ignore){}finally{return;}}",
         "function aa(){try{return;}catch(ignore){}finally{switch(1){case 1:}}}",
         "ignore:",
         "ignore;",
         "import ignore from \"aa\";",
         "import {ignore} from \"aa\";",
+        "new Date.UTC();",
+        "new Function();",
+        "new Symbol();",
         "this;",
         "void 1;",
         "yield /_/;",
         "{//\n}",
         "{\"\\u{1234}\":1}",
         "{\"aa\":",
-        "{\"aa\":-0x0}",
-        "{\"aa\":0x0}",
+        "{\"aa\":-0x1}",
+        "{\"aa\":0x1}",
         "____",
         "{\"aa\":'aa'}",
         "{\"aa\":{1:2}}",
@@ -491,8 +518,10 @@ local.testCase_jslint0_err = function (opt, onError) {
         "aa:aa;",
         // unexpected_parens: "Don't wrap function literals in parens.",
         "__unexpected_parens__",
+        "let aa=(function (){return;});",
         // unexpected_space_a_b: "Unexpected space between '{a}' and '{b}'.",
         "__unexpected_space_a_b__",
+        "let aa = ( 1 );",
         // unexpected_statement_a:
         // "Unexpected statement '{a}' in expression position."
         "__unexpected_statement_a__",
@@ -504,6 +533,7 @@ local.testCase_jslint0_err = function (opt, onError) {
         "typeof aa===\"undefined\";",
         // uninitialized_a: "Uninitialized '{a}'.",
         "__uninitialized_a__",
+        "/*jslint node*/\nlet aa;aa();",
         // unreachable_a: "Unreachable '{a}'.",
         "__unreachable_a__",
         "function aa(){while(true){break;1;}}",
@@ -513,6 +543,7 @@ local.testCase_jslint0_err = function (opt, onError) {
         "__unsafe__",
         // unused_a: "Unused '{a}'.",
         "__unused_a__",
+        "/*jslint node*/\nlet aa;",
         // use_double: "Use double quotes, not single quotes.",
         "__use_double__",
         "''",
@@ -521,6 +552,7 @@ local.testCase_jslint0_err = function (opt, onError) {
         // + "with a line break after the left paren."
         "__use_open__",
         "1?2:3;",
+        "let aa = 1?2:3;",
         // use_spaces: "Use spaces, not tabs.",
         "__use_spaces__",
         "\t",
@@ -536,6 +568,11 @@ local.testCase_jslint0_err = function (opt, onError) {
         "if(1||1){1;}",
         // weird_expression_a: "Weird expression '{a}'.",
         "__weird_expression_a__",
+        "let aa=RegExp.aa;",
+        "let aa=RegExp[1];",
+        "let aa=aa[[1]];",
+        "let self=self[1];",
+        "let window=window[1];",
         // weird_loop: "Weird loop.",
         "__weird_loop__",
         "function aa(){while(true){break;}}",
@@ -544,12 +581,13 @@ local.testCase_jslint0_err = function (opt, onError) {
         "if(1===1){1;}",
         // wrap_condition: "Wrap the condition in parens.",
         "__wrap_condition__",
-        "let aa=(aa||1?1:2);",
+        "let aa=(aa&&!aa?1:2);",
         // wrap_immediate:
         // "Wrap an immediate function invocation in parentheses to assist "
         // + "the reader in understanding that the expression is the result "
         // + "of a function, and not the function itself."
         "__wrap_immediate__",
+        "let aa=function(){return;}();",
         // wrap_parameter: "Wrap the parameter in parens.",
         "__wrap_parameter__",
         "aa => 1;",
@@ -558,6 +596,7 @@ local.testCase_jslint0_err = function (opt, onError) {
         "!/_/;",
         // wrap_unary: "Wrap the unary expression in parens."
         "__wrap_unary__",
+        "let aa=aa - -aa;",
         // throw_error
         "____",
         "/*jslint throw_error*/"

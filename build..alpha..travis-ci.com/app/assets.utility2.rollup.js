@@ -24998,7 +24998,7 @@ function artifact(the_token) {
     );
 }
 
-// hack-jslint - deadcode
+// hack-jslint - remove deadcode
 /*
 function artifact_line(the_token) {
 
@@ -25447,7 +25447,7 @@ function tokenize(source) {
                     typeof allowed === "boolean"
                     || typeof allowed === "object"
                 ) {
-                    // hack-jslint - deadcode
+                    // hack-jslint - remove deadcode
                     /*
                     if (
                         value === ""
@@ -25480,7 +25480,7 @@ function tokenize(source) {
                     tenure = empty();
                 }
                 tenure[name] = true;
-            // hack-jslint - deadcode
+            // hack-jslint - remove deadcode
             // } else if (the_comment.directive === "global") {
             // the_comment.directive === "global"
             } else {
@@ -26265,7 +26265,7 @@ function advance(id, match) {
                 next_token,
                 id,
                 artifact(match),
-                // hack-jslint - deadcode
+                // hack-jslint - remove deadcode
                 // artifact_line(match),
                 match.line + fudge,
                 artifact(next_token)
@@ -28742,6 +28742,8 @@ preaction("statement", "{", function (thing) {
     thing.live = [];
 });
 preaction("statement", "for", function (thing) {
+    // hack-jslint - remove deadcode
+    /*
     if (thing.name !== undefined) {
         const the_variable = lookup(thing.name);
         if (the_variable !== undefined) {
@@ -28749,6 +28751,14 @@ preaction("statement", "for", function (thing) {
             if (!the_variable.writable) {
                 warn("bad_assignment_a", thing.name);
             }
+        }
+    }
+    */
+    const the_variable = lookup(thing.name);
+    if (the_variable !== undefined) {
+        the_variable.init = true;
+        if (!the_variable.writable) {
+            warn("bad_assignment_a", thing.name);
         }
     }
     walk_statement(thing.initial);
@@ -29815,6 +29825,7 @@ local.jslint0 = Object.freeze(function (
             ) || (a.line - b.line);
         }),
         // hack-jslint - autofix
+        source,
         source_autofixed: lines_extra.map(function (element, ii) {
             return element.source_autofixed || lines[ii];
         }).join("\n")
@@ -63989,7 +64000,7 @@ function artifact(the_token) {\n\
     );\n\
 }\n\
 \n\
-// hack-jslint - deadcode\n\
+// hack-jslint - remove deadcode\n\
 /*\n\
 function artifact_line(the_token) {\n\
 \n\
@@ -64438,7 +64449,7 @@ function tokenize(source) {\n\
                     typeof allowed === \"boolean\"\n\
                     || typeof allowed === \"object\"\n\
                 ) {\n\
-                    // hack-jslint - deadcode\n\
+                    // hack-jslint - remove deadcode\n\
                     /*\n\
                     if (\n\
                         value === \"\"\n\
@@ -64471,7 +64482,7 @@ function tokenize(source) {\n\
                     tenure = empty();\n\
                 }\n\
                 tenure[name] = true;\n\
-            // hack-jslint - deadcode\n\
+            // hack-jslint - remove deadcode\n\
             // } else if (the_comment.directive === \"global\") {\n\
             // the_comment.directive === \"global\"\n\
             } else {\n\
@@ -65256,7 +65267,7 @@ function advance(id, match) {\n\
                 next_token,\n\
                 id,\n\
                 artifact(match),\n\
-                // hack-jslint - deadcode\n\
+                // hack-jslint - remove deadcode\n\
                 // artifact_line(match),\n\
                 match.line + fudge,\n\
                 artifact(next_token)\n\
@@ -67733,6 +67744,8 @@ preaction(\"statement\", \"{\", function (thing) {\n\
     thing.live = [];\n\
 });\n\
 preaction(\"statement\", \"for\", function (thing) {\n\
+    // hack-jslint - remove deadcode\n\
+    /*\n\
     if (thing.name !== undefined) {\n\
         const the_variable = lookup(thing.name);\n\
         if (the_variable !== undefined) {\n\
@@ -67740,6 +67753,14 @@ preaction(\"statement\", \"for\", function (thing) {\n\
             if (!the_variable.writable) {\n\
                 warn(\"bad_assignment_a\", thing.name);\n\
             }\n\
+        }\n\
+    }\n\
+    */\n\
+    const the_variable = lookup(thing.name);\n\
+    if (the_variable !== undefined) {\n\
+        the_variable.init = true;\n\
+        if (!the_variable.writable) {\n\
+            warn(\"bad_assignment_a\", thing.name);\n\
         }\n\
     }\n\
     walk_statement(thing.initial);\n\
@@ -68806,6 +68827,7 @@ local.jslint0 = Object.freeze(function (\n\
             ) || (a.line - b.line);\n\
         }),\n\
         // hack-jslint - autofix\n\
+        source,\n\
         source_autofixed: lines_extra.map(function (element, ii) {\n\
             return element.source_autofixed || lines[ii];\n\
         }).join(\"\\n\")\n\

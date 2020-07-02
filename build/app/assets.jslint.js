@@ -11617,7 +11617,7 @@ function artifact(the_token) {
     );
 }
 
-// hack-jslint - deadcode
+// hack-jslint - remove deadcode
 /*
 function artifact_line(the_token) {
 
@@ -12066,7 +12066,7 @@ function tokenize(source) {
                     typeof allowed === "boolean"
                     || typeof allowed === "object"
                 ) {
-                    // hack-jslint - deadcode
+                    // hack-jslint - remove deadcode
                     /*
                     if (
                         value === ""
@@ -12099,7 +12099,7 @@ function tokenize(source) {
                     tenure = empty();
                 }
                 tenure[name] = true;
-            // hack-jslint - deadcode
+            // hack-jslint - remove deadcode
             // } else if (the_comment.directive === "global") {
             // the_comment.directive === "global"
             } else {
@@ -12884,7 +12884,7 @@ function advance(id, match) {
                 next_token,
                 id,
                 artifact(match),
-                // hack-jslint - deadcode
+                // hack-jslint - remove deadcode
                 // artifact_line(match),
                 match.line + fudge,
                 artifact(next_token)
@@ -15361,6 +15361,8 @@ preaction("statement", "{", function (thing) {
     thing.live = [];
 });
 preaction("statement", "for", function (thing) {
+    // hack-jslint - remove deadcode
+    /*
     if (thing.name !== undefined) {
         const the_variable = lookup(thing.name);
         if (the_variable !== undefined) {
@@ -15368,6 +15370,14 @@ preaction("statement", "for", function (thing) {
             if (!the_variable.writable) {
                 warn("bad_assignment_a", thing.name);
             }
+        }
+    }
+    */
+    const the_variable = lookup(thing.name);
+    if (the_variable !== undefined) {
+        the_variable.init = true;
+        if (!the_variable.writable) {
+            warn("bad_assignment_a", thing.name);
         }
     }
     walk_statement(thing.initial);
