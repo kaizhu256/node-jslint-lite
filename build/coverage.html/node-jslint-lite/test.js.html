@@ -1081,6 +1081,12 @@
 <a href="#l756" id="l756">756</a>
 <a href="#l757" id="l757">757</a>
 <a href="#l758" id="l758">758</a>
+<a href="#l759" id="l759">759</a>
+<a href="#l760" id="l760">760</a>
+<a href="#l761" id="l761">761</a>
+<a href="#l762" id="l762">762</a>
+<a href="#l763" id="l763">763</a>
+<a href="#l764" id="l764">764</a>
 </td>
         <td class="line-coverage"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1357,7 +1363,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">28</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">32</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1693,11 +1702,14 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">434</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">440</span>
 <span class="cline-any cline-yes">172</span>
 <span class="cline-any cline-yes">172</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">262</span>
+<span class="cline-any cline-yes">268</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -2105,6 +2117,9 @@ local.testCase_jslint0_coverage = function (opt, onError) {
         "function aa() {\n    return () =&gt; 1;\n}",
         // for
         "/*ignore*/let aa;for(aa in bb){}",
+        // getset
+        "/*jslint getset*/\nlet aa = {get aa() {\n    return;\n}};",
+        "/*jslint getset*/\nlet aa = {set aa(aa) {\n    return aa;\n}};",
         // json
         "{\"aa\":[[],-1,null]}",
         // label
@@ -2275,6 +2290,7 @@ local.testCase_jslint0_err = function (opt, onError) {
         "isNaN(1);",
         // out_of_scope_a: "'{a}' is out of scope.",
         "__out_of_scope_a__",
+        "aa();function aa(){return;}",
         // redefinition_a_b: "Redefinition of '{a}' from line {b}.",
         "__redefinition_a_b__",
         "let aa; let aa;",
@@ -2313,10 +2329,12 @@ local.testCase_jslint0_err = function (opt, onError) {
         "__unexpected_a__",
         "((1));",
         "/_/;",
+        "1 instanceof 1;",
+        "1===(1==1);",
+        "1|1;",
         ";;",
         "Function;",
         "`${/[`]/}`;",
-        "1 instanceof 1;",
         "aa/=2;",
         "aa=/_//;",
         "aa=/_/z;",

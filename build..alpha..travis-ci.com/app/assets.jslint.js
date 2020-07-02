@@ -15187,7 +15187,9 @@ function lookup(thing) {
             the_variable.dead
             && (
                 the_variable.calls === undefined
-                || the_variable.calls[functionage.name.id] === undefined
+                || the_variable.calls[
+                    functionage.name && functionage.name.id
+                ] === undefined
             )
         ) {
             warn("out_of_scope_a", thing);
@@ -15203,9 +15205,12 @@ function subactivate(name) {
 }
 
 function preaction_function(thing) {
+    // hack-jslint - remove deadcode
+    /*
     if (thing.arity === "statement" && blockage.body !== true) {
         warn("unexpected_a", thing);
     }
+    */
     stack.push(functionage);
     block_stack.push(blockage);
     functionage = thing;

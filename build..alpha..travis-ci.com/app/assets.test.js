@@ -261,6 +261,9 @@ local.testCase_jslint0_coverage = function (opt, onError) {
         "function aa() {\n    return () => 1;\n}",
         // for
         "/*ignore*/let aa;for(aa in bb){}",
+        // getset
+        "/*jslint getset*/\nlet aa = {get aa() {\n    return;\n}};",
+        "/*jslint getset*/\nlet aa = {set aa(aa) {\n    return aa;\n}};",
         // json
         "{\"aa\":[[],-1,null]}",
         // label
@@ -431,6 +434,7 @@ local.testCase_jslint0_err = function (opt, onError) {
         "isNaN(1);",
         // out_of_scope_a: "'{a}' is out of scope.",
         "__out_of_scope_a__",
+        "aa();function aa(){return;}",
         // redefinition_a_b: "Redefinition of '{a}' from line {b}.",
         "__redefinition_a_b__",
         "let aa; let aa;",
@@ -469,10 +473,12 @@ local.testCase_jslint0_err = function (opt, onError) {
         "__unexpected_a__",
         "((1));",
         "/_/;",
+        "1 instanceof 1;",
+        "1===(1==1);",
+        "1|1;",
         ";;",
         "Function;",
         "`${/[`]/}`;",
-        "1 instanceof 1;",
         "aa/=2;",
         "aa=/_//;",
         "aa=/_/z;",
