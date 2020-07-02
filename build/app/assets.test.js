@@ -434,7 +434,7 @@ local.testCase_jslint0_err = function (opt, onError) {
         "isNaN(1);",
         // out_of_scope_a: "'{a}' is out of scope.",
         "__out_of_scope_a__",
-        "aa();function aa(){return;}",
+        "function aa(){bb();}\nfunction bb(){return;}",
         // redefinition_a_b: "Redefinition of '{a}' from line {b}.",
         "__redefinition_a_b__",
         "let aa; let aa;",
