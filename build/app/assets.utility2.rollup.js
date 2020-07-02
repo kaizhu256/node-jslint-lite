@@ -25464,13 +25464,16 @@ function tokenize(source) {
                         warn("bad_option_a", the_comment, name + ":" + value);
                     }
                     */
-                    if (value === "false") {
-                        option[name] = false;
-                    } else {
+                    if (
+                        value === "true"
+                        || value === undefined
+                    ) {
                         option[name] = true;
                         if (Array.isArray(allowed)) {
                             populate(allowed, declared_globals, false);
                         }
+                    } else {
+                        option[name] = false;
                     }
                 } else {
                     warn("bad_option_a", the_comment, name);
@@ -28517,7 +28520,8 @@ function walk_statement(thing) {
 }
 
 function lookup(thing) {
-    if (thing.arity === "variable") {
+    // hack-jslint - for-loop
+    if (thing && thing.arity === "variable") {
 
 // Look up the variable in the current context.
 
@@ -28565,7 +28569,9 @@ function lookup(thing) {
             the_variable.dead
             && (
                 the_variable.calls === undefined
-                || the_variable.calls[functionage.name.id] === undefined
+                || the_variable.calls[
+                    functionage.name && functionage.name.id
+                ] === undefined
             )
         ) {
             warn("out_of_scope_a", thing);
@@ -28581,9 +28587,12 @@ function subactivate(name) {
 }
 
 function preaction_function(thing) {
+    // hack-jslint - remove deadcode
+    /*
     if (thing.arity === "statement" && blockage.body !== true) {
         warn("unexpected_a", thing);
     }
+    */
     stack.push(functionage);
     block_stack.push(blockage);
     functionage = thing;
@@ -64466,13 +64475,16 @@ function tokenize(source) {\n\
                         warn(\"bad_option_a\", the_comment, name + \":\" + value);\n\
                     }\n\
                     */\n\
-                    if (value === \"false\") {\n\
-                        option[name] = false;\n\
-                    } else {\n\
+                    if (\n\
+                        value === \"true\"\n\
+                        || value === undefined\n\
+                    ) {\n\
                         option[name] = true;\n\
                         if (Array.isArray(allowed)) {\n\
                             populate(allowed, declared_globals, false);\n\
                         }\n\
+                    } else {\n\
+                        option[name] = false;\n\
                     }\n\
                 } else {\n\
                     warn(\"bad_option_a\", the_comment, name);\n\
@@ -67519,7 +67531,8 @@ function walk_statement(thing) {\n\
 }\n\
 \n\
 function lookup(thing) {\n\
-    if (thing.arity === \"variable\") {\n\
+    // hack-jslint - for-loop\n\
+    if (thing && thing.arity === \"variable\") {\n\
 \n\
 // Look up the variable in the current context.\n\
 \n\
@@ -67567,7 +67580,9 @@ function lookup(thing) {\n\
             the_variable.dead\n\
             && (\n\
                 the_variable.calls === undefined\n\
-                || the_variable.calls[functionage.name.id] === undefined\n\
+                || the_variable.calls[\n\
+                    functionage.name && functionage.name.id\n\
+                ] === undefined\n\
             )\n\
         ) {\n\
             warn(\"out_of_scope_a\", thing);\n\
@@ -67583,9 +67598,12 @@ function subactivate(name) {\n\
 }\n\
 \n\
 function preaction_function(thing) {\n\
+    // hack-jslint - remove deadcode\n\
+    /*\n\
     if (thing.arity === \"statement\" && blockage.body !== true) {\n\
         warn(\"unexpected_a\", thing);\n\
     }\n\
+    */\n\
     stack.push(functionage);\n\
     block_stack.push(blockage);\n\
     functionage = thing;\n\

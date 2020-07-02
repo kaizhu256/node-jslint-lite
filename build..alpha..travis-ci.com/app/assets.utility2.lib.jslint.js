@@ -12083,13 +12083,16 @@ function tokenize(source) {
                         warn("bad_option_a", the_comment, name + ":" + value);
                     }
                     */
-                    if (value === "false") {
-                        option[name] = false;
-                    } else {
+                    if (
+                        value === "true"
+                        || value === undefined
+                    ) {
                         option[name] = true;
                         if (Array.isArray(allowed)) {
                             populate(allowed, declared_globals, false);
                         }
+                    } else {
+                        option[name] = false;
                     }
                 } else {
                     warn("bad_option_a", the_comment, name);
@@ -15136,7 +15139,8 @@ function walk_statement(thing) {
 }
 
 function lookup(thing) {
-    if (thing.arity === "variable") {
+    // hack-jslint - for-loop
+    if (thing && thing.arity === "variable") {
 
 // Look up the variable in the current context.
 
@@ -15184,7 +15188,9 @@ function lookup(thing) {
             the_variable.dead
             && (
                 the_variable.calls === undefined
-                || the_variable.calls[functionage.name.id] === undefined
+                || the_variable.calls[
+                    functionage.name && functionage.name.id
+                ] === undefined
             )
         ) {
             warn("out_of_scope_a", thing);
@@ -15200,9 +15206,12 @@ function subactivate(name) {
 }
 
 function preaction_function(thing) {
+    // hack-jslint - remove deadcode
+    /*
     if (thing.arity === "statement" && blockage.body !== true) {
         warn("unexpected_a", thing);
     }
+    */
     stack.push(functionage);
     block_stack.push(blockage);
     functionage = thing;

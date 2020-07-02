@@ -233,6 +233,8 @@ local.testCase_jslint0_coverage = function (opt, onError) {
         "/* jslint utility2:true */\nlet aa = 1;\naa();",
         // option - browser
         "/*jslint browser*/;",
+        // option - devel
+        "/*jslint devel*/\ndebugger;",
         // option - eval
         "/*jslint eval*/\nnew Function();\neval();",
         // option - node
@@ -487,6 +489,7 @@ local.testCase_jslint0_err = function (opt, onError) {
         "aa=/_//;",
         "aa=/_/z;",
         "arguments;",
+        "debugger;",
         "eval;",
         "export aa;",
         "export const aa=1;",
@@ -496,6 +499,8 @@ local.testCase_jslint0_err = function (opt, onError) {
         "for(ii=0;ii<0;ii+=1){}",
         "function aa(){try{return;}catch(ignore){}finally{return;}}",
         "function aa(){try{return;}catch(ignore){}finally{switch(1){case 1:}}}",
+        "function aa(){while(true){continue;}}",
+        "function aa(){while(true){try{1;}catch(ignore){}finally{continue;}}}",
         "ignore:",
         "ignore;",
         "import ignore from \"aa\";",
