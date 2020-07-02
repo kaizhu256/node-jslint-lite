@@ -1092,6 +1092,7 @@
 <a href="#l767" id="l767">767</a>
 <a href="#l768" id="l768">768</a>
 <a href="#l769" id="l769">769</a>
+<a href="#l770" id="l770">770</a>
 </td>
         <td class="line-coverage"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1715,11 +1716,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">450</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">452</span>
 <span class="cline-any cline-yes">172</span>
 <span class="cline-any cline-yes">172</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">278</span>
+<span class="cline-any cline-yes">280</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -2460,6 +2462,7 @@ local.testCase_jslint0_err = function (opt, onError) {
         "let window=window[1];",
         // weird_loop: "Weird loop.",
         "__weird_loop__",
+        "function aa(){do {break;}while(true);}",
         "function aa(){while(true){break;}}",
         // weird_relation_a: "Weird relation '{a}'.",
         "__weird_relation_a__",

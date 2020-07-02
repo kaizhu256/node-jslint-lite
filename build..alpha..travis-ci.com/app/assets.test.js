@@ -594,6 +594,7 @@ local.testCase_jslint0_err = function (opt, onError) {
         "let window=window[1];",
         // weird_loop: "Weird loop.",
         "__weird_loop__",
+        "function aa(){do {break;}while(true);}",
         "function aa(){while(true){break;}}",
         // weird_relation_a: "Weird relation '{a}'.",
         "__weird_relation_a__",
