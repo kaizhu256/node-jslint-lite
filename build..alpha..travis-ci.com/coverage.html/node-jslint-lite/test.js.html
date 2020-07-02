@@ -1105,6 +1105,7 @@
 <a href="#l780" id="l780">780</a>
 <a href="#l781" id="l781">781</a>
 <a href="#l782" id="l782">782</a>
+<a href="#l783" id="l783">783</a>
 </td>
         <td class="line-coverage"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1741,11 +1742,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">464</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">466</span>
 <span class="cline-any cline-yes">172</span>
 <span class="cline-any cline-yes">172</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">292</span>
+<span class="cline-any cline-yes">294</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -2169,7 +2171,7 @@ local.testCase_jslint0_coverage = function (opt, onError) {
         "import {} from \"aa\";",
         "import(\"aa\").then(function () {\n    return;\n});",
         // var
-        "let [...aa] = [];",
+        "let [...aa] = [...aa];",
         "let [\n    aa, bb = 1\n] = [];",
         "let {aa, bb} = {};",
         ""
@@ -2349,6 +2351,7 @@ local.testCase_jslint0_err = function (opt, onError) {
         "let undefined;",
         // subscript_a: "['{a}'] is better written in dot notation.",
         "__subscript_a__",
+        "aa[`aa`];",
         // todo_comment: "Unexpected TO\u0044O comment.",
         "__todo_comment__",
         "// todo",

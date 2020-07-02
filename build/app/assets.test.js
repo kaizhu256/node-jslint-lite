@@ -277,7 +277,7 @@ local.testCase_jslint0_coverage = function (opt, onError) {
         "import {} from \"aa\";",
         "import(\"aa\").then(function () {\n    return;\n});",
         // var
-        "let [...aa] = [];",
+        "let [...aa] = [...aa];",
         "let [\n    aa, bb = 1\n] = [];",
         "let {aa, bb} = {};",
         ""
@@ -457,6 +457,7 @@ local.testCase_jslint0_err = function (opt, onError) {
         "let undefined;",
         // subscript_a: "['{a}'] is better written in dot notation.",
         "__subscript_a__",
+        "aa[`aa`];",
         // todo_comment: "Unexpected TO\u0044O comment.",
         "__todo_comment__",
         "// todo",
