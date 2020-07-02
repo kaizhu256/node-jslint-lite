@@ -1076,6 +1076,11 @@
 <a href="#l751" id="l751">751</a>
 <a href="#l752" id="l752">752</a>
 <a href="#l753" id="l753">753</a>
+<a href="#l754" id="l754">754</a>
+<a href="#l755" id="l755">755</a>
+<a href="#l756" id="l756">756</a>
+<a href="#l757" id="l757">757</a>
+<a href="#l758" id="l758">758</a>
 </td>
         <td class="line-coverage"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1683,11 +1688,16 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">424</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">434</span>
 <span class="cline-any cline-yes">172</span>
 <span class="cline-any cline-yes">172</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">252</span>
+<span class="cline-any cline-yes">262</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -2133,6 +2143,7 @@ local.testCase_jslint0_err = function (opt, onError) {
         "/*jslint !*/",
         // bad_get: "A get function takes no parameters.",
         "__bad_get__",
+        "/*jslint getset*/\nlet aa={get aa(aa){return;}};",
         // bad_module_name_a: "Bad module name '{a}'.",
         "__bad_module_name_a__",
         "import aa from \"!aa\";",
@@ -2146,6 +2157,7 @@ local.testCase_jslint0_err = function (opt, onError) {
         "aa._;",
         // bad_set: "A set function takes one parameter.",
         "__bad_set__",
+        "/*jslint getset*/\nlet aa={set aa(){return;}};",
         // duplicate_a: "Duplicate '{a}'.",
         "__duplicate_a__",
         "{\"aa\":1,\"aa\":2}",
@@ -2163,6 +2175,8 @@ local.testCase_jslint0_err = function (opt, onError) {
         // expected_a_b: "Expected '{a}' and instead saw '{b}'.",
         "__expected_a_b__",
         "(aa)=&gt;{return 1;}",
+        "1!=1;",
+        "1==1;",
         ";{;",
         "`${`",
         "isFinite(1);",
@@ -2350,6 +2364,7 @@ local.testCase_jslint0_err = function (opt, onError) {
         // "Unexpected expression '{a}' in statement position."
         "__unexpected_expression_a__",
         "let ii;ii++;",
+        "typeof 1===typeof 1;",
         // unexpected_label_a: "Unexpected label '{a}'.",
         "__unexpected_label_a__",
         "aa:aa;",
