@@ -232,11 +232,11 @@ local.testCase_jslint0_coverage = function (opt, onError) {
         // option - utility2
         "/* jslint utility2:true */\nlet aa = 1;\naa();",
         // option - browser
-        "/*jslint browser*/;\n",
+        "/*jslint browser*/;",
         // option - eval
-        "/*jslint eval*/\nnew Function();\neval();\n",
+        "/*jslint eval*/\nnew Function();\neval();",
         // option - node
-        "#!\n/*jslint browser:false, node*/\n\"use strict\";\n",
+        "#!\n/*jslint browser:false, node*/\n\"use strict\";",
         // option - this
         "/*jslint this*/\nlet aa = this;",
         // option - white
@@ -255,8 +255,6 @@ local.testCase_jslint0_coverage = function (opt, onError) {
         "let aa = aa.aa().getTime();",
         "let aa = aa().getTime();",
         "Date.getTime();",
-        // assignment
-        //!! "let [aa, bb] = [];",
         // async/await
         "async function aa() {\n    await aa();\n}",
         // fart
@@ -382,14 +380,15 @@ local.testCase_jslint0_err = function (opt, onError) {
         // expected_string_a: "Expected a string and instead saw '{a}'.",
         "__expected_string_a__",
         "import(aa).then(aa);;",
-        "typeof 1 === 1;",
+        "typeof 1===1;",
         // expected_type_string_a:
         // "Expected a type string and instead saw '{a}'.",
         "__expected_type_string_a__",
+        "typeof 1===\"aa\";",
         // freeze_exports:
         // "Expected 'Object.freeze('. All export values should be frozen."
         "__freeze_exports__",
-        "export default Object.aa()",
+        "export default Object.aa();",
         "export function aa(){return;}",
         // function_in_loop: "Don't make functions within a loop.",
         "__function_in_loop__",
@@ -468,7 +467,7 @@ local.testCase_jslint0_err = function (opt, onError) {
         "/_/;",
         ";;",
         "Function;",
-        "`${/[`]/}`",
+        "`${/[`]/}`;",
         "1 instanceof 1;",
         "aa/=2;",
         "aa=/_//;",
@@ -550,7 +549,7 @@ local.testCase_jslint0_err = function (opt, onError) {
         "/*jslint node*/\nlet aa;",
         // use_double: "Use double quotes, not single quotes.",
         "__use_double__",
-        "''",
+        "'';",
         // use_open:
         // "Wrap a ternary expression in parens, "
         // + "with a line break after the left paren."
