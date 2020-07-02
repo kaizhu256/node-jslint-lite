@@ -255,6 +255,8 @@ local.testCase_jslint0_coverage = function (opt, onError) {
         "let aa = aa.aa().getTime();",
         "let aa = aa().getTime();",
         "Date.getTime();",
+        // assignment
+        //!! "let [aa, bb] = [];",
         // async/await
         "async function aa() {\n    await aa();\n}",
         // fart
@@ -331,14 +333,15 @@ local.testCase_jslint0_err = function (opt, onError) {
         "(aa)=>{return 1;}",
         ";{;",
         "`${`",
-        "aa=/[ ]/;",
         "isFinite(1);",
+        "let aa;aa.bb = undefined;",
         "let aa=!!aa;",
         "let aa=(aa?1:aa);",
         "let aa=(aa?aa:1);",
         "let aa=(aa?false:true);",
         "let aa=(aa?true:false);",
         "let aa=+aa;",
+        "let aa=/[ ]/;",
         "let aa=1+\"\";",
         "let aa=\"\"+\"\";",
         "new Array(\"\");",
@@ -481,6 +484,7 @@ local.testCase_jslint0_err = function (opt, onError) {
         "ignore;",
         "import ignore from \"aa\";",
         "import {ignore} from \"aa\";",
+        "let aa;aa+=NaN;",
         "new Date.UTC();",
         "new Function();",
         "new Symbol();",

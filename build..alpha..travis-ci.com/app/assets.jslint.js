@@ -12083,13 +12083,16 @@ function tokenize(source) {
                         warn("bad_option_a", the_comment, name + ":" + value);
                     }
                     */
-                    if (value === "false") {
-                        option[name] = false;
-                    } else {
+                    if (
+                        value === "true"
+                        || value === undefined
+                    ) {
                         option[name] = true;
                         if (Array.isArray(allowed)) {
                             populate(allowed, declared_globals, false);
                         }
+                    } else {
+                        option[name] = false;
                     }
                 } else {
                     warn("bad_option_a", the_comment, name);

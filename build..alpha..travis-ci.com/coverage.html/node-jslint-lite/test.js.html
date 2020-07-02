@@ -1073,6 +1073,10 @@
 <a href="#l748" id="l748">748</a>
 <a href="#l749" id="l749">749</a>
 <a href="#l750" id="l750">750</a>
+<a href="#l751" id="l751">751</a>
+<a href="#l752" id="l752">752</a>
+<a href="#l753" id="l753">753</a>
+<a href="#l754" id="l754">754</a>
 </td>
         <td class="line-coverage"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1325,6 +1329,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1677,11 +1683,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">418</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">422</span>
 <span class="cline-any cline-yes">172</span>
 <span class="cline-any cline-yes">172</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">246</span>
+<span class="cline-any cline-yes">250</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -2083,6 +2091,8 @@ local.testCase_jslint0_coverage = function (opt, onError) {
         "let aa = aa.aa().getTime();",
         "let aa = aa().getTime();",
         "Date.getTime();",
+        // assignment
+        //!! "let [aa, bb] = [];",
         // async/await
         "async function aa() {\n    await aa();\n}",
         // fart
@@ -2159,14 +2169,15 @@ local.testCase_jslint0_err = function (opt, onError) {
         "(aa)=&gt;{return 1;}",
         ";{;",
         "`${`",
-        "aa=/[ ]/;",
         "isFinite(1);",
+        "let aa;aa.bb = undefined;",
         "let aa=!!aa;",
         "let aa=(aa?1:aa);",
         "let aa=(aa?aa:1);",
         "let aa=(aa?false:true);",
         "let aa=(aa?true:false);",
         "let aa=+aa;",
+        "let aa=/[ ]/;",
         "let aa=1+\"\";",
         "let aa=\"\"+\"\";",
         "new Array(\"\");",
@@ -2309,6 +2320,7 @@ local.testCase_jslint0_err = function (opt, onError) {
         "ignore;",
         "import ignore from \"aa\";",
         "import {ignore} from \"aa\";",
+        "let aa;aa+=NaN;",
         "new Date.UTC();",
         "new Function();",
         "new Symbol();",
