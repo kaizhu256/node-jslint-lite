@@ -1,0 +1,1051 @@
+<svg height="8670" width="720" xmlns="http://www.w3.org/2000/svg">
+<rect height="8670" fill="#555" width="720"></rect>
+<text fill="#7f7" font-family="Courier New" font-size="12" xml:space="preserve">
+<tspan x="10" y="26"></tspan>
+
+<tspan x="10" y="42">\x1b[35m[MODE_BUILD=npmTestPublished]\x1b[0m - 2020-06-03T17:12:46.934Z - npm-testing /tmp/npmTe\</tspan>
+<tspan x="10" y="58">stPublished/node_modules/jslint-lite</tspan>
+
+<tspan x="10" y="74"></tspan>
+
+<tspan x="10" y="90"></tspan>
+
+<tspan x="10" y="106">istanbul - covering $ /home/travis/.nvm/versions/node/v14.4.0/bin/node /tmp/npmTestPublished/nod\</tspan>
+<tspan x="10" y="122">e_modules/jslint-lite/test.js</tspan>
+
+<tspan x="10" y="138">&gt; jslint - 10ms - /tmp/npmTestPublished/node_modules/jslint-lite/npm_scripts.sh</tspan>
+
+<tspan x="10" y="154">--- /tmp/npmTestPublished/node_modules/jslint-lite/package.json.autofix.old	2020-06-03 17:12:47.\</tspan>
+<tspan x="10" y="170">404765479 +0000</tspan>
+
+<tspan x="10" y="186">+++ /tmp/npmTestPublished/node_modules/jslint-lite/package.json	2020-06-03 17:12:47.404765479 +0\</tspan>
+<tspan x="10" y="202">000</tspan>
+
+<tspan x="10" y="218">@@ -1,76 +1,76 @@</tspan>
+
+<tspan x="10" y="234"> {</tspan>
+
+<tspan x="10" y="250">-  "_from": "jslint-lite",</tspan>
+
+<tspan x="10" y="266">-  "_id": "jslint-lite@2020.5.31",</tspan>
+
+<tspan x="10" y="282">-  "_inBundle": false,</tspan>
+
+<tspan x="10" y="298">-  "_integrity": "sha512-n/b/9PGGiwaLv001a7zXgBi17/LztSG+FztONd9qfgnmdTBXUbPgA7Lqxgj1LNkGpfXaQvs\</tspan>
+<tspan x="10" y="314">m6HfriBTc6c3qZg==",</tspan>
+
+<tspan x="10" y="330">-  "_location": "/jslint-lite",</tspan>
+
+<tspan x="10" y="346">-  "_phantomChildren": {},</tspan>
+
+<tspan x="10" y="362">-  "_requested": {</tspan>
+
+<tspan x="10" y="378">-    "type": "tag",</tspan>
+
+<tspan x="10" y="394">-    "registry": true,</tspan>
+
+<tspan x="10" y="410">-    "raw": "jslint-lite",</tspan>
+
+<tspan x="10" y="426">+    "_from": "jslint-lite",</tspan>
+
+<tspan x="10" y="442">+    "_id": "jslint-lite@2020.5.31",</tspan>
+
+<tspan x="10" y="458">+    "_inBundle": false,</tspan>
+
+<tspan x="10" y="474">+    "_integrity": "sha512-n/b/9PGGiwaLv001a7zXgBi17/LztSG+FztONd9qfgnmdTBXUbPgA7Lqxgj1LNkGpfXaQ\</tspan>
+<tspan x="10" y="490">vsm6HfriBTc6c3qZg==",</tspan>
+
+<tspan x="10" y="506">+    "_location": "/jslint-lite",</tspan>
+
+<tspan x="10" y="522">+    "_phantomChildren": {},</tspan>
+
+<tspan x="10" y="538">+    "_requested": {</tspan>
+
+<tspan x="10" y="554">+        "escapedName": "jslint-lite",</tspan>
+
+<tspan x="10" y="570">+        "fetchSpec": "latest",</tspan>
+
+<tspan x="10" y="586">+        "name": "jslint-lite",</tspan>
+
+<tspan x="10" y="602">+        "raw": "jslint-lite",</tspan>
+
+<tspan x="10" y="618">+        "rawSpec": "",</tspan>
+
+<tspan x="10" y="634">+        "registry": true,</tspan>
+
+<tspan x="10" y="650">+        "saveSpec": null,</tspan>
+
+<tspan x="10" y="666">+        "type": "tag"</tspan>
+
+<tspan x="10" y="682">+    },</tspan>
+
+<tspan x="10" y="698">+    "_requiredBy_": [</tspan>
+
+<tspan x="10" y="714">+        "#USER",</tspan>
+
+<tspan x="10" y="730">+        "/"</tspan>
+
+<tspan x="10" y="746">+    ],</tspan>
+
+<tspan x="10" y="762">+    "_resolved": "https://registry.npmjs.org/jslint-lite/-/jslint-lite-2020.5.31.tgz",</tspan>
+
+<tspan x="10" y="778">+    "_shasum": "0c7ce5748296425e3c6dcf00192e430a9db3445b",</tspan>
+
+<tspan x="10" y="794">+    "_spec": "jslint-lite",</tspan>
+
+<tspan x="10" y="810">+    "_where": "/tmp/npmTestPublished",</tspan>
+
+<tspan x="10" y="826">+    "author": {</tspan>
+
+<tspan x="10" y="842">+        "email": "kaizhu256@gmail.com",</tspan>
+
+<tspan x="10" y="858">+        "name": "kai zhu"</tspan>
+
+<tspan x="10" y="874">+    },</tspan>
+
+<tspan x="10" y="890">+    "bin": {</tspan>
+
+<tspan x="10" y="906">+        "jslint-lite": "lib.jslint.js"</tspan>
+
+<tspan x="10" y="922">+    },</tspan>
+
+<tspan x="10" y="938">+    "bugs": {</tspan>
+
+<tspan x="10" y="954">+        "url": "https://github.com/kaizhu256/node-jslint-lite/issues"</tspan>
+
+<tspan x="10" y="970">+    },</tspan>
+
+<tspan x="10" y="986">+    "bundleDependencies": false,</tspan>
+
+<tspan x="10" y="1002">+    "deprecated": false,</tspan>
+
+<tspan x="10" y="1018">+    "description": "this zero-dependency package will provide browser-compatible versions of js\</tspan>
+<tspan x="10" y="1034">lint (v2020.3.28) and csslint (v2018.2.25), with a working web-demo",</tspan>
+
+<tspan x="10" y="1050">+    "devDependencies": {</tspan>
+
+<tspan x="10" y="1066">+        "utility2": "github:kaizhu256/node-utility2#alpha"</tspan>
+
+<tspan x="10" y="1082">+    },</tspan>
+
+<tspan x="10" y="1098">+    "engines": {</tspan>
+
+<tspan x="10" y="1114">+        "node": "&gt;=12.0"</tspan>
+
+<tspan x="10" y="1130">+    },</tspan>
+
+<tspan x="10" y="1146">+    "fileCount": 8,</tspan>
+
+<tspan x="10" y="1162">+    "homepage": "https://github.com/kaizhu256/node-jslint-lite",</tspan>
+
+<tspan x="10" y="1178">+    "keywords": [</tspan>
+
+<tspan x="10" y="1194">+        "csslint",</tspan>
+
+<tspan x="10" y="1210">+        "jslint"</tspan>
+
+<tspan x="10" y="1226">+    ],</tspan>
+
+<tspan x="10" y="1242">+    "license": "MIT",</tspan>
+
+<tspan x="10" y="1258">+    "main": "lib.jslint.js",</tspan>
+
+<tspan x="10" y="1274">     "name": "jslint-lite",</tspan>
+
+<tspan x="10" y="1290">-    "escapedName": "jslint-lite",</tspan>
+
+<tspan x="10" y="1306">-    "rawSpec": "",</tspan>
+
+<tspan x="10" y="1322">-    "saveSpec": null,</tspan>
+
+<tspan x="10" y="1338">-    "fetchSpec": "latest"</tspan>
+
+<tspan x="10" y="1354">-  },</tspan>
+
+<tspan x="10" y="1370">-  "_requiredBy_": [</tspan>
+
+<tspan x="10" y="1386">-    "#USER",</tspan>
+
+<tspan x="10" y="1402">-    "/"</tspan>
+
+<tspan x="10" y="1418">-  ],</tspan>
+
+<tspan x="10" y="1434">-  "_resolved": "https://registry.npmjs.org/jslint-lite/-/jslint-lite-2020.5.31.tgz",</tspan>
+
+<tspan x="10" y="1450">-  "_shasum": "0c7ce5748296425e3c6dcf00192e430a9db3445b",</tspan>
+
+<tspan x="10" y="1466">-  "_spec": "jslint-lite",</tspan>
+
+<tspan x="10" y="1482">-  "_where": "/tmp/npmTestPublished",</tspan>
+
+<tspan x="10" y="1498">-  "author": {</tspan>
+
+<tspan x="10" y="1514">-    "name": "kai zhu",</tspan>
+
+<tspan x="10" y="1530">-    "email": "kaizhu256@gmail.com"</tspan>
+
+<tspan x="10" y="1546">-  },</tspan>
+
+<tspan x="10" y="1562">-  "bin": {</tspan>
+
+<tspan x="10" y="1578">-    "jslint-lite": "lib.jslint.js"</tspan>
+
+<tspan x="10" y="1594">-  },</tspan>
+
+<tspan x="10" y="1610">-  "bugs": {</tspan>
+
+<tspan x="10" y="1626">-    "url": "https://github.com/kaizhu256/node-jslint-lite/issues"</tspan>
+
+<tspan x="10" y="1642">-  },</tspan>
+
+<tspan x="10" y="1658">-  "bundleDependencies": false,</tspan>
+
+<tspan x="10" y="1674">-  "deprecated": false,</tspan>
+
+<tspan x="10" y="1690">-  "description": "this zero-dependency package will provide browser-compatible versions of jsli\</tspan>
+<tspan x="10" y="1706">nt (v2020.3.28) and csslint (v2018.2.25), with a working web-demo",</tspan>
+
+<tspan x="10" y="1722">-  "devDependencies": {</tspan>
+
+<tspan x="10" y="1738">-    "utility2": "github:kaizhu256/node-utility2#alpha"</tspan>
+
+<tspan x="10" y="1754">-  },</tspan>
+
+<tspan x="10" y="1770">-  "engines": {</tspan>
+
+<tspan x="10" y="1786">-    "node": "&gt;=12.0"</tspan>
+
+<tspan x="10" y="1802">-  },</tspan>
+
+<tspan x="10" y="1818">-  "fileCount": 8,</tspan>
+
+<tspan x="10" y="1834">-  "homepage": "https://github.com/kaizhu256/node-jslint-lite",</tspan>
+
+<tspan x="10" y="1850">-  "keywords": [</tspan>
+
+<tspan x="10" y="1866">-    "csslint",</tspan>
+
+<tspan x="10" y="1882">-    "jslint"</tspan>
+
+<tspan x="10" y="1898">-  ],</tspan>
+
+<tspan x="10" y="1914">-  "license": "MIT",</tspan>
+
+<tspan x="10" y="1930">-  "main": "lib.jslint.js",</tspan>
+
+<tspan x="10" y="1946">-  "name": "jslint-lite",</tspan>
+
+<tspan x="10" y="1962">-  "nameAliasPublish": "csslint-lite kslint",</tspan>
+
+<tspan x="10" y="1978">-  "nameLib": "jslint",</tspan>
+
+<tspan x="10" y="1994">-  "nameOriginal": "jslint-lite",</tspan>
+
+<tspan x="10" y="2010">-  "os": [</tspan>
+
+<tspan x="10" y="2026">-    "darwin",</tspan>
+
+<tspan x="10" y="2042">-    "linux"</tspan>
+
+<tspan x="10" y="2058">-  ],</tspan>
+
+<tspan x="10" y="2074">-  "repository": {</tspan>
+
+<tspan x="10" y="2090">-    "type": "git",</tspan>
+
+<tspan x="10" y="2106">-    "url": "git+https://github.com/kaizhu256/node-jslint-lite.git"</tspan>
+
+<tspan x="10" y="2122">-  },</tspan>
+
+<tspan x="10" y="2138">-  "scripts": {</tspan>
+
+<tspan x="10" y="2154">-    "build-ci": "./npm_scripts.sh",</tspan>
+
+<tspan x="10" y="2170">-    "env": "env",</tspan>
+
+<tspan x="10" y="2186">-    "eval": "./npm_scripts.sh",</tspan>
+
+<tspan x="10" y="2202">-    "heroku-postbuild": "./npm_scripts.sh",</tspan>
+
+<tspan x="10" y="2218">-    "postinstall": "./npm_scripts.sh",</tspan>
+
+<tspan x="10" y="2234">-    "start": "./npm_scripts.sh",</tspan>
+
+<tspan x="10" y="2250">-    "test": "./npm_scripts.sh",</tspan>
+
+<tspan x="10" y="2266">-    "utility2": "./npm_scripts.sh"</tspan>
+
+<tspan x="10" y="2282">-  },</tspan>
+
+<tspan x="10" y="2298">-  "version": "2020.5.31"</tspan>
+
+<tspan x="10" y="2314">+    "nameAliasPublish": "csslint-lite kslint",</tspan>
+
+<tspan x="10" y="2330">+    "nameLib": "jslint",</tspan>
+
+<tspan x="10" y="2346">+    "nameOriginal": "jslint-lite",</tspan>
+
+<tspan x="10" y="2362">+    "os": [</tspan>
+
+<tspan x="10" y="2378">+        "darwin",</tspan>
+
+<tspan x="10" y="2394">+        "linux"</tspan>
+
+<tspan x="10" y="2410">+    ],</tspan>
+
+<tspan x="10" y="2426">+    "repository": {</tspan>
+
+<tspan x="10" y="2442">+        "type": "git",</tspan>
+
+<tspan x="10" y="2458">+        "url": "git+https://github.com/kaizhu256/node-jslint-lite.git"</tspan>
+
+<tspan x="10" y="2474">+    },</tspan>
+
+<tspan x="10" y="2490">+    "scripts": {</tspan>
+
+<tspan x="10" y="2506">+        "build-ci": "./npm_scripts.sh",</tspan>
+
+<tspan x="10" y="2522">+        "env": "env",</tspan>
+
+<tspan x="10" y="2538">+        "eval": "./npm_scripts.sh",</tspan>
+
+<tspan x="10" y="2554">+        "heroku-postbuild": "./npm_scripts.sh",</tspan>
+
+<tspan x="10" y="2570">+        "postinstall": "./npm_scripts.sh",</tspan>
+
+<tspan x="10" y="2586">+        "start": "./npm_scripts.sh",</tspan>
+
+<tspan x="10" y="2602">+        "test": "./npm_scripts.sh",</tspan>
+
+<tspan x="10" y="2618">+        "utility2": "./npm_scripts.sh"</tspan>
+
+<tspan x="10" y="2634">+    },</tspan>
+
+<tspan x="10" y="2650">+    "version": "2020.5.31"</tspan>
+
+<tspan x="10" y="2666"> }</tspan>
+
+<tspan x="10" y="2682">jslint-autofix - modified and saved file /tmp/npmTestPublished/node_modules/jslint-lite/package.\</tspan>
+<tspan x="10" y="2698">json</tspan>
+
+<tspan x="10" y="2714">jslint - 57ms - /tmp/npmTestPublished/node_modules/jslint-lite/package.json</tspan>
+
+<tspan x="10" y="2730">--- /tmp/npmTestPublished/node_modules/jslint-lite/test.js.autofix.old	2020-06-03 17:12:47.65276\</tspan>
+<tspan x="10" y="2746">5479 +0000</tspan>
+
+<tspan x="10" y="2762">+++ /tmp/npmTestPublished/node_modules/jslint-lite/test.js	2020-06-03 17:12:47.652765479 +0000</tspan>
+
+<tspan x="10" y="2778">@@ -1,7 +1,7 @@</tspan>
+
+<tspan x="10" y="2794"> /* istanbul instrument in package jslint */</tspan>
+
+<tspan x="10" y="2810"> // assets.utility2.header.js - start</tspan>
+
+<tspan x="10" y="2826">-/* istanbul ignore next */</tspan>
+
+<tspan x="10" y="2842"> /* jslint utility2:true */</tspan>
+
+<tspan x="10" y="2858">+/* istanbul ignore next */</tspan>
+
+<tspan x="10" y="2874"> (function (globalThis) {</tspan>
+
+<tspan x="10" y="2890">     "use strict";</tspan>
+
+<tspan x="10" y="2906">     let consoleError;</tspan>
+
+<tspan x="10" y="2922">@@ -24,12 +24,6 @@</tspan>
+
+<tspan x="10" y="2938">             return argList[0];</tspan>
+
+<tspan x="10" y="2954">         };</tspan>
+
+<tspan x="10" y="2970">     }</tspan>
+
+<tspan x="10" y="2986">-    String.prototype.trimEnd = (</tspan>
+
+<tspan x="10" y="3002">-        String.prototype.trimEnd || String.prototype.trimRight</tspan>
+
+<tspan x="10" y="3018">-    );</tspan>
+
+<tspan x="10" y="3034">-    String.prototype.trimStart = (</tspan>
+
+<tspan x="10" y="3050">-        String.prototype.trimStart || String.prototype.trimLeft</tspan>
+
+<tspan x="10" y="3066">-    );</tspan>
+
+<tspan x="10" y="3082">     // init local</tspan>
+
+<tspan x="10" y="3098">     local = {};</tspan>
+
+<tspan x="10" y="3114">     local.local = local;</tspan>
+
+<tspan x="10" y="3130">@@ -78,7 +72,7 @@</tspan>
+
+<tspan x="10" y="3146">         ii = 0;</tspan>
+
+<tspan x="10" y="3162">         while (ii &lt; argList.length) {</tspan>
+
+<tspan x="10" y="3178">             arg = argList[ii];</tspan>
+
+<tspan x="10" y="3194">-            if (arg !== null &amp;&amp; arg !== undefined &amp;&amp; arg !== "") {</tspan>
+
+<tspan x="10" y="3210">+            if (!(arg === undefined || arg === null || arg === "")) {</tspan>
+
+<tspan x="10" y="3226">                 break;</tspan>
+
+<tspan x="10" y="3242">             }</tspan>
+
+<tspan x="10" y="3258">             ii += 1;</tspan>
+
+<tspan x="10" y="3274">@@ -108,38 +102,6 @@</tspan>
+
+<tspan x="10" y="3290">             return dflt;</tspan>
+
+<tspan x="10" y="3306">         }</tspan>
+
+<tspan x="10" y="3322">     };</tspan>
+
+<tspan x="10" y="3338">-    local.fsRmrfSync = function (pathname) {</tspan>
+
+<tspan x="10" y="3354">-    /*</tspan>
+
+<tspan x="10" y="3370">-     * this function will sync "rm -rf" &lt;pathname&gt;</tspan>
+
+<tspan x="10" y="3386">-     */</tspan>
+
+<tspan x="10" y="3402">-        let child_process;</tspan>
+
+<tspan x="10" y="3418">-        // do nothing if module does not exist</tspan>
+
+<tspan x="10" y="3434">-        try {</tspan>
+
+<tspan x="10" y="3450">-            child_process = require("child_process");</tspan>
+
+<tspan x="10" y="3466">-        } catch (ignore) {</tspan>
+
+<tspan x="10" y="3482">-            return;</tspan>
+
+<tspan x="10" y="3498">-        }</tspan>
+
+<tspan x="10" y="3514">-        pathname = require("path").resolve(pathname);</tspan>
+
+<tspan x="10" y="3530">-        if (process.platform !== "win32") {</tspan>
+
+<tspan x="10" y="3546">-            child_process.spawnSync("rm", [</tspan>
+
+<tspan x="10" y="3562">-                "-rf", pathname</tspan>
+
+<tspan x="10" y="3578">-            ], {</tspan>
+
+<tspan x="10" y="3594">-                stdio: [</tspan>
+
+<tspan x="10" y="3610">-                    "ignore", 1, 2</tspan>
+
+<tspan x="10" y="3626">-                ]</tspan>
+
+<tspan x="10" y="3642">-            });</tspan>
+
+<tspan x="10" y="3658">-            return;</tspan>
+
+<tspan x="10" y="3674">-        }</tspan>
+
+<tspan x="10" y="3690">-        try {</tspan>
+
+<tspan x="10" y="3706">-            child_process.spawnSync("rd", [</tspan>
+
+<tspan x="10" y="3722">-                "/s", "/q", pathname</tspan>
+
+<tspan x="10" y="3738">-            ], {</tspan>
+
+<tspan x="10" y="3754">-                stdio: [</tspan>
+
+<tspan x="10" y="3770">-                    "ignore", 1, "ignore"</tspan>
+
+<tspan x="10" y="3786">-                ]</tspan>
+
+<tspan x="10" y="3802">-            });</tspan>
+
+<tspan x="10" y="3818">-        } catch (ignore) {}</tspan>
+
+<tspan x="10" y="3834">-    };</tspan>
+
+<tspan x="10" y="3850">     local.fsWriteFileWithMkdirpSync = function (pathname, data, msg) {</tspan>
+
+<tspan x="10" y="3866">     /*</tspan>
+
+<tspan x="10" y="3882">      * this function will sync write &lt;data&gt; to &lt;pathname&gt; with "mkdir -p"</tspan>
+
+<tspan x="10" y="3898">@@ -213,6 +175,12 @@</tspan>
+
+<tspan x="10" y="3914">     };</tspan>
+
+<tspan x="10" y="3930">     // require builtin</tspan>
+
+<tspan x="10" y="3946">     if (!local.isBrowser) {</tspan>
+
+<tspan x="10" y="3962">+        if (process.unhandledRejections !== "strict") {</tspan>
+
+<tspan x="10" y="3978">+            process.unhandledRejections = "strict";</tspan>
+
+<tspan x="10" y="3994">+            process.on("unhandledRejection", function (err) {</tspan>
+
+<tspan x="10" y="4010">+                throw err;</tspan>
+
+<tspan x="10" y="4026">+            });</tspan>
+
+<tspan x="10" y="4042">+        }</tspan>
+
+<tspan x="10" y="4058">         local.assert = require("assert");</tspan>
+
+<tspan x="10" y="4074">         local.buffer = require("buffer");</tspan>
+
+<tspan x="10" y="4090">         local.child_process = require("child_process");</tspan>
+
+<tspan x="10" y="4106">jslint-autofix - modified and saved file /tmp/npmTestPublished/node_modules/jslint-lite/test.js</tspan>
+
+<tspan x="10" y="4122">jslint - 310ms - /tmp/npmTestPublished/node_modules/jslint-lite/test.js</tspan>
+
+<tspan x="10" y="4138">--- /tmp/npmTestPublished/node_modules/jslint-lite/README.md.autofix.old	2020-06-03 17:12:48.020\</tspan>
+<tspan x="10" y="4154">765479 +0000</tspan>
+
+<tspan x="10" y="4170">+++ /tmp/npmTestPublished/node_modules/jslint-lite/README.md	2020-06-03 17:12:48.020765479 +0000</tspan>
+
+<tspan x="10" y="4186">@@ -128,8 +128,8 @@</tspan>
+
+<tspan x="10" y="4202"> </tspan>
+
+<tspan x="10" y="4218"> /* istanbul instrument in package jslint */</tspan>
+
+<tspan x="10" y="4234"> // assets.utility2.header.js - start</tspan>
+
+<tspan x="10" y="4250">-/* istanbul ignore next */</tspan>
+
+<tspan x="10" y="4266"> /* jslint utility2:true */</tspan>
+
+<tspan x="10" y="4282">+/* istanbul ignore next */</tspan>
+
+<tspan x="10" y="4298"> (function (globalThis) {</tspan>
+
+<tspan x="10" y="4314">     "use strict";</tspan>
+
+<tspan x="10" y="4330">     let consoleError;</tspan>
+
+<tspan x="10" y="4346">@@ -152,12 +152,6 @@</tspan>
+
+<tspan x="10" y="4362">             return argList[0];</tspan>
+
+<tspan x="10" y="4378">         };</tspan>
+
+<tspan x="10" y="4394">     }</tspan>
+
+<tspan x="10" y="4410">-    String.prototype.trimEnd = (</tspan>
+
+<tspan x="10" y="4426">-        String.prototype.trimEnd || String.prototype.trimRight</tspan>
+
+<tspan x="10" y="4442">-    );</tspan>
+
+<tspan x="10" y="4458">-    String.prototype.trimStart = (</tspan>
+
+<tspan x="10" y="4474">-        String.prototype.trimStart || String.prototype.trimLeft</tspan>
+
+<tspan x="10" y="4490">-    );</tspan>
+
+<tspan x="10" y="4506">     // init local</tspan>
+
+<tspan x="10" y="4522">     local = {};</tspan>
+
+<tspan x="10" y="4538">     local.local = local;</tspan>
+
+<tspan x="10" y="4554">@@ -206,7 +200,7 @@</tspan>
+
+<tspan x="10" y="4570">         ii = 0;</tspan>
+
+<tspan x="10" y="4586">         while (ii &lt; argList.length) {</tspan>
+
+<tspan x="10" y="4602">             arg = argList[ii];</tspan>
+
+<tspan x="10" y="4618">-            if (arg !== null &amp;&amp; arg !== undefined &amp;&amp; arg !== "") {</tspan>
+
+<tspan x="10" y="4634">+            if (!(arg === undefined || arg === null || arg === "")) {</tspan>
+
+<tspan x="10" y="4650">                 break;</tspan>
+
+<tspan x="10" y="4666">             }</tspan>
+
+<tspan x="10" y="4682">             ii += 1;</tspan>
+
+<tspan x="10" y="4698">@@ -236,38 +230,6 @@</tspan>
+
+<tspan x="10" y="4714">             return dflt;</tspan>
+
+<tspan x="10" y="4730">         }</tspan>
+
+<tspan x="10" y="4746">     };</tspan>
+
+<tspan x="10" y="4762">-    local.fsRmrfSync = function (pathname) {</tspan>
+
+<tspan x="10" y="4778">-    /*</tspan>
+
+<tspan x="10" y="4794">-     * this function will sync "rm -rf" &lt;pathname&gt;</tspan>
+
+<tspan x="10" y="4810">-     */</tspan>
+
+<tspan x="10" y="4826">-        let child_process;</tspan>
+
+<tspan x="10" y="4842">-        // do nothing if module does not exist</tspan>
+
+<tspan x="10" y="4858">-        try {</tspan>
+
+<tspan x="10" y="4874">-            child_process = require("child_process");</tspan>
+
+<tspan x="10" y="4890">-        } catch (ignore) {</tspan>
+
+<tspan x="10" y="4906">-            return;</tspan>
+
+<tspan x="10" y="4922">-        }</tspan>
+
+<tspan x="10" y="4938">-        pathname = require("path").resolve(pathname);</tspan>
+
+<tspan x="10" y="4954">-        if (process.platform !== "win32") {</tspan>
+
+<tspan x="10" y="4970">-            child_process.spawnSync("rm", [</tspan>
+
+<tspan x="10" y="4986">-                "-rf", pathname</tspan>
+
+<tspan x="10" y="5002">-            ], {</tspan>
+
+<tspan x="10" y="5018">-                stdio: [</tspan>
+
+<tspan x="10" y="5034">-                    "ignore", 1, 2</tspan>
+
+<tspan x="10" y="5050">-                ]</tspan>
+
+<tspan x="10" y="5066">-            });</tspan>
+
+<tspan x="10" y="5082">-            return;</tspan>
+
+<tspan x="10" y="5098">-        }</tspan>
+
+<tspan x="10" y="5114">-        try {</tspan>
+
+<tspan x="10" y="5130">-            child_process.spawnSync("rd", [</tspan>
+
+<tspan x="10" y="5146">-                "/s", "/q", pathname</tspan>
+
+<tspan x="10" y="5162">-            ], {</tspan>
+
+<tspan x="10" y="5178">-                stdio: [</tspan>
+
+<tspan x="10" y="5194">-                    "ignore", 1, "ignore"</tspan>
+
+<tspan x="10" y="5210">-                ]</tspan>
+
+<tspan x="10" y="5226">-            });</tspan>
+
+<tspan x="10" y="5242">-        } catch (ignore) {}</tspan>
+
+<tspan x="10" y="5258">-    };</tspan>
+
+<tspan x="10" y="5274">     local.fsWriteFileWithMkdirpSync = function (pathname, data, msg) {</tspan>
+
+<tspan x="10" y="5290">     /*</tspan>
+
+<tspan x="10" y="5306">      * this function will sync write &lt;data&gt; to &lt;pathname&gt; with "mkdir -p"</tspan>
+
+<tspan x="10" y="5322">@@ -341,6 +303,12 @@</tspan>
+
+<tspan x="10" y="5338">     };</tspan>
+
+<tspan x="10" y="5354">     // require builtin</tspan>
+
+<tspan x="10" y="5370">     if (!local.isBrowser) {</tspan>
+
+<tspan x="10" y="5386">+        if (process.unhandledRejections !== "strict") {</tspan>
+
+<tspan x="10" y="5402">+            process.unhandledRejections = "strict";</tspan>
+
+<tspan x="10" y="5418">+            process.on("unhandledRejection", function (err) {</tspan>
+
+<tspan x="10" y="5434">+                throw err;</tspan>
+
+<tspan x="10" y="5450">+            });</tspan>
+
+<tspan x="10" y="5466">+        }</tspan>
+
+<tspan x="10" y="5482">         local.assert = require("assert");</tspan>
+
+<tspan x="10" y="5498">         local.buffer = require("buffer");</tspan>
+
+<tspan x="10" y="5514">         local.child_process = require("child_process");</tspan>
+
+<tspan x="10" y="5530">jslint-autofix - modified and saved file /tmp/npmTestPublished/node_modules/jslint-lite/README.m\</tspan>
+<tspan x="10" y="5546">d</tspan>
+
+<tspan x="10" y="5562">jslint - 677ms - /tmp/npmTestPublished/node_modules/jslint-lite/README.md</tspan>
+
+<tspan x="10" y="5578">--- /tmp/npmTestPublished/node_modules/jslint-lite/lib.jslint.js.autofix.old	2020-06-03 17:12:48\</tspan>
+<tspan x="10" y="5594">.492765479 +0000</tspan>
+
+<tspan x="10" y="5610">+++ /tmp/npmTestPublished/node_modules/jslint-lite/lib.jslint.js	2020-06-03 17:12:48.492765479 +\</tspan>
+<tspan x="10" y="5626">0000</tspan>
+
+<tspan x="10" y="5642">@@ -10,8 +10,8 @@</tspan>
+
+<tspan x="10" y="5658"> </tspan>
+
+<tspan x="10" y="5674"> /* istanbul instrument in package jslint */</tspan>
+
+<tspan x="10" y="5690"> // assets.utility2.header.js - start</tspan>
+
+<tspan x="10" y="5706">-/* istanbul ignore next */</tspan>
+
+<tspan x="10" y="5722"> /* jslint utility2:true */</tspan>
+
+<tspan x="10" y="5738">+/* istanbul ignore next */</tspan>
+
+<tspan x="10" y="5754"> (function (globalThis) {</tspan>
+
+<tspan x="10" y="5770">     "use strict";</tspan>
+
+<tspan x="10" y="5786">     let consoleError;</tspan>
+
+<tspan x="10" y="5802">@@ -34,12 +34,6 @@</tspan>
+
+<tspan x="10" y="5818">             return argList[0];</tspan>
+
+<tspan x="10" y="5834">         };</tspan>
+
+<tspan x="10" y="5850">     }</tspan>
+
+<tspan x="10" y="5866">-    String.prototype.trimEnd = (</tspan>
+
+<tspan x="10" y="5882">-        String.prototype.trimEnd || String.prototype.trimRight</tspan>
+
+<tspan x="10" y="5898">-    );</tspan>
+
+<tspan x="10" y="5914">-    String.prototype.trimStart = (</tspan>
+
+<tspan x="10" y="5930">-        String.prototype.trimStart || String.prototype.trimLeft</tspan>
+
+<tspan x="10" y="5946">-    );</tspan>
+
+<tspan x="10" y="5962">     // init local</tspan>
+
+<tspan x="10" y="5978">     local = {};</tspan>
+
+<tspan x="10" y="5994">     local.local = local;</tspan>
+
+<tspan x="10" y="6010">@@ -88,7 +82,7 @@</tspan>
+
+<tspan x="10" y="6026">         ii = 0;</tspan>
+
+<tspan x="10" y="6042">         while (ii &lt; argList.length) {</tspan>
+
+<tspan x="10" y="6058">             arg = argList[ii];</tspan>
+
+<tspan x="10" y="6074">-            if (arg !== null &amp;&amp; arg !== undefined &amp;&amp; arg !== "") {</tspan>
+
+<tspan x="10" y="6090">+            if (!(arg === undefined || arg === null || arg === "")) {</tspan>
+
+<tspan x="10" y="6106">                 break;</tspan>
+
+<tspan x="10" y="6122">             }</tspan>
+
+<tspan x="10" y="6138">             ii += 1;</tspan>
+
+<tspan x="10" y="6154">@@ -118,38 +112,6 @@</tspan>
+
+<tspan x="10" y="6170">             return dflt;</tspan>
+
+<tspan x="10" y="6186">         }</tspan>
+
+<tspan x="10" y="6202">     };</tspan>
+
+<tspan x="10" y="6218">-    local.fsRmrfSync = function (pathname) {</tspan>
+
+<tspan x="10" y="6234">-    /*</tspan>
+
+<tspan x="10" y="6250">-     * this function will sync "rm -rf" &lt;pathname&gt;</tspan>
+
+<tspan x="10" y="6266">-     */</tspan>
+
+<tspan x="10" y="6282">-        let child_process;</tspan>
+
+<tspan x="10" y="6298">-        // do nothing if module does not exist</tspan>
+
+<tspan x="10" y="6314">-        try {</tspan>
+
+<tspan x="10" y="6330">-            child_process = require("child_process");</tspan>
+
+<tspan x="10" y="6346">-        } catch (ignore) {</tspan>
+
+<tspan x="10" y="6362">-            return;</tspan>
+
+<tspan x="10" y="6378">-        }</tspan>
+
+<tspan x="10" y="6394">-        pathname = require("path").resolve(pathname);</tspan>
+
+<tspan x="10" y="6410">-        if (process.platform !== "win32") {</tspan>
+
+<tspan x="10" y="6426">-            child_process.spawnSync("rm", [</tspan>
+
+<tspan x="10" y="6442">-                "-rf", pathname</tspan>
+
+<tspan x="10" y="6458">-            ], {</tspan>
+
+<tspan x="10" y="6474">-                stdio: [</tspan>
+
+<tspan x="10" y="6490">-                    "ignore", 1, 2</tspan>
+
+<tspan x="10" y="6506">-                ]</tspan>
+
+<tspan x="10" y="6522">-            });</tspan>
+
+<tspan x="10" y="6538">-            return;</tspan>
+
+<tspan x="10" y="6554">-        }</tspan>
+
+<tspan x="10" y="6570">-        try {</tspan>
+
+<tspan x="10" y="6586">-            child_process.spawnSync("rd", [</tspan>
+
+<tspan x="10" y="6602">-                "/s", "/q", pathname</tspan>
+
+<tspan x="10" y="6618">-            ], {</tspan>
+
+<tspan x="10" y="6634">-                stdio: [</tspan>
+
+<tspan x="10" y="6650">-                    "ignore", 1, "ignore"</tspan>
+
+<tspan x="10" y="6666">-                ]</tspan>
+
+<tspan x="10" y="6682">-            });</tspan>
+
+<tspan x="10" y="6698">-        } catch (ignore) {}</tspan>
+
+<tspan x="10" y="6714">-    };</tspan>
+
+<tspan x="10" y="6730">     local.fsWriteFileWithMkdirpSync = function (pathname, data, msg) {</tspan>
+
+<tspan x="10" y="6746">     /*</tspan>
+
+<tspan x="10" y="6762">      * this function will sync write &lt;data&gt; to &lt;pathname&gt; with "mkdir -p"</tspan>
+
+<tspan x="10" y="6778">@@ -223,6 +185,12 @@</tspan>
+
+<tspan x="10" y="6794">     };</tspan>
+
+<tspan x="10" y="6810">     // require builtin</tspan>
+
+<tspan x="10" y="6826">     if (!local.isBrowser) {</tspan>
+
+<tspan x="10" y="6842">+        if (process.unhandledRejections !== "strict") {</tspan>
+
+<tspan x="10" y="6858">+            process.unhandledRejections = "strict";</tspan>
+
+<tspan x="10" y="6874">+            process.on("unhandledRejection", function (err) {</tspan>
+
+<tspan x="10" y="6890">+                throw err;</tspan>
+
+<tspan x="10" y="6906">+            });</tspan>
+
+<tspan x="10" y="6922">+        }</tspan>
+
+<tspan x="10" y="6938">         local.assert = require("assert");</tspan>
+
+<tspan x="10" y="6954">         local.buffer = require("buffer");</tspan>
+
+<tspan x="10" y="6970">         local.child_process = require("child_process");</tspan>
+
+<tspan x="10" y="6986">@@ -520,11 +488,7 @@</tspan>
+
+<tspan x="10" y="7002">     stack = new Error().stack;</tspan>
+
+<tspan x="10" y="7018">     onError2 = function (err, data, meta) {</tspan>
+
+<tspan x="10" y="7034">         // append current-stack to err.stack</tspan>
+
+<tspan x="10" y="7050">-        if (</tspan>
+
+<tspan x="10" y="7066">-            err</tspan>
+
+<tspan x="10" y="7082">-            &amp;&amp; typeof err.stack === "string"</tspan>
+
+<tspan x="10" y="7098">-            &amp;&amp; err !== local.errorDefault</tspan>
+
+<tspan x="10" y="7114">-        ) {</tspan>
+
+<tspan x="10" y="7130">+        if (err &amp;&amp; typeof err.stack === "string") {</tspan>
+
+<tspan x="10" y="7146">             err.stack += "\n" + stack;</tspan>
+
+<tspan x="10" y="7162">         }</tspan>
+
+<tspan x="10" y="7178">         onError(err, data, meta);</tspan>
+
+<tspan x="10" y="7194">jslint-autofix - modified and saved file /tmp/npmTestPublished/node_modules/jslint-lite/lib.jsli\</tspan>
+<tspan x="10" y="7210">nt.js</tspan>
+
+<tspan x="10" y="7226">jslint - 1155ms - /tmp/npmTestPublished/node_modules/jslint-lite/lib.jslint.js</tspan>
+
+<tspan x="10" y="7242">http-server listening on port 34322</tspan>
+
+<tspan x="10" y="7258">testRunDefault - 57 ms - [node test-case 1 of 8 passed] - testCase_buildApidoc_default</tspan>
+
+<tspan x="10" y="7274">testRunDefault - 74 ms - [node test-case 2 of 8 passed] - testCase_buildLib_default</tspan>
+
+<tspan x="10" y="7290">testRunDefault - 79 ms - [node test-case 3 of 8 passed] - testCase_buildReadme_default</tspan>
+
+<tspan x="10" y="7306">testRunDefault - 79 ms - [node test-case 4 of 8 passed] - testCase_buildTest_default</tspan>
+
+<tspan x="10" y="7322">testRunDefault - 256 ms - [node test-case 5 of 8 passed] - testCase_jslintAndPrint_default</tspan>
+
+<tspan x="10" y="7338">testRunDefault - 257 ms - [node test-case 6 of 8 passed] - testCase_nop_default</tspan>
+
+<tspan x="10" y="7354">jslint - 5ms - /tmp/npmTestPublished/node_modules/jslint-lite/tmp/build/app/assets.example.html</tspan>
+
+<tspan x="10" y="7370">jslint - 10ms - /tmp/npmTestPublished/node_modules/jslint-lite/tmp/build/app/assets.jslint.html</tspan>
+
+<tspan x="10" y="7386">jslint - 11ms - /tmp/npmTestPublished/node_modules/jslint-lite/tmp/build/app/index.html</tspan>
+
+<tspan x="10" y="7402">jslint - 14ms - /tmp/npmTestPublished/node_modules/jslint-lite/tmp/build/app/assets.utility2.htm\</tspan>
+<tspan x="10" y="7418">l</tspan>
+
+<tspan x="10" y="7434">jslint - 15ms - /tmp/npmTestPublished/node_modules/jslint-lite/tmp/build/app/assets.test.js</tspan>
+
+<tspan x="10" y="7450">jslint - 16ms - /tmp/npmTestPublished/node_modules/jslint-lite/tmp/build/app/assets.example.js</tspan>
+
+<tspan x="10" y="7466">jslint - 34ms - /tmp/npmTestPublished/node_modules/jslint-lite/tmp/build/app/assets.jslint.js</tspan>
+
+<tspan x="10" y="7482"></tspan>
+
+<tspan x="10" y="7498">DevTools listening on ws://127.0.0.1:46555/devtools/browser/34df33b9-b7d4-4f51-be71-ccc46ce5f335</tspan>
+
+<tspan x="10" y="7514">&gt; http-server listening on port 48604</tspan>
+
+<tspan x="10" y="7530">[0603/171251.044400:INFO:CONSOLE(8)] "jslint inputCsslint1.css</tspan>
+
+<tspan x="10" y="7546">  1 warning - zero-units - Values of 0 shouldn't have units specified.</tspan>
+
+<tspan x="10" y="7562">    You don't need to specify units when a value is 0. // line 6, column 13</tspan>
+
+<tspan x="10" y="7578">    margin: 0px;", source: http://127.0.0.1:34322/assets.example.js (8)</tspan>
+
+<tspan x="10" y="7594">[0603/171251.060528:INFO:CONSOLE(8)] "jslint inputJslint1.js</tspan>
+
+<tspan x="10" y="7610">  1 Undeclared 'console'. // line 5, column 1</tspan>
+
+<tspan x="10" y="7626">    console.log(message);</tspan>
+
+<tspan x="10" y="7642">  2 Undeclared 'console'. // line 6, column 1</tspan>
+
+<tspan x="10" y="7658">    console.log(null);", source: http://127.0.0.1:34322/assets.example.js (8)</tspan>
+
+<tspan x="10" y="7674">[0603/171251.339203:INFO:CONSOLE(8)] "testRunDefault - 260 ms - [browser test-case 1 of 2 passed\</tspan>
+<tspan x="10" y="7690">] - testCase_jslintAndPrint_default", source: http://127.0.0.1:34322/assets.example.js (8)</tspan>
+
+<tspan x="10" y="7706">[0603/171251.352164:INFO:CONSOLE(8)] "testRunDefault - 273 ms - [browser test-case 2 of 2 passed\</tspan>
+<tspan x="10" y="7722">] - testCase_nop_default", source: http://127.0.0.1:34322/assets.example.js (8)</tspan>
+
+<tspan x="10" y="7738">[0603/171251.364234:INFO:CONSOLE(8)] "domOnEventWindowOnloadTimeElapsed = 897", source: http://1\</tspan>
+<tspan x="10" y="7754">27.0.0.1:34322/assets.example.js (8)</tspan>
+
+<tspan x="10" y="7770">testRunDefault - 2112 ms - [node test-case 7 of 8 passed] - testCase_webpage_default</tspan>
+
+<tspan x="10" y="7786">testRunDefault - 6076 ms - testCase pending - testCase_buildApp_default ...</tspan>
+
+<tspan x="10" y="7802">testRunDefault - 6327 ms - [node test-case 8 of 8 passed] - testCase_buildApp_default</tspan>
+
+<tspan x="10" y="7818">----------------|---------|---------|---------|---------|</tspan>
+
+<tspan x="10" y="7834">File            | % Stmts | % Brchs | % Funcs | % Lines |</tspan>
+
+<tspan x="10" y="7850">----------------|---------|---------|---------|---------|</tspan>
+
+<tspan x="10" y="7866">All files       |    97.2 |   88.56 |      97 |   97.19 |</tspan>
+
+<tspan x="10" y="7882">jslint-lite/    |    97.2 |   88.56 |      97 |   97.19 |</tspan>
+
+<tspan x="10" y="7898">  example.js    |   89.38 |   82.56 |   95.24 |   89.38 |</tspan>
+
+<tspan x="10" y="7914">  lib.jslint.js |   97.33 |   88.72 |   96.97 |   97.32 |</tspan>
+
+<tspan x="10" y="7930">  test.js       |     100 |   87.14 |     100 |     100 |</tspan>
+
+<tspan x="10" y="7946">----------------|---------|---------|---------|---------|</tspan>
+
+<tspan x="10" y="7962"></tspan>
+
+<tspan x="10" y="7978">wrote file - coverage-report - /tmp/npmTestPublished/node_modules/jslint-lite/tmp/build/coverage\</tspan>
+<tspan x="10" y="7994">.html/coverage.txt</tspan>
+
+<tspan x="10" y="8010">wrote file - coverage-report - /tmp/npmTestPublished/node_modules/jslint-lite/tmp/build/coverage\</tspan>
+<tspan x="10" y="8026">.html/index.html</tspan>
+
+<tspan x="10" y="8042">wrote file - coverage-report - /tmp/npmTestPublished/node_modules/jslint-lite/tmp/build/coverage\</tspan>
+<tspan x="10" y="8058">.html/jslint-lite/index.html</tspan>
+
+<tspan x="10" y="8074">wrote file - coverage-report - /tmp/npmTestPublished/node_modules/jslint-lite/tmp/build/coverage\</tspan>
+<tspan x="10" y="8090">.html/jslint-lite/example.js.html</tspan>
+
+<tspan x="10" y="8106">wrote file - coverage-report - /tmp/npmTestPublished/node_modules/jslint-lite/tmp/build/coverage\</tspan>
+<tspan x="10" y="8122">.html/jslint-lite/lib.jslint.js.html</tspan>
+
+<tspan x="10" y="8138">wrote file - coverage-report - /tmp/npmTestPublished/node_modules/jslint-lite/tmp/build/coverage\</tspan>
+<tspan x="10" y="8154">.html/jslint-lite/test.js.html</tspan>
+
+<tspan x="10" y="8170">wrote file - coverage-report - /tmp/npmTestPublished/node_modules/jslint-lite/tmp/build/coverage\</tspan>
+<tspan x="10" y="8186">.html/coverage.all.html</tspan>
+
+<tspan x="10" y="8202">wrote file - coverage-report - /tmp/npmTestPublished/node_modules/jslint-lite/tmp/build/coverage\</tspan>
+<tspan x="10" y="8218">.html/coverage.json</tspan>
+
+<tspan x="10" y="8234">wrote file - coverage-report - /tmp/npmTestPublished/node_modules/jslint-lite/tmp/build/coverage\</tspan>
+<tspan x="10" y="8250">.html/coverage.include.json</tspan>
+
+<tspan x="10" y="8266">wrote file - coverage-report - /tmp/npmTestPublished/node_modules/jslint-lite/tmp/build/coverage\</tspan>
+<tspan x="10" y="8282">.badge.svg</tspan>
+
+<tspan x="10" y="8298">istanbul - created coverage file /tmp/npmTestPublished/node_modules/jslint-lite/tmp/build/covera\</tspan>
+<tspan x="10" y="8314">ge.html/index.html</tspan>
+
+<tspan x="10" y="8330"></tspan>
+
+<tspan x="10" y="8346">-------------------------------------------------------</tspan>
+
+<tspan x="10" y="8362">| test-report - npmTestPublished - browser - / - Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537\</tspan>
+<tspan x="10" y="8378">.36 (KHTML, like Gecko) HeadlessChrome/83.0.4103.61 Safari/537.36 - 2020-06-03T17:12:50.631Z</tspan>
+
+<tspan x="10" y="8394">|     281 ms            0 failed        2 passed      |</tspan>
+
+<tspan x="10" y="8410">-------------------------------------------------------</tspan>
+
+<tspan x="10" y="8426">| test-report - npmTestPublished - node - linux v14.4.0 - 2020-06-03T17:12:47.099Z</tspan>
+
+<tspan x="10" y="8442">|    6327 ms            0 failed        8 passed      |</tspan>
+
+<tspan x="10" y="8458">-------------------------------------------------------</tspan>
+
+<tspan x="10" y="8474"></tspan>
+
+<tspan x="10" y="8490">wrote file - test-report - /tmp/npmTestPublished/node_modules/jslint-lite/tmp/build/test-report.\</tspan>
+<tspan x="10" y="8506">html</tspan>
+
+<tspan x="10" y="8522">wrote file - test-report - /tmp/npmTestPublished/node_modules/jslint-lite/tmp/build/build.badge.\</tspan>
+<tspan x="10" y="8538">svg</tspan>
+
+<tspan x="10" y="8554">wrote file - test-report - /tmp/npmTestPublished/node_modules/jslint-lite/tmp/build/test-report.\</tspan>
+<tspan x="10" y="8570">badge.svg</tspan>
+
+<tspan x="10" y="8586"></tspan>
+
+<tspan x="10" y="8602">npmTestPublished - 0 failed tests</tspan>
+
+<tspan x="10" y="8618"></tspan>
+
+<tspan x="10" y="8634"></tspan>
+
+<tspan x="10" y="8650">\x1b[35m[MODE_BUILD=npmTestPublished]\x1b[0m - 2020-06-03T17:12:56.245Z - EXIT_CODE - 0</tspan>
+
+</text>
+</svg>

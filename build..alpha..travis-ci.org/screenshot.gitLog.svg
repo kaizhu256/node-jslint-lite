@@ -1,0 +1,559 @@
+<svg height="4478" width="720" xmlns="http://www.w3.org/2000/svg">
+<rect height="4478" fill="#555" width="720"></rect>
+<text fill="#7f7" font-family="Courier New" font-size="12" xml:space="preserve">
+<tspan x="10" y="26">2020-06-03 12:11:41 -0500</tspan>
+
+<tspan x="10" y="42">unline.fsWriteFileWithMkdirp</tspan>
+
+<tspan x="10" y="58"></tspan>
+
+<tspan x="10" y="74">2020-06-03 12:02:25 -0500</tspan>
+
+<tspan x="10" y="90">test.published</tspan>
+
+<tspan x="10" y="106"></tspan>
+
+<tspan x="10" y="122">2020-06-03 11:47:51 -0500</tspan>
+
+<tspan x="10" y="138">cull.onErrorDefault</tspan>
+
+<tspan x="10" y="154"></tspan>
+
+<tspan x="10" y="170">2020-06-03 01:48:30 -0500</tspan>
+
+<tspan x="10" y="186">- remove polyfills String.prototype.trimStart, String.prototype.trimEnd</tspan>
+
+<tspan x="10" y="202"></tspan>
+
+<tspan x="10" y="218">2020-06-02 12:07:59 -0500</tspan>
+
+<tspan x="10" y="234">update</tspan>
+
+<tspan x="10" y="250"></tspan>
+
+<tspan x="10" y="266">2020-06-02 11:46:08 -0500</tspan>
+
+<tspan x="10" y="282">description</tspan>
+
+<tspan x="10" y="298"></tspan>
+
+<tspan x="10" y="314">2020-06-02 11:35:38 -0500</tspan>
+
+<tspan x="10" y="330">[build clean]</tspan>
+
+<tspan x="10" y="346"></tspan>
+
+<tspan x="10" y="362">2020-06-02 10:55:12 -0500</tspan>
+
+<tspan x="10" y="378">[npm publish] - npm publish 2020.5.31</tspan>
+
+<tspan x="10" y="394">- replace process.cwd() with path.resolve()</tspan>
+
+<tspan x="10" y="410">- replace function fsReadFileOrEmptyStringSync with fsReadFileOrDefaultSync</tspan>
+
+<tspan x="10" y="426">- remove dependency to file lib.swgg.js</tspan>
+
+<tspan x="10" y="442"></tspan>
+
+<tspan x="10" y="458">2020-05-25 04:07:27 -0500</tspan>
+
+<tspan x="10" y="474">[npm publish] - npm publish 2020.5.20</tspan>
+
+<tspan x="10" y="490">- jslint - add debug-option to pring stack-trace of first warning</tspan>
+
+<tspan x="10" y="506">- jslint - prefer undefined over null in file lib.jslint.js</tspan>
+
+<tspan x="10" y="522">- jslint - validate sort nested switch-statements</tspan>
+
+<tspan x="10" y="538">- update to jslint v2020.03.28</tspan>
+
+<tspan x="10" y="554">- remove excessive "the" from comments</tspan>
+
+<tspan x="10" y="570">- update build</tspan>
+
+<tspan x="10" y="586"></tspan>
+
+<tspan x="10" y="602">2020-03-17 00:50:46 -0500</tspan>
+
+<tspan x="10" y="618">[npm publish] - npm publish 2020.3.16</tspan>
+
+<tspan x="10" y="634">- update function shRawLibFetch to inline-fetch resources to raw.xxx.js</tspan>
+
+<tspan x="10" y="650">- remove polyfills Array.p.flat, Array.p.flatMap, TextDecoder, TextEncoder</tspan>
+
+<tspan x="10" y="666">- update build</tspan>
+
+<tspan x="10" y="682"></tspan>
+
+<tspan x="10" y="698">2020-02-17 10:52:49 -0600</tspan>
+
+<tspan x="10" y="714">[npm publish] - npm publish 2020.1.27</tspan>
+
+<tspan x="10" y="730">- update jslint to v2020.1.17</tspan>
+
+<tspan x="10" y="746">- update csslint to v2018.2.25</tspan>
+
+<tspan x="10" y="762">- jslint - autofix json with jslintStringifyOrdered</tspan>
+
+<tspan x="10" y="778">- jslint - revert to using jslint (instead of JSON.parse) to lint json</tspan>
+
+<tspan x="10" y="794">- jslint - add bigint support</tspan>
+
+<tspan x="10" y="810">- fix build-ci for bootstrap-lite, jslint-lite</tspan>
+
+<tspan x="10" y="826"></tspan>
+
+<tspan x="10" y="842">2019-10-09 16:24:47 -0500</tspan>
+
+<tspan x="10" y="858">[npm publish] - npm publish 2019.10.9</tspan>
+
+<tspan x="10" y="874">- fix build-ci for bootstrap-lite, jslint-lite</tspan>
+
+<tspan x="10" y="890"></tspan>
+
+<tspan x="10" y="906">2019-10-09 12:11:07 -0500</tspan>
+
+<tspan x="10" y="922">[npm publish] - npm publish 2019.10.8</tspan>
+
+<tspan x="10" y="938">- merge function local.valueOrEmptyXxx into local.coalesce</tspan>
+
+<tspan x="10" y="954"></tspan>
+
+<tspan x="10" y="970">2019-09-24 15:27:14 -0500</tspan>
+
+<tspan x="10" y="986">- jslint - update function jslintAndPrint's opt.lineOffset with opt.iiStart, opt.iiEnd</tspan>
+
+<tspan x="10" y="1002">- streamline evt-handling in example.js</tspan>
+
+<tspan x="10" y="1018">- merge polyfills into assets.example.begin.js</tspan>
+
+<tspan x="10" y="1034"></tspan>
+
+<tspan x="10" y="1050">2019-09-09 02:22:50 -0500</tspan>
+
+<tspan x="10" y="1066">- jslint - remove unexpected_a hacks</tspan>
+
+<tspan x="10" y="1082">- jslint - reintroduce flag option.nomen to ignore bad_property_a</tspan>
+
+<tspan x="10" y="1098">- jslint - migrate from let-declaration to var-declaration</tspan>
+
+<tspan x="10" y="1114">- rename function assertThrow to assertOrThrow</tspan>
+
+<tspan x="10" y="1130">- jslint - rename errText to errMsg</tspan>
+
+<tspan x="10" y="1146"></tspan>
+
+<tspan x="10" y="1162">2019-09-07 07:40:19 -0500</tspan>
+
+<tspan x="10" y="1178">[npm publish] - remove electron dependency</tspan>
+
+<tspan x="10" y="1194">- jslint - remove ternary-operator/newline comment preceding bra</tspan>
+
+<tspan x="10" y="1210"></tspan>
+
+<tspan x="10" y="1226">2019-08-22 12:15:59 -0500</tspan>
+
+<tspan x="10" y="1242">- jslint - remove allow-method-chain-newline hack</tspan>
+
+<tspan x="10" y="1258">- jslint - remove autofix - autofix-js-braket - remove leading-whitespace from bra</tspan>
+
+<tspan x="10" y="1274">- jslint - internalize hacks to function warn_at_extra</tspan>
+
+<tspan x="10" y="1290">- jslint - unhack const, let from var</tspan>
+
+<tspan x="10" y="1306"></tspan>
+
+<tspan x="10" y="1322">2019-08-19 00:11:41 -0500</tspan>
+
+<tspan x="10" y="1338">- jslint - upgrade to jslint edition 2019.8.3</tspan>
+
+<tspan x="10" y="1354">- jslint - add async/await support</tspan>
+
+<tspan x="10" y="1370">- jslint - remove autofix-js-whitespace - ...}()); to ...}());\n\n\n\n</tspan>
+
+<tspan x="10" y="1386"></tspan>
+
+<tspan x="10" y="1402">2019-08-11 00:46:31 -0500</tspan>
+
+<tspan x="10" y="1418">[npm publish] - npm publish 2019.8.9</tspan>
+
+<tspan x="10" y="1434">- csslint - unminify csslint v1.0.5</tspan>
+
+<tspan x="10" y="1450">- jslint - refactor files to 80 chr column-limit</tspan>
+
+<tspan x="10" y="1466">- update to jslint commit ea8401c6a72e21d66f49766af692b09e81d7a79f</tspan>
+
+<tspan x="10" y="1482">- csslint - reset sorted-line with \n\n instead of macro /* validateLineSortedReset */</tspan>
+
+<tspan x="10" y="1498">- jslint-autofix - split ([aa, bb]) into multiple-lines</tspan>
+
+<tspan x="10" y="1514">- jslint-autofix - sort var,let,const statements</tspan>
+
+<tspan x="10" y="1530">- jslint-autofix - enforce only 1,2,4 continuous newlines</tspan>
+
+<tspan x="10" y="1546">- jslint - merge function local.jslintUtility20 into local.jslintAndPrint</tspan>
+
+<tspan x="10" y="1562">- jslint - simplify lint and autofix for json</tspan>
+
+<tspan x="10" y="1578">- jslint - add function jslintAndPrintDir</tspan>
+
+<tspan x="10" y="1594">- lint json with JSON.parse instead of jslint</tspan>
+
+<tspan x="10" y="1610"></tspan>
+
+<tspan x="10" y="1626">2018-12-08 03:46:07 -0600</tspan>
+
+<tspan x="10" y="1642">[npm publish] - npm publish 2018.12.8</tspan>
+
+<tspan x="10" y="1658">- upgrade to jslint commit-de413767154641f490d6e96185e525255cca5f7e (v2018.11.14)</tspan>
+
+<tspan x="10" y="1674"></tspan>
+
+<tspan x="10" y="1690">2018-11-15 00:11:59 +0800</tspan>
+
+<tspan x="10" y="1706">[npm publish] - npm publish 2018.11.14</tspan>
+
+<tspan x="10" y="1722">- jslint - upgrade to commit-813d1fb157076ef9df1d773a084c971705e57a84 (v2018.10.26)</tspan>
+
+<tspan x="10" y="1738">- jslint - replace ",$s/^ *".*"\n *+ ".*"\(\n *+ ".*"\)*/(&amp;)/gc"</tspan>
+
+<tspan x="10" y="1754">- jslint - unexpected_a \(</tspan>
+
+<tspan x="10" y="1770">- jslint - replace instanceof -&gt; Object.prototype.toString.call</tspan>
+
+<tspan x="10" y="1786">- jslint - replace var self -&gt; that</tspan>
+
+<tspan x="10" y="1802">- jslint - unconst and unlet</tspan>
+
+<tspan x="10" y="1818">- jslint - prioritize fatal jslint-errors</tspan>
+
+<tspan x="10" y="1834">- jslint - merge function jslintAndPrintConditional -&gt; jslintAndPrint</tspan>
+
+<tspan x="10" y="1850">- jslint-autofix - braket</tspan>
+
+<tspan x="10" y="1866">- jslint-autofix - parenthesize open-statements</tspan>
+
+<tspan x="10" y="1882">- jslint-autofix - prefix-operator</tspan>
+
+<tspan x="10" y="1898">- jslint-autofix - parenthesize rgx</tspan>
+
+<tspan x="10" y="1914">- jslint-autofix - local-function</tspan>
+
+<tspan x="10" y="1930">- jslint-autofix - add autofix button to live web-demo</tspan>
+
+<tspan x="10" y="1946">- jslint-autofix - embedded ```javascript```, &lt;\script\&gt;, &lt;\style\&gt;</tspan>
+
+<tspan x="10" y="1962">- jslint-autofix - tweak to run before JSLint in function jslintAndPrint</tspan>
+
+<tspan x="10" y="1978">- add autofix rule - expected_space_a_b: "Expected one space between {a} and {b}.",</tspan>
+
+<tspan x="10" y="1994">- rename object local.result -&gt; local.jslintResult</tspan>
+
+<tspan x="10" y="2010"></tspan>
+
+<tspan x="10" y="2026">2018-09-30 07:39:02 +0700</tspan>
+
+<tspan x="10" y="2042">[npm publish] - npm publish 2018.9.29</tspan>
+
+<tspan x="10" y="2058">- jslint - bug-workaround - v8 tail-call issue</tspan>
+
+<tspan x="10" y="2074">- jslint - merge directive /*jslint ...*/ -&gt; /* jslint utility2:true */</tspan>
+
+<tspan x="10" y="2090">- jslint-autofix whitespace, double-quote, and regexp for files: lib.xxx.js, test.js</tspan>
+
+<tspan x="10" y="2106">- add jslint-cli-command "autofix"</tspan>
+
+<tspan x="10" y="2122">- update jslint-function jslintAndPrint to</tspan>
+
+<tspan x="10" y="2138">    - ignore too_long-warnings in comments and regexp,</tspan>
+
+<tspan x="10" y="2154">    - accept macros /\* jslint ignore:start */, /\* jslint ignore:end */, /\/ jslint ignore:line\</tspan>
+<tspan x="10" y="2170">,</tspan>
+
+<tspan x="10" y="2186">    - accept jslint-option "autofix" to autofix whitespace, and convert single-quote -&gt; double-q\</tspan>
+<tspan x="10" y="2202">uote</tspan>
+
+<tspan x="10" y="2218">    - cleanup source_autofix</tspan>
+
+<tspan x="10" y="2234">- migrate to new jslint (2018-09)</tspan>
+
+<tspan x="10" y="2250"></tspan>
+
+<tspan x="10" y="2266">2018-09-09 00:03:19 +0700</tspan>
+
+<tspan x="10" y="2282">[npm publish] - npm publish 2018.9.8</tspan>
+
+<tspan x="10" y="2298">- prepare for jslint v2018.05.14</tspan>
+
+<tspan x="10" y="2314">- update build</tspan>
+
+<tspan x="10" y="2330"></tspan>
+
+<tspan x="10" y="2346">2018-08-22 00:55:32 +0700</tspan>
+
+<tspan x="10" y="2362">[npm publish] - npm publish 2018.8.21</tspan>
+
+<tspan x="10" y="2378">- revamp bootstrap-mechanism before running tests</tspan>
+
+<tspan x="10" y="2394">- add nodejs globals 'ArrayBuffer', 'Uint8Array'</tspan>
+
+<tspan x="10" y="2410">- add window globals 'ArrayBuffer', 'Uint8Array'</tspan>
+
+<tspan x="10" y="2426">- fix css-id sort-priority</tspan>
+
+<tspan x="10" y="2442">- add support for BigInt and Symbol</tspan>
+
+<tspan x="10" y="2458">- add RegExp flags 'u', 'y'</tspan>
+
+<tspan x="10" y="2474">- migrate from modeJs -&gt; isBrowser</tspan>
+
+<tspan x="10" y="2490">- update build</tspan>
+
+<tspan x="10" y="2506"></tspan>
+
+<tspan x="10" y="2522">2018-06-21 05:54:04 -0500</tspan>
+
+<tspan x="10" y="2538">[npm publish] - npm publish 2018.6.21</tspan>
+
+<tspan x="10" y="2554">- add RegExp flags 'u', 'y'</tspan>
+
+<tspan x="10" y="2570">- update build</tspan>
+
+<tspan x="10" y="2586"></tspan>
+
+<tspan x="10" y="2602">2018-05-03 15:39:35 +0800</tspan>
+
+<tspan x="10" y="2618">[npm publish] - npm publish 2018.4.30</tspan>
+
+<tspan x="10" y="2634">- update build</tspan>
+
+<tspan x="10" y="2650"></tspan>
+
+<tspan x="10" y="2666">2018-04-02 22:45:59 +0800</tspan>
+
+<tspan x="10" y="2682">[npm publish] - npm publish v2018.3.31</tspan>
+
+<tspan x="10" y="2698">- update function jslintUtility2 to validate tag.classList is sorted</tspan>
+
+<tspan x="10" y="2714">- update macro /* jslint-utility2 */ with rules non-4-space indent, and trailing-whitespace</tspan>
+
+<tspan x="10" y="2730">- add function csslintUtility2 and macro /* jslint-utility2 */</tspan>
+
+<tspan x="10" y="2746">- add function jslintUtility2 and macro /* jslint-utility2 */</tspan>
+
+<tspan x="10" y="2762">- add function shlintUtility2 and macro # jslint-utility2</tspan>
+
+<tspan x="10" y="2778">- update function jslintAndPrint with trailing-whitespace linter</tspan>
+
+<tspan x="10" y="2794">- remove little-used macro /* jslint-indent-begin xxx */ ... /* jslint-indent-end */</tspan>
+
+<tspan x="10" y="2810"></tspan>
+
+<tspan x="10" y="2826">2018-01-13 20:14:09 +0700</tspan>
+
+<tspan x="10" y="2842">[npm publish] - npm publish 2018.1.12</tspan>
+
+<tspan x="10" y="2858">- update csslint to v1.0.5</tspan>
+
+<tspan x="10" y="2874"></tspan>
+
+<tspan x="10" y="2890">2017-10-09 14:31:31 +0800</tspan>
+
+<tspan x="10" y="2906">[npm publish] - npm publish 2017.10.8</tspan>
+
+<tspan x="10" y="2922">- add cli-help doc to README.md</tspan>
+
+<tspan x="10" y="2938"></tspan>
+
+<tspan x="10" y="2954">2017-09-06 03:10:16 +0800</tspan>
+
+<tspan x="10" y="2970">[npm publish] - npm publish 2017.9.6</tspan>
+
+<tspan x="10" y="2986">- update cli</tspan>
+
+<tspan x="10" y="3002"></tspan>
+
+<tspan x="10" y="3018">2017-05-28 14:05:39 +0800</tspan>
+
+<tspan x="10" y="3034">[npm publish] - npm publish 2017.5.27</tspan>
+
+<tspan x="10" y="3050">- un-uglify embedded-lib jslint.js</tspan>
+
+<tspan x="10" y="3066">- add README section 'all screenshots'</tspan>
+
+<tspan x="10" y="3082">- add README section 'quickstart standalone app'</tspan>
+
+<tspan x="10" y="3098">- auto-create README section 'table of contents'</tspan>
+
+<tspan x="10" y="3114"></tspan>
+
+<tspan x="10" y="3130">2017-04-07 15:47:48 +0800</tspan>
+
+<tspan x="10" y="3146">[npm publish] - npm publish 2017.4.6</tspan>
+
+<tspan x="10" y="3162">- create published-alias jslint-classic</tspan>
+
+<tspan x="10" y="3178">- deprecate published-alias es5lint</tspan>
+
+<tspan x="10" y="3194">- update build</tspan>
+
+<tspan x="10" y="3210"></tspan>
+
+<tspan x="10" y="3226">2017-02-28 13:26:23 +0800</tspan>
+
+<tspan x="10" y="3242">- npm publish 2017.2.27</tspan>
+
+<tspan x="10" y="3258">- create published-alias es5lint es6lint jslint_lite</tspan>
+
+<tspan x="10" y="3274">- replace env var npm_package_name with npm_package_nameAlias in istanbul code-coverage</tspan>
+
+<tspan x="10" y="3290"></tspan>
+
+<tspan x="10" y="3306">2017-02-17 04:39:25 +0800</tspan>
+
+<tspan x="10" y="3322">- npm publish 2017.2.2</tspan>
+
+<tspan x="10" y="3338">- revamp README.md</tspan>
+
+<tspan x="10" y="3354"></tspan>
+
+<tspan x="10" y="3370">2017-02-09 03:38:24 +0800</tspan>
+
+<tspan x="10" y="3386">- npm publish 2017.2.1</tspan>
+
+<tspan x="10" y="3402">- use env var npm_package_nameAlias over npm_package_name</tspan>
+
+<tspan x="10" y="3418">- add file assets.jslint.rollup.js</tspan>
+
+<tspan x="10" y="3434">- add heroku-postbuild npm-script</tspan>
+
+<tspan x="10" y="3450"></tspan>
+
+<tspan x="10" y="3466">2016-12-23 01:24:23 +0800</tspan>
+
+<tspan x="10" y="3482">- npm publish 2016.12.1</tspan>
+
+<tspan x="10" y="3498">- update documentation</tspan>
+
+<tspan x="10" y="3514">- fix cdn link</tspan>
+
+<tspan x="10" y="3530"></tspan>
+
+<tspan x="10" y="3546">2016-12-02 11:56:50 +0800</tspan>
+
+<tspan x="10" y="3562">- npm publish 2016.11.1</tspan>
+
+<tspan x="10" y="3578">- add es6-syntax support and test</tspan>
+
+<tspan x="10" y="3594">- rename files index.* -&gt; lib.jslint.*</tspan>
+
+<tspan x="10" y="3610">- add file lib.example.es6.js</tspan>
+
+<tspan x="10" y="3626"></tspan>
+
+<tspan x="10" y="3642">2016-11-08 02:38:18 +0800</tspan>
+
+<tspan x="10" y="3658">- npm publish 2016.10.1</tspan>
+
+<tspan x="10" y="3674">- README.md - add cdn-download links</tspan>
+
+<tspan x="10" y="3690">- README.md - replace alpha api-doc with beta api-doc</tspan>
+
+<tspan x="10" y="3706"></tspan>
+
+<tspan x="10" y="3722">2016-10-17 21:23:12 +0800</tspan>
+
+<tspan x="10" y="3738">- npm publish 2016.7.3</tspan>
+
+<tspan x="10" y="3754">- add 'hide internal test' button to demo</tspan>
+
+<tspan x="10" y="3770"></tspan>
+
+<tspan x="10" y="3786">2016-08-27 06:24:52 +0800</tspan>
+
+<tspan x="10" y="3802">- npm publish 2015.7.2</tspan>
+
+<tspan x="10" y="3818">- streamline build</tspan>
+
+<tspan x="10" y="3834"></tspan>
+
+<tspan x="10" y="3850">2016-08-07 21:09:20 +0200</tspan>
+
+<tspan x="10" y="3866">- npm publish 2015.7.1</tspan>
+
+<tspan x="10" y="3882">- deploy standalone-app to heroku</tspan>
+
+<tspan x="10" y="3898">- rename local.utility2.middlewareJsonpStateGet to local.utility2.middlewareJsonpStateInit</tspan>
+
+<tspan x="10" y="3914"></tspan>
+
+<tspan x="10" y="3930">2016-07-31 16:39:47 +0200</tspan>
+
+<tspan x="10" y="3946">- npm publish 2015.6.1</tspan>
+
+<tspan x="10" y="3962">- move test-server from heroku to github</tspan>
+
+<tspan x="10" y="3978"></tspan>
+
+<tspan x="10" y="3994">2015-09-25 23:10:28 +0800</tspan>
+
+<tspan x="10" y="4010">- npm publish 2015.9.1</tspan>
+
+<tspan x="10" y="4026">- upgrade to nodejs v4</tspan>
+
+<tspan x="10" y="4042"></tspan>
+
+<tspan x="10" y="4058">2015-08-20 15:13:34 +0800</tspan>
+
+<tspan x="10" y="4074">- npm publish 2015.8.1</tspan>
+
+<tspan x="10" y="4090">- add api documentation</tspan>
+
+<tspan x="10" y="4106"></tspan>
+
+<tspan x="10" y="4122">2015-08-20 12:27:27 +0800</tspan>
+
+<tspan x="10" y="4138">'update README.md'</tspan>
+
+<tspan x="10" y="4154"></tspan>
+
+<tspan x="10" y="4170">2015-08-20 08:16:34 +0800</tspan>
+
+<tspan x="10" y="4186">'update README.md'</tspan>
+
+<tspan x="10" y="4202"></tspan>
+
+<tspan x="10" y="4218">2015-08-18 00:21:58 +0800</tspan>
+
+<tspan x="10" y="4234">'update devDependencies and add api-doc if appropriate'</tspan>
+
+<tspan x="10" y="4250"></tspan>
+
+<tspan x="10" y="4266">2015-07-31 17:26:52 +0800</tspan>
+
+<tspan x="10" y="4282">- npm publish 2015.6.3</tspan>
+
+<tspan x="10" y="4298">- update README.md</tspan>
+
+<tspan x="10" y="4314">- update build-script</tspan>
+
+<tspan x="10" y="4330">- update test-cases</tspan>
+
+<tspan x="10" y="4346"></tspan>
+
+<tspan x="10" y="4362">2015-06-24 21:37:17 +0800</tspan>
+
+<tspan x="10" y="4378">- npm publish 2015.6.2</tspan>
+
+<tspan x="10" y="4394">- fix versioning for latest npm</tspan>
+
+<tspan x="10" y="4410"></tspan>
+
+<tspan x="10" y="4426">2015-06-11 10:31:19 +0800</tspan>
+
+<tspan x="10" y="4442">- npm publish 2015.6.1-a</tspan>
+
+<tspan x="10" y="4458">- update README.md with syntax-highlighted code-blocks</tspan>
+
+</text>
+</svg>
