@@ -1087,6 +1087,11 @@
 <a href="#l762" id="l762">762</a>
 <a href="#l763" id="l763">763</a>
 <a href="#l764" id="l764">764</a>
+<a href="#l765" id="l765">765</a>
+<a href="#l766" id="l766">766</a>
+<a href="#l767" id="l767">767</a>
+<a href="#l768" id="l768">768</a>
+<a href="#l769" id="l769">769</a>
 </td>
         <td class="line-coverage"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1705,11 +1710,16 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">440</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">450</span>
 <span class="cline-any cline-yes">172</span>
 <span class="cline-any cline-yes">172</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">268</span>
+<span class="cline-any cline-yes">278</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -2150,6 +2160,7 @@ local.testCase_jslint0_err = function (opt, onError) {
         "aa &amp;&amp; bb || cc;",
         // bad_assignment_a: "Bad assignment to '{a}'.",
         "__bad_assignment_a__",
+        "/*jslint for*/\nfunction aa(){for (1 in bb){}}",
         "1 = 2;",
         "____",
         "const aa=1;for(aa in bb){}",
@@ -2194,6 +2205,7 @@ local.testCase_jslint0_err = function (opt, onError) {
         "1==1;",
         ";{;",
         "`${`",
+        "for(;;){}",
         "isFinite(1);",
         "let aa;aa.bb = undefined;",
         "let aa=!!aa;",
@@ -2343,6 +2355,9 @@ local.testCase_jslint0_err = function (opt, onError) {
         "export aa;",
         "export const aa=1;",
         "for(aa in bb){}",
+        "for(const ii=0;;){}",
+        "for(ii=0;ii&lt;0;ii++){}",
+        "for(ii=0;ii&lt;0;ii+=1){}",
         "function aa(){try{return;}catch(ignore){}finally{return;}}",
         "function aa(){try{return;}catch(ignore){}finally{switch(1){case 1:}}}",
         "ignore:",

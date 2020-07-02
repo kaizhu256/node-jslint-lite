@@ -15139,7 +15139,8 @@ function walk_statement(thing) {
 }
 
 function lookup(thing) {
-    if (thing.arity === "variable") {
+    // hack-jslint - for-loop
+    if (thing && thing.arity === "variable") {
 
 // Look up the variable in the current context.
 
