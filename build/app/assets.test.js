@@ -277,6 +277,8 @@ local.testCase_jslint0_coverage = function (opt, onError) {
         "import {} from \"aa\";",
         "import(\"aa\").then(function () {\n    return;\n});",
         // var
+        "let [...aa] = [];",
+        "let [\n    aa, bb = 1\n] = [];",
         "let {aa, bb} = {};",
         ""
     ].forEach(function (src) {
@@ -380,6 +382,7 @@ local.testCase_jslint0_err = function (opt, onError) {
         // "Expected an identifier and instead saw '{a}'.",
         "__expected_identifier_a__",
         "import {",
+        "let [aa,1]=[];",
         // expected_line_break_a_b:
         // "Expected a line break between '{a}' and '{b}'.",
         "__expected_line_break_a_b__",
