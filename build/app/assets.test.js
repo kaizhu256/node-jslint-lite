@@ -274,6 +274,8 @@ local.testCase_jslint0_coverage = function (opt, onError) {
         "import {aa, bb} from \"aa\";\naa(bb);",
         "import {} from \"aa\";",
         "import(\"aa\").then(function () {\n    return;\n});",
+        // var
+        "let {aa, bb} = {};",
         ""
     ].forEach(function (src) {
         local.assertOrThrow(!local.jslint0(src).warnings.length || src.indexOf(

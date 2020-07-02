@@ -1093,6 +1093,8 @@
 <a href="#l768" id="l768">768</a>
 <a href="#l769" id="l769">769</a>
 <a href="#l770" id="l770">770</a>
+<a href="#l771" id="l771">771</a>
+<a href="#l772" id="l772">772</a>
 </td>
         <td class="line-coverage"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1372,7 +1374,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">32</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">34</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -2142,6 +2146,8 @@ local.testCase_jslint0_coverage = function (opt, onError) {
         "import {aa, bb} from \"aa\";\naa(bb);",
         "import {} from \"aa\";",
         "import(\"aa\").then(function () {\n    return;\n});",
+        // var
+        "let {aa, bb} = {};",
         ""
     ].forEach(function (src) {
         local.assertOrThrow(!local.jslint0(src).warnings.length || src.indexOf(
