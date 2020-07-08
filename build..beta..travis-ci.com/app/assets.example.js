@@ -107,6 +107,9 @@
 
 
 
+
+
+
 /*
 example.js
 
@@ -122,18 +125,15 @@ instruction
 */
 
 
-
 /* istanbul instrument in package jslint */
 // assets.utility2.header.js - start
 /* jslint utility2:true */
 /* istanbul ignore next */
 // run shared js-env code - init-local
-(function (globalThis) {
+(function () {
     "use strict";
     let consoleError;
     let local;
-    // init globalThis
-    globalThis.globalThis = globalThis.globalThis || globalThis;
     // init debugInline
     if (!globalThis.debugInline) {
         consoleError = console.error;
@@ -273,6 +273,14 @@ instruction
         recurse(tgt, src, depth | 0);
         return tgt;
     };
+    local.onErrorThrow = function (err) {
+    /*
+     * this function will throw <err> if exists
+     */
+        if (err) {
+            throw err;
+        }
+    };
     // bug-workaround - throw unhandledRejections in node-process
     if (
         typeof process === "object" && process
@@ -284,15 +292,13 @@ instruction
             throw err;
         });
     }
-}((typeof globalThis === "object" && globalThis) || window));
+}());
 // assets.utility2.header.js - end
-
 
 
 /* jslint utility2:true */
 (function (local) {
 "use strict";
-
 
 
 // run shared js-env code - init-before
@@ -306,7 +312,6 @@ local = (
 // init exports
 globalThis.local = local;
 }());
-
 
 
 /* istanbul ignore next */
@@ -343,7 +348,6 @@ if (!local.isBrowser) {
 local.objectAssignDefault(local, globalThis.domOnEventDelegateDict);
 globalThis.domOnEventDelegateDict = local;
 }());
-
 
 
 /* istanbul ignore next */
@@ -490,7 +494,6 @@ pre {\n\
         }, 100);\n\
     });\n\
 }());\n\
-\n\
 \n\
 \n\
 // init domOnEventAjaxProgressUpdate\n\
@@ -647,7 +650,6 @@ pre {\n\
 }());\n\
 \n\
 \n\
-\n\
 // init domOnEventDelegateDict\n\
 (function () {\n\
 /*\n\
@@ -731,7 +733,6 @@ pre {\n\
 }());\n\
 \n\
 \n\
-\n\
 // init domOnEventSelectAllWithinPre\n\
 (function () {\n\
 /*\n\
@@ -787,7 +788,6 @@ utility2-comment -->\n\
 <button class="button" data-onevent="testRunBrowser" id="buttonTestRun1">run browser-tests</button><br>\n\
 <div class="uiAnimateSlide" id="htmlTestReport1" style="border-bottom: 0; border-top: 0; margin-bottom: 0; margin-top: 0; max-height: 0; padding-bottom: 0; padding-top: 0;"></div>\n\
 utility2-comment -->\n\
-\n\
 \n\
 \n\
 <!-- custom-html-start -->\n\
@@ -846,8 +846,7 @@ local.domOnEventInputChange = function (evt) {\n\
         local.jslintAndPrint(document.querySelector(\n\
             "#inputJslint1"\n\
         ).value, "inputJslint1.js", {\n\
-            autofix: evt.target.id === "buttonJslintAutofix1",\n\
-            conditional: evt.target.id !== "buttonJslintAutofix1"\n\
+            autofix: evt.target.id === "buttonJslintAutofix1"\n\
         });\n\
         if (local.jslint.jslintResult.autofix) {\n\
             document.querySelector(\n\
@@ -874,14 +873,13 @@ local.domOnEventInputChange({\n\
 <!-- custom-html-end -->\n\
 \n\
 \n\
-\n\
 <!-- utility2-comment\n\
 {{#if isRollup}}\n\
 <script src="assets.app.js"></script>\n\
 {{#unless isRollup}}\n\
 <script src="assets.utility2.rollup.js"></script>\n\
 <script>window.utility2_onReadyBefore.cnt += 1;</script>\n\
-<script src="jsonp.utility2.stateInit?callback=window.utility2.stateInit"></script>\n\
+<script src="utility2.state.init.js"></script>\n\
 utility2-comment -->\n\
 <script src="assets.jslint.js"></script>\n\
 <script src="assets.example.js"></script>\n\

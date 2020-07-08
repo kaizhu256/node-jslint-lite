@@ -52,9 +52,9 @@
 
         href="https://github.com/kaizhu256/node-jslint-lite"
 
-    >jslint-lite (2020.6.8)</a>
+    >jslint-lite (2020.7.8)</a>
 </h1>
-<h4>this zero-dependency package will provide browser-compatible versions of jslint (v2020.3.28) and csslint (v2018.2.25), with working web-demo</h4>
+<h4>this zero-dependency package will provide browser-compatible versions of jslint (v2020.7.2) and csslint (v2018.2.25), with working web-demo</h4>
 <div class="apidocSectionDiv"><a
     href="#apidoc.tableOfContents"
     id="apidoc.tableOfContents"
@@ -67,15 +67,6 @@
             <a class="apidocElementLiA" href="#apidoc.elem.jslint-lite.CSSLint._Reporter">
             function <span class="apidocSignatureSpan">jslint-lite.</span>CSSLint._Reporter
             <span class="apidocSignatureSpan">(lines, ruleset, allow, ignore)</span>
-            </a>
-
-        </li>
-
-        <li>
-
-            <a class="apidocElementLiA" href="#apidoc.elem.jslint-lite._testCase_jslintAndPrintConditional_default">
-            function <span class="apidocSignatureSpan">jslint-lite.</span>_testCase_jslintAndPrintConditional_default
-            <span class="apidocSignatureSpan">(opt, onError)</span>
             </a>
 
         </li>
@@ -127,9 +118,18 @@
 
         <li>
 
+            <a class="apidocElementLiA" href="#apidoc.elem.jslint-lite.jslint0">
+            function <span class="apidocSignatureSpan">jslint-lite.</span>jslint0
+            <span class="apidocSignatureSpan">( source = &quot;&quot;, option_object = empty()</span>
+            </a>
+
+        </li>
+
+        <li>
+
             <a class="apidocElementLiA" href="#apidoc.elem.jslint-lite.jslintAndPrint">
             function <span class="apidocSignatureSpan">jslint-lite.</span>jslintAndPrint
-            <span class="apidocSignatureSpan">(code = &quot;&quot;, file = &quot;undefined&quot;, opt = {})</span>
+            <span class="apidocSignatureSpan">(code, file = &quot;undefined&quot;, opt = {})</span>
             </a>
 
         </li>
@@ -138,43 +138,7 @@
 
             <a class="apidocElementLiA" href="#apidoc.elem.jslint-lite.jslintAndPrintDir">
             function <span class="apidocSignatureSpan">jslint-lite.</span>jslintAndPrintDir
-            <span class="apidocSignatureSpan">(dir, opt)</span>
-            </a>
-
-        </li>
-
-        <li>
-
-            <a class="apidocElementLiA" href="#apidoc.elem.jslint-lite.jslintAutofix">
-            function <span class="apidocSignatureSpan">jslint-lite.</span>jslintAutofix
-            <span class="apidocSignatureSpan">(code, file, opt)</span>
-            </a>
-
-        </li>
-
-        <li>
-
-            <a class="apidocElementLiA" href="#apidoc.elem.jslint-lite.jslintGetColumnLine">
-            function <span class="apidocSignatureSpan">jslint-lite.</span>jslintGetColumnLine
-            <span class="apidocSignatureSpan">(code, ii)</span>
-            </a>
-
-        </li>
-
-        <li>
-
-            <a class="apidocElementLiA" href="#apidoc.elem.jslint-lite.jslintUtility2">
-            function <span class="apidocSignatureSpan">jslint-lite.</span>jslintUtility2
-            <span class="apidocSignatureSpan">(code, ignore, opt)</span>
-            </a>
-
-        </li>
-
-        <li>
-
-            <a class="apidocElementLiA" href="#apidoc.elem.jslint-lite.jslint_export">
-            function <span class="apidocSignatureSpan">jslint-lite.</span>jslint_export
-            <span class="apidocSignatureSpan">( source = &quot;&quot;, option_object = empty()</span>
+            <span class="apidocSignatureSpan">(dir, opt, onError)</span>
             </a>
 
         </li>
@@ -202,6 +166,15 @@
             <a class="apidocElementLiA" href="#apidoc.elem.jslint-lite.objectDeepCopyWithKeysSorted">
             function <span class="apidocSignatureSpan">jslint-lite.</span>objectDeepCopyWithKeysSorted
             <span class="apidocSignatureSpan">(obj)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.elem.jslint-lite.onErrorThrow">
+            function <span class="apidocSignatureSpan">jslint-lite.</span>onErrorThrow
+            <span class="apidocSignatureSpan">(err)</span>
             </a>
 
         </li>
@@ -588,74 +561,6 @@
 
 
     <h2>
-        <a href="#apidoc.elem.jslint-lite._testCase_jslintAndPrintConditional_default" id="apidoc.elem.jslint-lite._testCase_jslintAndPrintConditional_default">
-        function <span class="apidocSignatureSpan">jslint-lite.</span>_testCase_jslintAndPrintConditional_default
-        <span class="apidocSignatureSpan">(opt, onError)</span>
-        </a>
-    </h2>
-    <ul>
-    <li>description and source-code<pre class="apidocCodePre">_testCase_jslintAndPrintConditional_default = function (opt, onError) {
-<span class="apidocCodeCommentSpan">/*
- * this function will test jslintAndPrintConditional&apos;s default handling-behavior
- */
-</span>    local.testMock([
-        [
-            local.jslint, {
-                errMsg: &quot;&quot;
-            }
-        ]
-    ], function (onError) {
-        // test no csslint handling-behavior
-        local.jslintAndPrintConditional(&quot;no csslint&quot;, &quot;empty.css&quot;);
-        // handle err
-        local.assertOrThrow(!local.jslint.errMsg, local.jslint.errMsg);
-        // test csslint passed handling-behavior
-        local.jslintAndPrintConditional(
-            &quot;/*csslint*/\nbody { display: block; }&quot;,
-            &quot;passed.css&quot;,
-            &quot;force&quot;
-        );
-        // handle err
-        local.assertOrThrow(!local.jslint.errMsg, local.jslint.errMsg);
-        // test no jslint handling-behavior
-        local.jslintAndPrintConditional(&quot;no jslint&quot;, &quot;empty.js&quot;);
-        // handle err
-        local.assertOrThrow(!local.jslint.errMsg, local.jslint.errMsg);
-        // test jslint passed handling-behavior
-        local.jslintAndPrintConditional(
-            &quot;/*jslint node: true*/\nconsole.log(\&quot;aa\&quot;);&quot;,
-            &quot;passed.js&quot;,
-            &quot;force&quot;
-        );
-        // handle err
-        local.assertOrThrow(!local.jslint.errMsg, local.jslint.errMsg);
-        onError(null, opt);
-        // test no shlint handling-behavior
-        local.jslintAndPrintConditional(&quot;no shlint&quot;, &quot;empty.sh&quot;);
-        // handle err
-        local.assertOrThrow(!local.jslint.errMsg, local.jslint.errMsg);
-        // test shlint passed handling-behavior
-        local.jslintAndPrintConditional((
-            &quot;# jslint utility2:true\n&quot;
-            + &quot;shAa () {\n&quot;
-            + &quot;    node -e \&quot;\n&quot;
-            + &quot;local = {};\n&quot;
-            + &quot;local.aa = function () {\n&quot;
-            + &quot;    return;\n&quot;
-            + &quot;};\n&quot;
-            + &quot;    \&quot;\n&quot;
-            + &quot;}\n&quot;
-        ), &quot;passed.sh&quot;, &quot;force&quot;);
-        // handle err
-        local.assertOrThrow(!local.jslint.errMsg, local.jslint.errMsg);
-    }, onError);
-}</pre></li>
-    <li>example use<pre class="apidocCodePre">n/a</pre></li>
-    </ul>
-
-
-
-    <h2>
         <a href="#apidoc.elem.jslint-lite.assertJsonEqual" id="apidoc.elem.jslint-lite.assertJsonEqual">
         function <span class="apidocSignatureSpan">jslint-lite.</span>assertJsonEqual
         <span class="apidocSignatureSpan">(aa, bb)</span>
@@ -692,7 +597,23 @@
         throw new Error(JSON.stringify(aa) + &quot; !== &quot; + JSON.stringify(bb));
     }
 }</pre></li>
-    <li>example use<pre class="apidocCodePre">n/a</pre></li>
+    <li>example use<pre class="apidocCodePre">...
+                &quot;utility2.testRunMock.process.exit&quot;
+            ), resolve, {
+                once: true
+            });
+        })
+    ]).then(function (errList) {
+        errList.forEach(function (err, ii) {
+            local.<span class="apidocCodeKeywordSpan">assertJsonEqual</span>(Boolean(err) | 0, ii);
+        });
+        onError();
+    });
+};
+
+local.testCase_jslintAndPrint_coverage = function (opt, onError) {
+/*
+...</pre></li>
     </ul>
 
 
@@ -954,495 +875,13 @@ cliDict._version = cliDict._version || function () {
 
 
     <h2>
-        <a href="#apidoc.elem.jslint-lite.jslintAndPrint" id="apidoc.elem.jslint-lite.jslintAndPrint">
-        function <span class="apidocSignatureSpan">jslint-lite.</span>jslintAndPrint
-        <span class="apidocSignatureSpan">(code = &quot;&quot;, file = &quot;undefined&quot;, opt = {})</span>
-        </a>
-    </h2>
-    <ul>
-    <li>description and source-code<pre class="apidocCodePre">jslintAndPrint = function (code = &quot;&quot;, file = &quot;undefined&quot;, opt = {}) {
-<span class="apidocCodeCommentSpan">/*
- * this function will jslint/csslint &lt;code&gt; and print any errors to stderr
- */
-</span>    let ii;
-    let tmp;
-    if (!(opt &amp;&amp; opt.gotoState)) {
-        local.jslintResult = {
-            gotoState: 0
-        };
-    }
-    opt = Object.assign(local.jslintResult, opt);
-    opt.gotoState += 1;
-    switch (opt.gotoState) {
-    // jslint - init
-    case 1:
-        // cleanup
-        opt.errList = [];
-        opt.errMsg = &quot;&quot;;
-        // preserve lineno
-        if (opt.iiStart) {
-            // optimization - efficiently count number of newlines
-            // https://jsperf.com/regexp-counting-2/8
-            opt.lineOffset |= 0;
-            ii = 0;
-            while (true) {
-                ii = code.indexOf(&quot;\n&quot;, ii);
-                if (ii === 0 || ii &gt; opt.iiStart) {
-                    break;
-                }
-                ii += 1;
-                opt.lineOffset += 1;
-            }
-            code = code.slice(opt.iiStart, opt.iiEnd || code.length);
-        }
-        switch (opt.fileType0) {
-        // de-embed-js - &apos;\\n\\\n...\\n\\\n&apos;
-        case &quot;.\\n\\&quot;:
-            // rgx - remove \\n\\
-            code = code.replace((
-                /\\n\\$|\\(.)/gm
-            ), function (ignore, match1) {
-                return match1 || &quot;&quot;;
-            });
-            break;
-        // de-embed-js - &apos;\n...\n&apos;
-        case &quot;.sh&quot;:
-            // rgx - convert &apos;&quot;&apos;&quot;&apos; to &apos;
-            code = code.replace((
-                /&apos;&quot;&apos;&quot;&apos;/g
-            ), &quot;&apos;&quot;);
-            break;
-        }
-        // init
-        opt = Object.assign(opt, {
-            &quot;.css&quot;: (
-                /^\/\*csslint\b|(^\/\*\u0020jslint\u0020utility2:true\u0020\*\/$)/m
-            ),
-            &quot;.html&quot;: (
-                /^\/\*csslint\b|(^\/\*\u0020jslint\u0020utility2:true\u0020\*\/$)/m
-            ),
-            &quot;.js&quot;: (
-                /^\/\*jslint\b|(^\/\*\u0020jslint\u0020utility2:true\u0020\*\/$)/m
-            ),
-            &quot;.json&quot;: (
-                /^\s*?(?:\[|\{)/
-            ),
-            &quot;.md&quot;: (
-                /(^\/\*\u0020jslint\u0020utility2:true\u0020\*\/$)/m
-            ),
-            &quot;.sh&quot;: (
-                /(^#\u0020jslint\u0020utility2:true$)/m
-            ),
-            code0: code,
-            fileType: (
-                /\.\w+?$|$/m
-            ).exec(file)[0]
-        });
-        // jslint - .json
-        if (opt.fileType === &quot;.js&quot; &amp;&amp; opt[&quot;.json&quot;].test(code)) {
-            opt.fileType = &quot;.json&quot;;
-        }
-        try {
-            opt.conditionalPassed = opt[opt.fileType].exec(code);
-        } catch (ignore) {}
-        opt.utility2 = (
-            opt.conditionalPassed &amp;&amp; opt.conditionalPassed[1]
-        ) || opt.autofix;
-        if (
-            opt.conditional
-            &amp;&amp; (!opt.conditionalPassed || opt.coverage)
-        ) {
-            break;
-        }
-        opt.gotoState = 10;
-        break;
-    // jslint - autofix
-    case 11:
-        code = local.jslintAutofix(code, file, opt);
-        local.jslintResult = opt;
-        break;
-    // jslint - csslint and jslint
-    case 12:
-        // restore lineOffset
-        code = &quot;\n&quot;.repeat(opt.lineOffset | 0) + code;
-        switch (opt.fileType) {
-        case &quot;.css&quot;:
-            // csslint
-            Object.assign(opt, local.CSSLint.verify(code));
-            // init errList
-            opt.errList = opt.messages.map(function (err) {
-                err.column = err.col;
-                err.message = (
-                    err.type + &quot; - &quot; + err.rule.id + &quot; - &quot; + err.message
-                    + &quot;\n    &quot; + err.rule.desc
-                );
-                return err;
-            });
-            break;
-        case &quot;.html&quot;:...</pre></li>
-    <li>example use<pre class="apidocCodePre">...
-local = window.utility2_jslint;\n\
-local.domOnEventInputChange = function (evt) {\n\
-switch (evt.type + &quot;.&quot; + evt.target.id) {\n\
-case &quot;click.buttonJslintAutofix1&quot;:\n\
-case &quot;keyup.inputCsslint1&quot;:\n\
-case &quot;keyup.inputJslint1&quot;:\n\
-    // csslint #inputCsslint1\n\
-    local.<span class="apidocCodeKeywordSpan">jslintAndPrint</span>(document.querySelector(\n\
-        &quot;#inputCsslint1&quot;\n\
-    ).value, &quot;inputCsslint1.css&quot;);\n\
-    document.querySelector(\n\
-        &quot;#outputCsslint1&quot;\n\
-    ).value = local.jslintResult.errMsg.replace((\n\
-        /\\u001b\\[\\d*m/g\n\
-    ), &quot;&quot;).trim();\n\
-...</pre></li>
-    </ul>
-
-
-
-    <h2>
-        <a href="#apidoc.elem.jslint-lite.jslintAndPrintDir" id="apidoc.elem.jslint-lite.jslintAndPrintDir">
-        function <span class="apidocSignatureSpan">jslint-lite.</span>jslintAndPrintDir
-        <span class="apidocSignatureSpan">(dir, opt)</span>
-        </a>
-    </h2>
-    <ul>
-    <li>description and source-code<pre class="apidocCodePre">async function (dir, opt) {
-<span class="apidocCodeCommentSpan">/*
- * this function will jslint files in shallow &lt;dir&gt;
- */
-</span>    let errCnt;
-    errCnt = 0;
-    await Promise.all((
-        await require(&quot;fs&quot;).promises.readdir(require(&quot;path&quot;).resolve(dir))
-    ).map(async function (file) {
-        let data;
-        let timeStart;
-        timeStart = Date.now();
-        file = require(&quot;path&quot;).resolve(file);
-        switch ((
-            /\.\w+?$|$/m
-        ).exec(file)[0]) {
-        case &quot;.css&quot;:
-        case &quot;.html&quot;:
-        case &quot;.js&quot;:
-        case &quot;.json&quot;:
-        case &quot;.md&quot;:
-        case &quot;.sh&quot;:
-            if ((
-                /\b(?:assets\.app\.js|lock|min|raw|rollup)\b/
-            ).test(file)) {
-                return;
-            }
-            // jslint file
-            data = await require(&quot;fs&quot;).promises.readFile(file, &quot;utf8&quot;);
-            local.jslintAndPrint(data, file, opt);
-            errCnt += local.jslintResult.errList.length;
-            console.error(
-                &quot;jslint - &quot; + (Date.now() - timeStart) + &quot;ms - &quot; + file
-            );
-            break;
-        }
-    }));
-    return Math.min(errCnt, 255);
-}</pre></li>
-    <li>example use<pre class="apidocCodePre">n/a</pre></li>
-    </ul>
-
-
-
-    <h2>
-        <a href="#apidoc.elem.jslint-lite.jslintAutofix" id="apidoc.elem.jslint-lite.jslintAutofix">
-        function <span class="apidocSignatureSpan">jslint-lite.</span>jslintAutofix
-        <span class="apidocSignatureSpan">(code, file, opt)</span>
-        </a>
-    </h2>
-    <ul>
-    <li>description and source-code<pre class="apidocCodePre">jslintAutofix = function (code, file, opt) {
-<span class="apidocCodeCommentSpan">/*
- * this function will jslint-autofix &lt;code&gt;
- */
-</span>    let code0;
-    let code2;
-    let dataList;
-    let ignoreList;
-    let ii;
-    let rgx1;
-    let rgx2;
-    let tmp;
-    // autofix-all
-    if (opt.autofix) {
-        // autofix-all - normalize local-function
-        if (
-            globalThis.utility2
-            &amp;&amp; typeof globalThis.utility2.jslintAutofixLocalFunction
-            === &quot;function&quot;
-        ) {
-            code = globalThis.utility2.jslintAutofixLocalFunction(code, file);
-        }
-        // autofix-all - remove trailing-whitespace
-        code = code.replace((
-            /\u0020+$/gm
-        ), &quot;&quot;);
-        // autofix-all - remove leading-whitespace before )]}
-        code = code.replace((
-            /\n+?(\n\u0020*?[)\]}])/g
-        ), &quot;$1&quot;);
-        // autofix-all - normalize newlines to \n\n
-        code = code.replace((
-            /([^\n])\n{3}([^\n])/g
-        ), &quot;$1\n\n$2&quot;);
-        // autofix-all - normalize newlines to \n\n\n\n
-        code = code.replace((
-            /\n{5,}/g
-        ), &quot;\n\n\n\n&quot;);
-        // autofix-all - recurse &lt;script&gt;...&lt;/script&gt;, &lt;style&gt;...&lt;/style&gt;
-        code = code.replace((
-            /(^\/\*\u0020jslint\u0020utility2:true\u0020\*\/\\n\\\n(?:^.*?\\n\\\n)*?)(&apos;;$|&lt;\/script&gt;\\n\\$|&lt;\/style&gt;\\n\\$)/gm
-        ), function (ignore, match1, match2, ii) {
-            return local.jslintAndPrint(
-                code,
-                file + (
-                    match2.indexOf(&quot;style&quot;) &gt; -1
-                    ? &quot;.&lt;style&gt;.css&quot;
-                    : &quot;.&lt;script&gt;.js&quot;
-                ),
-                Object.assign({}, opt, {
-                    fileType0: &quot;.\\n\\&quot;,
-                    iiEnd: ii + match1.length,
-                    iiStart: ii,
-                    gotoState: 0
-                })
-            ) + match2;
-        });
-    }
-    switch (opt.autofix &amp;&amp; opt.fileType) {
-    case &quot;.css&quot;:
-        break;
-    case &quot;.html&quot;:
-        // autofix-html - recurse &lt;script&gt;...&lt;/script&gt;, &lt;style&gt;...&lt;/style&gt;
-        code = code.replace((
-            /^(\/\*\u0020jslint\u0020utility2:true\u0020\*\/\n[\S\s]*?\n)(&lt;\/(?:script|style)&gt;)$/gm
-        ), function (ignore, match1, match2, ii) {
-            return local.jslintAndPrint(
-                code,
-                file + (
-                    match2.indexOf(&quot;style&quot;) &gt;= 0
-                    ? &quot;.&lt;style&gt;.css&quot;
-                    : &quot;.&lt;script&gt;.js&quot;
-                ),
-                Object.assign({}, opt, {
-                    fileType0: opt.fileType,
-                    iiEnd: ii + match1.length,
-                    iiStart: ii,
-                    gotoState: 0
-                })
-            ) + match2;
-        });
-        break;
-    case &quot;.js&quot;:
-    case &quot;.json&quot;:
-        // autofix-js - demux code to [code, ignoreList]
-        ignoreList = [];
-        code = code.replace((
-            /^\u0020*?\/\*\u0020jslint\u0020ignore:start\u0020\*\/$[\S\s]*?^\/\*\u0020jslint\u0020ignore:end\u0020\*\/$/gm
-        ), function (match0) {
-            ignoreList.push(match0);
-            return &quot;/* jslint ignore:start:end */&quot;;
-        });
-        // autofix-js - escape non-ascii
-        code = code.replace((
-            /[^\n\r\t\u0020-\u007e]/g
-        ), function (match0) {
-            return &quot;\\u&quot; + (
-                &quot;0000&quot;
-                + match0.charCodeAt(0).toString(16)
-            ).slice(-4);
-        });
-        // autofix-js - demux code2 to [code2, ignoreList]
-        code2 = &quot;&quot;;
-        dataList = [];
-        ii = 0;
-        rgx1 = (
-            /\\.|\/\*|\*\/|\/\/!!|\/\/|[&quot;&apos;\/`]|$/gm
-        );
-        // parse rgx
-        // https://github.com/douglascrockford/JSLint/blob/557afd32bcaa35480d31a86f02d3a8c06a4e5b5c/jslin...</pre></li>
-    <li>example use<pre class="apidocCodePre">n/a</pre></li>
-    </ul>
-
-
-
-    <h2>
-        <a href="#apidoc.elem.jslint-lite.jslintGetColumnLine" id="apidoc.elem.jslint-lite.jslintGetColumnLine">
-        function <span class="apidocSignatureSpan">jslint-lite.</span>jslintGetColumnLine
-        <span class="apidocSignatureSpan">(code, ii)</span>
-        </a>
-    </h2>
-    <ul>
-    <li>description and source-code<pre class="apidocCodePre">jslintGetColumnLine = function (code, ii) {
-<span class="apidocCodeCommentSpan">/*
- * this function will transform &lt;code&gt; and &lt;ii&gt; to {column, line, evidence}
- */
-</span>    let column;
-    let evidence;
-    let line;
-    evidence = code.slice(0, ii).split(&quot;\n&quot;);
-    line = evidence.length - 1;
-    column = evidence[line].length;
-    evidence = evidence[line] + code.slice(ii, ii + 100).split(&quot;\n&quot;)[0];
-    return {
-        column,
-        evidence,
-        line
-    };
-}</pre></li>
-    <li>example use<pre class="apidocCodePre">n/a</pre></li>
-    </ul>
-
-
-
-    <h2>
-        <a href="#apidoc.elem.jslint-lite.jslintUtility2" id="apidoc.elem.jslint-lite.jslintUtility2">
-        function <span class="apidocSignatureSpan">jslint-lite.</span>jslintUtility2
-        <span class="apidocSignatureSpan">(code, ignore, opt)</span>
-        </a>
-    </h2>
-    <ul>
-    <li>description and source-code<pre class="apidocCodePre">jslintUtility2 = function (code, ignore, opt) {
-<span class="apidocCodeCommentSpan">/*
- * this function will jslint &lt;code&gt; with utiity2-specific rules
- */
-</span>    let code2;
-    let err;
-    let indent;
-    let previous;
-    // jslintUtility2 - all
-    if (opt.utility2) {
-        code2 = code;
-        // ignore start to end
-        code2 = code2.replace((
-            /^\/\*\u0020jslint\u0020ignore:start\u0020\*\/$[\S\s]+?^\/\*\u0020jslint\u0020ignore:end\u0020\*\/$/gm
-        ), function (match0) {
-            // preserve lineno
-            return match0.replace((
-                /.+/g
-            ), &quot;&quot;);
-        });
-        // lint whitespace
-        code2.replace((
-            /^\u0020+?(?:\*|\/\/!!)|^\u0020+|[\r\t]/gm
-        ), function (match0, ii) {
-            switch (match0.slice(-1)) {
-            case &quot; &quot;:
-                if (match0.length % 4 === 0) {
-                    return &quot;&quot;;
-                }
-                err = {
-                    message: &quot;non 4-space indent&quot;
-                };
-                break;
-            case &quot;\r&quot;:
-                err = {
-                    message: &quot;unexpected \\r&quot;
-                };
-                break;
-            case &quot;\t&quot;:
-                err = {
-                    message: &quot;unexpected \\t&quot;
-                };
-                break;
-            default:
-                return &quot;&quot;;
-            }
-            Object.assign(err, local.jslintGetColumnLine(code2, ii));
-            opt.errList.push({
-                column: err.column + 1,
-                evidence: JSON.stringify(err.evidence),
-                line: err.line + 1,
-                message: err.message
-            });
-            return &quot;&quot;;
-        });
-    }
-    switch (opt.utility2 &amp;&amp; opt.fileType) {
-    // jslintUtility2 - .css
-    case &quot;.css&quot;:
-        // ignore comment
-        code2 = code2.replace((
-            /^\u0020*?\/\*[\S\s]*?\*\/\u0020*?$/gm
-        ), function (match0) {
-            // preserve lineno
-            return match0.replace((
-                /.+/g
-            ), &quot;&quot;);
-        });
-        code2.replace((
-            /\S\u0020{2}|\u0020,|^\S.*?[,;{}]./gm
-        ), function (match0, ii) {
-            switch (match0.slice(-2)) {
-            case &quot;  &quot;:
-                err = {
-                    colOffset: 2,
-                    message: &quot;unexpected multi-whitespace&quot;
-                };
-                break;
-            case &quot; ,&quot;:
-                err = {
-                    colOffset: 1,
-                    message: &quot;unexpected whitespace before comma&quot;
-                };
-                break;
-            default:
-                err = {
-                    colOffset: match0.length,
-                    message: &quot;unexpected multiline-statement&quot;
-                };
-            }
-            Object.assign(err, local.jslintGetColumnLine(code2, ii));
-            opt.errList.push({
-                column: err.column + err.colOffset,
-                evidence: JSON.stringify(err.evidence),
-                line: err.line + 1,
-                message: err.message
-            });
-            return &quot;&quot;;
-        });
-        // validate line-sorted - css-selector
-        previous = &quot;&quot;;
-        code2 = code2.replace((
-            /^.|[#.&gt;]|[,}]$|\u0020\{$|\b\w/gm
-        ), function (match0) {
-            switch (match0) {
-            case &quot; &quot;:
-                return match0;
-            case &quot; {&quot;:
-                return &quot;\u0001&quot; + match0;
-            case &quot;#&quot;:
-                return &quot;\u0002&quot; + match0;
-            case &quot;,&quot;:
-                return &quot;\u0000&quot; + match0;
-            case &quot;.&quot;:
-                return &quot;\u0001&quot; + match0;
-            case &quot;&gt;&quot;:
-                return &quot;\u0003&quot; + match0;
-            case &quot;}&quot;:
-                return match0;
-            default:...</pre></li>
-    <li>example use<pre class="apidocCodePre">n/a</pre></li>
-    </ul>
-
-
-
-    <h2>
-        <a href="#apidoc.elem.jslint-lite.jslint_export" id="apidoc.elem.jslint-lite.jslint_export">
-        function <span class="apidocSignatureSpan">jslint-lite.</span>jslint_export
+        <a href="#apidoc.elem.jslint-lite.jslint0" id="apidoc.elem.jslint-lite.jslint0">
+        function <span class="apidocSignatureSpan">jslint-lite.</span>jslint0
         <span class="apidocSignatureSpan">( source = &quot;&quot;, option_object = empty()</span>
         </a>
     </h2>
     <ul>
-    <li>description and source-code<pre class="apidocCodePre">jslint_export = function ( source = &quot;&quot;, option_object = empty(),
+    <li>description and source-code<pre class="apidocCodePre">jslint0 = function ( source = &quot;&quot;, option_object = empty(),
     global_array = []
 ) {
     // hack-jslint - init lines_extra
@@ -1553,6 +992,10 @@ case &quot;keyup.inputJslint1&quot;:\n\
             });
         }
         early_stop = false;
+        // hack-jslint - throw_error
+        if (option.throw_error) {
+            throw new Error();
+        }
     } catch (e) {
         // hack-jslint - early_stop
         e.early_stop = true;
@@ -1564,17 +1007,149 @@ case &quot;keyup.inputJslint1&quot;:\n\
     }
     // hack-jslint - autofix
     warnings = warnings.filter(function (warning) {
-        let indent;
-        warning.source = warning.source || &quot;&quot;;
-        warning.a = warning.a || warning.source.trim();
+        let aa;
+        let bb;
+        let tmp;
+        if (!lines_extra[warning.line]) {
+            return true;
+        }
+        aa = lines_extra[warning.line].source;
+        warning.a = warning.a || aa.trim();
         switch (option.autofix &amp;&amp; warning.code) {
         // expected_a_at_b_c: &quot;Expected &apos;{a}&apos; at column {b}, not column {c}.&quot;,
-        case &quot;expected_a_at_b_c&quot;:
-            // autofix indent - increment
-            indent = warning.b - warning.c;
-            if (indent &gt;= 0) {
-                lines_extra[warning.line].source_autofixed = (...</pre></li>
-    <li>example use<pre class="apidocCodePre">n/a</pre></li>
+        case &quot;expected_a_at_b_c&quo...</pre></li>
+    <li>example use<pre class="apidocCodePre">...
+(function () {
+local.testCase_jslint0_coverage = function (opt, onError) {
+/*
+* this function will test jslintAndPrint&apos;s coverage handling-behavior
+*/
+   // jslint self
+   if (!local.isBrowser) {
+       local.<span class="apidocCodeKeywordSpan">jslint0</span>(require(&quot;fs&quot;).readFileSync(__filename, &quot;utf8&quot
+;));
+       local.jslint0(require(&quot;fs&quot;).readFileSync(&quot;lib.jslint.js&quot;, &quot;utf8&quot;));
+       local.jslint0(require(&quot;fs&quot;).readFileSync(
+           &quot;lib.jslint.js&quot;,
+           &quot;utf8&quot;
+       ).replace((
+           /[\S\s]*?\n\/\/\u0020jslint\.js/
+       ), &quot;&quot;).replace((
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.elem.jslint-lite.jslintAndPrint" id="apidoc.elem.jslint-lite.jslintAndPrint">
+        function <span class="apidocSignatureSpan">jslint-lite.</span>jslintAndPrint
+        <span class="apidocSignatureSpan">(code, file = &quot;undefined&quot;, opt = {})</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">jslintAndPrint = function (code, file = &quot;undefined&quot;, opt = {}) {
+<span class="apidocCodeCommentSpan">/*
+ * this function will jslint-autofix &lt;code&gt;
+ */
+</span>    return jslintRecurse(code, file, opt, {});
+}</pre></li>
+    <li>example use<pre class="apidocCodePre">...
+local = window.utility2_jslint;\n\
+local.domOnEventInputChange = function (evt) {\n\
+switch (evt.type + &quot;.&quot; + evt.target.id) {\n\
+case &quot;click.buttonJslintAutofix1&quot;:\n\
+case &quot;keyup.inputCsslint1&quot;:\n\
+case &quot;keyup.inputJslint1&quot;:\n\
+    // csslint #inputCsslint1\n\
+    local.<span class="apidocCodeKeywordSpan">jslintAndPrint</span>(document.querySelector(\n\
+        &quot;#inputCsslint1&quot;\n\
+    ).value, &quot;inputCsslint1.css&quot;);\n\
+    document.querySelector(\n\
+        &quot;#outputCsslint1&quot;\n\
+    ).value = local.jslintResult.errMsg.replace((\n\
+        /\\u001b\\[\\d*m/g\n\
+    ), &quot;&quot;).trim();\n\
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.elem.jslint-lite.jslintAndPrintDir" id="apidoc.elem.jslint-lite.jslintAndPrintDir">
+        function <span class="apidocSignatureSpan">jslint-lite.</span>jslintAndPrintDir
+        <span class="apidocSignatureSpan">(dir, opt, onError)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">jslintAndPrintDir = function (dir, opt, onError) {
+<span class="apidocCodeCommentSpan">/*
+ * this function will jslint files in &lt;dir&gt;
+ */
+</span>    let errCnt;
+    errCnt = 0;
+    onError = onError || function (err) {
+        process.exit(Math.min((err &amp;&amp; err.message) | 0, 127));
+    };
+    dir = require(&quot;path&quot;).resolve(dir) + require(&quot;path&quot;).sep;
+    require(&quot;fs&quot;).readdir(dir, function (err, fileList) {
+        local.onErrorThrow(err);
+        Promise.all(fileList.map(function (file) {
+            return new Promise(function (resolve) {
+                let timeStart;
+                timeStart = Date.now();
+                file = dir + file;
+                switch ((
+                    /\.\w+?$|$/m
+                ).exec(file)[0]) {
+                case &quot;.css&quot;:
+                case &quot;.html&quot;:
+                case &quot;.js&quot;:
+                case &quot;.json&quot;:
+                case &quot;.md&quot;:
+                case &quot;.sh&quot;:
+                    if ((
+                        /\b(?:assets\.app\.js|lock|min|raw|rollup)\b/
+                    ).test(file)) {
+                        resolve();
+                        return;
+                    }
+                    // jslint file
+                    require(&quot;fs&quot;).readFile(file, &quot;utf8&quot;, function (err, data) {
+                        local.onErrorThrow(err);
+                        local.jslintAndPrint(data, file, opt);
+                        errCnt += local.jslintResult.errList.length;
+                        console.error(
+                            &quot;jslint - &quot; + (Date.now() - timeStart) + &quot;ms - &quot;
+                            + file
+                        );
+                        resolve();
+                    });
+                    return;
+                }
+                resolve();
+            });
+        })).then(function () {
+            onError(errCnt &amp;&amp; new Error(errCnt));
+        });
+    });
+}</pre></li>
+    <li>example use<pre class="apidocCodePre">...
+ */
+if (local.isBrowser) {
+    onError(undefined, opt);
+    return;
+}
+Promise.all([
+    new Promise(function (resolve) {
+        local.<span class="apidocCodeKeywordSpan">jslintAndPrintDir</span>(&quot;.&quot;, {
+            autofix: true,
+            conditional: true
+        }, resolve);
+    }),
+    new Promise(function (resolve) {
+        local.jslintAndPrintDir(&quot;jslintAndPrintDir&quot;, {
+            autofix: true,
+...</pre></li>
     </ul>
 
 
@@ -1645,9 +1220,9 @@ globalThis.domOnEventDelegateDict = local;
 }());
 
 
-
 /* istanbul ignore next */
 // run node js-env code - init-test
+(function () {
 ...</pre></li>
     </ul>
 
@@ -1685,6 +1260,26 @@ globalThis.domOnEventDelegateDict = local;
         return sorted;
     };
     return objectDeepCopyWithKeysSorted(obj);
+}</pre></li>
+    <li>example use<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.elem.jslint-lite.onErrorThrow" id="apidoc.elem.jslint-lite.onErrorThrow">
+        function <span class="apidocSignatureSpan">jslint-lite.</span>onErrorThrow
+        <span class="apidocSignatureSpan">(err)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">onErrorThrow = function (err) {
+<span class="apidocCodeCommentSpan">/*
+ * this function will throw &lt;err&gt; if exists
+ */
+</span>    if (err) {
+        throw err;
+    }
 }</pre></li>
     <li>example use<pre class="apidocCodePre">n/a</pre></li>
     </ul>
@@ -2004,6 +1599,7 @@ globalThis.domOnEventDelegateDict = local;
             }
         }
     }
+
 
     // capture most horrible error type
     try {
@@ -2538,7 +2134,7 @@ local.objectDeepCopyWithKeysSorted = function (obj) {
 </span>    local.jslintAndPrintDir(process.argv[3], {
         autofix: process.argv.indexOf(&quot;--autofix&quot;) &gt;= 0,
         conditional: process.argv.indexOf(&quot;--conditional&quot;) &gt;= 0
-    }).then(process.exit);
+    });
 }</pre></li>
     <li>example use<pre class="apidocCodePre">n/a</pre></li>
     </ul>
