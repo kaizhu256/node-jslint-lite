@@ -1,0 +1,17 @@
+/* jslint utility2:true */
+
+/* test err-whitespace handling behavior */
+ .aa	 , .bb { margin-left:  0; margin-top: 0; }
+
+
+/* test err-validate-line-sorted-css-selector handling-behavior */
+.bb {
+    margin: 0
+}
+.aa {
+    margin: 0
+}
+.bb,
+.aa {
+    margin: 0
+}

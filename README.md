@@ -1,11 +1,10 @@
 # jslint-lite
-this zero-dependency package will provide browser-compatible versions of jslint (v2020.3.28) and csslint (v2018.2.25), with working web-demo
+this zero-dependency package will provide browser-compatible versions of jslint (v2020.7.2) and csslint (v2018.2.25), with working web-demo
 
 # live web demo
 - [https://kaizhu256.github.io/node-jslint-lite/build..beta..travis-ci.com/app](https://kaizhu256.github.io/node-jslint-lite/build..beta..travis-ci.com/app)
 
 [![screenshot](https://kaizhu256.github.io/node-jslint-lite/build/screenshot.deployGithub.browser.%252Fnode-jslint-lite%252Fbuild%252Fapp.png)](https://kaizhu256.github.io/node-jslint-lite/build..beta..travis-ci.com/app)
-
 
 
 [![travis-ci.com build-status](https://api.travis-ci.com/kaizhu256/node-jslint-lite.svg)](https://travis-ci.com/kaizhu256/node-jslint-lite) [![coverage](https://kaizhu256.github.io/node-jslint-lite/build/coverage.badge.svg)](https://kaizhu256.github.io/node-jslint-lite/build/coverage.html/index.html)
@@ -27,7 +26,6 @@ this zero-dependency package will provide browser-compatible versions of jslint 
 ![npmPackageDependencyTree](https://kaizhu256.github.io/node-jslint-lite/build/screenshot.npmPackageDependencyTree.svg)
 
 
-
 # table of contents
 1. [cdn download](#cdn-download)
 1. [documentation](#documentation)
@@ -40,10 +38,8 @@ this zero-dependency package will provide browser-compatible versions of jslint 
 1. [misc](#misc)
 
 
-
 # cdn download
 - [https://kaizhu256.github.io/node-jslint-lite/build..beta..travis-ci.com/app/assets.jslint.js](https://kaizhu256.github.io/node-jslint-lite/build..beta..travis-ci.com/app/assets.jslint.js)
-
 
 
 # documentation
@@ -55,26 +51,34 @@ this zero-dependency package will provide browser-compatible versions of jslint 
 #### cli help
 ![screenshot](https://kaizhu256.github.io/node-jslint-lite/build/screenshot.npmPackageCliHelp.svg)
 
-#### changelog 2020.6.8
-- npm publish 2020.6.8
-- migrate ci from travis-ci.org to travis-ci.com
-- istanbul - fix html-coverage-report bug showing branch-metrics instead of line-metrics
+#### changelog 2020.7.8
+- npm publish 2020.7.8
+- jslint - improve test-coverage
+- jslint - generalize autofix-js-braket - normalize {\s+} to {}
+- jslint - disable autofix-js - normalize prefix-operators to beginning-of-line
+- jslint - disable autofix-js - escape non-ascii
+- jslint - disable autofix-js-whitespace - remove double-whitespace
+- jslint - disable autofix-js-braket - normalize to jslint-open-form (\n...\n)
+- jslint - inline autofix-use_double
+- jslint - untangle goto-logic in function jslintAndPrint
+- jslint - revert function jslintAndPrintDir from promise to callback
+- rename example.html to test.html, utility2.template.html to example.template.html
+- jslint - add eslint-rule no-multiple-empty-lines
+- add limited win32-compat
+- remove globalThis polyfill
 - none
 
 #### todo
+- jslint - unmangle function jslintAutofixLocalFunction
 - jslint - add nullish-coalescing support
 - jslint - add optional-chaining support
-- improve test-coverage
+- jslint - improve test-coverage
 - jslint - jslint embedded template-strings
 - none
-
-#### this package requires
-- darwin or linux os
 
 #### additional info
 - csslint code derived from https://github.com/CSSLint
 - jslint code derived from https://github.com/douglascrockford/JSLint
-
 
 
 # quickstart standalone app
@@ -100,7 +104,6 @@ PORT=8081 node ./assets.app.js
 ![screenshot](https://kaizhu256.github.io/node-jslint-lite/build/screenshot.testExampleSh.svg)
 
 
-
 # quickstart example.js
 [![screenshot](https://kaizhu256.github.io/node-jslint-lite/build/screenshot.testExampleJs.browser.%252F.png)](https://kaizhu256.github.io/node-jslint-lite/build/app/assets.example.html)
 
@@ -122,18 +125,15 @@ instruction
 */
 
 
-
 /* istanbul instrument in package jslint */
 // assets.utility2.header.js - start
 /* jslint utility2:true */
 /* istanbul ignore next */
 // run shared js-env code - init-local
-(function (globalThis) {
+(function () {
     "use strict";
     let consoleError;
     let local;
-    // init globalThis
-    globalThis.globalThis = globalThis.globalThis || globalThis;
     // init debugInline
     if (!globalThis.debugInline) {
         consoleError = console.error;
@@ -273,6 +273,14 @@ instruction
         recurse(tgt, src, depth | 0);
         return tgt;
     };
+    local.onErrorThrow = function (err) {
+    /*
+     * this function will throw <err> if exists
+     */
+        if (err) {
+            throw err;
+        }
+    };
     // bug-workaround - throw unhandledRejections in node-process
     if (
         typeof process === "object" && process
@@ -284,15 +292,13 @@ instruction
             throw err;
         });
     }
-}((typeof globalThis === "object" && globalThis) || window));
+}());
 // assets.utility2.header.js - end
-
 
 
 /* jslint utility2:true */
 (function (local) {
 "use strict";
-
 
 
 // run shared js-env code - init-before
@@ -306,7 +312,6 @@ local = (
 // init exports
 globalThis.local = local;
 }());
-
 
 
 /* istanbul ignore next */
@@ -343,7 +348,6 @@ if (!local.isBrowser) {
 local.objectAssignDefault(local, globalThis.domOnEventDelegateDict);
 globalThis.domOnEventDelegateDict = local;
 }());
-
 
 
 /* istanbul ignore next */
@@ -490,7 +494,6 @@ pre {\n\
         }, 100);\n\
     });\n\
 }());\n\
-\n\
 \n\
 \n\
 // init domOnEventAjaxProgressUpdate\n\
@@ -647,7 +650,6 @@ pre {\n\
 }());\n\
 \n\
 \n\
-\n\
 // init domOnEventDelegateDict\n\
 (function () {\n\
 /*\n\
@@ -731,7 +733,6 @@ pre {\n\
 }());\n\
 \n\
 \n\
-\n\
 // init domOnEventSelectAllWithinPre\n\
 (function () {\n\
 /*\n\
@@ -787,7 +788,6 @@ utility2-comment -->\n\
 <button class="button" data-onevent="testRunBrowser" id="buttonTestRun1">run browser-tests</button><br>\n\
 <div class="uiAnimateSlide" id="htmlTestReport1" style="border-bottom: 0; border-top: 0; margin-bottom: 0; margin-top: 0; max-height: 0; padding-bottom: 0; padding-top: 0;"></div>\n\
 utility2-comment -->\n\
-\n\
 \n\
 \n\
 <!-- custom-html-start -->\n\
@@ -846,8 +846,7 @@ local.domOnEventInputChange = function (evt) {\n\
         local.jslintAndPrint(document.querySelector(\n\
             "#inputJslint1"\n\
         ).value, "inputJslint1.js", {\n\
-            autofix: evt.target.id === "buttonJslintAutofix1",\n\
-            conditional: evt.target.id !== "buttonJslintAutofix1"\n\
+            autofix: evt.target.id === "buttonJslintAutofix1"\n\
         });\n\
         if (local.jslint.jslintResult.autofix) {\n\
             document.querySelector(\n\
@@ -874,14 +873,13 @@ local.domOnEventInputChange({\n\
 <!-- custom-html-end -->\n\
 \n\
 \n\
-\n\
 <!-- utility2-comment\n\
 {{#if isRollup}}\n\
 <script src="assets.app.js"></script>\n\
 {{#unless isRollup}}\n\
 <script src="assets.utility2.rollup.js"></script>\n\
 <script>window.utility2_onReadyBefore.cnt += 1;</script>\n\
-<script src="jsonp.utility2.stateInit?callback=window.utility2.stateInit"></script>\n\
+<script src="utility2.state.init.js"></script>\n\
 utility2-comment -->\n\
 <script src="assets.jslint.js"></script>\n\
 <script src="assets.example.js"></script>\n\
@@ -977,7 +975,6 @@ require("http").createServer(function (req, res) {
 ![screenshot](https://kaizhu256.github.io/node-jslint-lite/build/screenshot.testExampleJs.svg)
 
 
-
 # extra screenshots
 1. [https://kaizhu256.github.io/node-jslint-lite/build/screenshot.buildCi.browser.%252Ftmp%252Fbuild%252Fapidoc.html.png](https://kaizhu256.github.io/node-jslint-lite/build/screenshot.buildCi.browser.%252Ftmp%252Fbuild%252Fapidoc.html.png)
 [![screenshot](https://kaizhu256.github.io/node-jslint-lite/build/screenshot.buildCi.browser.%252Ftmp%252Fbuild%252Fapidoc.html.png)](https://kaizhu256.github.io/node-jslint-lite/build/screenshot.buildCi.browser.%252Ftmp%252Fbuild%252Fapidoc.html.png)
@@ -1010,7 +1007,6 @@ require("http").createServer(function (req, res) {
 [![screenshot](https://kaizhu256.github.io/node-jslint-lite/build/screenshot.testExampleSh.browser.%252F.png)](https://kaizhu256.github.io/node-jslint-lite/build/screenshot.testExampleSh.browser.%252F.png)
 
 
-
 # package.json
 ```json
 {
@@ -1018,14 +1014,14 @@ require("http").createServer(function (req, res) {
     "bin": {
         "jslint-lite": "lib.jslint.js"
     },
-    "description": "this zero-dependency package will provide browser-compatible versions of jslint (v2020.3.28) and csslint (v2018.2.25), with working web-demo",
+    "description": "this zero-dependency package will provide browser-compatible versions of jslint (v2020.7.2) and csslint (v2018.2.25), with working web-demo",
     "devDependencies": {
         "utility2": "kaizhu256/node-utility2#alpha"
     },
     "engines": {
         "node": ">=12.0"
     },
-    "fileCount": 8,
+    "fileCount": 16,
     "homepage": "https://github.com/kaizhu256/node-jslint-lite",
     "keywords": [
         "csslint",
@@ -1037,10 +1033,6 @@ require("http").createServer(function (req, res) {
     "nameAliasPublish": "csslint-lite kslint",
     "nameLib": "jslint",
     "nameOriginal": "jslint-lite",
-    "os": [
-        "darwin",
-        "linux"
-    ],
     "repository": {
         "type": "git",
         "url": "https://github.com/kaizhu256/node-jslint-lite.git"
@@ -1055,15 +1047,13 @@ require("http").createServer(function (req, res) {
         "test": "./npm_scripts.sh",
         "utility2": "./npm_scripts.sh"
     },
-    "version": "2020.6.8"
+    "version": "2020.7.8"
 }
 ```
 
 
-
 # changelog of last 50 commits
 [![screenshot](https://kaizhu256.github.io/node-jslint-lite/build/screenshot.gitLog.svg)](https://github.com/kaizhu256/node-jslint-lite/commits)
-
 
 
 # internal build script
@@ -1089,7 +1079,6 @@ shBuildCiBefore () {(set -e
 eval "$(utility2 source)"
 shBuildCi
 ```
-
 
 
 # misc

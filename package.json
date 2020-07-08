@@ -3,14 +3,14 @@
     "bin": {
         "jslint-lite": "lib.jslint.js"
     },
-    "description": "this zero-dependency package will provide browser-compatible versions of jslint (v2020.3.28) and csslint (v2018.2.25), with working web-demo",
+    "description": "this zero-dependency package will provide browser-compatible versions of jslint (v2020.7.2) and csslint (v2018.2.25), with working web-demo",
     "devDependencies": {
         "utility2": "kaizhu256/node-utility2#alpha"
     },
     "engines": {
         "node": ">=12.0"
     },
-    "fileCount": 8,
+    "fileCount": 16,
     "homepage": "https://github.com/kaizhu256/node-jslint-lite",
     "keywords": [
         "csslint",
@@ -22,10 +22,6 @@
     "nameAliasPublish": "csslint-lite kslint",
     "nameLib": "jslint",
     "nameOriginal": "jslint-lite",
-    "os": [
-        "darwin",
-        "linux"
-    ],
     "repository": {
         "type": "git",
         "url": "https://github.com/kaizhu256/node-jslint-lite.git"
@@ -40,5 +36,5 @@
         "test": "./npm_scripts.sh",
         "utility2": "./npm_scripts.sh"
     },
-    "version": "2020.6.8"
+    "version": "2020.7.8"
 }
