@@ -280,7 +280,7 @@
 <div class="header high">
 
     <h2 style="font-weight: bold;">
-        <a href="https://github.com/kaizhu256/node-jslint-lite">jslint-lite (2020.6.8)</a>
+        <a href="https://github.com/kaizhu256/node-jslint-lite">jslint-lite (2020.7.8)</a>
     </h2>
 
     <h2>Code coverage report for <span class="entity">node-jslint-lite/test.js</span></h2>
@@ -296,25 +296,25 @@
     </thead>
     <tbody>
         <td>
-            Statements: 64<br>
+            Statements: 52<br>
             Branches: 40<br>
-            Functions: 14
+            Functions: 13
         </td>
         <td>
             100%<br>
-            (107 / 107)
+            (122 / 122)
         </td>
         <td>
             100%<br>
-            (61 / 61)
+            (69 / 69)
         </td>
         <td>
             100%<br>
-            (21 / 21)
+            (30 / 30)
         </td>
         <td>
             100%<br>
-            (107 / 107)
+            (122 / 122)
         </td>
     </tbody>
     </table>
@@ -655,6 +655,457 @@
 <a href="#l330" id="l330">330</a>
 <a href="#l331" id="l331">331</a>
 <a href="#l332" id="l332">332</a>
+<a href="#l333" id="l333">333</a>
+<a href="#l334" id="l334">334</a>
+<a href="#l335" id="l335">335</a>
+<a href="#l336" id="l336">336</a>
+<a href="#l337" id="l337">337</a>
+<a href="#l338" id="l338">338</a>
+<a href="#l339" id="l339">339</a>
+<a href="#l340" id="l340">340</a>
+<a href="#l341" id="l341">341</a>
+<a href="#l342" id="l342">342</a>
+<a href="#l343" id="l343">343</a>
+<a href="#l344" id="l344">344</a>
+<a href="#l345" id="l345">345</a>
+<a href="#l346" id="l346">346</a>
+<a href="#l347" id="l347">347</a>
+<a href="#l348" id="l348">348</a>
+<a href="#l349" id="l349">349</a>
+<a href="#l350" id="l350">350</a>
+<a href="#l351" id="l351">351</a>
+<a href="#l352" id="l352">352</a>
+<a href="#l353" id="l353">353</a>
+<a href="#l354" id="l354">354</a>
+<a href="#l355" id="l355">355</a>
+<a href="#l356" id="l356">356</a>
+<a href="#l357" id="l357">357</a>
+<a href="#l358" id="l358">358</a>
+<a href="#l359" id="l359">359</a>
+<a href="#l360" id="l360">360</a>
+<a href="#l361" id="l361">361</a>
+<a href="#l362" id="l362">362</a>
+<a href="#l363" id="l363">363</a>
+<a href="#l364" id="l364">364</a>
+<a href="#l365" id="l365">365</a>
+<a href="#l366" id="l366">366</a>
+<a href="#l367" id="l367">367</a>
+<a href="#l368" id="l368">368</a>
+<a href="#l369" id="l369">369</a>
+<a href="#l370" id="l370">370</a>
+<a href="#l371" id="l371">371</a>
+<a href="#l372" id="l372">372</a>
+<a href="#l373" id="l373">373</a>
+<a href="#l374" id="l374">374</a>
+<a href="#l375" id="l375">375</a>
+<a href="#l376" id="l376">376</a>
+<a href="#l377" id="l377">377</a>
+<a href="#l378" id="l378">378</a>
+<a href="#l379" id="l379">379</a>
+<a href="#l380" id="l380">380</a>
+<a href="#l381" id="l381">381</a>
+<a href="#l382" id="l382">382</a>
+<a href="#l383" id="l383">383</a>
+<a href="#l384" id="l384">384</a>
+<a href="#l385" id="l385">385</a>
+<a href="#l386" id="l386">386</a>
+<a href="#l387" id="l387">387</a>
+<a href="#l388" id="l388">388</a>
+<a href="#l389" id="l389">389</a>
+<a href="#l390" id="l390">390</a>
+<a href="#l391" id="l391">391</a>
+<a href="#l392" id="l392">392</a>
+<a href="#l393" id="l393">393</a>
+<a href="#l394" id="l394">394</a>
+<a href="#l395" id="l395">395</a>
+<a href="#l396" id="l396">396</a>
+<a href="#l397" id="l397">397</a>
+<a href="#l398" id="l398">398</a>
+<a href="#l399" id="l399">399</a>
+<a href="#l400" id="l400">400</a>
+<a href="#l401" id="l401">401</a>
+<a href="#l402" id="l402">402</a>
+<a href="#l403" id="l403">403</a>
+<a href="#l404" id="l404">404</a>
+<a href="#l405" id="l405">405</a>
+<a href="#l406" id="l406">406</a>
+<a href="#l407" id="l407">407</a>
+<a href="#l408" id="l408">408</a>
+<a href="#l409" id="l409">409</a>
+<a href="#l410" id="l410">410</a>
+<a href="#l411" id="l411">411</a>
+<a href="#l412" id="l412">412</a>
+<a href="#l413" id="l413">413</a>
+<a href="#l414" id="l414">414</a>
+<a href="#l415" id="l415">415</a>
+<a href="#l416" id="l416">416</a>
+<a href="#l417" id="l417">417</a>
+<a href="#l418" id="l418">418</a>
+<a href="#l419" id="l419">419</a>
+<a href="#l420" id="l420">420</a>
+<a href="#l421" id="l421">421</a>
+<a href="#l422" id="l422">422</a>
+<a href="#l423" id="l423">423</a>
+<a href="#l424" id="l424">424</a>
+<a href="#l425" id="l425">425</a>
+<a href="#l426" id="l426">426</a>
+<a href="#l427" id="l427">427</a>
+<a href="#l428" id="l428">428</a>
+<a href="#l429" id="l429">429</a>
+<a href="#l430" id="l430">430</a>
+<a href="#l431" id="l431">431</a>
+<a href="#l432" id="l432">432</a>
+<a href="#l433" id="l433">433</a>
+<a href="#l434" id="l434">434</a>
+<a href="#l435" id="l435">435</a>
+<a href="#l436" id="l436">436</a>
+<a href="#l437" id="l437">437</a>
+<a href="#l438" id="l438">438</a>
+<a href="#l439" id="l439">439</a>
+<a href="#l440" id="l440">440</a>
+<a href="#l441" id="l441">441</a>
+<a href="#l442" id="l442">442</a>
+<a href="#l443" id="l443">443</a>
+<a href="#l444" id="l444">444</a>
+<a href="#l445" id="l445">445</a>
+<a href="#l446" id="l446">446</a>
+<a href="#l447" id="l447">447</a>
+<a href="#l448" id="l448">448</a>
+<a href="#l449" id="l449">449</a>
+<a href="#l450" id="l450">450</a>
+<a href="#l451" id="l451">451</a>
+<a href="#l452" id="l452">452</a>
+<a href="#l453" id="l453">453</a>
+<a href="#l454" id="l454">454</a>
+<a href="#l455" id="l455">455</a>
+<a href="#l456" id="l456">456</a>
+<a href="#l457" id="l457">457</a>
+<a href="#l458" id="l458">458</a>
+<a href="#l459" id="l459">459</a>
+<a href="#l460" id="l460">460</a>
+<a href="#l461" id="l461">461</a>
+<a href="#l462" id="l462">462</a>
+<a href="#l463" id="l463">463</a>
+<a href="#l464" id="l464">464</a>
+<a href="#l465" id="l465">465</a>
+<a href="#l466" id="l466">466</a>
+<a href="#l467" id="l467">467</a>
+<a href="#l468" id="l468">468</a>
+<a href="#l469" id="l469">469</a>
+<a href="#l470" id="l470">470</a>
+<a href="#l471" id="l471">471</a>
+<a href="#l472" id="l472">472</a>
+<a href="#l473" id="l473">473</a>
+<a href="#l474" id="l474">474</a>
+<a href="#l475" id="l475">475</a>
+<a href="#l476" id="l476">476</a>
+<a href="#l477" id="l477">477</a>
+<a href="#l478" id="l478">478</a>
+<a href="#l479" id="l479">479</a>
+<a href="#l480" id="l480">480</a>
+<a href="#l481" id="l481">481</a>
+<a href="#l482" id="l482">482</a>
+<a href="#l483" id="l483">483</a>
+<a href="#l484" id="l484">484</a>
+<a href="#l485" id="l485">485</a>
+<a href="#l486" id="l486">486</a>
+<a href="#l487" id="l487">487</a>
+<a href="#l488" id="l488">488</a>
+<a href="#l489" id="l489">489</a>
+<a href="#l490" id="l490">490</a>
+<a href="#l491" id="l491">491</a>
+<a href="#l492" id="l492">492</a>
+<a href="#l493" id="l493">493</a>
+<a href="#l494" id="l494">494</a>
+<a href="#l495" id="l495">495</a>
+<a href="#l496" id="l496">496</a>
+<a href="#l497" id="l497">497</a>
+<a href="#l498" id="l498">498</a>
+<a href="#l499" id="l499">499</a>
+<a href="#l500" id="l500">500</a>
+<a href="#l501" id="l501">501</a>
+<a href="#l502" id="l502">502</a>
+<a href="#l503" id="l503">503</a>
+<a href="#l504" id="l504">504</a>
+<a href="#l505" id="l505">505</a>
+<a href="#l506" id="l506">506</a>
+<a href="#l507" id="l507">507</a>
+<a href="#l508" id="l508">508</a>
+<a href="#l509" id="l509">509</a>
+<a href="#l510" id="l510">510</a>
+<a href="#l511" id="l511">511</a>
+<a href="#l512" id="l512">512</a>
+<a href="#l513" id="l513">513</a>
+<a href="#l514" id="l514">514</a>
+<a href="#l515" id="l515">515</a>
+<a href="#l516" id="l516">516</a>
+<a href="#l517" id="l517">517</a>
+<a href="#l518" id="l518">518</a>
+<a href="#l519" id="l519">519</a>
+<a href="#l520" id="l520">520</a>
+<a href="#l521" id="l521">521</a>
+<a href="#l522" id="l522">522</a>
+<a href="#l523" id="l523">523</a>
+<a href="#l524" id="l524">524</a>
+<a href="#l525" id="l525">525</a>
+<a href="#l526" id="l526">526</a>
+<a href="#l527" id="l527">527</a>
+<a href="#l528" id="l528">528</a>
+<a href="#l529" id="l529">529</a>
+<a href="#l530" id="l530">530</a>
+<a href="#l531" id="l531">531</a>
+<a href="#l532" id="l532">532</a>
+<a href="#l533" id="l533">533</a>
+<a href="#l534" id="l534">534</a>
+<a href="#l535" id="l535">535</a>
+<a href="#l536" id="l536">536</a>
+<a href="#l537" id="l537">537</a>
+<a href="#l538" id="l538">538</a>
+<a href="#l539" id="l539">539</a>
+<a href="#l540" id="l540">540</a>
+<a href="#l541" id="l541">541</a>
+<a href="#l542" id="l542">542</a>
+<a href="#l543" id="l543">543</a>
+<a href="#l544" id="l544">544</a>
+<a href="#l545" id="l545">545</a>
+<a href="#l546" id="l546">546</a>
+<a href="#l547" id="l547">547</a>
+<a href="#l548" id="l548">548</a>
+<a href="#l549" id="l549">549</a>
+<a href="#l550" id="l550">550</a>
+<a href="#l551" id="l551">551</a>
+<a href="#l552" id="l552">552</a>
+<a href="#l553" id="l553">553</a>
+<a href="#l554" id="l554">554</a>
+<a href="#l555" id="l555">555</a>
+<a href="#l556" id="l556">556</a>
+<a href="#l557" id="l557">557</a>
+<a href="#l558" id="l558">558</a>
+<a href="#l559" id="l559">559</a>
+<a href="#l560" id="l560">560</a>
+<a href="#l561" id="l561">561</a>
+<a href="#l562" id="l562">562</a>
+<a href="#l563" id="l563">563</a>
+<a href="#l564" id="l564">564</a>
+<a href="#l565" id="l565">565</a>
+<a href="#l566" id="l566">566</a>
+<a href="#l567" id="l567">567</a>
+<a href="#l568" id="l568">568</a>
+<a href="#l569" id="l569">569</a>
+<a href="#l570" id="l570">570</a>
+<a href="#l571" id="l571">571</a>
+<a href="#l572" id="l572">572</a>
+<a href="#l573" id="l573">573</a>
+<a href="#l574" id="l574">574</a>
+<a href="#l575" id="l575">575</a>
+<a href="#l576" id="l576">576</a>
+<a href="#l577" id="l577">577</a>
+<a href="#l578" id="l578">578</a>
+<a href="#l579" id="l579">579</a>
+<a href="#l580" id="l580">580</a>
+<a href="#l581" id="l581">581</a>
+<a href="#l582" id="l582">582</a>
+<a href="#l583" id="l583">583</a>
+<a href="#l584" id="l584">584</a>
+<a href="#l585" id="l585">585</a>
+<a href="#l586" id="l586">586</a>
+<a href="#l587" id="l587">587</a>
+<a href="#l588" id="l588">588</a>
+<a href="#l589" id="l589">589</a>
+<a href="#l590" id="l590">590</a>
+<a href="#l591" id="l591">591</a>
+<a href="#l592" id="l592">592</a>
+<a href="#l593" id="l593">593</a>
+<a href="#l594" id="l594">594</a>
+<a href="#l595" id="l595">595</a>
+<a href="#l596" id="l596">596</a>
+<a href="#l597" id="l597">597</a>
+<a href="#l598" id="l598">598</a>
+<a href="#l599" id="l599">599</a>
+<a href="#l600" id="l600">600</a>
+<a href="#l601" id="l601">601</a>
+<a href="#l602" id="l602">602</a>
+<a href="#l603" id="l603">603</a>
+<a href="#l604" id="l604">604</a>
+<a href="#l605" id="l605">605</a>
+<a href="#l606" id="l606">606</a>
+<a href="#l607" id="l607">607</a>
+<a href="#l608" id="l608">608</a>
+<a href="#l609" id="l609">609</a>
+<a href="#l610" id="l610">610</a>
+<a href="#l611" id="l611">611</a>
+<a href="#l612" id="l612">612</a>
+<a href="#l613" id="l613">613</a>
+<a href="#l614" id="l614">614</a>
+<a href="#l615" id="l615">615</a>
+<a href="#l616" id="l616">616</a>
+<a href="#l617" id="l617">617</a>
+<a href="#l618" id="l618">618</a>
+<a href="#l619" id="l619">619</a>
+<a href="#l620" id="l620">620</a>
+<a href="#l621" id="l621">621</a>
+<a href="#l622" id="l622">622</a>
+<a href="#l623" id="l623">623</a>
+<a href="#l624" id="l624">624</a>
+<a href="#l625" id="l625">625</a>
+<a href="#l626" id="l626">626</a>
+<a href="#l627" id="l627">627</a>
+<a href="#l628" id="l628">628</a>
+<a href="#l629" id="l629">629</a>
+<a href="#l630" id="l630">630</a>
+<a href="#l631" id="l631">631</a>
+<a href="#l632" id="l632">632</a>
+<a href="#l633" id="l633">633</a>
+<a href="#l634" id="l634">634</a>
+<a href="#l635" id="l635">635</a>
+<a href="#l636" id="l636">636</a>
+<a href="#l637" id="l637">637</a>
+<a href="#l638" id="l638">638</a>
+<a href="#l639" id="l639">639</a>
+<a href="#l640" id="l640">640</a>
+<a href="#l641" id="l641">641</a>
+<a href="#l642" id="l642">642</a>
+<a href="#l643" id="l643">643</a>
+<a href="#l644" id="l644">644</a>
+<a href="#l645" id="l645">645</a>
+<a href="#l646" id="l646">646</a>
+<a href="#l647" id="l647">647</a>
+<a href="#l648" id="l648">648</a>
+<a href="#l649" id="l649">649</a>
+<a href="#l650" id="l650">650</a>
+<a href="#l651" id="l651">651</a>
+<a href="#l652" id="l652">652</a>
+<a href="#l653" id="l653">653</a>
+<a href="#l654" id="l654">654</a>
+<a href="#l655" id="l655">655</a>
+<a href="#l656" id="l656">656</a>
+<a href="#l657" id="l657">657</a>
+<a href="#l658" id="l658">658</a>
+<a href="#l659" id="l659">659</a>
+<a href="#l660" id="l660">660</a>
+<a href="#l661" id="l661">661</a>
+<a href="#l662" id="l662">662</a>
+<a href="#l663" id="l663">663</a>
+<a href="#l664" id="l664">664</a>
+<a href="#l665" id="l665">665</a>
+<a href="#l666" id="l666">666</a>
+<a href="#l667" id="l667">667</a>
+<a href="#l668" id="l668">668</a>
+<a href="#l669" id="l669">669</a>
+<a href="#l670" id="l670">670</a>
+<a href="#l671" id="l671">671</a>
+<a href="#l672" id="l672">672</a>
+<a href="#l673" id="l673">673</a>
+<a href="#l674" id="l674">674</a>
+<a href="#l675" id="l675">675</a>
+<a href="#l676" id="l676">676</a>
+<a href="#l677" id="l677">677</a>
+<a href="#l678" id="l678">678</a>
+<a href="#l679" id="l679">679</a>
+<a href="#l680" id="l680">680</a>
+<a href="#l681" id="l681">681</a>
+<a href="#l682" id="l682">682</a>
+<a href="#l683" id="l683">683</a>
+<a href="#l684" id="l684">684</a>
+<a href="#l685" id="l685">685</a>
+<a href="#l686" id="l686">686</a>
+<a href="#l687" id="l687">687</a>
+<a href="#l688" id="l688">688</a>
+<a href="#l689" id="l689">689</a>
+<a href="#l690" id="l690">690</a>
+<a href="#l691" id="l691">691</a>
+<a href="#l692" id="l692">692</a>
+<a href="#l693" id="l693">693</a>
+<a href="#l694" id="l694">694</a>
+<a href="#l695" id="l695">695</a>
+<a href="#l696" id="l696">696</a>
+<a href="#l697" id="l697">697</a>
+<a href="#l698" id="l698">698</a>
+<a href="#l699" id="l699">699</a>
+<a href="#l700" id="l700">700</a>
+<a href="#l701" id="l701">701</a>
+<a href="#l702" id="l702">702</a>
+<a href="#l703" id="l703">703</a>
+<a href="#l704" id="l704">704</a>
+<a href="#l705" id="l705">705</a>
+<a href="#l706" id="l706">706</a>
+<a href="#l707" id="l707">707</a>
+<a href="#l708" id="l708">708</a>
+<a href="#l709" id="l709">709</a>
+<a href="#l710" id="l710">710</a>
+<a href="#l711" id="l711">711</a>
+<a href="#l712" id="l712">712</a>
+<a href="#l713" id="l713">713</a>
+<a href="#l714" id="l714">714</a>
+<a href="#l715" id="l715">715</a>
+<a href="#l716" id="l716">716</a>
+<a href="#l717" id="l717">717</a>
+<a href="#l718" id="l718">718</a>
+<a href="#l719" id="l719">719</a>
+<a href="#l720" id="l720">720</a>
+<a href="#l721" id="l721">721</a>
+<a href="#l722" id="l722">722</a>
+<a href="#l723" id="l723">723</a>
+<a href="#l724" id="l724">724</a>
+<a href="#l725" id="l725">725</a>
+<a href="#l726" id="l726">726</a>
+<a href="#l727" id="l727">727</a>
+<a href="#l728" id="l728">728</a>
+<a href="#l729" id="l729">729</a>
+<a href="#l730" id="l730">730</a>
+<a href="#l731" id="l731">731</a>
+<a href="#l732" id="l732">732</a>
+<a href="#l733" id="l733">733</a>
+<a href="#l734" id="l734">734</a>
+<a href="#l735" id="l735">735</a>
+<a href="#l736" id="l736">736</a>
+<a href="#l737" id="l737">737</a>
+<a href="#l738" id="l738">738</a>
+<a href="#l739" id="l739">739</a>
+<a href="#l740" id="l740">740</a>
+<a href="#l741" id="l741">741</a>
+<a href="#l742" id="l742">742</a>
+<a href="#l743" id="l743">743</a>
+<a href="#l744" id="l744">744</a>
+<a href="#l745" id="l745">745</a>
+<a href="#l746" id="l746">746</a>
+<a href="#l747" id="l747">747</a>
+<a href="#l748" id="l748">748</a>
+<a href="#l749" id="l749">749</a>
+<a href="#l750" id="l750">750</a>
+<a href="#l751" id="l751">751</a>
+<a href="#l752" id="l752">752</a>
+<a href="#l753" id="l753">753</a>
+<a href="#l754" id="l754">754</a>
+<a href="#l755" id="l755">755</a>
+<a href="#l756" id="l756">756</a>
+<a href="#l757" id="l757">757</a>
+<a href="#l758" id="l758">758</a>
+<a href="#l759" id="l759">759</a>
+<a href="#l760" id="l760">760</a>
+<a href="#l761" id="l761">761</a>
+<a href="#l762" id="l762">762</a>
+<a href="#l763" id="l763">763</a>
+<a href="#l764" id="l764">764</a>
+<a href="#l765" id="l765">765</a>
+<a href="#l766" id="l766">766</a>
+<a href="#l767" id="l767">767</a>
+<a href="#l768" id="l768">768</a>
+<a href="#l769" id="l769">769</a>
+<a href="#l770" id="l770">770</a>
+<a href="#l771" id="l771">771</a>
+<a href="#l772" id="l772">772</a>
+<a href="#l773" id="l773">773</a>
+<a href="#l774" id="l774">774</a>
+<a href="#l775" id="l775">775</a>
+<a href="#l776" id="l776">776</a>
+<a href="#l777" id="l777">777</a>
+<a href="#l778" id="l778">778</a>
+<a href="#l779" id="l779">779</a>
+<a href="#l780" id="l780">780</a>
+<a href="#l781" id="l781">781</a>
+<a href="#l782" id="l782">782</a>
+<a href="#l783" id="l783">783</a>
 </td>
         <td class="line-coverage"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -667,8 +1118,6 @@
 <span class="cline-any cline-yes">2</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2</span>
 <span class="cline-any cline-yes">1</span>
 <span class="cline-any cline-yes">1</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -806,6 +1255,14 @@
 <span class="cline-any cline-yes">1</span>
 <span class="cline-any cline-yes">1</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -822,8 +1279,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -841,67 +1296,24 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2</span>
 <span class="cline-any cline-yes">2</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1</span>
-<span class="cline-any cline-yes">1</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2</span>
@@ -924,6 +1336,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -940,51 +1354,539 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">12</span>
-<span class="cline-any cline-yes">38</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">16</span>
-<span class="cline-any cline-yes">16</span>
-<span class="cline-any cline-yes">16</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">16</span>
-<span class="cline-any cline-yes">16</span>
-<span class="cline-any cline-yes">16</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">6</span>
-<span class="cline-any cline-yes">6</span>
-<span class="cline-any cline-yes">6</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">38</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">20</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">20</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">18</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">38</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">466</span>
+<span class="cline-any cline-yes">172</span>
+<span class="cline-any cline-yes">172</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">294</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -995,12 +1897,10 @@
 /* jslint utility2:true */
 /* istanbul ignore next */
 // run shared js-env code - init-local
-(function (globalThis) {
+(function () {
     "use strict";
     let consoleError;
     let local;
-    // init globalThis
-    globalThis.globalThis = globalThis.globalThis || <span class="branch-1 cbranch-skip" title="branch not covered">globalThis;</span>
     // init debugInline
     <span class="skip-if-branch" title="if path not taken">I</span>if (!globalThis.debugInline) {
 <span class="cstat-skip" title="statement not covered">        consoleError = console.error;</span>
@@ -1140,6 +2040,14 @@
 <span class="cstat-skip" title="statement not covered">        recurse(tgt, src, depth | 0);</span>
 <span class="cstat-skip" title="statement not covered">        return tgt;</span>
     };
+    local.onErrorThrow = <span class="fstat-skip" title="function not covered">function (err) {</span>
+    /*
+     * this function will throw &lt;err&gt; if exists
+     */
+<span class="cstat-skip" title="statement not covered">        if (err) {</span>
+<span class="cstat-skip" title="statement not covered">            throw err;</span>
+        }
+    };
     // bug-workaround - throw unhandledRejections in node-process
     <span class="skip-if-branch" title="if path not taken">I</span>if (
         typeof process === "object" &amp;&amp; process
@@ -1151,18 +2059,16 @@
 <span class="cstat-skip" title="statement not covered">            throw err;</span>
         });
     }
-}((typeof globalThis === "object" &amp;&amp; globalThis) || <span class="branch-2 cbranch-skip" title="branch not covered">window)</span>);
+}());
 // assets.utility2.header.js - end
 
 
-
 /* jslint utility2:true */
-/* istanbul ignore next */
 (function (local) {
 "use strict";
 
 
-
+/* istanbul ignore next */
 // run shared js-env code - init-before
 (function () {
 // init local
@@ -1174,151 +2080,598 @@ local.testRunDefault(local);
 }());
 
 
-
 // run shared js-env code - function
 (function () {
-local._testCase_jslintAndPrintConditional_default = <span class="fstat-skip" title="function not covered">function (opt, onError) {</span>
+local.testCase_jslint0_coverage = function (opt, onError) {
 /*
- * this function will test jslintAndPrintConditional's default handling-behavior
+ * this function will test jslintAndPrint's coverage handling-behavior
  */
-<span class="cstat-skip" title="statement not covered">    local.testMock([</span>
-        [
-            local.jslint, {
-                errMsg: ""
-            }
-        ]
-    ], <span class="fstat-skip" title="function not covered">function (onError) {</span>
-        // test no csslint handling-behavior
-<span class="cstat-skip" title="statement not covered">        local.jslintAndPrintConditional("no csslint", "empty.css");</span>
-        // handle err
-<span class="cstat-skip" title="statement not covered">        local.assertOrThrow(!local.jslint.errMsg, local.jslint.errMsg);</span>
-        // test csslint passed handling-behavior
-<span class="cstat-skip" title="statement not covered">        local.jslintAndPrintConditional(</span>
-            "/*csslint*/\nbody { display: block; }",
-            "passed.css",
-            "force"
-        );
-        // handle err
-<span class="cstat-skip" title="statement not covered">        local.assertOrThrow(!local.jslint.errMsg, local.jslint.errMsg);</span>
-        // test no jslint handling-behavior
-<span class="cstat-skip" title="statement not covered">        local.jslintAndPrintConditional("no jslint", "empty.js");</span>
-        // handle err
-<span class="cstat-skip" title="statement not covered">        local.assertOrThrow(!local.jslint.errMsg, local.jslint.errMsg);</span>
-        // test jslint passed handling-behavior
-<span class="cstat-skip" title="statement not covered">        local.jslintAndPrintConditional(</span>
-            "/*jslint node: true*/\nconsole.log(\"aa\");",
-            "passed.js",
-            "force"
-        );
-        // handle err
-<span class="cstat-skip" title="statement not covered">        local.assertOrThrow(!local.jslint.errMsg, local.jslint.errMsg);</span>
-<span class="cstat-skip" title="statement not covered">        onError(null, opt);</span>
-        // test no shlint handling-behavior
-<span class="cstat-skip" title="statement not covered">        local.jslintAndPrintConditional("no shlint", "empty.sh");</span>
-        // handle err
-<span class="cstat-skip" title="statement not covered">        local.assertOrThrow(!local.jslint.errMsg, local.jslint.errMsg);</span>
-        // test shlint passed handling-behavior
-<span class="cstat-skip" title="statement not covered">        local.jslintAndPrintConditional((</span>
-            "# jslint utility2:true\n"
-            + "shAa () {\n"
-            + "    node -e \"\n"
-            + "local = {};\n"
-            + "local.aa = function () {\n"
-            + "    return;\n"
-            + "};\n"
-            + "    \"\n"
-            + "}\n"
-        ), "passed.sh", "force");
-        // handle err
-<span class="cstat-skip" title="statement not covered">        local.assertOrThrow(!local.jslint.errMsg, local.jslint.errMsg);</span>
-    }, onError);
+    // jslint self
+    if (!local.isBrowser) {
+        local.jslint0(require("fs").readFileSync(__filename, "utf8"));
+        local.jslint0(require("fs").readFileSync("lib.jslint.js", "utf8"));
+        local.jslint0(require("fs").readFileSync(
+            "lib.jslint.js",
+            "utf8"
+        ).replace((
+            /[\S\s]*?\n\/\/\u0020jslint\.js/
+        ), "").replace((
+            /\n\/\*\u0020jslint\u0020ignore:end\u0020\*\/\n[\S\s]*/
+        ), ""));
+        local.jslint0(require("fs").readFileSync("package.json", "utf8"));
+    }
+    // test option handling-behavior
+    opt = local.jslint0([
+        // source
+        ""
+    ], {
+        // option
+        bitwise: true,
+        browser: true,
+        convert: true,
+        couch: true,
+        devel: true,
+        eval: true,
+        for: true,
+        fudge: true,
+        getset: true,
+        long: true,
+        node: true,
+        single: true,
+        this: true,
+        white: true
+    });
+    local.assertOrThrow(!opt.warnings.length, opt.source);
+    [
+        // option - utility2
+        "/* jslint utility2:true */\nlet aa = 1;\naa();",
+        // option - browser
+        "/*jslint browser*/;",
+        // option - devel
+        "/*jslint devel*/\ndebugger;",
+        // option - eval
+        "/*jslint eval*/\nnew Function();\neval();",
+        // option - node
+        "#!\n/*jslint browser:false, node*/\n\"use strict\";",
+        // option - this
+        "/*jslint this*/\nlet aa = this;",
+        // option - white
+        "/*jslint white*/\n\t",
+        // property
+        "/*property aa bb*/",
+        ""
+    ].forEach(function (src) {
+        local.assertOrThrow(!local.jslint0(src).warnings.length, src);
+    });
+    // test misc handling-behavior
+    [
+        // Array
+        "new Array(1);",
+        // Date.getTime
+        "let aa = aa.aa().getTime();",
+        "let aa = aa().getTime();",
+        "Date.getTime();",
+        // async/await
+        "async function aa() {\n    await aa();\n}",
+        // fart
+        "function aa() {\n    return () =&gt; 1;\n}",
+        // for
+        "/*ignore*/let aa;for(aa in bb){}",
+        // getset
+        "/*jslint getset*/\nlet aa = {get aa() {\n    return;\n}};",
+        "/*jslint getset*/\nlet aa = {set aa(aa) {\n    return aa;\n}};",
+        // json
+        "{\"aa\":[[],-1,null]}",
+        // label
+        "function aa() {\nbb:\n    while (true) {\n        if (true) {\n"
+        + "            break bb;\n        }\n    }\n}",
+        // module
+        "export default Object.freeze();",
+        "import {aa, bb} from \"aa\";\naa(bb);",
+        "import {} from \"aa\";",
+        "import(\"aa\").then(function () {\n    return;\n});",
+        // var
+        "let [...aa] = [...aa];",
+        "let [\n    aa, bb = 1\n] = [];",
+        "let {aa, bb} = {};",
+        ""
+    ].forEach(function (src) {
+        local.assertOrThrow(!local.jslint0(src).warnings.length || src.indexOf(
+            "/*ignore*/"
+        ) === 0, src);
+    });
+    onError(undefined, opt);
 };
 
-local.testCase_jslintAndPrint_default = function (opt, onError) {
+local.testCase_jslint0_err = function (opt, onError) {
 /*
- * this function will test jslintAndPrint's default handling-behavior
+ * this function will test jslintAndPrint's err handling-behavior
  */
-    ([
-        // 0. test csslint passed handling-behavior
-        [
-            // test passed handling-behavior
-            ".aa {\n    display: block;\n}",
-            // test \n\n handling-behavior
-            ".bb {\n    display: block;\n}\n\n.aa {\n    display: block;\n}"
-        // 1. test csslint failed handling-behavior
-        ], [
-            // test syntax-err handling-behavior
-            "syntax err",
-            // test whitespace-before-comma handling-behavior
-            ".aa ,\nbb {\n    display: block;\n}",
-            // test double-whitespace handling-behavior
-            ".aa  {\n    display: block;\n}",
-            // test multi-line-statement handling-behavior
-            ".aa { display: block; }",
-            // test validateLineSorted1-err handling-behavior
-            ".bb,\n.aa {\n    display: block;\n}",
-            // test validateLineSorted2-err handling-behavior
-            ".bb {\n    display: block;\n}\n.aa {\n    display: block;\n}"
-        // 2. test jslint passed handling-behavior
-        ], [
-            // test null-case handling-behavior
-            "",
-            // test es6 handling-behavior
-            "const aa = 1;\nwindow.aa = aa;",
-            // test passed handling-behavior
-            "let aa = 1;\nwindow.aa = aa;",
-            // test /* jslint ignore:xxx */ handling-behavior
-            "/* jslint ignore:start */\nsyntax err\n/* jslint ignore:end */",
-            // test // jslint ignore:line handling-behavior
-            "syntax err // jslint ignore:line",
-            // test example.js
-            local.assetsDict["/assets.example.template.js"]
-        // 3. test jslint failed handling-behavior
-        ], [
-            // test whitespace handling-behavior
-            " ",
-            // test syntax-err handling-behavior
-            "syntax err"
-        // 4. test shlint passed handling-behavior
-        ], [
-            // test validateLineSorted handling-behavior
-            "shAa () {\n    return;\n}\nshBb () {\n    return;\n}"
-        // 5. test shlint failed handling-behavior
-        ], [
-            // test tab handling-behavior
-            "aa\tbb",
-            // test validateLineSorted handling-behavior
-            "shBb () {\n    return;\n}\nshAa () {\n    return;\n}"
-        ]
-    ]).forEach(function (scriptList, ii) {
-        scriptList.forEach(function (script, jj) {
-            switch (ii &amp; 0xe) {
-            case 0:
-                script = "/* jslint utility2:true */\n" + script;
-                local.jslintAndPrint(script, "aa." + ii + "." + jj + ".css");
-                break;
-            case 2:
-                script = "/* jslint utility2:true */\n" + script;
-                local.jslintAndPrint(script, "aa." + ii + "." + jj + ".js");
-                break;
-            case 4:
-                script = "# jslint utility2:true\n" + script;
-                local.jslintAndPrint(script, "aa." + ii + "." + jj + ".sh");
-                break;
-            }
-            if (Boolean(ii &amp; 1)) {
-                // handle err
-                local.assertOrThrow(
-                    local.jslintResult.errMsg,
-                    local.jslintResult
-                );
-                return;
-            }
-            // handle err
-            local.assertOrThrow(!local.jslintResult.errMsg, local.jslintResult);
-        });
+    let errCode;
+    [
+        // and: "The '&amp;&amp;' subexpression should be wrapped in parens.",
+        "__and__",
+        "aa &amp;&amp; bb || cc;",
+        // bad_assignment_a: "Bad assignment to '{a}'.",
+        "__bad_assignment_a__",
+        "/*jslint for*/\nfunction aa(){for (1 in bb){}}",
+        "1 = 2;",
+        "____",
+        "const aa=1;for(aa in bb){}",
+        // bad_directive_a: "Bad directive '{a}'.",
+        "__bad_directive_a__",
+        "/*jslint !*/",
+        // bad_get: "A get function takes no parameters.",
+        "__bad_get__",
+        "/*jslint getset*/\nlet aa={get aa(aa){return;}};",
+        // bad_module_name_a: "Bad module name '{a}'.",
+        "__bad_module_name_a__",
+        "import aa from \"!aa\";",
+        // bad_option_a: "Bad option '{a}'.",
+        "__bad_option_a__",
+        "/*global aa:true*/",
+        "/*jslint undefined*/",
+        // bad_property_a: "Bad property name '{a}'.",
+        "__bad_property_a__",
+        "{\"__proto__\":1}",
+        "aa._;",
+        // bad_set: "A set function takes one parameter.",
+        "__bad_set__",
+        "/*jslint getset*/\nlet aa={set aa(){return;}};",
+        // duplicate_a: "Duplicate '{a}'.",
+        "__duplicate_a__",
+        "let aa;export {aa,aa};",
+        "{\"aa\":1,\"aa\":2}",
+        // empty_block: "Empty block.",
+        "__empty_block__",
+        "function aa() {}",
+        // escape_mega: "Unexpected escapement in mega literal.",
+        "__escape_mega__",
+        // expected_a: "Expected '{a}'.",
+        "__expected_a__",
+        "aa=/_{}/;",
+        // expected_a_at_b_c: "Expected '{a}' at column {b}, not column {c}.",
+        "__expected_a_at_b_c__",
+        "let aa = {\n    aa:\n1\n};",
+        // expected_a_b: "Expected '{a}' and instead saw '{b}'.",
+        "__expected_a_b__",
+        "(aa)=&gt;{return 1;}",
+        "1!=1;",
+        "1==1;",
+        ";{;",
+        "`${`",
+        "delete [1];",
+        "for(;;){}",
+        "isFinite(1);",
+        "let aa;aa.bb = undefined;",
+        "let aa=!!aa;",
+        "let aa=(aa?1:aa);",
+        "let aa=(aa?aa:1);",
+        "let aa=(aa?false:true);",
+        "let aa=(aa?true:false);",
+        "let aa=+aa;",
+        "let aa=/[ ]/;",
+        "let aa=1+\"\";",
+        "let aa=\"\"+\"\";",
+        "new Array(\"\");",
+        "new Date().getTime();",
+        "new Object();",
+        // expected_a_b_from_c_d:
+        // "Expected '{a}' to match '{b}' from line {c} and instead saw '{d}'."
+        "__expected_a_b_from_c_d__",
+        "{\"aa\":1",
+        // expected_a_before_b: "Expected '{a}' before '{b}'.",
+        "__expected_a_before_b__",
+        "/*jslint eval*/\nFunction;eval;",
+        "let Aa = Aa();",
+        "let Aa = Aa.Bb();",
+        // expected_a_next_at_b:
+        // "Expected '{a}' at column {b} on the next line.",
+        "__expected_a_next_at_b__",
+        // expected_digits_after_a: "Expected digits after '{a}'.",
+        "__expected_digits_after_a__",
+        // expected_four_digits: "Expected four digits after '\\u'.",
+        "__expected_four_digits__",
+        // expected_identifier_a:
+        // "Expected an identifier and instead saw '{a}'.",
+        "__expected_identifier_a__",
+        "import {",
+        "let [aa,1]=[];",
+        // expected_line_break_a_b:
+        // "Expected a line break between '{a}' and '{b}'.",
+        "__expected_line_break_a_b__",
+        // expected_regexp_factor_a:
+        // "Expected a regexp factor and instead saw '{a}'.",
+        "__expected_regexp_factor_a__",
+        // expected_space_a_b: "Expected one space between '{a}' and '{b}'.",
+        "__expected_space_a_b__",
+        "/**//**/",
+        "let aa=1;",
+        // expected_statements_a: "Expected statements before '{a}'.",
+        "__expected_statements_a__",
+        // expected_string_a: "Expected a string and instead saw '{a}'.",
+        "__expected_string_a__",
+        "import(aa).then(aa);;",
+        "typeof 1===1;",
+        // expected_type_string_a:
+        // "Expected a type string and instead saw '{a}'.",
+        "__expected_type_string_a__",
+        "typeof 1===\"aa\";",
+        // freeze_exports:
+        // "Expected 'Object.freeze('. All export values should be frozen."
+        "__freeze_exports__",
+        "export default Object.aa();",
+        "export function aa(){return;}",
+        // function_in_loop: "Don't make functions within a loop.",
+        "__function_in_loop__",
+        "function aa(){while (true) {aa.map(function(){return;});}}",
+        "function aa(){while (true) {aa.map(()=&gt;1);}}",
+        // infix_in:
+        // "Unexpected 'in'. Compare with undefined, "
+        // + "or use the hasOwnProperty method instead."
+        "__infix_in__",
+        "aa in bb;",
+        // label_a: "'{a}' is a statement label.",
+        "__label_a__",
+        // misplaced_a: "Place '{a}' at the outermost level.",
+        "__misplaced_a__",
+        "if(true){import aa from \"aa\";}",
+        // misplaced_directive_a:
+        // "Place the '/*{a}*/' directive before the first statement."
+        "__misplaced_directive_a__",
+        "let aa;\n/*global aa*/",
+        // missing_browser: "/*global*/ requires the Assume a browser option.",
+        "__missing_browser__",
+        "/*global aa*/",
+        // missing_m: "Expected 'm' flag on a multiline regular expression.",
+        "__missing_m__",
+        "aa=/$^/;",
+        // naked_block: "Naked block.",
+        "__naked_block__",
+        // nested_comment: "Nested comment.",
+        "__nested_comment__",
+        "/* /* aa */",
+        // not_label_a: "'{a}' is not a label.",
+        "__not_label_a__",
+        // number_isNaN: "Use Number.isNaN function to compare with NaN.",
+        "__number_isNaN__",
+        "NaN===NaN;",
+        "isNaN(1);",
+        // out_of_scope_a: "'{a}' is out of scope.",
+        "__out_of_scope_a__",
+        "function aa(){bb();}\nfunction bb(){return;}",
+        // redefinition_a_b: "Redefinition of '{a}' from line {b}.",
+        "__redefinition_a_b__",
+        "let aa; let aa;",
+        // required_a_optional_b:
+        // "Required parameter '{a}' after optional parameter '{b}'."
+        "__Required__",
+        // reserved_a: "Reserved name '{a}'.",
+        "__reserved_a__",
+        "let undefined;",
+        // subscript_a: "['{a}'] is better written in dot notation.",
+        "__subscript_a__",
+        "aa[`aa`];",
+        // todo_comment: "Unexpected TO\u0044O comment.",
+        "__todo_comment__",
+        "// todo",
+        // too_long: "Line is longer than 80 characters.",
+        "__too_long__",
+        "/////////////////////////////////////////"
+        + "/////////////////////////////////////////",
+        // too_many_digits: "Too many digits.",
+        "__too_many_digits__",
+        "\"\\u{123456}\"",
+        // unclosed_comment: "Unclosed comment.",
+        "__unclosed_comment__",
+        "/*",
+        // unclosed_mega: "Unclosed mega literal.",
+        "__unclosed_mega__",
+        "`aa",
+        // unclosed_string: "Unclosed string.",
+        "__unclosed_string__",
+        "\"\\",
+        "\"aa",
+        // undeclared_a: "Undeclared '{a}'.",
+        "__undeclared_a__",
+        "aa;",
+        // unexpected_a: "Unexpected '{a}'.",
+        "__unexpected_a__",
+        "((1));",
+        "/_/;",
+        "1 instanceof 1;",
+        "1===(1==1);",
+        "1|1;",
+        ";;",
+        "Function;",
+        "`${/[`]/}`;",
+        "aa/=2;",
+        "aa=/_//;",
+        "aa=/_/z;",
+        "arguments;",
+        "debugger;",
+        "eval;",
+        "export aa;",
+        "export const aa=1;",
+        "for(aa in bb){}",
+        "for(const ii=0;;){}",
+        "for(ii=0;ii&lt;0;ii++){}",
+        "for(ii=0;ii&lt;0;ii+=1){}",
+        "function aa(){try{return;}catch(ignore){}finally{return;}}",
+        "function aa(){try{return;}catch(ignore){}finally{switch(1){case 1:}}}",
+        "function aa(){while(true){continue;}}",
+        "function aa(){while(true){try{1;}catch(ignore){}finally{continue;}}}",
+        "ignore:",
+        "ignore;",
+        "import ignore from \"aa\";",
+        "import {ignore} from \"aa\";",
+        "let aa;aa+=NaN;",
+        "new Date.UTC();",
+        "new Function();",
+        "new Symbol();",
+        "this;",
+        "void 1;",
+        "yield /_/;",
+        "{//\n}",
+        "{\"\\u{1234}\":1}",
+        "{\"aa\":",
+        "{\"aa\":-0x1}",
+        "{\"aa\":0x1}",
+        "____",
+        "{\"aa\":'aa'}",
+        "{\"aa\":{1:2}}",
+        // unexpected_a_after_b: "Unexpected '{a}' after '{b}'.",
+        "__unexpected_a_after_b__",
+        // unexpected_a_before_b: "Unexpected '{a}' before '{b}'.",
+        "__unexpected_a_before_b__",
+        // unexpected_at_top_level_a: "Expected '{a}' to be in a function.",
+        "__unexpected_at_top_level_a__",
+        // unexpected_char_a: "Unexpected character '{a}'.",
+        "__unexpected_char_a__",
+        // unexpected_comment: "Unexpected comment.",
+        "__unexpected_comment__",
+        // unexpected_directive_a:
+        // "When using modules, don't use directive '/*{a}'.",
+        "__unexpected_directive_a__",
+        "/*global aa*/\nimport aa from \"aa\";",
+        // unexpected_expression_a:
+        // "Unexpected expression '{a}' in statement position."
+        "__unexpected_expression_a__",
+        "let ii;ii++;",
+        "typeof 1===typeof 1;",
+        // unexpected_label_a: "Unexpected label '{a}'.",
+        "__unexpected_label_a__",
+        "aa:aa;",
+        // unexpected_parens: "Don't wrap function literals in parens.",
+        "__unexpected_parens__",
+        "let aa=(function (){return;});",
+        // unexpected_space_a_b: "Unexpected space between '{a}' and '{b}'.",
+        "__unexpected_space_a_b__",
+        "let aa = ( 1 );",
+        // unexpected_statement_a:
+        // "Unexpected statement '{a}' in expression position."
+        "__unexpected_statement_a__",
+        // unexpected_trailing_space: "Unexpected trailing space.",
+        "__unexpected_trailing_space__",
+        // unexpected_typeof_a:
+        // "Unexpected 'typeof'. Use '===' to compare directly with {a}."
+        "__unexpected_typeof_a__",
+        "typeof aa===\"undefined\";",
+        // uninitialized_a: "Uninitialized '{a}'.",
+        "__uninitialized_a__",
+        "/*jslint node*/\nlet aa;aa();",
+        // unreachable_a: "Unreachable '{a}'.",
+        "__unreachable_a__",
+        "function aa(){while(true){break;1;}}",
+        // unregistered_property_a: "Unregistered property name '{a}'.",
+        "__unregistered_property_a__",
+        // unsafe: "Unsafe character '{a}'.",
+        "__unsafe__",
+        // unused_a: "Unused '{a}'.",
+        "__unused_a__",
+        "/*jslint node*/\nlet aa;",
+        // use_double: "Use double quotes, not single quotes.",
+        "__use_double__",
+        "'';",
+        // use_open:
+        // "Wrap a ternary expression in parens, "
+        // + "with a line break after the left paren."
+        "__use_open__",
+        "1?2:3;",
+        "let aa = 1?2:3;",
+        // use_spaces: "Use spaces, not tabs.",
+        "__use_spaces__",
+        "\t",
+        // var_loop: "Don't declare variables in a loop.",
+        "__var_loop__",
+        "function aa(){while(true){var aa;}}",
+        // var_switch: "Don't declare variables in a switch.",
+        "__var_switch__",
+        "function aa(){switch(1){case 1:var aa;}}",
+        // weird_condition_a: "Weird condition '{a}'.",
+        "__weird_condition_a__",
+        "if(1&amp;&amp;1){1;}",
+        "if(1||1){1;}",
+        // weird_expression_a: "Weird expression '{a}'.",
+        "__weird_expression_a__",
+        "let aa=RegExp.aa;",
+        "let aa=RegExp[1];",
+        "let aa=aa[[1]];",
+        "let self=self[1];",
+        "let window=window[1];",
+        // weird_loop: "Weird loop.",
+        "__weird_loop__",
+        "function aa(){do {break;}while(true);}",
+        "function aa(){while(true){break;}}",
+        // weird_relation_a: "Weird relation '{a}'.",
+        "__weird_relation_a__",
+        "if(1===1){1;}",
+        // wrap_condition: "Wrap the condition in parens.",
+        "__wrap_condition__",
+        "let aa=(aa&amp;&amp;!aa?1:2);",
+        // wrap_immediate:
+        // "Wrap an immediate function invocation in parentheses to assist "
+        // + "the reader in understanding that the expression is the result "
+        // + "of a function, and not the function itself."
+        "__wrap_immediate__",
+        "let aa=function(){return;}();",
+        // wrap_parameter: "Wrap the parameter in parens.",
+        "__wrap_parameter__",
+        "aa =&gt; 1;",
+        // wrap_regexp: "Wrap this regexp in parens to avoid confusion.",
+        "__wrap_regexp__",
+        "!/_/;",
+        // wrap_unary: "Wrap the unary expression in parens."
+        "__wrap_unary__",
+        "let aa=aa - -aa;",
+        // throw_error
+        "____",
+        "/*jslint throw_error*/"
+    ].forEach(function (src) {
+        if (src.slice(0, 2) === "__") {
+            errCode = src.slice(2, -2);
+            return;
+        }
+        local.assertOrThrow(
+            local.jslint0(src).warnings[0].code === errCode || !errCode,
+            src
+        );
     });
-    onError(null, opt);
+    onError(undefined, opt);
+};
+
+local.testCase_jslintAndPrintDir_coverage = function (opt, onError) {
+/*
+ * this function will test jslintAndPrintDir's coverage handling-behavior
+ */
+    if (local.isBrowser) {
+        onError(undefined, opt);
+        return;
+    }
+    Promise.all([
+        new Promise(function (resolve) {
+            local.jslintAndPrintDir(".", {
+                autofix: true,
+                conditional: true
+            }, resolve);
+        }),
+        new Promise(function (resolve) {
+            local.jslintAndPrintDir("jslintAndPrintDir", {
+                autofix: true,
+                conditional: true
+            });
+            local.eventListenerAdd((
+                "utility2.testRunMock.process.exit"
+            ), resolve, {
+                once: true
+            });
+        })
+    ]).then(function (errList) {
+        errList.forEach(function (err, ii) {
+            local.assertJsonEqual(Boolean(err) | 0, ii);
+        });
+        onError();
+    });
+};
+
+local.testCase_jslintAndPrint_coverage = function (opt, onError) {
+/*
+ * this function will test jslintAndPrint's coverage handling-behavior
+ */
+    // test null-case handling-behavior
+    local.assertJsonEqual(local.jslintAndPrint(""), "\n");
+    // test early_stop handling-behavior
+    local.jslintAndPrint("aa = 1\naa = [1,2,]", "aa.js");
+    // test utility2 handling-behavior
+    if (!local.isBrowser) {
+        local.jslintAndPrint(
+            require("utility2").__dirname + "/lib.utility2.js",
+            "lib.utility2.js"
+        );
+    }
+    onError(undefined, opt);
+};
+
+local.testCase_jslintAutofix_coverage = function (opt, onError) {
+/*
+ * this function will test jslintAutofix's coverage handling-behavior
+ */
+    local.testMock([
+        [
+            (
+                local.isBrowser
+                ? {}
+                : require("fs")
+            ), {
+                unlinkSync: local.nop,
+                writeFileSync: local.nop
+            }
+        ],
+        [
+            (
+                local.isBrowser
+                ? {}
+                : require("fs")
+            ), {
+                existsSync: local.identity,
+                unlinkSync: local.nop,
+                writeFileSync: local.nop
+            }
+        ]
+    ], function (onError) {
+        // test autofix-failed-expected_identifier_a handling-behavior
+        local.jslintAndPrint("(function () {\nfunction () {}\n}());", "aa.js", {
+            autofix: true
+        });
+        // test autofix-multi-pass handling-behavior
+        local.jslintAndPrint("let aa;aa=1;", "aa.js", {
+            autofix: true
+        });
+        local.jslintAndPrint((
+            // autofix-js - unexpected_space_a_b
+            "(function bb () {\n"
+            + "   \"use strict\";\n"
+            // autofix-js - expected_a_at_b_c
+            + "     return 1;\n"
+            + "}());\n"
+        ), "aa.js", {
+            autofix: true
+        });
+        // de-mux - false-positive rgx /_/
+        local.jslintAndPrint("let aa;\n aa = {} / 2;", "aa.js", {
+            autofix: true
+        });
+        local.jslintAndPrint((
+            "(function () {\n"
+            + "    \"use strict\";\n"
+            + "    let aa;\n"
+            // ignore:line
+            + "    aa = 1; // jslint ignore:line\n"
+            // ignore:start ... ignore:end
+            + "/* jslint ignore:start */\n"
+            + "    aa = 1;\n"
+            + "/* jslint ignore:end */\n"
+            // autofix-js - expected_a_b
+            + "    aa = (1 == 2);\n"
+            // autofix-js - expected_a_before_b
+            + "    aa = /[-]/;\n"
+            // autofix-js - expected_identifier_a
+            + "    aa = {1: 2};\n"
+            // autofix-js - use_double
+            + "    aa = '1\"\\n\\''; // '1'\n"
+            // autofix-js - use_spaces
+            + "\taa = 1;\n"
+            // autofix-js-braket - normalize rgx /_/ to (/_/)
+            + "    aa = /1/;\n"
+            // autofix-js-whitespace - normalize 8-space-indent
+            + "            aa = 1;\n"
+            + "    return aa;\n"
+            + "}());\n"
+        ), "aa.js", {
+            autofix: true
+        });
+        onError(undefined, opt);
+    }, onError);
 };
 }());
 }());

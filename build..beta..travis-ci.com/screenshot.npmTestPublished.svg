@@ -3,412 +3,409 @@
 <text fill="#7f7" font-family="Courier New" font-size="12" xml:space="preserve">
 <tspan x="10" y="26"></tspan>
 
-<tspan x="10" y="42">\x1b[35m[MODE_BUILD=npmTestPublished]\x1b[0m - 2020-06-08T23:42:13.001Z - npm-testing /tmp/npmTe\</tspan>
+<tspan x="10" y="42">\x1b[35m[MODE_BUILD=npmTestPublished]\x1b[0m - 2020-07-08T17:30:58.932Z - npm-testing /tmp/npmTe\</tspan>
 <tspan x="10" y="58">stPublished/node_modules/jslint-lite</tspan>
 
 <tspan x="10" y="74"></tspan>
 
 <tspan x="10" y="90"></tspan>
 
-<tspan x="10" y="106">istanbul - covering $ /home/travis/.nvm/versions/node/v14.4.0/bin/node /tmp/npmTestPublished/nod\</tspan>
+<tspan x="10" y="106">istanbul - covering $ /home/travis/.nvm/versions/node/v14.5.0/bin/node /tmp/npmTestPublished/nod\</tspan>
 <tspan x="10" y="122">e_modules/jslint-lite/test.js</tspan>
 
-<tspan x="10" y="138">&gt; jslint - 15ms - /tmp/npmTestPublished/node_modules/jslint-lite/npm_scripts.sh</tspan>
+<tspan x="10" y="138">&gt; jslint - 5ms - /tmp/npmTestPublished/node_modules/jslint-lite/README.md</tspan>
 
-<tspan x="10" y="154">--- /tmp/npmTestPublished/node_modules/jslint-lite/package.json.autofix.old	2020-06-08 23:42:13.\</tspan>
-<tspan x="10" y="170">402519813 +0000</tspan>
+<tspan x="10" y="154">jslint - 11ms - /tmp/npmTestPublished/node_modules/jslint-lite/npm_scripts.sh</tspan>
 
-<tspan x="10" y="186">+++ /tmp/npmTestPublished/node_modules/jslint-lite/package.json	2020-06-08 23:42:13.402519813 +0\</tspan>
-<tspan x="10" y="202">000</tspan>
+<tspan x="10" y="170">jslint - 20ms - /tmp/npmTestPublished/node_modules/jslint-lite/package.json</tspan>
 
-<tspan x="10" y="218">@@ -1,76 +1,76 @@</tspan>
+<tspan x="10" y="186">jslint - 61ms - /tmp/npmTestPublished/node_modules/jslint-lite/test.js</tspan>
 
-<tspan x="10" y="234"> {</tspan>
+<tspan x="10" y="202">jslint - 283ms - /tmp/npmTestPublished/node_modules/jslint-lite/lib.jslint.js</tspan>
 
-<tspan x="10" y="250">-  "_from": "jslint-lite",</tspan>
+<tspan x="10" y="218">http-server listening on port 54964</tspan>
 
-<tspan x="10" y="266">-  "_id": "jslint-lite@2020.6.8",</tspan>
+<tspan x="10" y="234">testRunDefault - 894 ms - [node test-case 1 of 9 passed] - testCase_jslint0_coverage</tspan>
 
-<tspan x="10" y="282">-  "_inBundle": false,</tspan>
+<tspan x="10" y="250">testRunDefault - 931 ms - [node test-case 2 of 9 passed] - testCase_jslint0_err</tspan>
 
-<tspan x="10" y="298">-  "_integrity": "sha512-SfEDPM7WSkrQ1J5T9I28jX22lszzXcEmbWbvEriWL7fJoOHioEHcvZUHShJ9lRxNRpDBqCI\</tspan>
-<tspan x="10" y="314">qlDifvTQACzAoDQ==",</tspan>
+<tspan x="10" y="266">testRunDefault - 935 ms - [node test-case 3 of 9 passed] - testCase_jslintAndPrint_coverage</tspan>
 
-<tspan x="10" y="330">-  "_location": "/jslint-lite",</tspan>
+<tspan x="10" y="282">testRunDefault - 974 ms - [node test-case 4 of 9 passed] - testCase_jslintAutofix_coverage</tspan>
 
-<tspan x="10" y="346">-  "_phantomChildren": {},</tspan>
+<tspan x="10" y="298">testRunDefault - 977 ms - [node test-case 5 of 9 passed] - testCase_nop_default</tspan>
 
-<tspan x="10" y="362">-  "_requested": {</tspan>
+<tspan x="10" y="314">--- /tmp/npmTestPublished/node_modules/jslint-lite/package.json.autofix.old	2020-07-08 17:31:02.\</tspan>
+<tspan x="10" y="330">563708956 +0000</tspan>
 
-<tspan x="10" y="378">-    "type": "tag",</tspan>
+<tspan x="10" y="346">+++ /tmp/npmTestPublished/node_modules/jslint-lite/package.json	2020-07-08 17:31:02.563708956 +0\</tspan>
+<tspan x="10" y="362">000</tspan>
 
-<tspan x="10" y="394">-    "registry": true,</tspan>
+<tspan x="10" y="378">@@ -1,72 +1,72 @@</tspan>
 
-<tspan x="10" y="410">-    "raw": "jslint-lite",</tspan>
+<tspan x="10" y="394"> {</tspan>
 
-<tspan x="10" y="426">+    "_from": "jslint-lite",</tspan>
+<tspan x="10" y="410">-  "_from": "jslint-lite",</tspan>
 
-<tspan x="10" y="442">+    "_id": "jslint-lite@2020.6.8",</tspan>
+<tspan x="10" y="426">-  "_id": "jslint-lite@2020.7.8",</tspan>
 
-<tspan x="10" y="458">+    "_inBundle": false,</tspan>
+<tspan x="10" y="442">-  "_inBundle": false,</tspan>
 
-<tspan x="10" y="474">+    "_integrity": "sha512-SfEDPM7WSkrQ1J5T9I28jX22lszzXcEmbWbvEriWL7fJoOHioEHcvZUHShJ9lRxNRpDBq\</tspan>
-<tspan x="10" y="490">CIqlDifvTQACzAoDQ==",</tspan>
+<tspan x="10" y="458">-  "_integrity": "sha512-+utsO041WUYRjEES8oOrnUdQDuo5iz55FCu8yo6l+p8YZXD7m15BnUXdoSEMP7xlc/Hmcm3\</tspan>
+<tspan x="10" y="474">OvQBTQJf8mqeFyQ==",</tspan>
 
-<tspan x="10" y="506">+    "_location": "/jslint-lite",</tspan>
+<tspan x="10" y="490">-  "_location": "/jslint-lite",</tspan>
 
-<tspan x="10" y="522">+    "_phantomChildren": {},</tspan>
+<tspan x="10" y="506">-  "_phantomChildren": {},</tspan>
 
-<tspan x="10" y="538">+    "_requested": {</tspan>
+<tspan x="10" y="522">-  "_requested": {</tspan>
 
-<tspan x="10" y="554">+        "escapedName": "jslint-lite",</tspan>
+<tspan x="10" y="538">-    "type": "tag",</tspan>
 
-<tspan x="10" y="570">+        "fetchSpec": "latest",</tspan>
+<tspan x="10" y="554">-    "registry": true,</tspan>
 
-<tspan x="10" y="586">+        "name": "jslint-lite",</tspan>
+<tspan x="10" y="570">-    "raw": "jslint-lite",</tspan>
 
-<tspan x="10" y="602">+        "raw": "jslint-lite",</tspan>
+<tspan x="10" y="586">+    "_from": "jslint-lite",</tspan>
 
-<tspan x="10" y="618">+        "rawSpec": "",</tspan>
+<tspan x="10" y="602">+    "_id": "jslint-lite@2020.7.8",</tspan>
 
-<tspan x="10" y="634">+        "registry": true,</tspan>
+<tspan x="10" y="618">+    "_inBundle": false,</tspan>
 
-<tspan x="10" y="650">+        "saveSpec": null,</tspan>
+<tspan x="10" y="634">+    "_integrity": "sha512-+utsO041WUYRjEES8oOrnUdQDuo5iz55FCu8yo6l+p8YZXD7m15BnUXdoSEMP7xlc/Hmc\</tspan>
+<tspan x="10" y="650">m3OvQBTQJf8mqeFyQ==",</tspan>
 
-<tspan x="10" y="666">+        "type": "tag"</tspan>
+<tspan x="10" y="666">+    "_location": "/jslint-lite",</tspan>
 
-<tspan x="10" y="682">+    },</tspan>
+<tspan x="10" y="682">+    "_phantomChildren": {},</tspan>
 
-<tspan x="10" y="698">+    "_requiredBy_": [</tspan>
+<tspan x="10" y="698">+    "_requested": {</tspan>
 
-<tspan x="10" y="714">+        "#USER",</tspan>
+<tspan x="10" y="714">+        "escapedName": "jslint-lite",</tspan>
 
-<tspan x="10" y="730">+        "/"</tspan>
+<tspan x="10" y="730">+        "fetchSpec": "latest",</tspan>
 
-<tspan x="10" y="746">+    ],</tspan>
+<tspan x="10" y="746">+        "name": "jslint-lite",</tspan>
 
-<tspan x="10" y="762">+    "_resolved": "https://registry.npmjs.org/jslint-lite/-/jslint-lite-2020.6.8.tgz",</tspan>
+<tspan x="10" y="762">+        "raw": "jslint-lite",</tspan>
 
-<tspan x="10" y="778">+    "_shasum": "de49ef7cd885fb8120c221e2d4f00ef63549fedc",</tspan>
+<tspan x="10" y="778">+        "rawSpec": "",</tspan>
 
-<tspan x="10" y="794">+    "_spec": "jslint-lite",</tspan>
+<tspan x="10" y="794">+        "registry": true,</tspan>
 
-<tspan x="10" y="810">+    "_where": "/tmp/npmTestPublished",</tspan>
+<tspan x="10" y="810">+        "saveSpec": null,</tspan>
 
-<tspan x="10" y="826">+    "author": {</tspan>
+<tspan x="10" y="826">+        "type": "tag"</tspan>
 
-<tspan x="10" y="842">+        "email": "kaizhu256@gmail.com",</tspan>
+<tspan x="10" y="842">+    },</tspan>
 
-<tspan x="10" y="858">+        "name": "kai zhu"</tspan>
+<tspan x="10" y="858">+    "_requiredBy_": [</tspan>
 
-<tspan x="10" y="874">+    },</tspan>
+<tspan x="10" y="874">+        "#USER",</tspan>
 
-<tspan x="10" y="890">+    "bin": {</tspan>
+<tspan x="10" y="890">+        "/"</tspan>
 
-<tspan x="10" y="906">+        "jslint-lite": "lib.jslint.js"</tspan>
+<tspan x="10" y="906">+    ],</tspan>
 
-<tspan x="10" y="922">+    },</tspan>
+<tspan x="10" y="922">+    "_resolved": "https://registry.npmjs.org/jslint-lite/-/jslint-lite-2020.7.8.tgz",</tspan>
 
-<tspan x="10" y="938">+    "bugs": {</tspan>
+<tspan x="10" y="938">+    "_shasum": "e9aa62db08559bc77af8eadd948a15748bdbc5f9",</tspan>
 
-<tspan x="10" y="954">+        "url": "https://github.com/kaizhu256/node-jslint-lite/issues"</tspan>
+<tspan x="10" y="954">+    "_spec": "jslint-lite",</tspan>
 
-<tspan x="10" y="970">+    },</tspan>
+<tspan x="10" y="970">+    "_where": "/tmp/npmTestPublished",</tspan>
 
-<tspan x="10" y="986">+    "bundleDependencies": false,</tspan>
+<tspan x="10" y="986">+    "author": {</tspan>
 
-<tspan x="10" y="1002">+    "deprecated": false,</tspan>
+<tspan x="10" y="1002">+        "email": "kaizhu256@gmail.com",</tspan>
 
-<tspan x="10" y="1018">+    "description": "this zero-dependency package will provide browser-compatible versions of js\</tspan>
-<tspan x="10" y="1034">lint (v2020.3.28) and csslint (v2018.2.25), with working web-demo",</tspan>
+<tspan x="10" y="1018">+        "name": "kai zhu"</tspan>
 
-<tspan x="10" y="1050">+    "devDependencies": {</tspan>
+<tspan x="10" y="1034">+    },</tspan>
 
-<tspan x="10" y="1066">+        "utility2": "github:kaizhu256/node-utility2#alpha"</tspan>
+<tspan x="10" y="1050">+    "bin": {</tspan>
+
+<tspan x="10" y="1066">+        "jslint-lite": "lib.jslint.js"</tspan>
 
 <tspan x="10" y="1082">+    },</tspan>
 
-<tspan x="10" y="1098">+    "engines": {</tspan>
+<tspan x="10" y="1098">+    "bugs": {</tspan>
 
-<tspan x="10" y="1114">+        "node": "&gt;=12.0"</tspan>
+<tspan x="10" y="1114">+        "url": "https://github.com/kaizhu256/node-jslint-lite/issues"</tspan>
 
 <tspan x="10" y="1130">+    },</tspan>
 
-<tspan x="10" y="1146">+    "fileCount": 8,</tspan>
+<tspan x="10" y="1146">+    "bundleDependencies": false,</tspan>
 
-<tspan x="10" y="1162">+    "homepage": "https://github.com/kaizhu256/node-jslint-lite",</tspan>
+<tspan x="10" y="1162">+    "deprecated": false,</tspan>
 
-<tspan x="10" y="1178">+    "keywords": [</tspan>
+<tspan x="10" y="1178">+    "description": "this zero-dependency package will provide browser-compatible versions of js\</tspan>
+<tspan x="10" y="1194">lint (v2020.7.2) and csslint (v2018.2.25), with working web-demo",</tspan>
 
-<tspan x="10" y="1194">+        "csslint",</tspan>
+<tspan x="10" y="1210">+    "devDependencies": {</tspan>
 
-<tspan x="10" y="1210">+        "jslint"</tspan>
+<tspan x="10" y="1226">+        "utility2": "github:kaizhu256/node-utility2#alpha"</tspan>
 
-<tspan x="10" y="1226">+    ],</tspan>
+<tspan x="10" y="1242">+    },</tspan>
 
-<tspan x="10" y="1242">+    "license": "MIT",</tspan>
+<tspan x="10" y="1258">+    "engines": {</tspan>
 
-<tspan x="10" y="1258">+    "main": "lib.jslint.js",</tspan>
+<tspan x="10" y="1274">+        "node": "&gt;=12.0"</tspan>
 
-<tspan x="10" y="1274">     "name": "jslint-lite",</tspan>
+<tspan x="10" y="1290">+    },</tspan>
 
-<tspan x="10" y="1290">-    "escapedName": "jslint-lite",</tspan>
+<tspan x="10" y="1306">+    "fileCount": 16,</tspan>
 
-<tspan x="10" y="1306">-    "rawSpec": "",</tspan>
+<tspan x="10" y="1322">+    "homepage": "https://github.com/kaizhu256/node-jslint-lite",</tspan>
 
-<tspan x="10" y="1322">-    "saveSpec": null,</tspan>
+<tspan x="10" y="1338">+    "keywords": [</tspan>
 
-<tspan x="10" y="1338">-    "fetchSpec": "latest"</tspan>
+<tspan x="10" y="1354">+        "csslint",</tspan>
 
-<tspan x="10" y="1354">-  },</tspan>
+<tspan x="10" y="1370">+        "jslint"</tspan>
 
-<tspan x="10" y="1370">-  "_requiredBy_": [</tspan>
+<tspan x="10" y="1386">+    ],</tspan>
 
-<tspan x="10" y="1386">-    "#USER",</tspan>
+<tspan x="10" y="1402">+    "license": "MIT",</tspan>
 
-<tspan x="10" y="1402">-    "/"</tspan>
+<tspan x="10" y="1418">+    "main": "lib.jslint.js",</tspan>
 
-<tspan x="10" y="1418">-  ],</tspan>
+<tspan x="10" y="1434">     "name": "jslint-lite",</tspan>
 
-<tspan x="10" y="1434">-  "_resolved": "https://registry.npmjs.org/jslint-lite/-/jslint-lite-2020.6.8.tgz",</tspan>
+<tspan x="10" y="1450">-    "escapedName": "jslint-lite",</tspan>
 
-<tspan x="10" y="1450">-  "_shasum": "de49ef7cd885fb8120c221e2d4f00ef63549fedc",</tspan>
+<tspan x="10" y="1466">-    "rawSpec": "",</tspan>
 
-<tspan x="10" y="1466">-  "_spec": "jslint-lite",</tspan>
+<tspan x="10" y="1482">-    "saveSpec": null,</tspan>
 
-<tspan x="10" y="1482">-  "_where": "/tmp/npmTestPublished",</tspan>
+<tspan x="10" y="1498">-    "fetchSpec": "latest"</tspan>
 
-<tspan x="10" y="1498">-  "author": {</tspan>
+<tspan x="10" y="1514">-  },</tspan>
 
-<tspan x="10" y="1514">-    "name": "kai zhu",</tspan>
+<tspan x="10" y="1530">-  "_requiredBy_": [</tspan>
 
-<tspan x="10" y="1530">-    "email": "kaizhu256@gmail.com"</tspan>
+<tspan x="10" y="1546">-    "#USER",</tspan>
 
-<tspan x="10" y="1546">-  },</tspan>
+<tspan x="10" y="1562">-    "/"</tspan>
 
-<tspan x="10" y="1562">-  "bin": {</tspan>
+<tspan x="10" y="1578">-  ],</tspan>
 
-<tspan x="10" y="1578">-    "jslint-lite": "lib.jslint.js"</tspan>
+<tspan x="10" y="1594">-  "_resolved": "https://registry.npmjs.org/jslint-lite/-/jslint-lite-2020.7.8.tgz",</tspan>
 
-<tspan x="10" y="1594">-  },</tspan>
+<tspan x="10" y="1610">-  "_shasum": "e9aa62db08559bc77af8eadd948a15748bdbc5f9",</tspan>
 
-<tspan x="10" y="1610">-  "bugs": {</tspan>
+<tspan x="10" y="1626">-  "_spec": "jslint-lite",</tspan>
 
-<tspan x="10" y="1626">-    "url": "https://github.com/kaizhu256/node-jslint-lite/issues"</tspan>
+<tspan x="10" y="1642">-  "_where": "/tmp/npmTestPublished",</tspan>
 
-<tspan x="10" y="1642">-  },</tspan>
+<tspan x="10" y="1658">-  "author": {</tspan>
 
-<tspan x="10" y="1658">-  "bundleDependencies": false,</tspan>
+<tspan x="10" y="1674">-    "name": "kai zhu",</tspan>
 
-<tspan x="10" y="1674">-  "deprecated": false,</tspan>
+<tspan x="10" y="1690">-    "email": "kaizhu256@gmail.com"</tspan>
 
-<tspan x="10" y="1690">-  "description": "this zero-dependency package will provide browser-compatible versions of jsli\</tspan>
-<tspan x="10" y="1706">nt (v2020.3.28) and csslint (v2018.2.25), with working web-demo",</tspan>
+<tspan x="10" y="1706">-  },</tspan>
 
-<tspan x="10" y="1722">-  "devDependencies": {</tspan>
+<tspan x="10" y="1722">-  "bin": {</tspan>
 
-<tspan x="10" y="1738">-    "utility2": "github:kaizhu256/node-utility2#alpha"</tspan>
+<tspan x="10" y="1738">-    "jslint-lite": "lib.jslint.js"</tspan>
 
 <tspan x="10" y="1754">-  },</tspan>
 
-<tspan x="10" y="1770">-  "engines": {</tspan>
+<tspan x="10" y="1770">-  "bugs": {</tspan>
 
-<tspan x="10" y="1786">-    "node": "&gt;=12.0"</tspan>
+<tspan x="10" y="1786">-    "url": "https://github.com/kaizhu256/node-jslint-lite/issues"</tspan>
 
 <tspan x="10" y="1802">-  },</tspan>
 
-<tspan x="10" y="1818">-  "fileCount": 8,</tspan>
+<tspan x="10" y="1818">-  "bundleDependencies": false,</tspan>
 
-<tspan x="10" y="1834">-  "homepage": "https://github.com/kaizhu256/node-jslint-lite",</tspan>
+<tspan x="10" y="1834">-  "deprecated": false,</tspan>
 
-<tspan x="10" y="1850">-  "keywords": [</tspan>
+<tspan x="10" y="1850">-  "description": "this zero-dependency package will provide browser-compatible versions of jsli\</tspan>
+<tspan x="10" y="1866">nt (v2020.7.2) and csslint (v2018.2.25), with working web-demo",</tspan>
 
-<tspan x="10" y="1866">-    "csslint",</tspan>
+<tspan x="10" y="1882">-  "devDependencies": {</tspan>
 
-<tspan x="10" y="1882">-    "jslint"</tspan>
+<tspan x="10" y="1898">-    "utility2": "github:kaizhu256/node-utility2#alpha"</tspan>
 
-<tspan x="10" y="1898">-  ],</tspan>
+<tspan x="10" y="1914">-  },</tspan>
 
-<tspan x="10" y="1914">-  "license": "MIT",</tspan>
+<tspan x="10" y="1930">-  "engines": {</tspan>
 
-<tspan x="10" y="1930">-  "main": "lib.jslint.js",</tspan>
+<tspan x="10" y="1946">-    "node": "&gt;=12.0"</tspan>
 
-<tspan x="10" y="1946">-  "name": "jslint-lite",</tspan>
+<tspan x="10" y="1962">-  },</tspan>
 
-<tspan x="10" y="1962">-  "nameAliasPublish": "csslint-lite kslint",</tspan>
+<tspan x="10" y="1978">-  "fileCount": 16,</tspan>
 
-<tspan x="10" y="1978">-  "nameLib": "jslint",</tspan>
+<tspan x="10" y="1994">-  "homepage": "https://github.com/kaizhu256/node-jslint-lite",</tspan>
 
-<tspan x="10" y="1994">-  "nameOriginal": "jslint-lite",</tspan>
+<tspan x="10" y="2010">-  "keywords": [</tspan>
 
-<tspan x="10" y="2010">-  "os": [</tspan>
+<tspan x="10" y="2026">-    "csslint",</tspan>
 
-<tspan x="10" y="2026">-    "darwin",</tspan>
-
-<tspan x="10" y="2042">-    "linux"</tspan>
+<tspan x="10" y="2042">-    "jslint"</tspan>
 
 <tspan x="10" y="2058">-  ],</tspan>
 
-<tspan x="10" y="2074">-  "repository": {</tspan>
+<tspan x="10" y="2074">-  "license": "MIT",</tspan>
 
-<tspan x="10" y="2090">-    "type": "git",</tspan>
+<tspan x="10" y="2090">-  "main": "lib.jslint.js",</tspan>
 
-<tspan x="10" y="2106">-    "url": "git+https://github.com/kaizhu256/node-jslint-lite.git"</tspan>
+<tspan x="10" y="2106">-  "name": "jslint-lite",</tspan>
 
-<tspan x="10" y="2122">-  },</tspan>
+<tspan x="10" y="2122">-  "nameAliasPublish": "csslint-lite kslint",</tspan>
 
-<tspan x="10" y="2138">-  "scripts": {</tspan>
+<tspan x="10" y="2138">-  "nameLib": "jslint",</tspan>
 
-<tspan x="10" y="2154">-    "build-ci": "./npm_scripts.sh",</tspan>
+<tspan x="10" y="2154">-  "nameOriginal": "jslint-lite",</tspan>
 
-<tspan x="10" y="2170">-    "env": "env",</tspan>
+<tspan x="10" y="2170">-  "repository": {</tspan>
 
-<tspan x="10" y="2186">-    "eval": "./npm_scripts.sh",</tspan>
+<tspan x="10" y="2186">-    "type": "git",</tspan>
 
-<tspan x="10" y="2202">-    "heroku-postbuild": "./npm_scripts.sh",</tspan>
+<tspan x="10" y="2202">-    "url": "git+https://github.com/kaizhu256/node-jslint-lite.git"</tspan>
 
-<tspan x="10" y="2218">-    "postinstall": "./npm_scripts.sh",</tspan>
+<tspan x="10" y="2218">-  },</tspan>
 
-<tspan x="10" y="2234">-    "start": "./npm_scripts.sh",</tspan>
+<tspan x="10" y="2234">-  "scripts": {</tspan>
 
-<tspan x="10" y="2250">-    "test": "./npm_scripts.sh",</tspan>
+<tspan x="10" y="2250">-    "build-ci": "./npm_scripts.sh",</tspan>
 
-<tspan x="10" y="2266">-    "utility2": "./npm_scripts.sh"</tspan>
+<tspan x="10" y="2266">-    "env": "env",</tspan>
 
-<tspan x="10" y="2282">-  },</tspan>
+<tspan x="10" y="2282">-    "eval": "./npm_scripts.sh",</tspan>
 
-<tspan x="10" y="2298">-  "version": "2020.6.8"</tspan>
+<tspan x="10" y="2298">-    "heroku-postbuild": "./npm_scripts.sh",</tspan>
 
-<tspan x="10" y="2314">+    "nameAliasPublish": "csslint-lite kslint",</tspan>
+<tspan x="10" y="2314">-    "postinstall": "./npm_scripts.sh",</tspan>
 
-<tspan x="10" y="2330">+    "nameLib": "jslint",</tspan>
+<tspan x="10" y="2330">-    "start": "./npm_scripts.sh",</tspan>
 
-<tspan x="10" y="2346">+    "nameOriginal": "jslint-lite",</tspan>
+<tspan x="10" y="2346">-    "test": "./npm_scripts.sh",</tspan>
 
-<tspan x="10" y="2362">+    "os": [</tspan>
+<tspan x="10" y="2362">-    "utility2": "./npm_scripts.sh"</tspan>
 
-<tspan x="10" y="2378">+        "darwin",</tspan>
+<tspan x="10" y="2378">-  },</tspan>
 
-<tspan x="10" y="2394">+        "linux"</tspan>
+<tspan x="10" y="2394">-  "version": "2020.7.8"</tspan>
 
-<tspan x="10" y="2410">+    ],</tspan>
+<tspan x="10" y="2410">+    "nameAliasPublish": "csslint-lite kslint",</tspan>
 
-<tspan x="10" y="2426">+    "repository": {</tspan>
+<tspan x="10" y="2426">+    "nameLib": "jslint",</tspan>
 
-<tspan x="10" y="2442">+        "type": "git",</tspan>
+<tspan x="10" y="2442">+    "nameOriginal": "jslint-lite",</tspan>
 
-<tspan x="10" y="2458">+        "url": "git+https://github.com/kaizhu256/node-jslint-lite.git"</tspan>
+<tspan x="10" y="2458">+    "repository": {</tspan>
 
-<tspan x="10" y="2474">+    },</tspan>
+<tspan x="10" y="2474">+        "type": "git",</tspan>
 
-<tspan x="10" y="2490">+    "scripts": {</tspan>
+<tspan x="10" y="2490">+        "url": "git+https://github.com/kaizhu256/node-jslint-lite.git"</tspan>
 
-<tspan x="10" y="2506">+        "build-ci": "./npm_scripts.sh",</tspan>
+<tspan x="10" y="2506">+    },</tspan>
 
-<tspan x="10" y="2522">+        "env": "env",</tspan>
+<tspan x="10" y="2522">+    "scripts": {</tspan>
 
-<tspan x="10" y="2538">+        "eval": "./npm_scripts.sh",</tspan>
+<tspan x="10" y="2538">+        "build-ci": "./npm_scripts.sh",</tspan>
 
-<tspan x="10" y="2554">+        "heroku-postbuild": "./npm_scripts.sh",</tspan>
+<tspan x="10" y="2554">+        "env": "env",</tspan>
 
-<tspan x="10" y="2570">+        "postinstall": "./npm_scripts.sh",</tspan>
+<tspan x="10" y="2570">+        "eval": "./npm_scripts.sh",</tspan>
 
-<tspan x="10" y="2586">+        "start": "./npm_scripts.sh",</tspan>
+<tspan x="10" y="2586">+        "heroku-postbuild": "./npm_scripts.sh",</tspan>
 
-<tspan x="10" y="2602">+        "test": "./npm_scripts.sh",</tspan>
+<tspan x="10" y="2602">+        "postinstall": "./npm_scripts.sh",</tspan>
 
-<tspan x="10" y="2618">+        "utility2": "./npm_scripts.sh"</tspan>
+<tspan x="10" y="2618">+        "start": "./npm_scripts.sh",</tspan>
 
-<tspan x="10" y="2634">+    },</tspan>
+<tspan x="10" y="2634">+        "test": "./npm_scripts.sh",</tspan>
 
-<tspan x="10" y="2650">+    "version": "2020.6.8"</tspan>
+<tspan x="10" y="2650">+        "utility2": "./npm_scripts.sh"</tspan>
 
-<tspan x="10" y="2666"> }</tspan>
+<tspan x="10" y="2666">+    },</tspan>
 
-<tspan x="10" y="2682">jslint-autofix - modified and saved file /tmp/npmTestPublished/node_modules/jslint-lite/package.\</tspan>
-<tspan x="10" y="2698">json</tspan>
+<tspan x="10" y="2682">+    "version": "2020.7.8"</tspan>
 
-<tspan x="10" y="2714">jslint - 36ms - /tmp/npmTestPublished/node_modules/jslint-lite/package.json</tspan>
+<tspan x="10" y="2698"> }</tspan>
 
-<tspan x="10" y="2730">jslint - 191ms - /tmp/npmTestPublished/node_modules/jslint-lite/test.js</tspan>
+<tspan x="10" y="2714">testRunDefault - 1905 ms - [node test-case 6 of 9 passed] - testCase_buildApidoc_default</tspan>
 
-<tspan x="10" y="2746">jslint - 493ms - /tmp/npmTestPublished/node_modules/jslint-lite/README.md</tspan>
+<tspan x="10" y="2730">testRunDefault - 2315 ms - [node test-case 7 of 9 passed] - testCase_jslintAndPrintDir_coverage</tspan>
 
-<tspan x="10" y="2762">jslint - 854ms - /tmp/npmTestPublished/node_modules/jslint-lite/lib.jslint.js</tspan>
+<tspan x="10" y="2746"></tspan>
 
-<tspan x="10" y="2778">http-server listening on port 55502</tspan>
+<tspan x="10" y="2762">DevTools listening on ws://127.0.0.1:44025/devtools/browser/9e445ba4-8e8c-453b-b8a5-c28daad39978</tspan>
 
-<tspan x="10" y="2794">testRunDefault - 72 ms - [node test-case 1 of 8 passed] - testCase_buildLib_default</tspan>
+<tspan x="10" y="2778">jslint - 4ms - /tmp/npmTestPublished/node_modules/jslint-lite/tmp/build/app/assets.example.html</tspan>
 
-<tspan x="10" y="2810">testRunDefault - 76 ms - [node test-case 2 of 8 passed] - testCase_buildReadme_default</tspan>
+<tspan x="10" y="2794">jslint - 14ms - /tmp/npmTestPublished/node_modules/jslint-lite/tmp/build/app/assets.example.js</tspan>
 
-<tspan x="10" y="2826">testRunDefault - 79 ms - [node test-case 3 of 8 passed] - testCase_buildTest_default</tspan>
+<tspan x="10" y="2810">jslint - 15ms - /tmp/npmTestPublished/node_modules/jslint-lite/tmp/build/app/assets.jslint.css</tspan>
 
-<tspan x="10" y="2842">testRunDefault - 205 ms - [node test-case 4 of 8 passed] - testCase_jslintAndPrint_default</tspan>
+<tspan x="10" y="2826">jslint - 16ms - /tmp/npmTestPublished/node_modules/jslint-lite/tmp/build/app/assets.jslint.html</tspan>
 
-<tspan x="10" y="2858">testRunDefault - 205 ms - [node test-case 5 of 8 passed] - testCase_nop_default</tspan>
+<tspan x="10" y="2842">jslint - 20ms - /tmp/npmTestPublished/node_modules/jslint-lite/tmp/build/app/assets.test.js</tspan>
 
-<tspan x="10" y="2874">testRunDefault - 352 ms - [node test-case 6 of 8 passed] - testCase_buildApidoc_default</tspan>
+<tspan x="10" y="2858">jslint - 23ms - /tmp/npmTestPublished/node_modules/jslint-lite/tmp/build/app/assets.utility2.htm\</tspan>
+<tspan x="10" y="2874">l</tspan>
 
-<tspan x="10" y="2890"></tspan>
+<tspan x="10" y="2890">jslint - 24ms - /tmp/npmTestPublished/node_modules/jslint-lite/tmp/build/app/index.html</tspan>
 
-<tspan x="10" y="2906">DevTools listening on ws://127.0.0.1:46675/devtools/browser/14542b07-cda4-44b9-8a28-5636fe4f7f35</tspan>
+<tspan x="10" y="2906">jslint - 26ms - /tmp/npmTestPublished/node_modules/jslint-lite/tmp/build/app/utility2.state.init\</tspan>
+<tspan x="10" y="2922">.js</tspan>
 
-<tspan x="10" y="2922">[0608/234215.972306:WARNING:ipc_message_attachment_set.cc(49)] MessageAttachmentSet destroyed wi\</tspan>
-<tspan x="10" y="2938">th unconsumed attachments: 0/1</tspan>
+<tspan x="10" y="2938">jslint - 277ms - /tmp/npmTestPublished/node_modules/jslint-lite/tmp/build/app/assets.utility2.li\</tspan>
+<tspan x="10" y="2954">b.jslint.js</tspan>
 
-<tspan x="10" y="2954">[0608/234215.972086:WARNING:ipc_message_attachment_set.cc(49)] MessageAttachmentSet destroyed wi\</tspan>
-<tspan x="10" y="2970">th unconsumed attachments: 0/1</tspan>
+<tspan x="10" y="2970">jslint - 303ms - /tmp/npmTestPublished/node_modules/jslint-lite/tmp/build/app/assets.jslint.js</tspan>
 
-<tspan x="10" y="2986">[0608/234215.972326:ERROR:command_buffer_proxy_impl.cc(122)] ContextResult::kTransientFailure: F\</tspan>
-<tspan x="10" y="3002">ailed to send GpuChannelMsg_CreateCommandBuffer.</tspan>
+<tspan x="10" y="2986">&gt; http-server listening on port 44933</tspan>
 
-<tspan x="10" y="3018">&gt; http-server listening on port 33170</tspan>
+<tspan x="10" y="3002">[0708/173104.227526:INFO:CONSOLE(9)] "jslint inputCsslint1.css</tspan>
 
-<tspan x="10" y="3034">[0608/234216.609034:INFO:CONSOLE(8)] "jslint inputCsslint1.css</tspan>
+<tspan x="10" y="3018">  1 warning - zero-units - Values of 0 shouldn't have units specified.</tspan>
 
-<tspan x="10" y="3050">  1 warning - zero-units - Values of 0 shouldn't have units specified.</tspan>
+<tspan x="10" y="3034">    You don't need to specify units when a value is 0. // line 6, column 13</tspan>
 
-<tspan x="10" y="3066">    You don't need to specify units when a value is 0. // line 6, column 13</tspan>
+<tspan x="10" y="3050">    margin: 0px;", source: http://127.0.0.1:54964/assets.example.js (9)</tspan>
 
-<tspan x="10" y="3082">    margin: 0px;", source: http://127.0.0.1:55502/assets.example.js (8)</tspan>
+<tspan x="10" y="3066">[0708/173104.243681:INFO:CONSOLE(9)] "jslint inputJslint1.js</tspan>
 
-<tspan x="10" y="3098">[0608/234216.623662:INFO:CONSOLE(8)] "jslint inputJslint1.js</tspan>
+<tspan x="10" y="3082">  1 Undeclared 'console'. // line 5, column 2</tspan>
 
-<tspan x="10" y="3114">  1 Undeclared 'console'. // line 5, column 1</tspan>
+<tspan x="10" y="3098">    console.log(message);</tspan>
 
-<tspan x="10" y="3130">    console.log(message);</tspan>
+<tspan x="10" y="3114">  2 Undeclared 'console'. // line 6, column 2</tspan>
 
-<tspan x="10" y="3146">  2 Undeclared 'console'. // line 6, column 1</tspan>
+<tspan x="10" y="3130">    console.log(null);", source: http://127.0.0.1:54964/assets.example.js (9)</tspan>
 
-<tspan x="10" y="3162">    console.log(null);", source: http://127.0.0.1:55502/assets.example.js (8)</tspan>
+<tspan x="10" y="3146">[0708/173104.286529:INFO:CONSOLE(9)] "testRunDefault - 29 ms - [browser test-case 1 of 6 passed]\</tspan>
+<tspan x="10" y="3162"> - testCase_jslint0_coverage", source: http://127.0.0.1:54964/assets.example.js (9)</tspan>
 
-<tspan x="10" y="3178">[0608/234216.823390:INFO:CONSOLE(8)] "testRunDefault - 184 ms - [browser test-case 1 of 2 passed\</tspan>
-<tspan x="10" y="3194">] - testCase_jslintAndPrint_default", source: http://127.0.0.1:55502/assets.example.js (8)</tspan>
+<tspan x="10" y="3178">[0708/173104.382305:INFO:CONSOLE(9)] "testRunDefault - 117 ms - [browser test-case 2 of 6 passed\</tspan>
+<tspan x="10" y="3194">] - testCase_jslint0_err", source: http://127.0.0.1:54964/assets.example.js (9)</tspan>
 
-<tspan x="10" y="3210">[0608/234216.839928:INFO:CONSOLE(8)] "testRunDefault - 201 ms - [browser test-case 2 of 2 passed\</tspan>
-<tspan x="10" y="3226">] - testCase_nop_default", source: http://127.0.0.1:55502/assets.example.js (8)</tspan>
+<tspan x="10" y="3210">[0708/173104.385808:INFO:CONSOLE(9)] "testRunDefault - 129 ms - [browser test-case 3 of 6 passed\</tspan>
+<tspan x="10" y="3226">] - testCase_jslintAndPrintDir_coverage", source: http://127.0.0.1:54964/assets.example.js (9)</tspan>
 
-<tspan x="10" y="3242">[0608/234216.928321:INFO:CONSOLE(8)] "domOnEventWindowOnloadTimeElapsed = 743", source: http://1\</tspan>
-<tspan x="10" y="3258">27.0.0.1:55502/assets.example.js (8)</tspan>
+<tspan x="10" y="3242">[0708/173104.390626:INFO:CONSOLE(9)] "testRunDefault - 134 ms - [browser test-case 4 of 6 passed\</tspan>
+<tspan x="10" y="3258">] - testCase_jslintAndPrint_coverage", source: http://127.0.0.1:54964/assets.example.js (9)</tspan>
 
-<tspan x="10" y="3274">testRunDefault - 1800 ms - [node test-case 7 of 8 passed] - testCase_webpage_default</tspan>
+<tspan x="10" y="3274">[0708/173104.414591:INFO:CONSOLE(9)] "testRunDefault - 157 ms - [browser test-case 5 of 6 passed\</tspan>
+<tspan x="10" y="3290">] - testCase_jslintAutofix_coverage", source: http://127.0.0.1:54964/assets.example.js (9)</tspan>
 
-<tspan x="10" y="3290">jslint - 3ms - /tmp/npmTestPublished/node_modules/jslint-lite/tmp/build/app/assets.example.html</tspan>
+<tspan x="10" y="3306">[0708/173104.417870:INFO:CONSOLE(9)] "testRunDefault - 161 ms - [browser test-case 6 of 6 passed\</tspan>
+<tspan x="10" y="3322">] - testCase_nop_default", source: http://127.0.0.1:54964/assets.example.js (9)</tspan>
 
-<tspan x="10" y="3306">jslint - 6ms - /tmp/npmTestPublished/node_modules/jslint-lite/tmp/build/app/assets.jslint.html</tspan>
+<tspan x="10" y="3338">[0708/173104.428641:INFO:CONSOLE(9)] "domOnEventWindowOnloadTimeElapsed = 901", source: http://1\</tspan>
+<tspan x="10" y="3354">27.0.0.1:54964/assets.example.js (9)</tspan>
 
-<tspan x="10" y="3322">jslint - 6ms - /tmp/npmTestPublished/node_modules/jslint-lite/tmp/build/app/index.html</tspan>
+<tspan x="10" y="3370">testRunDefault - 3859 ms - [node test-case 8 of 9 passed] - testCase_webpage_default</tspan>
 
-<tspan x="10" y="3338">jslint - 7ms - /tmp/npmTestPublished/node_modules/jslint-lite/tmp/build/app/assets.utility2.html</tspan>
+<tspan x="10" y="3386">testRunDefault - 6326 ms - testCase pending - testCase_buildApp_default ...</tspan>
 
-<tspan x="10" y="3354">jslint - 8ms - /tmp/npmTestPublished/node_modules/jslint-lite/tmp/build/app/assets.test.js</tspan>
-
-<tspan x="10" y="3370">jslint - 9ms - /tmp/npmTestPublished/node_modules/jslint-lite/tmp/build/app/assets.example.js</tspan>
-
-<tspan x="10" y="3386">jslint - 25ms - /tmp/npmTestPublished/node_modules/jslint-lite/tmp/build/app/assets.jslint.js</tspan>
-
-<tspan x="10" y="3402">testRunDefault - 5968 ms - [node test-case 8 of 8 passed] - testCase_buildApp_default</tspan>
+<tspan x="10" y="3402">testRunDefault - 6991 ms - [node test-case 9 of 9 passed] - testCase_buildApp_default</tspan>
 
 <tspan x="10" y="3418">----------------|---------|---------|---------|---------|</tspan>
 
@@ -416,13 +413,13 @@
 
 <tspan x="10" y="3450">----------------|---------|---------|---------|---------|</tspan>
 
-<tspan x="10" y="3466">All files       |   96.62 |    96.6 |   97.23 |   96.61 |</tspan>
+<tspan x="10" y="3466">All files       |    97.2 |    94.7 |   99.05 |   97.19 |</tspan>
 
-<tspan x="10" y="3482">jslint-lite/    |   96.62 |    96.6 |   97.23 |   96.61 |</tspan>
+<tspan x="10" y="3482">jslint-lite/    |    97.2 |    94.7 |   99.05 |   97.19 |</tspan>
 
 <tspan x="10" y="3498">  example.js    |     100 |     100 |     100 |     100 |</tspan>
 
-<tspan x="10" y="3514">  lib.jslint.js |   96.49 |   96.46 |   97.07 |   96.48 |</tspan>
+<tspan x="10" y="3514">  lib.jslint.js |   97.09 |   94.47 |   98.99 |   97.08 |</tspan>
 
 <tspan x="10" y="3530">  test.js       |     100 |     100 |     100 |     100 |</tspan>
 
@@ -430,35 +427,35 @@
 
 <tspan x="10" y="3562"></tspan>
 
-<tspan x="10" y="3578">wrote file - coverage-report - /tmp/npmTestPublished/node_modules/jslint-lite/tmp/build/coverage\</tspan>
-<tspan x="10" y="3594">.html/coverage.txt</tspan>
+<tspan x="10" y="3578">fsWriteFileWithMkdirpSync - /tmp/npmTestPublished/node_modules/jslint-lite/tmp/build/coverage.ht\</tspan>
+<tspan x="10" y="3594">ml/coverage.txt</tspan>
 
-<tspan x="10" y="3610">wrote file - coverage-report - /tmp/npmTestPublished/node_modules/jslint-lite/tmp/build/coverage\</tspan>
-<tspan x="10" y="3626">.html/index.html</tspan>
+<tspan x="10" y="3610">fsWriteFileWithMkdirpSync - /tmp/npmTestPublished/node_modules/jslint-lite/tmp/build/coverage.ht\</tspan>
+<tspan x="10" y="3626">ml/index.html</tspan>
 
-<tspan x="10" y="3642">wrote file - coverage-report - /tmp/npmTestPublished/node_modules/jslint-lite/tmp/build/coverage\</tspan>
-<tspan x="10" y="3658">.html/jslint-lite/index.html</tspan>
+<tspan x="10" y="3642">fsWriteFileWithMkdirpSync - /tmp/npmTestPublished/node_modules/jslint-lite/tmp/build/coverage.ht\</tspan>
+<tspan x="10" y="3658">ml/jslint-lite/index.html</tspan>
 
-<tspan x="10" y="3674">wrote file - coverage-report - /tmp/npmTestPublished/node_modules/jslint-lite/tmp/build/coverage\</tspan>
-<tspan x="10" y="3690">.html/jslint-lite/example.js.html</tspan>
+<tspan x="10" y="3674">fsWriteFileWithMkdirpSync - /tmp/npmTestPublished/node_modules/jslint-lite/tmp/build/coverage.ht\</tspan>
+<tspan x="10" y="3690">ml/jslint-lite/example.js.html</tspan>
 
-<tspan x="10" y="3706">wrote file - coverage-report - /tmp/npmTestPublished/node_modules/jslint-lite/tmp/build/coverage\</tspan>
-<tspan x="10" y="3722">.html/jslint-lite/lib.jslint.js.html</tspan>
+<tspan x="10" y="3706">fsWriteFileWithMkdirpSync - /tmp/npmTestPublished/node_modules/jslint-lite/tmp/build/coverage.ht\</tspan>
+<tspan x="10" y="3722">ml/jslint-lite/lib.jslint.js.html</tspan>
 
-<tspan x="10" y="3738">wrote file - coverage-report - /tmp/npmTestPublished/node_modules/jslint-lite/tmp/build/coverage\</tspan>
-<tspan x="10" y="3754">.html/jslint-lite/test.js.html</tspan>
+<tspan x="10" y="3738">fsWriteFileWithMkdirpSync - /tmp/npmTestPublished/node_modules/jslint-lite/tmp/build/coverage.ht\</tspan>
+<tspan x="10" y="3754">ml/jslint-lite/test.js.html</tspan>
 
-<tspan x="10" y="3770">wrote file - coverage-report - /tmp/npmTestPublished/node_modules/jslint-lite/tmp/build/coverage\</tspan>
-<tspan x="10" y="3786">.html/coverage.all.html</tspan>
+<tspan x="10" y="3770">fsWriteFileWithMkdirpSync - /tmp/npmTestPublished/node_modules/jslint-lite/tmp/build/coverage.ht\</tspan>
+<tspan x="10" y="3786">ml/coverage.all.html</tspan>
 
-<tspan x="10" y="3802">wrote file - coverage-report - /tmp/npmTestPublished/node_modules/jslint-lite/tmp/build/coverage\</tspan>
-<tspan x="10" y="3818">.html/coverage.json</tspan>
+<tspan x="10" y="3802">fsWriteFileWithMkdirpSync - /tmp/npmTestPublished/node_modules/jslint-lite/tmp/build/coverage.ht\</tspan>
+<tspan x="10" y="3818">ml/coverage.json</tspan>
 
-<tspan x="10" y="3834">wrote file - coverage-report - /tmp/npmTestPublished/node_modules/jslint-lite/tmp/build/coverage\</tspan>
-<tspan x="10" y="3850">.html/coverage.include.json</tspan>
+<tspan x="10" y="3834">fsWriteFileWithMkdirpSync - /tmp/npmTestPublished/node_modules/jslint-lite/tmp/build/coverage.ht\</tspan>
+<tspan x="10" y="3850">ml/coverage.include.json</tspan>
 
-<tspan x="10" y="3866">wrote file - coverage-report - /tmp/npmTestPublished/node_modules/jslint-lite/tmp/build/coverage\</tspan>
-<tspan x="10" y="3882">.badge.svg</tspan>
+<tspan x="10" y="3866">fsWriteFileWithMkdirpSync - /tmp/npmTestPublished/node_modules/jslint-lite/tmp/build/coverage.ba\</tspan>
+<tspan x="10" y="3882">dge.svg</tspan>
 
 <tspan x="10" y="3898">istanbul - created coverage file /tmp/npmTestPublished/node_modules/jslint-lite/tmp/build/covera\</tspan>
 <tspan x="10" y="3914">ge.html/index.html</tspan>
@@ -468,28 +465,28 @@
 <tspan x="10" y="3946">-------------------------------------------------------</tspan>
 
 <tspan x="10" y="3962">| test-report - npmTestPublished - browser - / - Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537\</tspan>
-<tspan x="10" y="3978">.36 (KHTML, like Gecko) HeadlessChrome/83.0.4103.97 Safari/537.36 - 2020-06-08T23:42:16.317Z</tspan>
+<tspan x="10" y="3978">.36 (KHTML, like Gecko) HeadlessChrome/83.0.4103.116 Safari/537.36 - 2020-07-08T17:31:03.734Z</tspan>
 
-<tspan x="10" y="3994">|     203 ms            0 failed        2 passed      |</tspan>
+<tspan x="10" y="3994">|     165 ms            0 failed        6 passed      |</tspan>
 
 <tspan x="10" y="4010">-------------------------------------------------------</tspan>
 
-<tspan x="10" y="4026">| test-report - npmTestPublished - node - linux v14.4.0 - 2020-06-08T23:42:13.142Z</tspan>
+<tspan x="10" y="4026">| test-report - npmTestPublished - node - linux v14.5.0 - 2020-07-08T17:30:59.083Z</tspan>
 
-<tspan x="10" y="4042">|    5969 ms            0 failed        8 passed      |</tspan>
+<tspan x="10" y="4042">|    6991 ms            0 failed        9 passed      |</tspan>
 
 <tspan x="10" y="4058">-------------------------------------------------------</tspan>
 
 <tspan x="10" y="4074"></tspan>
 
-<tspan x="10" y="4090">wrote file - test-report - /tmp/npmTestPublished/node_modules/jslint-lite/tmp/build/test-report.\</tspan>
-<tspan x="10" y="4106">html</tspan>
+<tspan x="10" y="4090">fsWriteFileWithMkdirpSync - /tmp/npmTestPublished/node_modules/jslint-lite/tmp/build/test-report\</tspan>
+<tspan x="10" y="4106">.html</tspan>
 
-<tspan x="10" y="4122">wrote file - test-report - /tmp/npmTestPublished/node_modules/jslint-lite/tmp/build/build.badge.\</tspan>
-<tspan x="10" y="4138">svg</tspan>
+<tspan x="10" y="4122">fsWriteFileWithMkdirpSync - /tmp/npmTestPublished/node_modules/jslint-lite/tmp/build/build.badge\</tspan>
+<tspan x="10" y="4138">.svg</tspan>
 
-<tspan x="10" y="4154">wrote file - test-report - /tmp/npmTestPublished/node_modules/jslint-lite/tmp/build/test-report.\</tspan>
-<tspan x="10" y="4170">badge.svg</tspan>
+<tspan x="10" y="4154">fsWriteFileWithMkdirpSync - /tmp/npmTestPublished/node_modules/jslint-lite/tmp/build/test-report\</tspan>
+<tspan x="10" y="4170">.badge.svg</tspan>
 
 <tspan x="10" y="4186"></tspan>
 
@@ -499,7 +496,7 @@
 
 <tspan x="10" y="4234"></tspan>
 
-<tspan x="10" y="4250">\x1b[35m[MODE_BUILD=npmTestPublished]\x1b[0m - 2020-06-08T23:42:21.657Z - EXIT_CODE - 0</tspan>
+<tspan x="10" y="4250">\x1b[35m[MODE_BUILD=npmTestPublished]\x1b[0m - 2020-07-08T17:31:08.203Z - EXIT_CODE - 0</tspan>
 
 </text>
 </svg>

@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- "assets.utility2.template.html" -->
-<title>jslint-lite (2020.6.8)</title>
+<title>jslint-lite (2020.7.8)</title>
 <style>
 /* jslint utility2:true */
 /*csslint
@@ -130,7 +130,6 @@ pre {
         }, 100);
     });
 }());
-
 
 
 // init domOnEventAjaxProgressUpdate
@@ -287,7 +286,6 @@ pre {
 }());
 
 
-
 // init domOnEventDelegateDict
 (function () {
 /*
@@ -371,7 +369,6 @@ pre {
 }());
 
 
-
 // init domOnEventSelectAllWithinPre
 (function () {
 /*
@@ -416,17 +413,16 @@ pre {
     target="_blank"
 >
 
-    jslint-lite (2020.6.8)
+    jslint-lite (2020.7.8)
 
 </a>
 
 </h1>
-<h3>this zero-dependency package will provide browser-compatible versions of jslint (v2020.3.28) and csslint (v2018.2.25), with working web-demo</h3>
+<h3>this zero-dependency package will provide browser-compatible versions of jslint (v2020.7.2) and csslint (v2018.2.25), with working web-demo</h3>
 
 <a class="button" download href="assets.app.js">download standalone app</a><br>
 <button class="button" data-onevent="testRunBrowser" id="buttonTestRun1">run browser-tests</button><br>
 <div class="uiAnimateSlide" id="htmlTestReport1" style="border-bottom: 0; border-top: 0; margin-bottom: 0; margin-top: 0; max-height: 0; padding-bottom: 0; padding-top: 0;"></div>
-
 
 
 
@@ -486,8 +482,7 @@ local.domOnEventInputChange = function (evt) {
         local.jslintAndPrint(document.querySelector(
             "#inputJslint1"
         ).value, "inputJslint1.js", {
-            autofix: evt.target.id === "buttonJslintAutofix1",
-            conditional: evt.target.id !== "buttonJslintAutofix1"
+            autofix: evt.target.id === "buttonJslintAutofix1"
         });
         if (local.jslint.jslintResult.autofix) {
             document.querySelector(
@@ -512,7 +507,6 @@ local.domOnEventInputChange({
 });
 </script>
 <!-- custom-html-end -->
-
 
 
 
