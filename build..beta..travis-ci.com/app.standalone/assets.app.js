@@ -23,10 +23,12 @@ instruction
 // run shared js-env code - init-local
 (function () {
     "use strict";
-    let consoleError;
+    let isBrowser;
+    let isWebWorker;
     let local;
     // init debugInline
     if (!globalThis.debugInline) {
+        let consoleError;
         consoleError = console.error;
         globalThis.debugInline = function (...argList) {
         /*
@@ -39,27 +41,22 @@ instruction
             return argList[0];
         };
     }
-    // init local
-    local = {};
-    local.local = local;
-    globalThis.globalLocal = local;
     // init isBrowser
-    local.isBrowser = (
+    isBrowser = (
         typeof globalThis.XMLHttpRequest === "function"
         && globalThis.navigator
         && typeof globalThis.navigator.userAgent === "string"
     );
     // init isWebWorker
-    local.isWebWorker = (
-        local.isBrowser && typeof globalThis.importScripts === "function"
+    isWebWorker = (
+        isBrowser && typeof globalThis.importScripts === "function"
     );
     // init function
-    local.assertJsonEqual = function (aa, bb) {
+    function assertJsonEqual(aa, bb) {
     /*
      * this function will assert JSON.stringify(<aa>) === JSON.stringify(<bb>)
      */
-        let objectDeepCopyWithKeysSorted;
-        objectDeepCopyWithKeysSorted = function (obj) {
+        function objectDeepCopyWithKeysSorted(obj) {
         /*
          * this function will recursively deep-copy <obj> with keys sorted
          */
@@ -77,14 +74,14 @@ instruction
                 sorted[key] = objectDeepCopyWithKeysSorted(obj[key]);
             });
             return sorted;
-        };
+        }
         aa = JSON.stringify(objectDeepCopyWithKeysSorted(aa));
         bb = JSON.stringify(objectDeepCopyWithKeysSorted(bb));
         if (aa !== bb) {
             throw new Error(JSON.stringify(aa) + " !== " + JSON.stringify(bb));
         }
-    };
-    local.assertOrThrow = function (passed, msg) {
+    }
+    function assertOrThrow(passed, msg) {
     /*
      * this function will throw <msg> if <passed> is falsy
      */
@@ -107,8 +104,8 @@ instruction
                 : JSON.stringify(msg, undefined, 4)
             )
         );
-    };
-    local.coalesce = function (...argList) {
+    }
+    function coalesce(...argList) {
     /*
      * this function will coalesce null, undefined, or "" in <argList>
      */
@@ -123,20 +120,20 @@ instruction
             ii += 1;
         }
         return arg;
-    };
-    local.identity = function (val) {
+    }
+    function identity(val) {
     /*
      * this function will return <val>
      */
         return val;
-    };
-    local.nop = function () {
+    }
+    function nop() {
     /*
      * this function will do nothing
      */
         return;
-    };
-    local.objectAssignDefault = function (tgt = {}, src = {}, depth = 0) {
+    }
+    function objectAssignDefault(tgt = {}, src = {}, depth = 0) {
     /*
      * this function will if items from <tgt> are null, undefined, or "",
      * then overwrite them with items from <src>
@@ -163,15 +160,15 @@ instruction
         };
         recurse(tgt, src, depth | 0);
         return tgt;
-    };
-    local.onErrorThrow = function (err) {
+    }
+    function onErrorThrow(err) {
     /*
      * this function will throw <err> if exists
      */
         if (err) {
             throw err;
         }
-    };
+    }
     // bug-workaround - throw unhandledRejections in node-process
     if (
         typeof process === "object" && process
@@ -183,6 +180,19 @@ instruction
             throw err;
         });
     }
+    // init local
+    local = {};
+    local.local = local;
+    globalThis.globalLocal = local;
+    local.assertJsonEqual = assertJsonEqual;
+    local.assertOrThrow = assertOrThrow;
+    local.coalesce = coalesce;
+    local.identity = identity;
+    local.isBrowser = isBrowser;
+    local.isWebWorker = isWebWorker;
+    local.nop = nop;
+    local.objectAssignDefault = objectAssignDefault;
+    local.onErrorThrow = onErrorThrow;
 }());
 // assets.utility2.header.js - end
 
@@ -217,10 +227,12 @@ instruction
 // run shared js-env code - init-local
 (function () {
     "use strict";
-    let consoleError;
+    let isBrowser;
+    let isWebWorker;
     let local;
     // init debugInline
     if (!globalThis.debugInline) {
+        let consoleError;
         consoleError = console.error;
         globalThis.debugInline = function (...argList) {
         /*
@@ -233,27 +245,22 @@ instruction
             return argList[0];
         };
     }
-    // init local
-    local = {};
-    local.local = local;
-    globalThis.globalLocal = local;
     // init isBrowser
-    local.isBrowser = (
+    isBrowser = (
         typeof globalThis.XMLHttpRequest === "function"
         && globalThis.navigator
         && typeof globalThis.navigator.userAgent === "string"
     );
     // init isWebWorker
-    local.isWebWorker = (
-        local.isBrowser && typeof globalThis.importScripts === "function"
+    isWebWorker = (
+        isBrowser && typeof globalThis.importScripts === "function"
     );
     // init function
-    local.assertJsonEqual = function (aa, bb) {
+    function assertJsonEqual(aa, bb) {
     /*
      * this function will assert JSON.stringify(<aa>) === JSON.stringify(<bb>)
      */
-        let objectDeepCopyWithKeysSorted;
-        objectDeepCopyWithKeysSorted = function (obj) {
+        function objectDeepCopyWithKeysSorted(obj) {
         /*
          * this function will recursively deep-copy <obj> with keys sorted
          */
@@ -271,14 +278,14 @@ instruction
                 sorted[key] = objectDeepCopyWithKeysSorted(obj[key]);
             });
             return sorted;
-        };
+        }
         aa = JSON.stringify(objectDeepCopyWithKeysSorted(aa));
         bb = JSON.stringify(objectDeepCopyWithKeysSorted(bb));
         if (aa !== bb) {
             throw new Error(JSON.stringify(aa) + " !== " + JSON.stringify(bb));
         }
-    };
-    local.assertOrThrow = function (passed, msg) {
+    }
+    function assertOrThrow(passed, msg) {
     /*
      * this function will throw <msg> if <passed> is falsy
      */
@@ -301,8 +308,8 @@ instruction
                 : JSON.stringify(msg, undefined, 4)
             )
         );
-    };
-    local.coalesce = function (...argList) {
+    }
+    function coalesce(...argList) {
     /*
      * this function will coalesce null, undefined, or "" in <argList>
      */
@@ -317,20 +324,20 @@ instruction
             ii += 1;
         }
         return arg;
-    };
-    local.identity = function (val) {
+    }
+    function identity(val) {
     /*
      * this function will return <val>
      */
         return val;
-    };
-    local.nop = function () {
+    }
+    function nop() {
     /*
      * this function will do nothing
      */
         return;
-    };
-    local.objectAssignDefault = function (tgt = {}, src = {}, depth = 0) {
+    }
+    function objectAssignDefault(tgt = {}, src = {}, depth = 0) {
     /*
      * this function will if items from <tgt> are null, undefined, or "",
      * then overwrite them with items from <src>
@@ -357,15 +364,15 @@ instruction
         };
         recurse(tgt, src, depth | 0);
         return tgt;
-    };
-    local.onErrorThrow = function (err) {
+    }
+    function onErrorThrow(err) {
     /*
      * this function will throw <err> if exists
      */
         if (err) {
             throw err;
         }
-    };
+    }
     // bug-workaround - throw unhandledRejections in node-process
     if (
         typeof process === "object" && process
@@ -377,6 +384,19 @@ instruction
             throw err;
         });
     }
+    // init local
+    local = {};
+    local.local = local;
+    globalThis.globalLocal = local;
+    local.assertJsonEqual = assertJsonEqual;
+    local.assertOrThrow = assertOrThrow;
+    local.coalesce = coalesce;
+    local.identity = identity;
+    local.isBrowser = isBrowser;
+    local.isWebWorker = isWebWorker;
+    local.nop = nop;
+    local.objectAssignDefault = objectAssignDefault;
+    local.onErrorThrow = onErrorThrow;
 }());
 // assets.utility2.header.js - end
 
@@ -413,10 +433,12 @@ instruction
 // run shared js-env code - init-local
 (function () {
     "use strict";
-    let consoleError;
+    let isBrowser;
+    let isWebWorker;
     let local;
     // init debugInline
     if (!globalThis.debugInline) {
+        let consoleError;
         consoleError = console.error;
         globalThis.debugInline = function (...argList) {
         /*
@@ -429,27 +451,22 @@ instruction
             return argList[0];
         };
     }
-    // init local
-    local = {};
-    local.local = local;
-    globalThis.globalLocal = local;
     // init isBrowser
-    local.isBrowser = (
+    isBrowser = (
         typeof globalThis.XMLHttpRequest === "function"
         && globalThis.navigator
         && typeof globalThis.navigator.userAgent === "string"
     );
     // init isWebWorker
-    local.isWebWorker = (
-        local.isBrowser && typeof globalThis.importScripts === "function"
+    isWebWorker = (
+        isBrowser && typeof globalThis.importScripts === "function"
     );
     // init function
-    local.assertJsonEqual = function (aa, bb) {
+    function assertJsonEqual(aa, bb) {
     /*
      * this function will assert JSON.stringify(<aa>) === JSON.stringify(<bb>)
      */
-        let objectDeepCopyWithKeysSorted;
-        objectDeepCopyWithKeysSorted = function (obj) {
+        function objectDeepCopyWithKeysSorted(obj) {
         /*
          * this function will recursively deep-copy <obj> with keys sorted
          */
@@ -467,14 +484,14 @@ instruction
                 sorted[key] = objectDeepCopyWithKeysSorted(obj[key]);
             });
             return sorted;
-        };
+        }
         aa = JSON.stringify(objectDeepCopyWithKeysSorted(aa));
         bb = JSON.stringify(objectDeepCopyWithKeysSorted(bb));
         if (aa !== bb) {
             throw new Error(JSON.stringify(aa) + " !== " + JSON.stringify(bb));
         }
-    };
-    local.assertOrThrow = function (passed, msg) {
+    }
+    function assertOrThrow(passed, msg) {
     /*
      * this function will throw <msg> if <passed> is falsy
      */
@@ -497,8 +514,8 @@ instruction
                 : JSON.stringify(msg, undefined, 4)
             )
         );
-    };
-    local.coalesce = function (...argList) {
+    }
+    function coalesce(...argList) {
     /*
      * this function will coalesce null, undefined, or "" in <argList>
      */
@@ -513,20 +530,20 @@ instruction
             ii += 1;
         }
         return arg;
-    };
-    local.identity = function (val) {
+    }
+    function identity(val) {
     /*
      * this function will return <val>
      */
         return val;
-    };
-    local.nop = function () {
+    }
+    function nop() {
     /*
      * this function will do nothing
      */
         return;
-    };
-    local.objectAssignDefault = function (tgt = {}, src = {}, depth = 0) {
+    }
+    function objectAssignDefault(tgt = {}, src = {}, depth = 0) {
     /*
      * this function will if items from <tgt> are null, undefined, or "",
      * then overwrite them with items from <src>
@@ -553,15 +570,15 @@ instruction
         };
         recurse(tgt, src, depth | 0);
         return tgt;
-    };
-    local.onErrorThrow = function (err) {
+    }
+    function onErrorThrow(err) {
     /*
      * this function will throw <err> if exists
      */
         if (err) {
             throw err;
         }
-    };
+    }
     // bug-workaround - throw unhandledRejections in node-process
     if (
         typeof process === "object" && process
@@ -573,6 +590,19 @@ instruction
             throw err;
         });
     }
+    // init local
+    local = {};
+    local.local = local;
+    globalThis.globalLocal = local;
+    local.assertJsonEqual = assertJsonEqual;
+    local.assertOrThrow = assertOrThrow;
+    local.coalesce = coalesce;
+    local.identity = identity;
+    local.isBrowser = isBrowser;
+    local.isWebWorker = isWebWorker;
+    local.nop = nop;
+    local.objectAssignDefault = objectAssignDefault;
+    local.onErrorThrow = onErrorThrow;
 }());
 // assets.utility2.header.js - end
 
@@ -1709,7 +1739,7 @@ if (module === require.main && !globalThis.utility2_rollup) {
 /* script-begin /assets.utility2.lib.istanbul.js */
 // usr/bin/env node
 /*
- * lib.istanbul.js (2020.6.9)
+ * lib.istanbul.js (2020.8.1)
  * https://github.com/kaizhu256/node-istanbul-lite
  * this zero-dependency package will provide browser-compatible version of istanbul coverage-tool (v0.4.5), with working web-demo
  *
@@ -1723,10 +1753,12 @@ if (module === require.main && !globalThis.utility2_rollup) {
 // run shared js-env code - init-local
 (function () {
     "use strict";
-    let consoleError;
+    let isBrowser;
+    let isWebWorker;
     let local;
     // init debugInline
     if (!globalThis.debugInline) {
+        let consoleError;
         consoleError = console.error;
         globalThis.debugInline = function (...argList) {
         /*
@@ -1739,27 +1771,22 @@ if (module === require.main && !globalThis.utility2_rollup) {
             return argList[0];
         };
     }
-    // init local
-    local = {};
-    local.local = local;
-    globalThis.globalLocal = local;
     // init isBrowser
-    local.isBrowser = (
+    isBrowser = (
         typeof globalThis.XMLHttpRequest === "function"
         && globalThis.navigator
         && typeof globalThis.navigator.userAgent === "string"
     );
     // init isWebWorker
-    local.isWebWorker = (
-        local.isBrowser && typeof globalThis.importScripts === "function"
+    isWebWorker = (
+        isBrowser && typeof globalThis.importScripts === "function"
     );
     // init function
-    local.assertJsonEqual = function (aa, bb) {
+    function assertJsonEqual(aa, bb) {
     /*
      * this function will assert JSON.stringify(<aa>) === JSON.stringify(<bb>)
      */
-        let objectDeepCopyWithKeysSorted;
-        objectDeepCopyWithKeysSorted = function (obj) {
+        function objectDeepCopyWithKeysSorted(obj) {
         /*
          * this function will recursively deep-copy <obj> with keys sorted
          */
@@ -1777,14 +1804,14 @@ if (module === require.main && !globalThis.utility2_rollup) {
                 sorted[key] = objectDeepCopyWithKeysSorted(obj[key]);
             });
             return sorted;
-        };
+        }
         aa = JSON.stringify(objectDeepCopyWithKeysSorted(aa));
         bb = JSON.stringify(objectDeepCopyWithKeysSorted(bb));
         if (aa !== bb) {
             throw new Error(JSON.stringify(aa) + " !== " + JSON.stringify(bb));
         }
-    };
-    local.assertOrThrow = function (passed, msg) {
+    }
+    function assertOrThrow(passed, msg) {
     /*
      * this function will throw <msg> if <passed> is falsy
      */
@@ -1807,8 +1834,8 @@ if (module === require.main && !globalThis.utility2_rollup) {
                 : JSON.stringify(msg, undefined, 4)
             )
         );
-    };
-    local.coalesce = function (...argList) {
+    }
+    function coalesce(...argList) {
     /*
      * this function will coalesce null, undefined, or "" in <argList>
      */
@@ -1823,20 +1850,20 @@ if (module === require.main && !globalThis.utility2_rollup) {
             ii += 1;
         }
         return arg;
-    };
-    local.identity = function (val) {
+    }
+    function identity(val) {
     /*
      * this function will return <val>
      */
         return val;
-    };
-    local.nop = function () {
+    }
+    function nop() {
     /*
      * this function will do nothing
      */
         return;
-    };
-    local.objectAssignDefault = function (tgt = {}, src = {}, depth = 0) {
+    }
+    function objectAssignDefault(tgt = {}, src = {}, depth = 0) {
     /*
      * this function will if items from <tgt> are null, undefined, or "",
      * then overwrite them with items from <src>
@@ -1863,15 +1890,15 @@ if (module === require.main && !globalThis.utility2_rollup) {
         };
         recurse(tgt, src, depth | 0);
         return tgt;
-    };
-    local.onErrorThrow = function (err) {
+    }
+    function onErrorThrow(err) {
     /*
      * this function will throw <err> if exists
      */
         if (err) {
             throw err;
         }
-    };
+    }
     // bug-workaround - throw unhandledRejections in node-process
     if (
         typeof process === "object" && process
@@ -1883,6 +1910,19 @@ if (module === require.main && !globalThis.utility2_rollup) {
             throw err;
         });
     }
+    // init local
+    local = {};
+    local.local = local;
+    globalThis.globalLocal = local;
+    local.assertJsonEqual = assertJsonEqual;
+    local.assertOrThrow = assertOrThrow;
+    local.coalesce = coalesce;
+    local.identity = identity;
+    local.isBrowser = isBrowser;
+    local.isWebWorker = isWebWorker;
+    local.nop = nop;
+    local.objectAssignDefault = objectAssignDefault;
+    local.onErrorThrow = onErrorThrow;
 }());
 // assets.utility2.header.js - end
 
@@ -2341,7 +2381,6 @@ let esprima;
 let estraverse;
 let esutils;
 let process;
-let require2;
 // mock builtins
 escodegen = {};
 esprima = {};
@@ -2355,29 +2394,19 @@ process = (
     }
     : globalThis.process
 );
-require2 = function (key) {
-    switch (key) {
-    case "./package.json":
-    case "source-map":
-        return {};
-    case "estraverse":
-        return estraverse;
-    case "esutils":
-        return esutils;
-    }
-};
-require2(escodegen, esprima);
+local.nop(escodegen, esprima, estraverse, esutils);
 
 
 /*
-repo https://github.com/acornjs/acorn/tree/6.3.0
-committed 2019-08-12T09:40:59Z
+repo https://github.com/acornjs/acorn/tree/6.4.1
+committed 2020-03-09T10:38:41Z
 */
 
 
 /*
-file https://github.com/acornjs/acorn/blob/6.3.0/acorn/dist/acorn.js
+file https://github.com/acornjs/acorn/blob/6.4.1/acorn/dist/acorn.js
 */
+// hack-istanbul - inline-require
 /* istanbul ignore next */
 /* jslint ignore:start */
 (function () { let exports, module; exports = module = esprima;
@@ -5589,7 +5618,8 @@ file https://github.com/acornjs/acorn/blob/6.3.0/acorn/dist/acorn.js
     if (!this.switchU || c <= 0xD7FF || c >= 0xE000 || i + 1 >= l) {
       return c
     }
-    return (c << 10) + s.charCodeAt(i + 1) - 0x35FDC00
+    var next = s.charCodeAt(i + 1);
+    return next >= 0xDC00 && next <= 0xDFFF ? (c << 10) + next - 0x35FDC00 : c
   };
 
   RegExpValidationState.prototype.nextIndex = function nextIndex (i) {
@@ -5598,8 +5628,9 @@ file https://github.com/acornjs/acorn/blob/6.3.0/acorn/dist/acorn.js
     if (i >= l) {
       return l
     }
-    var c = s.charCodeAt(i);
-    if (!this.switchU || c <= 0xD7FF || c >= 0xE000 || i + 1 >= l) {
+    var c = s.charCodeAt(i), next;
+    if (!this.switchU || c <= 0xD7FF || c >= 0xE000 || i + 1 >= l ||
+        (next = s.charCodeAt(i + 1)) < 0xDC00 || next > 0xDFFF) {
       return i + 1
     }
     return i + 2
@@ -7295,7 +7326,29 @@ file https://github.com/acornjs/acorn/blob/6.3.0/acorn/dist/acorn.js
 
   // Acorn is a tiny, fast JavaScript parser written in JavaScript.
 
-  var version = "6.3.0";
+  var version = "6.4.0";
+
+  Parser.acorn = {
+    Parser: Parser,
+    version: version,
+    defaultOptions: defaultOptions,
+    Position: Position,
+    SourceLocation: SourceLocation,
+    getLineInfo: getLineInfo,
+    Node: Node,
+    TokenType: TokenType,
+    tokTypes: types,
+    keywordTypes: keywords$1,
+    TokContext: TokContext,
+    tokContexts: types$1,
+    isIdentifierChar: isIdentifierChar,
+    isIdentifierStart: isIdentifierStart,
+    Token: Token,
+    isNewLine: isNewLine,
+    lineBreak: lineBreak,
+    lineBreakG: lineBreakG,
+    nonASCIIwhitespace: nonASCIIwhitespace
+  };
 
   // The main exported interface (under `self.acorn` when in the
   // browser) is a `parse` function that takes a code string and
@@ -7348,6 +7401,7 @@ file https://github.com/acornjs/acorn/blob/6.3.0/acorn/dist/acorn.js
 
   Object.defineProperty(exports, '__esModule', { value: true });
 }));
+// hack-istanbul - inline-require
 }());
 
 
@@ -7360,6 +7414,7 @@ committed 2016-03-10T21:51:59Z
 /*
 file https://github.com/estools/estraverse/blob/4.2.0/estraverse.js
 */
+// hack-istanbul - inline-require
 /* istanbul ignore next */
 (function () { let exports; exports = estraverse;
 /*
@@ -8198,7 +8253,8 @@ file https://github.com/estools/estraverse/blob/4.2.0/estraverse.js
         return tree;
     }
 
-    exports.version = require2('./package.json').version;
+    // hack-istanbul - inline-require
+    exports.version = {};
     exports.Syntax = Syntax;
     exports.traverse = traverse;
     exports.replace = replace;
@@ -8211,6 +8267,7 @@ file https://github.com/estools/estraverse/blob/4.2.0/estraverse.js
     return exports;
 }(exports));
 /* vim: set sw=4 ts=4 et tw=80 : */
+// hack-istanbul - inline-require
 }());
 
 
@@ -8223,6 +8280,7 @@ committed 2019-07-31T01:06:44Z
 /*
 file https://github.com/estools/esutils/blob/2.0.3/lib/code.js
 */
+// hack-istanbul - inline-require
 /* istanbul ignore next */
 (function () { let module; module = {};
 /*
@@ -8360,6 +8418,7 @@ file https://github.com/estools/esutils/blob/2.0.3/lib/code.js
     };
 }());
 /* vim: set sw=4 ts=4 et tw=80 : */
+// hack-istanbul - inline-require
 esutils = { code: module.exports }; }());
 
 
@@ -8372,6 +8431,7 @@ committed 2019-08-13T02:08:40Z
 /*
 file https://github.com/estools/escodegen/blob/v1.12.0/escodegen.js
 */
+// hack-istanbul - inline-require
 /* istanbul ignore next */
 (function () { let exports; exports = escodegen;
 /*
@@ -8417,8 +8477,9 @@ file https://github.com/estools/escodegen/blob/v1.12.0/escodegen.js
         Precedence,
         BinaryPrecedence,
         SourceNode,
-        estraverse,
-        esutils,
+        // hack-istanbul - inline-require
+        // estraverse,
+        // esutils,
         base,
         indent,
         json,
@@ -8440,8 +8501,9 @@ file https://github.com/estools/escodegen/blob/v1.12.0/escodegen.js
         FORMAT_MINIFY,
         FORMAT_DEFAULTS;
 
-    estraverse = require2('estraverse');
-    esutils = require2('esutils');
+    // hack-istanbul - inline-require
+    // estraverse = require('estraverse');
+    // esutils = require('esutils');
 
     Syntax = estraverse.Syntax;
 
@@ -10927,7 +10989,8 @@ file https://github.com/estools/escodegen/blob/v1.12.0/escodegen.js
             if (!exports.browser) {
                 // We assume environment is node.js
                 // And prevent from including source-map by browserify
-                SourceNode = require2('source-map').SourceNode;
+                // hack-istanbul - inline-require
+                SourceNode = {};
             } else {
                 SourceNode = global.sourceMap.SourceNode;
             }
@@ -10974,7 +11037,8 @@ file https://github.com/estools/escodegen/blob/v1.12.0/escodegen.js
 
     FORMAT_DEFAULTS = getDefaultOptions().format;
 
-    exports.version = require2('./package.json').version;
+    // hack-istanbul - inline-require
+    exports.version = {};
     exports.generate = generate;
     exports.attachComments = estraverse.attachComments;
     exports.Precedence = updateDeeply({}, Precedence);
@@ -10983,6 +11047,7 @@ file https://github.com/estools/escodegen/blob/v1.12.0/escodegen.js
     exports.FORMAT_DEFAULTS = FORMAT_DEFAULTS;
 }());
 /* vim: set sw=4 ts=4 et tw=80 : */
+// hack-istanbul - inline-require
 }());
 
 
@@ -10995,6 +11060,7 @@ committed 2016-08-21T19:53:22Z
 /*
 file https://github.com/gotwarlost/istanbul/blob/v0.4.5/lib/instrumenter.js
 */
+// hack-istanbul - inline-require
 /* istanbul ignore next */
 (function () { let module, window; module = undefined; window = local;
 /*
@@ -11007,9 +11073,9 @@ file https://github.com/gotwarlost/istanbul/blob/v0.4.5/lib/instrumenter.js
     "use strict";
     var SYNTAX,
         nodeType,
-        ESP = isNode ? require2('esprima') : esprima,
-        ESPGEN = isNode ? require2('escodegen') : escodegen,  //TODO - package as dependency
-        crypto = isNode ? require2('crypto') : null,
+        ESP = isNode ? require('esprima') : esprima,
+        ESPGEN = isNode ? require('escodegen') : escodegen,  //TODO - package as dependency
+        crypto = isNode ? require('crypto') : null,
         LEADER_WRAP = '(function () { ',
         TRAILER_WRAP = '\n}());',
         COMMENT_RE = /^\s*istanbul\s+ignore\s+(if|else|next)(?=\W|$)/,
@@ -11054,7 +11120,7 @@ file https://github.com/gotwarlost/istanbul/blob/v0.4.5/lib/instrumenter.js
             window.__cov_seq += 1;
             suffix = window.__cov_seq;
         }
-        // hack-coverage - pseudorandom coverage-identifier
+        // hack-istanbul - random coverage-identifier
         return '__cov_' + Math.random().toString(16).slice(2);
     }
 
@@ -11335,7 +11401,7 @@ file https://github.com/gotwarlost/istanbul/blob/v0.4.5/lib/instrumenter.js
      * Usage on nodejs
      * ---------------
      *
-     *      var instrumenter = new require2('istanbul').Instrumenter(),
+     *      var instrumenter = new require('istanbul').Instrumenter(),
      *          changed = instrumenter.instrumentSync('function meaningOfLife() { return 42; }', 'filename.js');
      *
      * Usage in a browser
@@ -11456,7 +11522,7 @@ file https://github.com/gotwarlost/istanbul/blob/v0.4.5/lib/instrumenter.js
                 code = LEADER_WRAP + code + TRAILER_WRAP;
             }
             try {
-                // hack-coverage - acorn opt
+                // hack-istanbul - inline acorn-opt
                 let opt = {
                     locations: true,
                     onComment: [],
@@ -11509,7 +11575,7 @@ file https://github.com/gotwarlost/istanbul/blob/v0.4.5/lib/instrumenter.js
                 nodeStart = node.range[0],
                 hint;
             this.currentState.currentHint = null;
-            // hack-coverage - allow top-level istanbul-ignore-next
+            // hack-istanbul - allow top-level istanbul-ignore-next
             if (node.type === "Program") { return; }
             while (i < hints.length) {
                 hint = hints[i];
@@ -12099,6 +12165,7 @@ file https://github.com/gotwarlost/istanbul/blob/v0.4.5/lib/instrumenter.js
         window.Instrumenter = Instrumenter;
     }
 }(typeof module !== 'undefined' && typeof module.exports !== 'undefined' && typeof exports !== 'undefined'));
+// hack-istanbul - inline-require
 }());
 
 
@@ -13043,7 +13110,6 @@ local.coverageReportCreate = function (opt) {
     let coverageInclude;
     let dirCoverage;
     let filePrefix;
-    let filesUnderRoot;
     let htmlAll;
     let nodeChildAdd;
     let nodeCreate;
@@ -13052,7 +13118,6 @@ local.coverageReportCreate = function (opt) {
     let nodeRoot;
     let summaryDict;
     let tmp;
-    let tmpChildren;
     if (!(opt && opt.coverage)) {
         return "";
     }
@@ -13182,7 +13247,7 @@ local.coverageReportCreate = function (opt) {
         });
     };
     // 1. merge previous <dirCoverage>/coverage.json into <opt>.coverage
-    dirCoverage = path.resolve("tmp/build/coverage.html");
+    dirCoverage = path.resolve(".tmp/build/coverage");
     coverageInclude = opt.coverageInclude || globalThis.__coverageInclude__;
     if (!local.isBrowser && process.env.npm_config_mode_coverage_merge) {
         console.error(
@@ -13323,11 +13388,11 @@ local.coverageReportCreate = function (opt) {
         }
     });
     // 3. convert <summaryDict> to <nodeRoot>
+    filePrefix = filePrefix || [];
     tmp = filePrefix.join(path.sep) + path.sep;
     nodeRoot = nodeCreate(tmp);
     nodeDict = {};
     nodeDict[tmp] = nodeRoot;
-    filesUnderRoot = false;
     Object.entries(summaryDict).forEach(function ([
         key,
         metrics
@@ -13350,26 +13415,7 @@ local.coverageReportCreate = function (opt) {
             nodeDict[parentPath] = parent;
         }
         nodeChildAdd(parent, node);
-        if (parent === nodeRoot) {
-            filesUnderRoot = true;
-        }
     });
-    if (filesUnderRoot && filePrefix.length > 0) {
-        //start at one level above
-        filePrefix.pop();
-        tmp = nodeRoot;
-        tmpChildren = tmp.children;
-        tmp.children = [];
-        nodeRoot = nodeCreate(filePrefix.join(path.sep) + path.sep);
-        nodeChildAdd(nodeRoot, tmp);
-        tmpChildren.forEach(function (child) {
-            nodeChildAdd((
-                child.isFile
-                ? tmp
-                : nodeRoot
-            ), child);
-        });
-    }
     nodeNormalize(nodeRoot, 0, filePrefix.join(path.sep) + path.sep);
     // 4. convert <nodeRoot> to text-report <dirCoverage>/coverage.txt
     reportTextWrite(nodeRoot, dirCoverage);
@@ -13388,7 +13434,7 @@ local.coverageReportCreate = function (opt) {
     // write coverage.badge.svg
     tmp = nodeRoot.metrics.lines.pct;
     fileWrite(
-        path.dirname(dirCoverage) + "/coverage.badge.svg",
+        dirCoverage + "/coverage.badge.svg",
         // edit coverage badge percent
         // edit coverage badge color
         local.templateCoverageBadgeSvg.replace((
@@ -13585,7 +13631,7 @@ if (module === require.main && !globalThis.utility2_rollup) {
 /* script-begin /assets.utility2.lib.jslint.js */
 // usr/bin/env node
 /*
- * lib.jslint.js (2020.7.8)
+ * lib.jslint.js (2020.8.19)
  * https://github.com/kaizhu256/node-jslint-lite
  * this zero-dependency package will provide browser-compatible versions of jslint (v2020.7.2) and csslint (v2018.2.25), with working web-demo
  *
@@ -13599,10 +13645,12 @@ if (module === require.main && !globalThis.utility2_rollup) {
 // run shared js-env code - init-local
 (function () {
     "use strict";
-    let consoleError;
+    let isBrowser;
+    let isWebWorker;
     let local;
     // init debugInline
     if (!globalThis.debugInline) {
+        let consoleError;
         consoleError = console.error;
         globalThis.debugInline = function (...argList) {
         /*
@@ -13615,27 +13663,22 @@ if (module === require.main && !globalThis.utility2_rollup) {
             return argList[0];
         };
     }
-    // init local
-    local = {};
-    local.local = local;
-    globalThis.globalLocal = local;
     // init isBrowser
-    local.isBrowser = (
+    isBrowser = (
         typeof globalThis.XMLHttpRequest === "function"
         && globalThis.navigator
         && typeof globalThis.navigator.userAgent === "string"
     );
     // init isWebWorker
-    local.isWebWorker = (
-        local.isBrowser && typeof globalThis.importScripts === "function"
+    isWebWorker = (
+        isBrowser && typeof globalThis.importScripts === "function"
     );
     // init function
-    local.assertJsonEqual = function (aa, bb) {
+    function assertJsonEqual(aa, bb) {
     /*
      * this function will assert JSON.stringify(<aa>) === JSON.stringify(<bb>)
      */
-        let objectDeepCopyWithKeysSorted;
-        objectDeepCopyWithKeysSorted = function (obj) {
+        function objectDeepCopyWithKeysSorted(obj) {
         /*
          * this function will recursively deep-copy <obj> with keys sorted
          */
@@ -13653,14 +13696,14 @@ if (module === require.main && !globalThis.utility2_rollup) {
                 sorted[key] = objectDeepCopyWithKeysSorted(obj[key]);
             });
             return sorted;
-        };
+        }
         aa = JSON.stringify(objectDeepCopyWithKeysSorted(aa));
         bb = JSON.stringify(objectDeepCopyWithKeysSorted(bb));
         if (aa !== bb) {
             throw new Error(JSON.stringify(aa) + " !== " + JSON.stringify(bb));
         }
-    };
-    local.assertOrThrow = function (passed, msg) {
+    }
+    function assertOrThrow(passed, msg) {
     /*
      * this function will throw <msg> if <passed> is falsy
      */
@@ -13683,8 +13726,8 @@ if (module === require.main && !globalThis.utility2_rollup) {
                 : JSON.stringify(msg, undefined, 4)
             )
         );
-    };
-    local.coalesce = function (...argList) {
+    }
+    function coalesce(...argList) {
     /*
      * this function will coalesce null, undefined, or "" in <argList>
      */
@@ -13699,20 +13742,20 @@ if (module === require.main && !globalThis.utility2_rollup) {
             ii += 1;
         }
         return arg;
-    };
-    local.identity = function (val) {
+    }
+    function identity(val) {
     /*
      * this function will return <val>
      */
         return val;
-    };
-    local.nop = function () {
+    }
+    function nop() {
     /*
      * this function will do nothing
      */
         return;
-    };
-    local.objectAssignDefault = function (tgt = {}, src = {}, depth = 0) {
+    }
+    function objectAssignDefault(tgt = {}, src = {}, depth = 0) {
     /*
      * this function will if items from <tgt> are null, undefined, or "",
      * then overwrite them with items from <src>
@@ -13739,15 +13782,15 @@ if (module === require.main && !globalThis.utility2_rollup) {
         };
         recurse(tgt, src, depth | 0);
         return tgt;
-    };
-    local.onErrorThrow = function (err) {
+    }
+    function onErrorThrow(err) {
     /*
      * this function will throw <err> if exists
      */
         if (err) {
             throw err;
         }
-    };
+    }
     // bug-workaround - throw unhandledRejections in node-process
     if (
         typeof process === "object" && process
@@ -13759,6 +13802,19 @@ if (module === require.main && !globalThis.utility2_rollup) {
             throw err;
         });
     }
+    // init local
+    local = {};
+    local.local = local;
+    globalThis.globalLocal = local;
+    local.assertJsonEqual = assertJsonEqual;
+    local.assertOrThrow = assertOrThrow;
+    local.coalesce = coalesce;
+    local.identity = identity;
+    local.isBrowser = isBrowser;
+    local.isWebWorker = isWebWorker;
+    local.nop = nop;
+    local.objectAssignDefault = objectAssignDefault;
+    local.onErrorThrow = onErrorThrow;
 }());
 // assets.utility2.header.js - end
 
@@ -13951,8 +14007,7 @@ local.objectDeepCopyWithKeysSorted = function (obj) {
 /*
  * this function will recursively deep-copy <obj> with keys sorted
  */
-    let objectDeepCopyWithKeysSorted;
-    objectDeepCopyWithKeysSorted = function (obj) {
+    function objectDeepCopyWithKeysSorted(obj) {
     /*
      * this function will recursively deep-copy <obj> with keys sorted
      */
@@ -13970,7 +14025,7 @@ local.objectDeepCopyWithKeysSorted = function (obj) {
             sorted[key] = objectDeepCopyWithKeysSorted(obj[key]);
         });
         return sorted;
-    };
+    }
     return objectDeepCopyWithKeysSorted(obj);
 };
 }());
@@ -30089,7 +30144,6 @@ jslintAutofix = function (code, file, opt, {fileType, globalList, iiLine}) {
         });
         break;
     case ".js":
-    case ".json":
         // de-mux - code to [code, ignoreList]
         ignoreList = [];
         code = code.replace((
@@ -30306,15 +30360,11 @@ jslintAutofix = function (code, file, opt, {fileType, globalList, iiLine}) {
         ), function () {
             return ignoreList.shift().trimStart();
         });
-        // autofix-json - sort-keys
-        if (fileType === ".json") {
-            code = JSON.stringify(
-                local.objectDeepCopyWithKeysSorted(JSON.parse(code)),
-                undefined,
-                4
-            );
-            break;
-        }
+        break;
+    case ".json":
+        code = JSON.stringify(local.objectDeepCopyWithKeysSorted(JSON.parse(
+            code
+        )), undefined, 4);
         break;
     case ".md":
         // autofix-md - recurse ```javascript...```
@@ -30418,7 +30468,7 @@ jslintRecurse = function (code, file, opt, {
             /^\/\*jslint\b|(^\/\*\u0020jslint\u0020utility2:true\u0020\*\/$)/m
         ),
         ".json": (
-            /^\s*?(?:\[|\{)/
+            /^\s*?\{\s*?"!!jslint_utility2":\s*?true/
         ),
         ".md": (
             /(^\/\*\u0020jslint\u0020utility2:true\u0020\*\/$)/m
@@ -30428,11 +30478,11 @@ jslintRecurse = function (code, file, opt, {
         )
     };
     // jslint - .json
-    if (fileType === ".js" && tmp[".json"].test(code)) {
+    if (fileType === ".js" && tmp[".json"].test(code.slice(0, 4096))) {
         fileType = ".json";
     }
     // init mode-utility2
-    tmp = tmp[fileType] && tmp[fileType].exec(code);
+    tmp = tmp[fileType] && tmp[fileType].exec(code.slice(0, 4096));
     opt.utility2 = Boolean((tmp && tmp[1]) || modeAutofix);
     // if not modeConditional, then do not jslint
     if ((modeConditional && !tmp) || modeCoverage) {
@@ -31027,10 +31077,12 @@ if (module === require.main && !globalThis.utility2_rollup) {
 // run shared js-env code - init-local
 (function () {
     "use strict";
-    let consoleError;
+    let isBrowser;
+    let isWebWorker;
     let local;
     // init debugInline
     if (!globalThis.debugInline) {
+        let consoleError;
         consoleError = console.error;
         globalThis.debugInline = function (...argList) {
         /*
@@ -31043,27 +31095,22 @@ if (module === require.main && !globalThis.utility2_rollup) {
             return argList[0];
         };
     }
-    // init local
-    local = {};
-    local.local = local;
-    globalThis.globalLocal = local;
     // init isBrowser
-    local.isBrowser = (
+    isBrowser = (
         typeof globalThis.XMLHttpRequest === "function"
         && globalThis.navigator
         && typeof globalThis.navigator.userAgent === "string"
     );
     // init isWebWorker
-    local.isWebWorker = (
-        local.isBrowser && typeof globalThis.importScripts === "function"
+    isWebWorker = (
+        isBrowser && typeof globalThis.importScripts === "function"
     );
     // init function
-    local.assertJsonEqual = function (aa, bb) {
+    function assertJsonEqual(aa, bb) {
     /*
      * this function will assert JSON.stringify(<aa>) === JSON.stringify(<bb>)
      */
-        let objectDeepCopyWithKeysSorted;
-        objectDeepCopyWithKeysSorted = function (obj) {
+        function objectDeepCopyWithKeysSorted(obj) {
         /*
          * this function will recursively deep-copy <obj> with keys sorted
          */
@@ -31081,14 +31128,14 @@ if (module === require.main && !globalThis.utility2_rollup) {
                 sorted[key] = objectDeepCopyWithKeysSorted(obj[key]);
             });
             return sorted;
-        };
+        }
         aa = JSON.stringify(objectDeepCopyWithKeysSorted(aa));
         bb = JSON.stringify(objectDeepCopyWithKeysSorted(bb));
         if (aa !== bb) {
             throw new Error(JSON.stringify(aa) + " !== " + JSON.stringify(bb));
         }
-    };
-    local.assertOrThrow = function (passed, msg) {
+    }
+    function assertOrThrow(passed, msg) {
     /*
      * this function will throw <msg> if <passed> is falsy
      */
@@ -31111,8 +31158,8 @@ if (module === require.main && !globalThis.utility2_rollup) {
                 : JSON.stringify(msg, undefined, 4)
             )
         );
-    };
-    local.coalesce = function (...argList) {
+    }
+    function coalesce(...argList) {
     /*
      * this function will coalesce null, undefined, or "" in <argList>
      */
@@ -31127,20 +31174,20 @@ if (module === require.main && !globalThis.utility2_rollup) {
             ii += 1;
         }
         return arg;
-    };
-    local.identity = function (val) {
+    }
+    function identity(val) {
     /*
      * this function will return <val>
      */
         return val;
-    };
-    local.nop = function () {
+    }
+    function nop() {
     /*
      * this function will do nothing
      */
         return;
-    };
-    local.objectAssignDefault = function (tgt = {}, src = {}, depth = 0) {
+    }
+    function objectAssignDefault(tgt = {}, src = {}, depth = 0) {
     /*
      * this function will if items from <tgt> are null, undefined, or "",
      * then overwrite them with items from <src>
@@ -31167,15 +31214,15 @@ if (module === require.main && !globalThis.utility2_rollup) {
         };
         recurse(tgt, src, depth | 0);
         return tgt;
-    };
-    local.onErrorThrow = function (err) {
+    }
+    function onErrorThrow(err) {
     /*
      * this function will throw <err> if exists
      */
         if (err) {
             throw err;
         }
-    };
+    }
     // bug-workaround - throw unhandledRejections in node-process
     if (
         typeof process === "object" && process
@@ -31187,6 +31234,19 @@ if (module === require.main && !globalThis.utility2_rollup) {
             throw err;
         });
     }
+    // init local
+    local = {};
+    local.local = local;
+    globalThis.globalLocal = local;
+    local.assertJsonEqual = assertJsonEqual;
+    local.assertOrThrow = assertOrThrow;
+    local.coalesce = coalesce;
+    local.identity = identity;
+    local.isBrowser = isBrowser;
+    local.isWebWorker = isWebWorker;
+    local.nop = nop;
+    local.objectAssignDefault = objectAssignDefault;
+    local.onErrorThrow = onErrorThrow;
 }());
 // assets.utility2.header.js - end
 
@@ -31447,10 +31507,12 @@ if (local.isBrowser) {
 // run shared js-env code - init-local
 (function () {
     "use strict";
-    let consoleError;
+    let isBrowser;
+    let isWebWorker;
     let local;
     // init debugInline
     if (!globalThis.debugInline) {
+        let consoleError;
         consoleError = console.error;
         globalThis.debugInline = function (...argList) {
         /*
@@ -31463,27 +31525,22 @@ if (local.isBrowser) {
             return argList[0];
         };
     }
-    // init local
-    local = {};
-    local.local = local;
-    globalThis.globalLocal = local;
     // init isBrowser
-    local.isBrowser = (
+    isBrowser = (
         typeof globalThis.XMLHttpRequest === "function"
         && globalThis.navigator
         && typeof globalThis.navigator.userAgent === "string"
     );
     // init isWebWorker
-    local.isWebWorker = (
-        local.isBrowser && typeof globalThis.importScripts === "function"
+    isWebWorker = (
+        isBrowser && typeof globalThis.importScripts === "function"
     );
     // init function
-    local.assertJsonEqual = function (aa, bb) {
+    function assertJsonEqual(aa, bb) {
     /*
      * this function will assert JSON.stringify(<aa>) === JSON.stringify(<bb>)
      */
-        let objectDeepCopyWithKeysSorted;
-        objectDeepCopyWithKeysSorted = function (obj) {
+        function objectDeepCopyWithKeysSorted(obj) {
         /*
          * this function will recursively deep-copy <obj> with keys sorted
          */
@@ -31501,14 +31558,14 @@ if (local.isBrowser) {
                 sorted[key] = objectDeepCopyWithKeysSorted(obj[key]);
             });
             return sorted;
-        };
+        }
         aa = JSON.stringify(objectDeepCopyWithKeysSorted(aa));
         bb = JSON.stringify(objectDeepCopyWithKeysSorted(bb));
         if (aa !== bb) {
             throw new Error(JSON.stringify(aa) + " !== " + JSON.stringify(bb));
         }
-    };
-    local.assertOrThrow = function (passed, msg) {
+    }
+    function assertOrThrow(passed, msg) {
     /*
      * this function will throw <msg> if <passed> is falsy
      */
@@ -31531,8 +31588,8 @@ if (local.isBrowser) {
                 : JSON.stringify(msg, undefined, 4)
             )
         );
-    };
-    local.coalesce = function (...argList) {
+    }
+    function coalesce(...argList) {
     /*
      * this function will coalesce null, undefined, or "" in <argList>
      */
@@ -31547,20 +31604,20 @@ if (local.isBrowser) {
             ii += 1;
         }
         return arg;
-    };
-    local.identity = function (val) {
+    }
+    function identity(val) {
     /*
      * this function will return <val>
      */
         return val;
-    };
-    local.nop = function () {
+    }
+    function nop() {
     /*
      * this function will do nothing
      */
         return;
-    };
-    local.objectAssignDefault = function (tgt = {}, src = {}, depth = 0) {
+    }
+    function objectAssignDefault(tgt = {}, src = {}, depth = 0) {
     /*
      * this function will if items from <tgt> are null, undefined, or "",
      * then overwrite them with items from <src>
@@ -31587,15 +31644,15 @@ if (local.isBrowser) {
         };
         recurse(tgt, src, depth | 0);
         return tgt;
-    };
-    local.onErrorThrow = function (err) {
+    }
+    function onErrorThrow(err) {
     /*
      * this function will throw <err> if exists
      */
         if (err) {
             throw err;
         }
-    };
+    }
     // bug-workaround - throw unhandledRejections in node-process
     if (
         typeof process === "object" && process
@@ -31607,6 +31664,19 @@ if (local.isBrowser) {
             throw err;
         });
     }
+    // init local
+    local = {};
+    local.local = local;
+    globalThis.globalLocal = local;
+    local.assertJsonEqual = assertJsonEqual;
+    local.assertOrThrow = assertOrThrow;
+    local.coalesce = coalesce;
+    local.identity = identity;
+    local.isBrowser = isBrowser;
+    local.isWebWorker = isWebWorker;
+    local.nop = nop;
+    local.objectAssignDefault = objectAssignDefault;
+    local.onErrorThrow = onErrorThrow;
 }());
 // assets.utility2.header.js - end
 
@@ -44209,7 +44279,7 @@ if (module === require.main && !globalThis.utility2_rollup) {
 /* script-begin /assets.utility2.js */
 // usr/bin/env node
 /*
- * lib.utility2.js (2020.7.8)
+ * lib.utility2.js (2020.8.19)
  * https://github.com/kaizhu256/node-utility2
  * this zero-dependency package will provide high-level functions to to build, test, and deploy webapps
  *
@@ -44223,10 +44293,12 @@ if (module === require.main && !globalThis.utility2_rollup) {
 // run shared js-env code - init-local
 (function () {
     "use strict";
-    let consoleError;
+    let isBrowser;
+    let isWebWorker;
     let local;
     // init debugInline
     if (!globalThis.debugInline) {
+        let consoleError;
         consoleError = console.error;
         globalThis.debugInline = function (...argList) {
         /*
@@ -44239,27 +44311,22 @@ if (module === require.main && !globalThis.utility2_rollup) {
             return argList[0];
         };
     }
-    // init local
-    local = {};
-    local.local = local;
-    globalThis.globalLocal = local;
     // init isBrowser
-    local.isBrowser = (
+    isBrowser = (
         typeof globalThis.XMLHttpRequest === "function"
         && globalThis.navigator
         && typeof globalThis.navigator.userAgent === "string"
     );
     // init isWebWorker
-    local.isWebWorker = (
-        local.isBrowser && typeof globalThis.importScripts === "function"
+    isWebWorker = (
+        isBrowser && typeof globalThis.importScripts === "function"
     );
     // init function
-    local.assertJsonEqual = function (aa, bb) {
+    function assertJsonEqual(aa, bb) {
     /*
      * this function will assert JSON.stringify(<aa>) === JSON.stringify(<bb>)
      */
-        let objectDeepCopyWithKeysSorted;
-        objectDeepCopyWithKeysSorted = function (obj) {
+        function objectDeepCopyWithKeysSorted(obj) {
         /*
          * this function will recursively deep-copy <obj> with keys sorted
          */
@@ -44277,14 +44344,14 @@ if (module === require.main && !globalThis.utility2_rollup) {
                 sorted[key] = objectDeepCopyWithKeysSorted(obj[key]);
             });
             return sorted;
-        };
+        }
         aa = JSON.stringify(objectDeepCopyWithKeysSorted(aa));
         bb = JSON.stringify(objectDeepCopyWithKeysSorted(bb));
         if (aa !== bb) {
             throw new Error(JSON.stringify(aa) + " !== " + JSON.stringify(bb));
         }
-    };
-    local.assertOrThrow = function (passed, msg) {
+    }
+    function assertOrThrow(passed, msg) {
     /*
      * this function will throw <msg> if <passed> is falsy
      */
@@ -44307,8 +44374,8 @@ if (module === require.main && !globalThis.utility2_rollup) {
                 : JSON.stringify(msg, undefined, 4)
             )
         );
-    };
-    local.coalesce = function (...argList) {
+    }
+    function coalesce(...argList) {
     /*
      * this function will coalesce null, undefined, or "" in <argList>
      */
@@ -44323,20 +44390,20 @@ if (module === require.main && !globalThis.utility2_rollup) {
             ii += 1;
         }
         return arg;
-    };
-    local.identity = function (val) {
+    }
+    function identity(val) {
     /*
      * this function will return <val>
      */
         return val;
-    };
-    local.nop = function () {
+    }
+    function nop() {
     /*
      * this function will do nothing
      */
         return;
-    };
-    local.objectAssignDefault = function (tgt = {}, src = {}, depth = 0) {
+    }
+    function objectAssignDefault(tgt = {}, src = {}, depth = 0) {
     /*
      * this function will if items from <tgt> are null, undefined, or "",
      * then overwrite them with items from <src>
@@ -44363,15 +44430,15 @@ if (module === require.main && !globalThis.utility2_rollup) {
         };
         recurse(tgt, src, depth | 0);
         return tgt;
-    };
-    local.onErrorThrow = function (err) {
+    }
+    function onErrorThrow(err) {
     /*
      * this function will throw <err> if exists
      */
         if (err) {
             throw err;
         }
-    };
+    }
     // bug-workaround - throw unhandledRejections in node-process
     if (
         typeof process === "object" && process
@@ -44383,6 +44450,19 @@ if (module === require.main && !globalThis.utility2_rollup) {
             throw err;
         });
     }
+    // init local
+    local = {};
+    local.local = local;
+    globalThis.globalLocal = local;
+    local.assertJsonEqual = assertJsonEqual;
+    local.assertOrThrow = assertOrThrow;
+    local.coalesce = coalesce;
+    local.identity = identity;
+    local.isBrowser = isBrowser;
+    local.isWebWorker = isWebWorker;
+    local.nop = nop;
+    local.objectAssignDefault = objectAssignDefault;
+    local.onErrorThrow = onErrorThrow;
 }());
 // assets.utility2.header.js - end
 
@@ -44448,10 +44528,12 @@ local.assetsDict["/assets.utility2.header.js"] = '\
 // run shared js-env code - init-local\n\
 (function () {\n\
     "use strict";\n\
-    let consoleError;\n\
+    let isBrowser;\n\
+    let isWebWorker;\n\
     let local;\n\
     // init debugInline\n\
     if (!globalThis.debugInline) {\n\
+        let consoleError;\n\
         consoleError = console.error;\n\
         globalThis.debugInline = function (...argList) {\n\
         /*\n\
@@ -44464,27 +44546,22 @@ local.assetsDict["/assets.utility2.header.js"] = '\
             return argList[0];\n\
         };\n\
     }\n\
-    // init local\n\
-    local = {};\n\
-    local.local = local;\n\
-    globalThis.globalLocal = local;\n\
     // init isBrowser\n\
-    local.isBrowser = (\n\
+    isBrowser = (\n\
         typeof globalThis.XMLHttpRequest === "function"\n\
         && globalThis.navigator\n\
         && typeof globalThis.navigator.userAgent === "string"\n\
     );\n\
     // init isWebWorker\n\
-    local.isWebWorker = (\n\
-        local.isBrowser && typeof globalThis.importScripts === "function"\n\
+    isWebWorker = (\n\
+        isBrowser && typeof globalThis.importScripts === "function"\n\
     );\n\
     // init function\n\
-    local.assertJsonEqual = function (aa, bb) {\n\
+    function assertJsonEqual(aa, bb) {\n\
     /*\n\
      * this function will assert JSON.stringify(<aa>) === JSON.stringify(<bb>)\n\
      */\n\
-        let objectDeepCopyWithKeysSorted;\n\
-        objectDeepCopyWithKeysSorted = function (obj) {\n\
+        function objectDeepCopyWithKeysSorted(obj) {\n\
         /*\n\
          * this function will recursively deep-copy <obj> with keys sorted\n\
          */\n\
@@ -44502,14 +44579,14 @@ local.assetsDict["/assets.utility2.header.js"] = '\
                 sorted[key] = objectDeepCopyWithKeysSorted(obj[key]);\n\
             });\n\
             return sorted;\n\
-        };\n\
+        }\n\
         aa = JSON.stringify(objectDeepCopyWithKeysSorted(aa));\n\
         bb = JSON.stringify(objectDeepCopyWithKeysSorted(bb));\n\
         if (aa !== bb) {\n\
             throw new Error(JSON.stringify(aa) + " !== " + JSON.stringify(bb));\n\
         }\n\
-    };\n\
-    local.assertOrThrow = function (passed, msg) {\n\
+    }\n\
+    function assertOrThrow(passed, msg) {\n\
     /*\n\
      * this function will throw <msg> if <passed> is falsy\n\
      */\n\
@@ -44532,8 +44609,8 @@ local.assetsDict["/assets.utility2.header.js"] = '\
                 : JSON.stringify(msg, undefined, 4)\n\
             )\n\
         );\n\
-    };\n\
-    local.coalesce = function (...argList) {\n\
+    }\n\
+    function coalesce(...argList) {\n\
     /*\n\
      * this function will coalesce null, undefined, or "" in <argList>\n\
      */\n\
@@ -44548,20 +44625,20 @@ local.assetsDict["/assets.utility2.header.js"] = '\
             ii += 1;\n\
         }\n\
         return arg;\n\
-    };\n\
-    local.identity = function (val) {\n\
+    }\n\
+    function identity(val) {\n\
     /*\n\
      * this function will return <val>\n\
      */\n\
         return val;\n\
-    };\n\
-    local.nop = function () {\n\
+    }\n\
+    function nop() {\n\
     /*\n\
      * this function will do nothing\n\
      */\n\
         return;\n\
-    };\n\
-    local.objectAssignDefault = function (tgt = {}, src = {}, depth = 0) {\n\
+    }\n\
+    function objectAssignDefault(tgt = {}, src = {}, depth = 0) {\n\
     /*\n\
      * this function will if items from <tgt> are null, undefined, or "",\n\
      * then overwrite them with items from <src>\n\
@@ -44588,15 +44665,15 @@ local.assetsDict["/assets.utility2.header.js"] = '\
         };\n\
         recurse(tgt, src, depth | 0);\n\
         return tgt;\n\
-    };\n\
-    local.onErrorThrow = function (err) {\n\
+    }\n\
+    function onErrorThrow(err) {\n\
     /*\n\
      * this function will throw <err> if exists\n\
      */\n\
         if (err) {\n\
             throw err;\n\
         }\n\
-    };\n\
+    }\n\
     // bug-workaround - throw unhandledRejections in node-process\n\
     if (\n\
         typeof process === "object" && process\n\
@@ -44608,6 +44685,19 @@ local.assetsDict["/assets.utility2.header.js"] = '\
             throw err;\n\
         });\n\
     }\n\
+    // init local\n\
+    local = {};\n\
+    local.local = local;\n\
+    globalThis.globalLocal = local;\n\
+    local.assertJsonEqual = assertJsonEqual;\n\
+    local.assertOrThrow = assertOrThrow;\n\
+    local.coalesce = coalesce;\n\
+    local.identity = identity;\n\
+    local.isBrowser = isBrowser;\n\
+    local.isWebWorker = isWebWorker;\n\
+    local.nop = nop;\n\
+    local.objectAssignDefault = objectAssignDefault;\n\
+    local.onErrorThrow = onErrorThrow;\n\
 }());\n\
 // assets.utility2.header.js - end\n\
 '
@@ -45300,7 +45390,7 @@ the greatest app in the world!\n\
 [![screenshot](https://kaizhu256.github.io/node-my-app-lite/build/screenshot.deployGithub.browser.%252Fnode-my-app-lite%252Fbuild%252Fapp.png)](https://kaizhu256.github.io/node-my-app-lite/build..beta..travis-ci.com/app)\n\
 \n\
 \n\
-[![travis-ci.com build-status](https://api.travis-ci.com/kaizhu256/node-my-app-lite.svg)](https://travis-ci.com/kaizhu256/node-my-app-lite) [![coverage](https://kaizhu256.github.io/node-my-app-lite/build/coverage.badge.svg)](https://kaizhu256.github.io/node-my-app-lite/build/coverage.html/index.html)\n\
+[![travis-ci.com build-status](https://api.travis-ci.com/kaizhu256/node-my-app-lite.svg)](https://travis-ci.com/kaizhu256/node-my-app-lite) [![coverage](https://kaizhu256.github.io/node-my-app-lite/build/coverage/coverage.badge.svg)](https://kaizhu256.github.io/node-my-app-lite/build/coverage/index.html)\n\
 \n\
 [![NPM](https://nodei.co/npm/my-app-lite.png?downloads=true)](https://www.npmjs.com/package/my-app-lite)\n\
 \n\
@@ -45311,7 +45401,7 @@ the greatest app in the world!\n\
 | test-server-github : | [![github.com test-server](https://kaizhu256.github.io/node-my-app-lite/GitHub-Mark-32px.png)](https://kaizhu256.github.io/node-my-app-lite/build..master..travis-ci.com/app) | [![github.com test-server](https://kaizhu256.github.io/node-my-app-lite/GitHub-Mark-32px.png)](https://kaizhu256.github.io/node-my-app-lite/build..beta..travis-ci.com/app) | [![github.com test-server](https://kaizhu256.github.io/node-my-app-lite/GitHub-Mark-32px.png)](https://kaizhu256.github.io/node-my-app-lite/build..alpha..travis-ci.com/app)|\n\
 | test-server-heroku : | [![heroku.com test-server](https://kaizhu256.github.io/node-my-app-lite/heroku-logo.75x25.png)](https://h1-my-app-master.herokuapp.com) | [![heroku.com test-server](https://kaizhu256.github.io/node-my-app-lite/heroku-logo.75x25.png)](https://h1-my-app-beta.herokuapp.com) | [![heroku.com test-server](https://kaizhu256.github.io/node-my-app-lite/heroku-logo.75x25.png)](https://h1-my-app-alpha.herokuapp.com)|\n\
 | test-report : | [![test-report](https://kaizhu256.github.io/node-my-app-lite/build..master..travis-ci.com/test-report.badge.svg)](https://kaizhu256.github.io/node-my-app-lite/build..master..travis-ci.com/test-report.html) | [![test-report](https://kaizhu256.github.io/node-my-app-lite/build..beta..travis-ci.com/test-report.badge.svg)](https://kaizhu256.github.io/node-my-app-lite/build..beta..travis-ci.com/test-report.html) | [![test-report](https://kaizhu256.github.io/node-my-app-lite/build..alpha..travis-ci.com/test-report.badge.svg)](https://kaizhu256.github.io/node-my-app-lite/build..alpha..travis-ci.com/test-report.html)|\n\
-| coverage : | [![coverage](https://kaizhu256.github.io/node-my-app-lite/build..master..travis-ci.com/coverage.badge.svg)](https://kaizhu256.github.io/node-my-app-lite/build..master..travis-ci.com/coverage.html/index.html) | [![coverage](https://kaizhu256.github.io/node-my-app-lite/build..beta..travis-ci.com/coverage.badge.svg)](https://kaizhu256.github.io/node-my-app-lite/build..beta..travis-ci.com/coverage.html/index.html) | [![coverage](https://kaizhu256.github.io/node-my-app-lite/build..alpha..travis-ci.com/coverage.badge.svg)](https://kaizhu256.github.io/node-my-app-lite/build..alpha..travis-ci.com/coverage.html/index.html)|\n\
+| coverage : | [![coverage](https://kaizhu256.github.io/node-my-app-lite/build..master..travis-ci.com/coverage/coverage.badge.svg)](https://kaizhu256.github.io/node-my-app-lite/build..master..travis-ci.com/coverage/index.html) | [![coverage](https://kaizhu256.github.io/node-my-app-lite/build..beta..travis-ci.com/coverage/coverage.badge.svg)](https://kaizhu256.github.io/node-my-app-lite/build..beta..travis-ci.com/coverage/index.html) | [![coverage](https://kaizhu256.github.io/node-my-app-lite/build..alpha..travis-ci.com/coverage/coverage.badge.svg)](https://kaizhu256.github.io/node-my-app-lite/build..alpha..travis-ci.com/coverage/index.html)|\n\
 | build-artifacts : | [![build-artifacts](https://kaizhu256.github.io/node-my-app-lite/glyphicons_144_folder_open.png)](https://github.com/kaizhu256/node-my-app-lite/tree/gh-pages/build..master..travis-ci.com) | [![build-artifacts](https://kaizhu256.github.io/node-my-app-lite/glyphicons_144_folder_open.png)](https://github.com/kaizhu256/node-my-app-lite/tree/gh-pages/build..beta..travis-ci.com) | [![build-artifacts](https://kaizhu256.github.io/node-my-app-lite/glyphicons_144_folder_open.png)](https://github.com/kaizhu256/node-my-app-lite/tree/gh-pages/build..alpha..travis-ci.com)|\n\
 \n\
 [![npmPackageListing](https://kaizhu256.github.io/node-my-app-lite/build/screenshot.npmPackageListing.svg)](https://github.com/kaizhu256/node-my-app-lite)\n\
@@ -45330,13 +45420,12 @@ the greatest app in the world!\n\
 #### api doc\n\
 - [https://kaizhu256.github.io/node-my-app-lite/build..beta..travis-ci.com/apidoc.html](https://kaizhu256.github.io/node-my-app-lite/build..beta..travis-ci.com/apidoc.html)\n\
 \n\
-[![apidoc](https://kaizhu256.github.io/node-my-app-lite/build/screenshot.buildCi.browser.%252Ftmp%252Fbuild%252Fapidoc.html.png)](https://kaizhu256.github.io/node-my-app-lite/build..beta..travis-ci.com/apidoc.html)\n\
+[![apidoc](https://kaizhu256.github.io/node-my-app-lite/build/screenshot.buildCi.browser.%252F.tmp%252Fbuild%252Fapidoc.html.png)](https://kaizhu256.github.io/node-my-app-lite/build..beta..travis-ci.com/apidoc.html)\n\
 \n\
 #### cli help\n\
 ![screenshot](https://kaizhu256.github.io/node-my-app-lite/build/screenshot.npmPackageCliHelp.svg)\n\
 \n\
 #### changelog 0.0.1\n\
-- npm publish 0.0.1\n\
 - update build\n\
 - none\n\
 \n\
@@ -45382,14 +45471,14 @@ PORT=8081 node ./assets.app.js\n\
 \n\
 \n\
 # extra screenshots\n\
-1. [https://kaizhu256.github.io/node-my-app-lite/build/screenshot.buildCi.browser.%252Ftmp%252Fbuild%252Fapidoc.html.png](https://kaizhu256.github.io/node-my-app-lite/build/screenshot.buildCi.browser.%252Ftmp%252Fbuild%252Fapidoc.html.png)\n\
-[![screenshot](https://kaizhu256.github.io/node-my-app-lite/build/screenshot.buildCi.browser.%252Ftmp%252Fbuild%252Fapidoc.html.png)](https://kaizhu256.github.io/node-my-app-lite/build/screenshot.buildCi.browser.%252Ftmp%252Fbuild%252Fapidoc.html.png)\n\
+1. [https://kaizhu256.github.io/node-my-app-lite/build/screenshot.buildCi.browser.%252F.tmp%252Fbuild%252Fapidoc.html.png](https://kaizhu256.github.io/node-my-app-lite/build/screenshot.buildCi.browser.%252F.tmp%252Fbuild%252Fapidoc.html.png)\n\
+[![screenshot](https://kaizhu256.github.io/node-my-app-lite/build/screenshot.buildCi.browser.%252F.tmp%252Fbuild%252Fapidoc.html.png)](https://kaizhu256.github.io/node-my-app-lite/build/screenshot.buildCi.browser.%252F.tmp%252Fbuild%252Fapidoc.html.png)\n\
 \n\
-1. [https://kaizhu256.github.io/node-my-app-lite/build/screenshot.buildCi.browser.%252Ftmp%252Fbuild%252Fcoverage.lib.html.png](https://kaizhu256.github.io/node-my-app-lite/build/screenshot.buildCi.browser.%252Ftmp%252Fbuild%252Fcoverage.lib.html.png)\n\
-[![screenshot](https://kaizhu256.github.io/node-my-app-lite/build/screenshot.buildCi.browser.%252Ftmp%252Fbuild%252Fcoverage.lib.html.png)](https://kaizhu256.github.io/node-my-app-lite/build/screenshot.buildCi.browser.%252Ftmp%252Fbuild%252Fcoverage.lib.html.png)\n\
+1. [https://kaizhu256.github.io/node-my-app-lite/build/screenshot.buildCi.browser.%252F.tmp%252Fbuild%252Fcoverage.lib.html.png](https://kaizhu256.github.io/node-my-app-lite/build/screenshot.buildCi.browser.%252F.tmp%252Fbuild%252Fcoverage.lib.html.png)\n\
+[![screenshot](https://kaizhu256.github.io/node-my-app-lite/build/screenshot.buildCi.browser.%252F.tmp%252Fbuild%252Fcoverage.lib.html.png)](https://kaizhu256.github.io/node-my-app-lite/build/screenshot.buildCi.browser.%252F.tmp%252Fbuild%252Fcoverage.lib.html.png)\n\
 \n\
-1. [https://kaizhu256.github.io/node-my-app-lite/build/screenshot.buildCi.browser.%252Ftmp%252Fbuild%252Ftest-report.html.png](https://kaizhu256.github.io/node-my-app-lite/build/screenshot.buildCi.browser.%252Ftmp%252Fbuild%252Ftest-report.html.png)\n\
-[![screenshot](https://kaizhu256.github.io/node-my-app-lite/build/screenshot.buildCi.browser.%252Ftmp%252Fbuild%252Ftest-report.html.png)](https://kaizhu256.github.io/node-my-app-lite/build/screenshot.buildCi.browser.%252Ftmp%252Fbuild%252Ftest-report.html.png)\n\
+1. [https://kaizhu256.github.io/node-my-app-lite/build/screenshot.buildCi.browser.%252F.tmp%252Fbuild%252Ftest-report.html.png](https://kaizhu256.github.io/node-my-app-lite/build/screenshot.buildCi.browser.%252F.tmp%252Fbuild%252Ftest-report.html.png)\n\
+[![screenshot](https://kaizhu256.github.io/node-my-app-lite/build/screenshot.buildCi.browser.%252F.tmp%252Fbuild%252Ftest-report.html.png)](https://kaizhu256.github.io/node-my-app-lite/build/screenshot.buildCi.browser.%252F.tmp%252Fbuild%252Ftest-report.html.png)\n\
 \n\
 1. [https://kaizhu256.github.io/node-my-app-lite/build/screenshot.deployGithub.browser.%252Fnode-my-app-lite%252Fbuild%252Fapp.png](https://kaizhu256.github.io/node-my-app-lite/build/screenshot.deployGithub.browser.%252Fnode-my-app-lite%252Fbuild%252Fapp.png)\n\
 [![screenshot](https://kaizhu256.github.io/node-my-app-lite/build/screenshot.deployGithub.browser.%252Fnode-my-app-lite%252Fbuild%252Fapp.png)](https://kaizhu256.github.io/node-my-app-lite/build/screenshot.deployGithub.browser.%252Fnode-my-app-lite%252Fbuild%252Fapp.png)\n\
@@ -45416,6 +45505,7 @@ PORT=8081 node ./assets.app.js\n\
 # package.json\n\
 ```json\n\
 {\n\
+    "!!jslint_utility2": true,\n\
     "author": "kai zhu <kaizhu256@gmail.com>",\n\
     "description": "the greatest app in the world!",\n\
     "devDependencies": {\n\
@@ -46000,7 +46090,7 @@ local._testCase_buildApidoc_default = function (opt, onError) {
     // coverage-hack
     require2();
     // save apidoc.html
-    local.fsWriteFileWithMkdirp("tmp/build/apidoc.html", local.apidocCreate(
+    local.fsWriteFileWithMkdirp(".tmp/build/apidoc.html", local.apidocCreate(
         Object.assign({
             blacklistDict: local,
             modeNop: (
@@ -46919,7 +47009,7 @@ local.buildApp = function ({
                     "http://127.0.0.1:" + process.env.PORT + elem.url
                 ), function (res) {
                     let file;
-                    file = "tmp/build/app/" + (elem.file || elem.url);
+                    file = ".tmp/build/app/" + (elem.file || elem.url);
                     res.pipe(require("fs").createWriteStream(
                         file
                     ).on("close", function () {
@@ -46935,7 +47025,7 @@ local.buildApp = function ({
             require("child_process").spawn("node", [
                 "assets.utility2.lib.jslint.js", "dir", ".", "--conditional"
             ], {
-                cwd: "tmp/build/app",
+                cwd: ".tmp/build/app",
                 stdio: [
                     "ignore", 1, 2
                 ]
@@ -46943,24 +47033,43 @@ local.buildApp = function ({
         });
     };
     buildAppStandalone = function (resolve) {
-        // write assets.app.js
-        writeFile((
-            "tmp/build/app.standalone/assets.app.js"
-        ), local.assetsDict["/assets.app.js"], function () {
-            // test-file assets.app.js
-            require("child_process").spawn("node", [
-                "assets.app.js"
-            ], {
-                cwd: "tmp/build/app.standalone",
-                env: {
-                    PATH: process.env.PATH,
-                    PORT: port,
-                    npm_config_timeout_exit: 4000
-                },
-                stdio: [
-                    "ignore", 1, 2
-                ]
-            }).on("exit", resolve);
+        // write native-module
+        require("fs").readdir(".", function (err, fileList) {
+            onErrorThrow(err);
+            Promise.all(fileList.map(function (file) {
+                return new Promise(function (resolve) {
+                    if (require("path").extname(file) !== ".node") {
+                        resolve();
+                        return;
+                    }
+                    require("fs").copyFile(file, (
+                        ".tmp/build/app.standalone/" + file
+                    ), function (err) {
+                        onErrorThrow(err);
+                        resolve();
+                    });
+                });
+            })).then(function () {
+                // write assets.app.js
+                writeFile((
+                    ".tmp/build/app.standalone/assets.app.js"
+                ), local.assetsDict["/assets.app.js"], function () {
+                    // test-file assets.app.js
+                    require("child_process").spawn("node", [
+                        "assets.app.js"
+                    ], {
+                        cwd: ".tmp/build/app.standalone",
+                        env: {
+                            PATH: process.env.PATH,
+                            PORT: port,
+                            npm_config_timeout_exit: 4000
+                        },
+                        stdio: [
+                            "ignore", 1, 2
+                        ]
+                    }).on("exit", resolve);
+                });
+            });
         });
     };
     buildLib = function (resolve) {
@@ -47318,7 +47427,7 @@ local.buildApp = function ({
         // cleanup build-dir
         promiseList.push(new Promise(function (resolve) {
             require("child_process").spawn((
-                "for DIR in tmp/build/app/ tmp/build/app.standalone/;"
+                "for DIR in .tmp/build/app/ .tmp/build/app.standalone/;"
                 + "do rm -rf $DIR; mkdir -p $DIR; done"
             ), {
                 shell: true,
@@ -48477,8 +48586,7 @@ local.objectDeepCopyWithKeysSorted = function (obj) {
 /*
  * this function will recursively deep-copy <obj> with keys sorted
  */
-    let objectDeepCopyWithKeysSorted;
-    objectDeepCopyWithKeysSorted = function (obj) {
+    function objectDeepCopyWithKeysSorted(obj) {
     /*
      * this function will recursively deep-copy <obj> with keys sorted
      */
@@ -48496,7 +48604,7 @@ local.objectDeepCopyWithKeysSorted = function (obj) {
             sorted[key] = objectDeepCopyWithKeysSorted(obj[key]);
         });
         return sorted;
-    };
+    }
     return objectDeepCopyWithKeysSorted(obj);
 };
 
@@ -48718,6 +48826,7 @@ jquery|\
 log|\
 min|misc|mock|\
 node_module|\
+old|\
 raw|\rollup|\
 swp|\
 tmp|\
@@ -49717,12 +49826,12 @@ local.testReportCreate = function (testReport) {
     );
     // create test-report.html
     local.fsWriteFileWithMkdirpSync(
-        "tmp/build/test-report.html",
+        ".tmp/build/test-report.html",
         local.testReportMerge(testReport)
     );
     // create build.badge.svg
     local.fsWriteFileWithMkdirpSync(
-        "tmp/build/build.badge.svg",
+        ".tmp/build/build.badge.svg",
         local.assetsDict["/assets.buildBadge.template.svg"].replace((
             /0000-00-00\u002000:00:00\u0020UTC\u0020-\u0020master\u0020-\u0020aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/g
         ), (
@@ -49732,7 +49841,7 @@ local.testReportCreate = function (testReport) {
     );
     // create test-report.badge.svg
     local.fsWriteFileWithMkdirpSync(
-        "tmp/build/test-report.badge.svg",
+        ".tmp/build/test-report.badge.svg",
         local.assetsDict["/assets.testReportBadge.template.svg"].replace((
             // edit number of tests failed
             /999/g
@@ -50739,8 +50848,8 @@ local.http = require("http");
 local.Module = require("module");
 // init env
 local.objectAssignDefault(process.env, {
-    npm_config_dir_build: require("path").resolve("tmp/build"),
-    npm_config_dir_tmp: require("path").resolve("tmp")
+    npm_config_dir_build: require("path").resolve(".tmp/build"),
+    npm_config_dir_tmp: require("path").resolve(".tmp")
 });
 // merge previous test-report
 if (process.env.npm_config_file_test_report_merge) {
@@ -50979,8 +51088,8 @@ instruction\n\
             PORT=8081 \\\n\
             npm_config_mode_coverage=utility2 \\\n\
             node_modules/.bin/utility2 test example.js\n\
-    3. view test-report in ./tmp/build/test-report.html\n\
-    4. view coverage in ./tmp/build/coverage.html/index.html\n\
+    3. view test-report in .tmp/build/test-report.html\n\
+    4. view coverage in .tmp/build/coverage/index.html\n\
 */\n\
 \n\
 \n\
@@ -50991,10 +51100,12 @@ instruction\n\
 // run shared js-env code - init-local\n\
 (function () {\n\
     \"use strict\";\n\
-    let consoleError;\n\
+    let isBrowser;\n\
+    let isWebWorker;\n\
     let local;\n\
     // init debugInline\n\
     if (!globalThis.debugInline) {\n\
+        let consoleError;\n\
         consoleError = console.error;\n\
         globalThis.debugInline = function (...argList) {\n\
         /*\n\
@@ -51007,27 +51118,22 @@ instruction\n\
             return argList[0];\n\
         };\n\
     }\n\
-    // init local\n\
-    local = {};\n\
-    local.local = local;\n\
-    globalThis.globalLocal = local;\n\
     // init isBrowser\n\
-    local.isBrowser = (\n\
+    isBrowser = (\n\
         typeof globalThis.XMLHttpRequest === \"function\"\n\
         && globalThis.navigator\n\
         && typeof globalThis.navigator.userAgent === \"string\"\n\
     );\n\
     // init isWebWorker\n\
-    local.isWebWorker = (\n\
-        local.isBrowser && typeof globalThis.importScripts === \"function\"\n\
+    isWebWorker = (\n\
+        isBrowser && typeof globalThis.importScripts === \"function\"\n\
     );\n\
     // init function\n\
-    local.assertJsonEqual = function (aa, bb) {\n\
+    function assertJsonEqual(aa, bb) {\n\
     /*\n\
      * this function will assert JSON.stringify(<aa>) === JSON.stringify(<bb>)\n\
      */\n\
-        let objectDeepCopyWithKeysSorted;\n\
-        objectDeepCopyWithKeysSorted = function (obj) {\n\
+        function objectDeepCopyWithKeysSorted(obj) {\n\
         /*\n\
          * this function will recursively deep-copy <obj> with keys sorted\n\
          */\n\
@@ -51045,14 +51151,14 @@ instruction\n\
                 sorted[key] = objectDeepCopyWithKeysSorted(obj[key]);\n\
             });\n\
             return sorted;\n\
-        };\n\
+        }\n\
         aa = JSON.stringify(objectDeepCopyWithKeysSorted(aa));\n\
         bb = JSON.stringify(objectDeepCopyWithKeysSorted(bb));\n\
         if (aa !== bb) {\n\
             throw new Error(JSON.stringify(aa) + \" !== \" + JSON.stringify(bb));\n\
         }\n\
-    };\n\
-    local.assertOrThrow = function (passed, msg) {\n\
+    }\n\
+    function assertOrThrow(passed, msg) {\n\
     /*\n\
      * this function will throw <msg> if <passed> is falsy\n\
      */\n\
@@ -51075,8 +51181,8 @@ instruction\n\
                 : JSON.stringify(msg, undefined, 4)\n\
             )\n\
         );\n\
-    };\n\
-    local.coalesce = function (...argList) {\n\
+    }\n\
+    function coalesce(...argList) {\n\
     /*\n\
      * this function will coalesce null, undefined, or \"\" in <argList>\n\
      */\n\
@@ -51091,20 +51197,20 @@ instruction\n\
             ii += 1;\n\
         }\n\
         return arg;\n\
-    };\n\
-    local.identity = function (val) {\n\
+    }\n\
+    function identity(val) {\n\
     /*\n\
      * this function will return <val>\n\
      */\n\
         return val;\n\
-    };\n\
-    local.nop = function () {\n\
+    }\n\
+    function nop() {\n\
     /*\n\
      * this function will do nothing\n\
      */\n\
         return;\n\
-    };\n\
-    local.objectAssignDefault = function (tgt = {}, src = {}, depth = 0) {\n\
+    }\n\
+    function objectAssignDefault(tgt = {}, src = {}, depth = 0) {\n\
     /*\n\
      * this function will if items from <tgt> are null, undefined, or \"\",\n\
      * then overwrite them with items from <src>\n\
@@ -51131,15 +51237,15 @@ instruction\n\
         };\n\
         recurse(tgt, src, depth | 0);\n\
         return tgt;\n\
-    };\n\
-    local.onErrorThrow = function (err) {\n\
+    }\n\
+    function onErrorThrow(err) {\n\
     /*\n\
      * this function will throw <err> if exists\n\
      */\n\
         if (err) {\n\
             throw err;\n\
         }\n\
-    };\n\
+    }\n\
     // bug-workaround - throw unhandledRejections in node-process\n\
     if (\n\
         typeof process === \"object\" && process\n\
@@ -51151,6 +51257,19 @@ instruction\n\
             throw err;\n\
         });\n\
     }\n\
+    // init local\n\
+    local = {};\n\
+    local.local = local;\n\
+    globalThis.globalLocal = local;\n\
+    local.assertJsonEqual = assertJsonEqual;\n\
+    local.assertOrThrow = assertOrThrow;\n\
+    local.coalesce = coalesce;\n\
+    local.identity = identity;\n\
+    local.isBrowser = isBrowser;\n\
+    local.isWebWorker = isWebWorker;\n\
+    local.nop = nop;\n\
+    local.objectAssignDefault = objectAssignDefault;\n\
+    local.onErrorThrow = onErrorThrow;\n\
 }());\n\
 // assets.utility2.header.js - end\n\
 \n\
@@ -52557,7 +52676,7 @@ local.domOnEventInputChange({\n\
 local.assetsDict["/assets.utility2.lib.jslint.js"] = (
 "// usr/bin/env node\n\
 /*\n\
- * lib.jslint.js (2020.7.8)\n\
+ * lib.jslint.js (2020.8.19)\n\
  * https://github.com/kaizhu256/node-jslint-lite\n\
  * this zero-dependency package will provide browser-compatible versions of jslint (v2020.7.2) and csslint (v2018.2.25), with working web-demo\n\
  *\n\
@@ -52571,10 +52690,12 @@ local.assetsDict["/assets.utility2.lib.jslint.js"] = (
 // run shared js-env code - init-local\n\
 (function () {\n\
     \"use strict\";\n\
-    let consoleError;\n\
+    let isBrowser;\n\
+    let isWebWorker;\n\
     let local;\n\
     // init debugInline\n\
     if (!globalThis.debugInline) {\n\
+        let consoleError;\n\
         consoleError = console.error;\n\
         globalThis.debugInline = function (...argList) {\n\
         /*\n\
@@ -52587,27 +52708,22 @@ local.assetsDict["/assets.utility2.lib.jslint.js"] = (
             return argList[0];\n\
         };\n\
     }\n\
-    // init local\n\
-    local = {};\n\
-    local.local = local;\n\
-    globalThis.globalLocal = local;\n\
     // init isBrowser\n\
-    local.isBrowser = (\n\
+    isBrowser = (\n\
         typeof globalThis.XMLHttpRequest === \"function\"\n\
         && globalThis.navigator\n\
         && typeof globalThis.navigator.userAgent === \"string\"\n\
     );\n\
     // init isWebWorker\n\
-    local.isWebWorker = (\n\
-        local.isBrowser && typeof globalThis.importScripts === \"function\"\n\
+    isWebWorker = (\n\
+        isBrowser && typeof globalThis.importScripts === \"function\"\n\
     );\n\
     // init function\n\
-    local.assertJsonEqual = function (aa, bb) {\n\
+    function assertJsonEqual(aa, bb) {\n\
     /*\n\
      * this function will assert JSON.stringify(<aa>) === JSON.stringify(<bb>)\n\
      */\n\
-        let objectDeepCopyWithKeysSorted;\n\
-        objectDeepCopyWithKeysSorted = function (obj) {\n\
+        function objectDeepCopyWithKeysSorted(obj) {\n\
         /*\n\
          * this function will recursively deep-copy <obj> with keys sorted\n\
          */\n\
@@ -52625,14 +52741,14 @@ local.assetsDict["/assets.utility2.lib.jslint.js"] = (
                 sorted[key] = objectDeepCopyWithKeysSorted(obj[key]);\n\
             });\n\
             return sorted;\n\
-        };\n\
+        }\n\
         aa = JSON.stringify(objectDeepCopyWithKeysSorted(aa));\n\
         bb = JSON.stringify(objectDeepCopyWithKeysSorted(bb));\n\
         if (aa !== bb) {\n\
             throw new Error(JSON.stringify(aa) + \" !== \" + JSON.stringify(bb));\n\
         }\n\
-    };\n\
-    local.assertOrThrow = function (passed, msg) {\n\
+    }\n\
+    function assertOrThrow(passed, msg) {\n\
     /*\n\
      * this function will throw <msg> if <passed> is falsy\n\
      */\n\
@@ -52655,8 +52771,8 @@ local.assetsDict["/assets.utility2.lib.jslint.js"] = (
                 : JSON.stringify(msg, undefined, 4)\n\
             )\n\
         );\n\
-    };\n\
-    local.coalesce = function (...argList) {\n\
+    }\n\
+    function coalesce(...argList) {\n\
     /*\n\
      * this function will coalesce null, undefined, or \"\" in <argList>\n\
      */\n\
@@ -52671,20 +52787,20 @@ local.assetsDict["/assets.utility2.lib.jslint.js"] = (
             ii += 1;\n\
         }\n\
         return arg;\n\
-    };\n\
-    local.identity = function (val) {\n\
+    }\n\
+    function identity(val) {\n\
     /*\n\
      * this function will return <val>\n\
      */\n\
         return val;\n\
-    };\n\
-    local.nop = function () {\n\
+    }\n\
+    function nop() {\n\
     /*\n\
      * this function will do nothing\n\
      */\n\
         return;\n\
-    };\n\
-    local.objectAssignDefault = function (tgt = {}, src = {}, depth = 0) {\n\
+    }\n\
+    function objectAssignDefault(tgt = {}, src = {}, depth = 0) {\n\
     /*\n\
      * this function will if items from <tgt> are null, undefined, or \"\",\n\
      * then overwrite them with items from <src>\n\
@@ -52711,15 +52827,15 @@ local.assetsDict["/assets.utility2.lib.jslint.js"] = (
         };\n\
         recurse(tgt, src, depth | 0);\n\
         return tgt;\n\
-    };\n\
-    local.onErrorThrow = function (err) {\n\
+    }\n\
+    function onErrorThrow(err) {\n\
     /*\n\
      * this function will throw <err> if exists\n\
      */\n\
         if (err) {\n\
             throw err;\n\
         }\n\
-    };\n\
+    }\n\
     // bug-workaround - throw unhandledRejections in node-process\n\
     if (\n\
         typeof process === \"object\" && process\n\
@@ -52731,6 +52847,19 @@ local.assetsDict["/assets.utility2.lib.jslint.js"] = (
             throw err;\n\
         });\n\
     }\n\
+    // init local\n\
+    local = {};\n\
+    local.local = local;\n\
+    globalThis.globalLocal = local;\n\
+    local.assertJsonEqual = assertJsonEqual;\n\
+    local.assertOrThrow = assertOrThrow;\n\
+    local.coalesce = coalesce;\n\
+    local.identity = identity;\n\
+    local.isBrowser = isBrowser;\n\
+    local.isWebWorker = isWebWorker;\n\
+    local.nop = nop;\n\
+    local.objectAssignDefault = objectAssignDefault;\n\
+    local.onErrorThrow = onErrorThrow;\n\
 }());\n\
 // assets.utility2.header.js - end\n\
 \n\
@@ -52923,8 +53052,7 @@ local.objectDeepCopyWithKeysSorted = function (obj) {\n\
 /*\n\
  * this function will recursively deep-copy <obj> with keys sorted\n\
  */\n\
-    let objectDeepCopyWithKeysSorted;\n\
-    objectDeepCopyWithKeysSorted = function (obj) {\n\
+    function objectDeepCopyWithKeysSorted(obj) {\n\
     /*\n\
      * this function will recursively deep-copy <obj> with keys sorted\n\
      */\n\
@@ -52942,7 +53070,7 @@ local.objectDeepCopyWithKeysSorted = function (obj) {\n\
             sorted[key] = objectDeepCopyWithKeysSorted(obj[key]);\n\
         });\n\
         return sorted;\n\
-    };\n\
+    }\n\
     return objectDeepCopyWithKeysSorted(obj);\n\
 };\n\
 }());\n\
@@ -69061,7 +69189,6 @@ jslintAutofix = function (code, file, opt, {fileType, globalList, iiLine}) {\n\
         });\n\
         break;\n\
     case \".js\":\n\
-    case \".json\":\n\
         // de-mux - code to [code, ignoreList]\n\
         ignoreList = [];\n\
         code = code.replace((\n\
@@ -69278,15 +69405,11 @@ jslintAutofix = function (code, file, opt, {fileType, globalList, iiLine}) {\n\
         ), function () {\n\
             return ignoreList.shift().trimStart();\n\
         });\n\
-        // autofix-json - sort-keys\n\
-        if (fileType === \".json\") {\n\
-            code = JSON.stringify(\n\
-                local.objectDeepCopyWithKeysSorted(JSON.parse(code)),\n\
-                undefined,\n\
-                4\n\
-            );\n\
-            break;\n\
-        }\n\
+        break;\n\
+    case \".json\":\n\
+        code = JSON.stringify(local.objectDeepCopyWithKeysSorted(JSON.parse(\n\
+            code\n\
+        )), undefined, 4);\n\
         break;\n\
     case \".md\":\n\
         // autofix-md - recurse ```javascript...```\n\
@@ -69390,7 +69513,7 @@ jslintRecurse = function (code, file, opt, {\n\
             /^\\/\\*jslint\\b|(^\\/\\*\\u0020jslint\\u0020utility2:true\\u0020\\*\\/$)/m\n\
         ),\n\
         \".json\": (\n\
-            /^\\s*?(?:\\[|\\{)/\n\
+            /^\\s*?\\{\\s*?\"!!jslint_utility2\":\\s*?true/\n\
         ),\n\
         \".md\": (\n\
             /(^\\/\\*\\u0020jslint\\u0020utility2:true\\u0020\\*\\/$)/m\n\
@@ -69400,11 +69523,11 @@ jslintRecurse = function (code, file, opt, {\n\
         )\n\
     };\n\
     // jslint - .json\n\
-    if (fileType === \".js\" && tmp[\".json\"].test(code)) {\n\
+    if (fileType === \".js\" && tmp[\".json\"].test(code.slice(0, 4096))) {\n\
         fileType = \".json\";\n\
     }\n\
     // init mode-utility2\n\
-    tmp = tmp[fileType] && tmp[fileType].exec(code);\n\
+    tmp = tmp[fileType] && tmp[fileType].exec(code.slice(0, 4096));\n\
     opt.utility2 = Boolean((tmp && tmp[1]) || modeAutofix);\n\
     // if not modeConditional, then do not jslint\n\
     if ((modeConditional && !tmp) || modeCoverage) {\n\
@@ -70005,10 +70128,12 @@ local.assetsDict["/assets.utility2.test.js"] = (
 // run shared js-env code - init-local\n\
 (function () {\n\
     \"use strict\";\n\
-    let consoleError;\n\
+    let isBrowser;\n\
+    let isWebWorker;\n\
     let local;\n\
     // init debugInline\n\
     if (!globalThis.debugInline) {\n\
+        let consoleError;\n\
         consoleError = console.error;\n\
         globalThis.debugInline = function (...argList) {\n\
         /*\n\
@@ -70021,27 +70146,22 @@ local.assetsDict["/assets.utility2.test.js"] = (
             return argList[0];\n\
         };\n\
     }\n\
-    // init local\n\
-    local = {};\n\
-    local.local = local;\n\
-    globalThis.globalLocal = local;\n\
     // init isBrowser\n\
-    local.isBrowser = (\n\
+    isBrowser = (\n\
         typeof globalThis.XMLHttpRequest === \"function\"\n\
         && globalThis.navigator\n\
         && typeof globalThis.navigator.userAgent === \"string\"\n\
     );\n\
     // init isWebWorker\n\
-    local.isWebWorker = (\n\
-        local.isBrowser && typeof globalThis.importScripts === \"function\"\n\
+    isWebWorker = (\n\
+        isBrowser && typeof globalThis.importScripts === \"function\"\n\
     );\n\
     // init function\n\
-    local.assertJsonEqual = function (aa, bb) {\n\
+    function assertJsonEqual(aa, bb) {\n\
     /*\n\
      * this function will assert JSON.stringify(<aa>) === JSON.stringify(<bb>)\n\
      */\n\
-        let objectDeepCopyWithKeysSorted;\n\
-        objectDeepCopyWithKeysSorted = function (obj) {\n\
+        function objectDeepCopyWithKeysSorted(obj) {\n\
         /*\n\
          * this function will recursively deep-copy <obj> with keys sorted\n\
          */\n\
@@ -70059,14 +70179,14 @@ local.assetsDict["/assets.utility2.test.js"] = (
                 sorted[key] = objectDeepCopyWithKeysSorted(obj[key]);\n\
             });\n\
             return sorted;\n\
-        };\n\
+        }\n\
         aa = JSON.stringify(objectDeepCopyWithKeysSorted(aa));\n\
         bb = JSON.stringify(objectDeepCopyWithKeysSorted(bb));\n\
         if (aa !== bb) {\n\
             throw new Error(JSON.stringify(aa) + \" !== \" + JSON.stringify(bb));\n\
         }\n\
-    };\n\
-    local.assertOrThrow = function (passed, msg) {\n\
+    }\n\
+    function assertOrThrow(passed, msg) {\n\
     /*\n\
      * this function will throw <msg> if <passed> is falsy\n\
      */\n\
@@ -70089,8 +70209,8 @@ local.assetsDict["/assets.utility2.test.js"] = (
                 : JSON.stringify(msg, undefined, 4)\n\
             )\n\
         );\n\
-    };\n\
-    local.coalesce = function (...argList) {\n\
+    }\n\
+    function coalesce(...argList) {\n\
     /*\n\
      * this function will coalesce null, undefined, or \"\" in <argList>\n\
      */\n\
@@ -70105,20 +70225,20 @@ local.assetsDict["/assets.utility2.test.js"] = (
             ii += 1;\n\
         }\n\
         return arg;\n\
-    };\n\
-    local.identity = function (val) {\n\
+    }\n\
+    function identity(val) {\n\
     /*\n\
      * this function will return <val>\n\
      */\n\
         return val;\n\
-    };\n\
-    local.nop = function () {\n\
+    }\n\
+    function nop() {\n\
     /*\n\
      * this function will do nothing\n\
      */\n\
         return;\n\
-    };\n\
-    local.objectAssignDefault = function (tgt = {}, src = {}, depth = 0) {\n\
+    }\n\
+    function objectAssignDefault(tgt = {}, src = {}, depth = 0) {\n\
     /*\n\
      * this function will if items from <tgt> are null, undefined, or \"\",\n\
      * then overwrite them with items from <src>\n\
@@ -70145,15 +70265,15 @@ local.assetsDict["/assets.utility2.test.js"] = (
         };\n\
         recurse(tgt, src, depth | 0);\n\
         return tgt;\n\
-    };\n\
-    local.onErrorThrow = function (err) {\n\
+    }\n\
+    function onErrorThrow(err) {\n\
     /*\n\
      * this function will throw <err> if exists\n\
      */\n\
         if (err) {\n\
             throw err;\n\
         }\n\
-    };\n\
+    }\n\
     // bug-workaround - throw unhandledRejections in node-process\n\
     if (\n\
         typeof process === \"object\" && process\n\
@@ -70165,6 +70285,19 @@ local.assetsDict["/assets.utility2.test.js"] = (
             throw err;\n\
         });\n\
     }\n\
+    // init local\n\
+    local = {};\n\
+    local.local = local;\n\
+    globalThis.globalLocal = local;\n\
+    local.assertJsonEqual = assertJsonEqual;\n\
+    local.assertOrThrow = assertOrThrow;\n\
+    local.coalesce = coalesce;\n\
+    local.identity = identity;\n\
+    local.isBrowser = isBrowser;\n\
+    local.isWebWorker = isWebWorker;\n\
+    local.nop = nop;\n\
+    local.objectAssignDefault = objectAssignDefault;\n\
+    local.onErrorThrow = onErrorThrow;\n\
 }());\n\
 // assets.utility2.header.js - end\n\
 \n\
@@ -70682,17 +70815,10 @@ local.testCase_buildXxx_default = function (opt, onError) {\n\
     local.testMock([\n\
         [\n\
             local, {\n\
-                //!! assetsDict: {\n\
-                    //!! \"/\": \"\"\n\
-                //!! },\n\
                 browserTest: local.nop\n\
-                //!! buildApidoc: local.nop,\n\
-                //!! fsWriteFileWithMkdirp: local.nop,\n\
             }\n\
         ]\n\
     ], function (onError) {\n\
-        //!! local._testCase_buildApidoc_default({}, local.nop);\n\
-        //!! local.assetsDict[\"/\"] = \"<script src=\\\"assets.test.js\\\"></script>\";\n\
         local._testCase_webpage_default({}, local.nop);\n\
         onError(undefined, opt);\n\
     }, onError);\n\
@@ -70874,12 +71000,12 @@ local.testCase_libUtility2Js_standalone = function (opt, onError) {\n\
     }\n\
     require(\"fs\").readFile(\"lib.utility2.js\", \"utf8\", function (err, data) {\n\
         onErrorThrow(err);\n\
-        require(\"fs\").writeFile(\"tmp/lib.utility2.js\", data.replace(\n\
+        require(\"fs\").writeFile(\".tmp/lib.utility2.js\", data.replace(\n\
             \"/* istanbul instrument in package utility2 */\",\n\
             \"\"\n\
         ), function (err) {\n\
             onErrorThrow(err);\n\
-            require(\"./tmp/lib.utility2.js\");\n\
+            require(\"./.tmp/lib.utility2.js\");\n\
         });\n\
         onError(undefined, opt);\n\
     });\n\
@@ -71855,10 +71981,12 @@ if (process.env.npm_config_runme) {\n\
 // run shared js-env code - init-local
 (function () {
     "use strict";
-    let consoleError;
+    let isBrowser;
+    let isWebWorker;
     let local;
     // init debugInline
     if (!globalThis.debugInline) {
+        let consoleError;
         consoleError = console.error;
         globalThis.debugInline = function (...argList) {
         /*
@@ -71871,27 +71999,22 @@ if (process.env.npm_config_runme) {\n\
             return argList[0];
         };
     }
-    // init local
-    local = {};
-    local.local = local;
-    globalThis.globalLocal = local;
     // init isBrowser
-    local.isBrowser = (
+    isBrowser = (
         typeof globalThis.XMLHttpRequest === "function"
         && globalThis.navigator
         && typeof globalThis.navigator.userAgent === "string"
     );
     // init isWebWorker
-    local.isWebWorker = (
-        local.isBrowser && typeof globalThis.importScripts === "function"
+    isWebWorker = (
+        isBrowser && typeof globalThis.importScripts === "function"
     );
     // init function
-    local.assertJsonEqual = function (aa, bb) {
+    function assertJsonEqual(aa, bb) {
     /*
      * this function will assert JSON.stringify(<aa>) === JSON.stringify(<bb>)
      */
-        let objectDeepCopyWithKeysSorted;
-        objectDeepCopyWithKeysSorted = function (obj) {
+        function objectDeepCopyWithKeysSorted(obj) {
         /*
          * this function will recursively deep-copy <obj> with keys sorted
          */
@@ -71909,14 +72032,14 @@ if (process.env.npm_config_runme) {\n\
                 sorted[key] = objectDeepCopyWithKeysSorted(obj[key]);
             });
             return sorted;
-        };
+        }
         aa = JSON.stringify(objectDeepCopyWithKeysSorted(aa));
         bb = JSON.stringify(objectDeepCopyWithKeysSorted(bb));
         if (aa !== bb) {
             throw new Error(JSON.stringify(aa) + " !== " + JSON.stringify(bb));
         }
-    };
-    local.assertOrThrow = function (passed, msg) {
+    }
+    function assertOrThrow(passed, msg) {
     /*
      * this function will throw <msg> if <passed> is falsy
      */
@@ -71939,8 +72062,8 @@ if (process.env.npm_config_runme) {\n\
                 : JSON.stringify(msg, undefined, 4)
             )
         );
-    };
-    local.coalesce = function (...argList) {
+    }
+    function coalesce(...argList) {
     /*
      * this function will coalesce null, undefined, or "" in <argList>
      */
@@ -71955,20 +72078,20 @@ if (process.env.npm_config_runme) {\n\
             ii += 1;
         }
         return arg;
-    };
-    local.identity = function (val) {
+    }
+    function identity(val) {
     /*
      * this function will return <val>
      */
         return val;
-    };
-    local.nop = function () {
+    }
+    function nop() {
     /*
      * this function will do nothing
      */
         return;
-    };
-    local.objectAssignDefault = function (tgt = {}, src = {}, depth = 0) {
+    }
+    function objectAssignDefault(tgt = {}, src = {}, depth = 0) {
     /*
      * this function will if items from <tgt> are null, undefined, or "",
      * then overwrite them with items from <src>
@@ -71995,15 +72118,15 @@ if (process.env.npm_config_runme) {\n\
         };
         recurse(tgt, src, depth | 0);
         return tgt;
-    };
-    local.onErrorThrow = function (err) {
+    }
+    function onErrorThrow(err) {
     /*
      * this function will throw <err> if exists
      */
         if (err) {
             throw err;
         }
-    };
+    }
     // bug-workaround - throw unhandledRejections in node-process
     if (
         typeof process === "object" && process
@@ -72015,6 +72138,19 @@ if (process.env.npm_config_runme) {\n\
             throw err;
         });
     }
+    // init local
+    local = {};
+    local.local = local;
+    globalThis.globalLocal = local;
+    local.assertJsonEqual = assertJsonEqual;
+    local.assertOrThrow = assertOrThrow;
+    local.coalesce = coalesce;
+    local.identity = identity;
+    local.isBrowser = isBrowser;
+    local.isWebWorker = isWebWorker;
+    local.nop = nop;
+    local.objectAssignDefault = objectAssignDefault;
+    local.onErrorThrow = onErrorThrow;
 }());
 // assets.utility2.header.js - end
 
@@ -72045,7 +72181,7 @@ utility2.env = utility2.env || {};
 Object.assign(utility2.assetsDict, state.assetsDict);
 Object.assign(utility2.env, state.env);
 }(
-{"assetsDict":{"/assets.example.html":"<!doctype html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n<!-- \"assets.utility2.template.html\" -->\n<title>jslint-lite (0.0.1)</title>\n<style>\n/* jslint utility2:true */\n/*csslint\n*/\n/* csslint ignore:start */\n*,\n*:after,\n*:before {\n    box-sizing: border-box;\n}\n.uiAnimateSlide {\n    overflow-y: hidden;\n    transition: max-height ease-in 250ms, min-height ease-in 250ms, padding-bottom ease-in 250ms, padding-top ease-in 250ms;\n}\n/* csslint ignore:end */\n@keyframes uiAnimateSpin {\n0% {\n    transform: rotate(0deg);\n}\n100% {\n    transform: rotate(360deg);\n}\n}\na {\n    overflow-wrap: break-word;\n}\nbody {\n    background: #f7f7f7;\n    font-family: Arial, Helvetica, sans-serif;\n    font-size: small;\n    margin: 0 40px;\n}\nbody > div,\nbody > input,\nbody > pre,\nbody > .button,\nbody > .textarea {\n    margin-bottom: 20px;\n    margin-top: 0;\n}\nbody > input,\nbody > .button {\n    width: 20rem;\n}\nbody > .readonly {\n    background: #ddd;\n}\nbody > .textarea {\n    height: 10rem;\n    resize: vertical;\n    width: 100%;\n}\ncode,\npre,\n.textarea {\n    font-family: Consolas, Menlo, monospace;\n    font-size: smaller;\n}\npre {\n    overflow-wrap: break-word;\n    white-space: pre-wrap;\n}\n.button {\n    background: #ddd;\n    border: 1px solid #999;\n    color: #000;\n    cursor: pointer;\n    display: inline-block;\n    padding: 2px 5px;\n    text-align: center;\n    text-decoration: none;\n}\n.button:hover {\n    background: #bbb;\n}\n.colorError {\n    color: #d00;\n}\n.textarea {\n    background: #fff;\n    border: 1px solid #999;\n    border-radius: 0;\n    cursor: auto;\n    overflow: auto;\n    padding: 2px;\n}\n.zeroPixel {\n    border: 0;\n    height: 0;\n    margin: 0;\n    padding: 0;\n    width: 0;\n}\n</style>\n</head>\n<body>\n<div class=\"uiAnimateSpin\" style=\"animation: uiAnimateSpin 2s linear infinite; border: 5px solid #999; border-radius: 50%; border-top: 5px solid #7d7; display: none; height: 25px; vertical-align: middle; width: 25px;\"></div>\n<script>\n/* jslint utility2:true */\n// init domOnEventWindowOnloadTimeElapsed\n(function () {\n/*\n * this function will measure and print time-elapsed for window.onload\n */\n    \"use strict\";\n    if (!(\n        typeof window === \"object\" && window && window.document\n        && typeof document.addEventListener === \"function\"\n    ) || window.domOnEventWindowOnloadTimeElapsed) {\n        return;\n    }\n    window.domOnEventWindowOnloadTimeElapsed = Date.now() + 100;\n    window.addEventListener(\"load\", function () {\n        setTimeout(function () {\n            window.domOnEventWindowOnloadTimeElapsed = (\n                Date.now()\n                - window.domOnEventWindowOnloadTimeElapsed\n            );\n            console.error(\n                \"domOnEventWindowOnloadTimeElapsed = \"\n                + window.domOnEventWindowOnloadTimeElapsed\n            );\n        }, 100);\n    });\n}());\n\n\n// init domOnEventAjaxProgressUpdate\n(function () {\n/*\n * this function will display incrementing ajax-progress-bar\n */\n    \"use strict\";\n    let opt;\n    let styleBar0;\n    let styleBar;\n    let styleModal0;\n    let styleModal;\n    let timeStart;\n    let timerInterval;\n    let timerTimeout;\n    let tmp;\n    let width;\n    try {\n        if (\n            window.domOnEventAjaxProgressUpdate\n            || !document.getElementById(\"domElementAjaxProgressBar1\").style\n        ) {\n            return;\n        }\n    } catch (ignore) {\n        return;\n    }\n    window.domOnEventAjaxProgressUpdate = function (gotoState, onError) {\n        gotoState = (gotoState | 0) + 1;\n        switch (gotoState) {\n        // ajaxProgress - show\n        case 1:\n            // init timerInterval and timerTimeout\n            if (!timerTimeout) {\n                timeStart = Date.now();\n                timerInterval = setInterval(opt, 2000, 1, onError);\n                timerTimeout = setTimeout(opt, opt.timeout, 2, onError);\n            }\n            // show ajaxProgressBar\n            if (width !== -1) {\n                styleBar.background = styleBar0.background;\n            }\n            setTimeout(opt, 50, gotoState, onError);\n            break;\n        // ajaxProgress - increment\n        case 2:\n            // show ajaxProgressBar\n            if (width === -1) {\n                break;\n            }\n            styleBar.background = styleBar0.background;\n            // reset ajaxProgress if it reaches end\n            if ((styleBar.width.slice(0, -1) | 0) > 95) {\n                width = 0;\n            }\n            // this algorithm will indefinitely increment ajaxProgress\n            // with successively smaller increments without reaching 100%\n            width += 1;\n            styleBar.width = Math.max(\n                100 - 75 * Math.exp(-0.125 * width),\n                styleBar.width.slice(0, -1) | 0\n            ) + \"%\";\n            // show ajaxProgressModal\n            styleModal.height = \"100%\";\n            styleModal.opacity = styleModal0.opacity;\n            if (!opt.cnt) {\n                setTimeout(opt, 0, gotoState, onError);\n            }\n            break;\n        // ajaxProgress - 100%\n        case 3:\n            width = -1;\n            styleBar.width = \"100%\";\n            setTimeout(opt, 1000, gotoState, onError);\n            break;\n        // ajaxProgress - hide\n        case 4:\n            // debug timeElapsed\n            tmp = Date.now();\n            console.error(\n                \"domOnEventAjaxProgressUpdate - timeElapsed - \"\n                + (tmp - timeStart)\n                + \" ms\"\n            );\n            // cleanup timerInterval and timerTimeout\n            timeStart = tmp;\n            clearInterval(timerInterval);\n            timerInterval = undefined;\n            clearTimeout(timerTimeout);\n            timerTimeout = undefined;\n            // hide ajaxProgressBar\n            styleBar.background = \"transparent\";\n            // hide ajaxProgressModal\n            styleModal.opacity = \"0\";\n            if (onError) {\n                onError();\n            }\n            setTimeout(opt, 250, gotoState);\n            break;\n        // ajaxProgress - reset\n        default:\n            opt.cnt = 0;\n            width = 0;\n            styleBar.width = \"0%\";\n            styleModal.height = \"0\";\n        }\n    };\n    opt = window.domOnEventAjaxProgressUpdate;\n    opt.end = function (onError) {\n        opt.cnt = 0;\n        window.domOnEventAjaxProgressUpdate(2, onError);\n    };\n    // init styleBar\n    styleBar = document.getElementById(\"domElementAjaxProgressBar1\").style;\n    styleBar0 = Object.assign({}, styleBar);\n    Object.entries({\n        background: \"#d00\",\n        height: \"2px\",\n        left: \"0\",\n        margin: \"0\",\n        padding: \"0\",\n        position: \"fixed\",\n        top: \"0\",\n        transition: \"background 250ms, width 750ms\",\n        width: \"0%\",\n        \"z-index\": \"1\"\n    }).forEach(function (entry) {\n        styleBar[entry[0]] = styleBar[entry[0]] || entry[1];\n    });\n    // init styleModal\n    styleModal = document.getElementById(\"domElementAjaxProgressModal1\") || {};\n    styleModal = styleModal.style || {};\n    styleModal0 = Object.assign({}, styleModal);\n    Object.entries({\n        height: \"0\",\n        left: \"0\",\n        margin: \"0\",\n        padding: \"0\",\n        position: \"fixed\",\n        top: \"0\",\n        transition: \"opacity 125ms\",\n        width: \"100%\",\n        \"z-index\": \"1\"\n    }).forEach(function (entry) {\n        styleModal[entry[0]] = styleModal[entry[0]] || entry[1];\n    });\n    // init state\n    width = 0;\n    opt.cnt = 0;\n    opt.timeout = 30000;\n    // init ajaxProgress\n    window.domOnEventAjaxProgressUpdate();\n}());\n\n\n// init domOnEventDelegateDict\n(function () {\n/*\n * this function will handle delegated dom-evt\n */\n    \"use strict\";\n    let debounce;\n    let timerTimeout;\n    debounce = function () {\n        return setTimeout(function () {\n            timerTimeout = undefined;\n        }, 30);\n    };\n    if (!(\n        typeof window === \"object\" && window && window.document\n        && typeof document.addEventListener === \"function\"\n    ) || window.domOnEventDelegateDict) {\n        return;\n    }\n    window.domOnEventDelegateDict = {};\n    window.domOnEventDelegateDict.domOnEventDelegate = function (evt) {\n        evt.targetOnEvent = evt.target.closest(\"[data-onevent]\");\n        if (\n            !evt.targetOnEvent\n            || evt.targetOnEvent.dataset.onevent === \"domOnEventNop\"\n            || evt.target.closest(\".disabled,.readonly\")\n        ) {\n            return;\n        }\n        // filter evt-change\n        switch (evt.type !== \"change\" && evt.target.type) {\n        case \"checkbox\":\n        case \"file\":\n        case \"select-one\":\n        case \"radio\":\n            return;\n        }\n        // filter evt-keyup\n        switch (evt.type) {\n        case \"keyup\":\n            if (!timerTimeout && (\n                evt.target.tagName === \"INPUT\"\n                || evt.target.tagName === \"TEXTAREA\"\n            )) {\n                timerTimeout = debounce();\n                if (evt.target.dataset.valueOld !== evt.target.value) {\n                    evt.target.dataset.valueOld = evt.target.value;\n                    break;\n                }\n            }\n            return;\n        }\n        switch (evt.targetOnEvent.tagName) {\n        case \"BUTTON\":\n        case \"FORM\":\n            evt.preventDefault();\n            break;\n        }\n        evt.stopPropagation();\n        // handle domOnEventClickTarget\n        if (evt.targetOnEvent.dataset.onevent === \"domOnEventClickTarget\") {\n            document.querySelector(\n                evt.targetOnEvent.dataset.clickTarget\n            ).click();\n            return;\n        }\n        window.domOnEventDelegateDict[evt.targetOnEvent.dataset.onevent](evt);\n    };\n    // handle evt\n    [\n        \"change\",\n        \"click\",\n        \"keyup\",\n        \"submit\"\n    ].forEach(function (eventType) {\n        document.addEventListener(\n            eventType,\n            window.domOnEventDelegateDict.domOnEventDelegate\n        );\n    });\n}());\n\n\n// init domOnEventSelectAllWithinPre\n(function () {\n/*\n * this function will limit select-all within <pre tabIndex=\"0\"> elem\n * https://stackoverflow.com/questions/985272/selecting-text-in-an-element-akin-to-highlighting-with-your-mouse\n */\n    \"use strict\";\n    if (!(\n        typeof window === \"object\" && window && window.document\n        && typeof document.addEventListener === \"function\"\n    ) || window.domOnEventSelectAllWithinPre) {\n        return;\n    }\n    window.domOnEventSelectAllWithinPre = function (evt) {\n        let range;\n        let selection;\n        if (\n            evt && (evt.ctrlKey || evt.metaKey) && evt.key === \"a\"\n            && evt.target.closest(\"pre\")\n        ) {\n            range = document.createRange();\n            range.selectNodeContents(evt.target.closest(\"pre\"));\n            selection = window.getSelection();\n            selection.removeAllRanges();\n            selection.addRange(range);\n            evt.preventDefault();\n        }\n    };\n    // handle evt\n    document.addEventListener(\n        \"keydown\",\n        window.domOnEventSelectAllWithinPre\n    );\n}());\n</script>\n<h1>\n<!-- utility2-comment\n<a\n    {{#if env.npm_package_homepage}}\n    href=\"{{env.npm_package_homepage}}\"\n    {{/if env.npm_package_homepage}}\n    target=\"_blank\"\n>\nutility2-comment -->\n    jslint-lite (0.0.1)\n<!-- utility2-comment\n</a>\nutility2-comment -->\n</h1>\n<h3>the greatest app in the world!</h3>\n<!-- utility2-comment\n<a class=\"button\" download href=\"assets.app.js\">download standalone app</a><br>\n<button class=\"button\" data-onevent=\"testRunBrowser\" id=\"buttonTestRun1\">run browser-tests</button><br>\n<div class=\"uiAnimateSlide\" id=\"htmlTestReport1\" style=\"border-bottom: 0; border-top: 0; margin-bottom: 0; margin-top: 0; max-height: 0; padding-bottom: 0; padding-top: 0;\"></div>\nutility2-comment -->\n\n\n<!-- custom-html-start -->\n<label>edit or paste script below to\n    <a href=\"http://www.jslint.com\" target=\"_blank\">jslint</a>\n</label>\n<textarea class=\"textarea\" data-onevent=\"domOnEventInputChange\" id=\"inputJslint1\">\n/*jslint\n    browser: true,\n*/\nconst message = \"hello\";\nconsole.log(message);\nconsole.log(null);\n</textarea>\n<button class=\"button\" data-onevent=\"domOnEventInputChange\" id=\"buttonJslintAutofix1\">jslint autofix</button><br>\n<textarea class=\"colorError readonly textarea\" id=\"outputJslint1\" readonly></textarea>\n\n\n\n<label>edit or paste script below to\n    <a href=\"https://github.com/CSSLint/csslint/wiki/Command-line-interface#options\" target=\"_blank\">csslint</a>\n</label>\n<textarea class=\"textarea\" data-onevent=\"domOnEventInputChange\" id=\"inputCsslint1\">\n/*csslint\n    box-sizing: false,\n*/\nbody {\n    box-sizing: border-box;\n    margin: 0px;\n}\n</textarea>\n<textarea class=\"colorError readonly textarea\" id=\"outputCsslint1\" readonly></textarea>\n<label>stderr and stdout</label>\n<textarea class=\"onevent-reset-output readonly textarea\" id=\"outputStdout1\" readonly></textarea>\n<script>\n/* jslint utility2:true */\nwindow.addEventListener(\"load\", function () {\n\"use strict\";\nlet local;\nlocal = window.utility2_jslint;\nlocal.domOnEventInputChange = function (evt) {\n    switch (evt.type + \".\" + evt.target.id) {\n    case \"click.buttonJslintAutofix1\":\n    case \"keyup.inputCsslint1\":\n    case \"keyup.inputJslint1\":\n        // csslint #inputCsslint1\n        local.jslintAndPrint(document.querySelector(\n            \"#inputCsslint1\"\n        ).value, \"inputCsslint1.css\");\n        document.querySelector(\n            \"#outputCsslint1\"\n        ).value = local.jslintResult.errMsg.replace((\n            /\\u001b\\[\\d*m/g\n        ), \"\").trim();\n        // jslint #inputJslint1\n        local.jslintAndPrint(document.querySelector(\n            \"#inputJslint1\"\n        ).value, \"inputJslint1.js\", {\n            autofix: evt.target.id === \"buttonJslintAutofix1\"\n        });\n        if (local.jslint.jslintResult.autofix) {\n            document.querySelector(\n                \"#inputJslint1\"\n            ).value = local.jslint.jslintResult.code;\n        }\n        document.querySelector(\n            \"#outputJslint1\"\n        ).value = local.jslintResult.errMsg.replace((\n            /\\u001b\\[\\d*m/g\n        ), \"\").trim();\n        break;\n    }\n};\n// handle evt\nlocal.domOnEventInputChange({\n    target: {\n        id: \"inputJslint1\"\n    },\n    type: \"keyup\"\n});\n});\n</script>\n<!-- custom-html-end -->\n\n\n<!-- utility2-comment\n{{#if isRollup}}\n<script src=\"assets.app.js\"></script>\n{{#unless isRollup}}\n<script src=\"assets.utility2.rollup.js\"></script>\n<script>window.utility2_onReadyBefore.cnt += 1;</script>\n<script src=\"utility2.state.init.js\"></script>\nutility2-comment -->\n<script src=\"assets.jslint.js\"></script>\n<script src=\"assets.example.js\"></script>\n<script src=\"assets.test.js\"></script>\n<script>\nif (window.utility2_onReadyBefore) {\n    window.utility2_onReadyBefore();\n}\n</script>\n<!-- utility2-comment\n{{/if isRollup}}\nutility2-comment -->\n<div style=\"text-align: center;\">\n    [\n    this app was created with\n    <a\n        href=\"https://github.com/kaizhu256/node-utility2\" target=\"_blank\"\n    >utility2</a>\n    ]\n</div>\n</body>\n</html>\n","/assets.example.js":"\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/*\nexample.js\n\nthis script will run web-demo of jslint-lite\n\ninstruction\n    1. save this script as example.js\n    2. run shell-command:\n        $ npm install jslint-lite && \\\n            PORT=8081 node example.js\n    3. open browser to http://127.0.0.1:8081 and play with web-demo\n    4. edit this script to suit your needs\n*/\n\n\n/* istanbul instrument in package jslint */\n// assets.utility2.header.js - start\n/* jslint utility2:true */\n/* istanbul ignore next */\n// run shared js-env code - init-local\n(function () {\n    \"use strict\";\n    let consoleError;\n    let local;\n    // init debugInline\n    if (!globalThis.debugInline) {\n        consoleError = console.error;\n        globalThis.debugInline = function (...argList) {\n        /*\n         * this function will both print <argList> to stderr\n         * and return <argList>[0]\n         */\n            consoleError(\"\\n\\ndebugInline\");\n            consoleError(...argList);\n            consoleError(\"\\n\");\n            return argList[0];\n        };\n    }\n    // init local\n    local = {};\n    local.local = local;\n    globalThis.globalLocal = local;\n    // init isBrowser\n    local.isBrowser = (\n        typeof globalThis.XMLHttpRequest === \"function\"\n        && globalThis.navigator\n        && typeof globalThis.navigator.userAgent === \"string\"\n    );\n    // init isWebWorker\n    local.isWebWorker = (\n        local.isBrowser && typeof globalThis.importScripts === \"function\"\n    );\n    // init function\n    local.assertJsonEqual = function (aa, bb) {\n    /*\n     * this function will assert JSON.stringify(<aa>) === JSON.stringify(<bb>)\n     */\n        let objectDeepCopyWithKeysSorted;\n        objectDeepCopyWithKeysSorted = function (obj) {\n        /*\n         * this function will recursively deep-copy <obj> with keys sorted\n         */\n            let sorted;\n            if (typeof obj !== \"object\" || !obj) {\n                return obj;\n            }\n            // recursively deep-copy list with child-keys sorted\n            if (Array.isArray(obj)) {\n                return obj.map(objectDeepCopyWithKeysSorted);\n            }\n            // recursively deep-copy obj with keys sorted\n            sorted = {};\n            Object.keys(obj).sort().forEach(function (key) {\n                sorted[key] = objectDeepCopyWithKeysSorted(obj[key]);\n            });\n            return sorted;\n        };\n        aa = JSON.stringify(objectDeepCopyWithKeysSorted(aa));\n        bb = JSON.stringify(objectDeepCopyWithKeysSorted(bb));\n        if (aa !== bb) {\n            throw new Error(JSON.stringify(aa) + \" !== \" + JSON.stringify(bb));\n        }\n    };\n    local.assertOrThrow = function (passed, msg) {\n    /*\n     * this function will throw <msg> if <passed> is falsy\n     */\n        if (passed) {\n            return;\n        }\n        throw (\n            (\n                msg\n                && typeof msg.message === \"string\"\n                && typeof msg.stack === \"string\"\n            )\n            // if msg is err, then leave as is\n            ? msg\n            : new Error(\n                typeof msg === \"string\"\n                // if msg is string, then leave as is\n                ? msg\n                // else JSON.stringify(msg)\n                : JSON.stringify(msg, undefined, 4)\n            )\n        );\n    };\n    local.coalesce = function (...argList) {\n    /*\n     * this function will coalesce null, undefined, or \"\" in <argList>\n     */\n        let arg;\n        let ii;\n        ii = 0;\n        while (ii < argList.length) {\n            arg = argList[ii];\n            if (arg !== undefined && arg !== null && arg !== \"\") {\n                return arg;\n            }\n            ii += 1;\n        }\n        return arg;\n    };\n    local.identity = function (val) {\n    /*\n     * this function will return <val>\n     */\n        return val;\n    };\n    local.nop = function () {\n    /*\n     * this function will do nothing\n     */\n        return;\n    };\n    local.objectAssignDefault = function (tgt = {}, src = {}, depth = 0) {\n    /*\n     * this function will if items from <tgt> are null, undefined, or \"\",\n     * then overwrite them with items from <src>\n     */\n        let recurse;\n        recurse = function (tgt, src, depth) {\n            Object.entries(src).forEach(function ([\n                key, bb\n            ]) {\n                let aa;\n                aa = tgt[key];\n                if (aa === undefined || aa === null || aa === \"\") {\n                    tgt[key] = bb;\n                    return;\n                }\n                if (\n                    depth !== 0\n                    && typeof aa === \"object\" && aa && !Array.isArray(aa)\n                    && typeof bb === \"object\" && bb && !Array.isArray(bb)\n                ) {\n                    recurse(aa, bb, depth - 1);\n                }\n            });\n        };\n        recurse(tgt, src, depth | 0);\n        return tgt;\n    };\n    local.onErrorThrow = function (err) {\n    /*\n     * this function will throw <err> if exists\n     */\n        if (err) {\n            throw err;\n        }\n    };\n    // bug-workaround - throw unhandledRejections in node-process\n    if (\n        typeof process === \"object\" && process\n        && typeof process.on === \"function\"\n        && process.unhandledRejections !== \"strict\"\n    ) {\n        process.unhandledRejections = \"strict\";\n        process.on(\"unhandledRejection\", function (err) {\n            throw err;\n        });\n    }\n}());\n// assets.utility2.header.js - end\n\n\n/* jslint utility2:true */\n(function (local) {\n\"use strict\";\n\n\n// run shared js-env code - init-before\n(function () {\n// init local\nlocal = (\n    globalThis.utility2_rollup\n    || globalThis.utility2_jslint\n    || globalThis.utility2_moduleExports\n);\n// init exports\nglobalThis.local = local;\n}());\n\n\n/* istanbul ignore next */\n// run browser js-env code - init-test\n(function () {\nif (!local.isBrowser) {\n    return;\n}\n// log stderr and stdout to #outputStdout1\n[\"error\", \"log\"].forEach(function (key) {\n    let elem;\n    let fnc;\n    elem = document.querySelector(\"#outputStdout1\");\n    if (!elem) {\n        return;\n    }\n    fnc = console[key];\n    console[key] = function (...argList) {\n        fnc(...argList);\n        // append text to #outputStdout1\n        elem.textContent += argList.map(function (arg) {\n            return (\n                typeof arg === \"string\"\n                ? arg\n                : JSON.stringify(arg, undefined, 4)\n            );\n        }).join(\" \").replace((\n            /\\u001b\\[\\d*m/g\n        ), \"\") + \"\\n\";\n        // scroll textarea to bottom\n        elem.scrollTop = elem.scrollHeight;\n    };\n});\nlocal.objectAssignDefault(local, globalThis.domOnEventDelegateDict);\nglobalThis.domOnEventDelegateDict = local;\n}());\n\n\n/* istanbul ignore next */\n// run node js-env code - init-test\n(function () {\nif (local.isBrowser) {\n    return;\n}\n// init exports\nmodule.exports = local;\n// init assetsDict\nlocal.assetsDict = local.assetsDict || {};\n/* jslint ignore:start */\nlocal.assetsDict[\"/assets.index.template.html\"] = '\\\n<!doctype html>\\n\\\n<html lang=\"en\">\\n\\\n<head>\\n\\\n<meta charset=\"utf-8\">\\n\\\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\\n\\\n<!-- \"assets.utility2.template.html\" -->\\n\\\n<title>{{env.npm_package_name}} ({{env.npm_package_version}})</title>\\n\\\n<style>\\n\\\n/* jslint utility2:true */\\n\\\n/*csslint\\n\\\n*/\\n\\\n/* csslint ignore:start */\\n\\\n*,\\n\\\n*:after,\\n\\\n*:before {\\n\\\n    box-sizing: border-box;\\n\\\n}\\n\\\n.uiAnimateSlide {\\n\\\n    overflow-y: hidden;\\n\\\n    transition: max-height ease-in 250ms, min-height ease-in 250ms, padding-bottom ease-in 250ms, padding-top ease-in 250ms;\\n\\\n}\\n\\\n/* csslint ignore:end */\\n\\\n@keyframes uiAnimateSpin {\\n\\\n0% {\\n\\\n    transform: rotate(0deg);\\n\\\n}\\n\\\n100% {\\n\\\n    transform: rotate(360deg);\\n\\\n}\\n\\\n}\\n\\\na {\\n\\\n    overflow-wrap: break-word;\\n\\\n}\\n\\\nbody {\\n\\\n    background: #f7f7f7;\\n\\\n    font-family: Arial, Helvetica, sans-serif;\\n\\\n    font-size: small;\\n\\\n    margin: 0 40px;\\n\\\n}\\n\\\nbody > div,\\n\\\nbody > input,\\n\\\nbody > pre,\\n\\\nbody > .button,\\n\\\nbody > .textarea {\\n\\\n    margin-bottom: 20px;\\n\\\n    margin-top: 0;\\n\\\n}\\n\\\nbody > input,\\n\\\nbody > .button {\\n\\\n    width: 20rem;\\n\\\n}\\n\\\nbody > .readonly {\\n\\\n    background: #ddd;\\n\\\n}\\n\\\nbody > .textarea {\\n\\\n    height: 10rem;\\n\\\n    resize: vertical;\\n\\\n    width: 100%;\\n\\\n}\\n\\\ncode,\\n\\\npre,\\n\\\n.textarea {\\n\\\n    font-family: Consolas, Menlo, monospace;\\n\\\n    font-size: smaller;\\n\\\n}\\n\\\npre {\\n\\\n    overflow-wrap: break-word;\\n\\\n    white-space: pre-wrap;\\n\\\n}\\n\\\n.button {\\n\\\n    background: #ddd;\\n\\\n    border: 1px solid #999;\\n\\\n    color: #000;\\n\\\n    cursor: pointer;\\n\\\n    display: inline-block;\\n\\\n    padding: 2px 5px;\\n\\\n    text-align: center;\\n\\\n    text-decoration: none;\\n\\\n}\\n\\\n.button:hover {\\n\\\n    background: #bbb;\\n\\\n}\\n\\\n.colorError {\\n\\\n    color: #d00;\\n\\\n}\\n\\\n.textarea {\\n\\\n    background: #fff;\\n\\\n    border: 1px solid #999;\\n\\\n    border-radius: 0;\\n\\\n    cursor: auto;\\n\\\n    overflow: auto;\\n\\\n    padding: 2px;\\n\\\n}\\n\\\n.zeroPixel {\\n\\\n    border: 0;\\n\\\n    height: 0;\\n\\\n    margin: 0;\\n\\\n    padding: 0;\\n\\\n    width: 0;\\n\\\n}\\n\\\n</style>\\n\\\n</head>\\n\\\n<body>\\n\\\n<div class=\"uiAnimateSpin\" style=\"animation: uiAnimateSpin 2s linear infinite; border: 5px solid #999; border-radius: 50%; border-top: 5px solid #7d7; display: none; height: 25px; vertical-align: middle; width: 25px;\"></div>\\n\\\n<script>\\n\\\n/* jslint utility2:true */\\n\\\n// init domOnEventWindowOnloadTimeElapsed\\n\\\n(function () {\\n\\\n/*\\n\\\n * this function will measure and print time-elapsed for window.onload\\n\\\n */\\n\\\n    \"use strict\";\\n\\\n    if (!(\\n\\\n        typeof window === \"object\" && window && window.document\\n\\\n        && typeof document.addEventListener === \"function\"\\n\\\n    ) || window.domOnEventWindowOnloadTimeElapsed) {\\n\\\n        return;\\n\\\n    }\\n\\\n    window.domOnEventWindowOnloadTimeElapsed = Date.now() + 100;\\n\\\n    window.addEventListener(\"load\", function () {\\n\\\n        setTimeout(function () {\\n\\\n            window.domOnEventWindowOnloadTimeElapsed = (\\n\\\n                Date.now()\\n\\\n                - window.domOnEventWindowOnloadTimeElapsed\\n\\\n            );\\n\\\n            console.error(\\n\\\n                \"domOnEventWindowOnloadTimeElapsed = \"\\n\\\n                + window.domOnEventWindowOnloadTimeElapsed\\n\\\n            );\\n\\\n        }, 100);\\n\\\n    });\\n\\\n}());\\n\\\n\\n\\\n\\n\\\n// init domOnEventAjaxProgressUpdate\\n\\\n(function () {\\n\\\n/*\\n\\\n * this function will display incrementing ajax-progress-bar\\n\\\n */\\n\\\n    \"use strict\";\\n\\\n    let opt;\\n\\\n    let styleBar0;\\n\\\n    let styleBar;\\n\\\n    let styleModal0;\\n\\\n    let styleModal;\\n\\\n    let timeStart;\\n\\\n    let timerInterval;\\n\\\n    let timerTimeout;\\n\\\n    let tmp;\\n\\\n    let width;\\n\\\n    try {\\n\\\n        if (\\n\\\n            window.domOnEventAjaxProgressUpdate\\n\\\n            || !document.getElementById(\"domElementAjaxProgressBar1\").style\\n\\\n        ) {\\n\\\n            return;\\n\\\n        }\\n\\\n    } catch (ignore) {\\n\\\n        return;\\n\\\n    }\\n\\\n    window.domOnEventAjaxProgressUpdate = function (gotoState, onError) {\\n\\\n        gotoState = (gotoState | 0) + 1;\\n\\\n        switch (gotoState) {\\n\\\n        // ajaxProgress - show\\n\\\n        case 1:\\n\\\n            // init timerInterval and timerTimeout\\n\\\n            if (!timerTimeout) {\\n\\\n                timeStart = Date.now();\\n\\\n                timerInterval = setInterval(opt, 2000, 1, onError);\\n\\\n                timerTimeout = setTimeout(opt, opt.timeout, 2, onError);\\n\\\n            }\\n\\\n            // show ajaxProgressBar\\n\\\n            if (width !== -1) {\\n\\\n                styleBar.background = styleBar0.background;\\n\\\n            }\\n\\\n            setTimeout(opt, 50, gotoState, onError);\\n\\\n            break;\\n\\\n        // ajaxProgress - increment\\n\\\n        case 2:\\n\\\n            // show ajaxProgressBar\\n\\\n            if (width === -1) {\\n\\\n                break;\\n\\\n            }\\n\\\n            styleBar.background = styleBar0.background;\\n\\\n            // reset ajaxProgress if it reaches end\\n\\\n            if ((styleBar.width.slice(0, -1) | 0) > 95) {\\n\\\n                width = 0;\\n\\\n            }\\n\\\n            // this algorithm will indefinitely increment ajaxProgress\\n\\\n            // with successively smaller increments without reaching 100%\\n\\\n            width += 1;\\n\\\n            styleBar.width = Math.max(\\n\\\n                100 - 75 * Math.exp(-0.125 * width),\\n\\\n                styleBar.width.slice(0, -1) | 0\\n\\\n            ) + \"%\";\\n\\\n            // show ajaxProgressModal\\n\\\n            styleModal.height = \"100%\";\\n\\\n            styleModal.opacity = styleModal0.opacity;\\n\\\n            if (!opt.cnt) {\\n\\\n                setTimeout(opt, 0, gotoState, onError);\\n\\\n            }\\n\\\n            break;\\n\\\n        // ajaxProgress - 100%\\n\\\n        case 3:\\n\\\n            width = -1;\\n\\\n            styleBar.width = \"100%\";\\n\\\n            setTimeout(opt, 1000, gotoState, onError);\\n\\\n            break;\\n\\\n        // ajaxProgress - hide\\n\\\n        case 4:\\n\\\n            // debug timeElapsed\\n\\\n            tmp = Date.now();\\n\\\n            console.error(\\n\\\n                \"domOnEventAjaxProgressUpdate - timeElapsed - \"\\n\\\n                + (tmp - timeStart)\\n\\\n                + \" ms\"\\n\\\n            );\\n\\\n            // cleanup timerInterval and timerTimeout\\n\\\n            timeStart = tmp;\\n\\\n            clearInterval(timerInterval);\\n\\\n            timerInterval = undefined;\\n\\\n            clearTimeout(timerTimeout);\\n\\\n            timerTimeout = undefined;\\n\\\n            // hide ajaxProgressBar\\n\\\n            styleBar.background = \"transparent\";\\n\\\n            // hide ajaxProgressModal\\n\\\n            styleModal.opacity = \"0\";\\n\\\n            if (onError) {\\n\\\n                onError();\\n\\\n            }\\n\\\n            setTimeout(opt, 250, gotoState);\\n\\\n            break;\\n\\\n        // ajaxProgress - reset\\n\\\n        default:\\n\\\n            opt.cnt = 0;\\n\\\n            width = 0;\\n\\\n            styleBar.width = \"0%\";\\n\\\n            styleModal.height = \"0\";\\n\\\n        }\\n\\\n    };\\n\\\n    opt = window.domOnEventAjaxProgressUpdate;\\n\\\n    opt.end = function (onError) {\\n\\\n        opt.cnt = 0;\\n\\\n        window.domOnEventAjaxProgressUpdate(2, onError);\\n\\\n    };\\n\\\n    // init styleBar\\n\\\n    styleBar = document.getElementById(\"domElementAjaxProgressBar1\").style;\\n\\\n    styleBar0 = Object.assign({}, styleBar);\\n\\\n    Object.entries({\\n\\\n        background: \"#d00\",\\n\\\n        height: \"2px\",\\n\\\n        left: \"0\",\\n\\\n        margin: \"0\",\\n\\\n        padding: \"0\",\\n\\\n        position: \"fixed\",\\n\\\n        top: \"0\",\\n\\\n        transition: \"background 250ms, width 750ms\",\\n\\\n        width: \"0%\",\\n\\\n        \"z-index\": \"1\"\\n\\\n    }).forEach(function (entry) {\\n\\\n        styleBar[entry[0]] = styleBar[entry[0]] || entry[1];\\n\\\n    });\\n\\\n    // init styleModal\\n\\\n    styleModal = document.getElementById(\"domElementAjaxProgressModal1\") || {};\\n\\\n    styleModal = styleModal.style || {};\\n\\\n    styleModal0 = Object.assign({}, styleModal);\\n\\\n    Object.entries({\\n\\\n        height: \"0\",\\n\\\n        left: \"0\",\\n\\\n        margin: \"0\",\\n\\\n        padding: \"0\",\\n\\\n        position: \"fixed\",\\n\\\n        top: \"0\",\\n\\\n        transition: \"opacity 125ms\",\\n\\\n        width: \"100%\",\\n\\\n        \"z-index\": \"1\"\\n\\\n    }).forEach(function (entry) {\\n\\\n        styleModal[entry[0]] = styleModal[entry[0]] || entry[1];\\n\\\n    });\\n\\\n    // init state\\n\\\n    width = 0;\\n\\\n    opt.cnt = 0;\\n\\\n    opt.timeout = 30000;\\n\\\n    // init ajaxProgress\\n\\\n    window.domOnEventAjaxProgressUpdate();\\n\\\n}());\\n\\\n\\n\\\n\\n\\\n// init domOnEventDelegateDict\\n\\\n(function () {\\n\\\n/*\\n\\\n * this function will handle delegated dom-evt\\n\\\n */\\n\\\n    \"use strict\";\\n\\\n    let debounce;\\n\\\n    let timerTimeout;\\n\\\n    debounce = function () {\\n\\\n        return setTimeout(function () {\\n\\\n            timerTimeout = undefined;\\n\\\n        }, 30);\\n\\\n    };\\n\\\n    if (!(\\n\\\n        typeof window === \"object\" && window && window.document\\n\\\n        && typeof document.addEventListener === \"function\"\\n\\\n    ) || window.domOnEventDelegateDict) {\\n\\\n        return;\\n\\\n    }\\n\\\n    window.domOnEventDelegateDict = {};\\n\\\n    window.domOnEventDelegateDict.domOnEventDelegate = function (evt) {\\n\\\n        evt.targetOnEvent = evt.target.closest(\"[data-onevent]\");\\n\\\n        if (\\n\\\n            !evt.targetOnEvent\\n\\\n            || evt.targetOnEvent.dataset.onevent === \"domOnEventNop\"\\n\\\n            || evt.target.closest(\".disabled,.readonly\")\\n\\\n        ) {\\n\\\n            return;\\n\\\n        }\\n\\\n        // filter evt-change\\n\\\n        switch (evt.type !== \"change\" && evt.target.type) {\\n\\\n        case \"checkbox\":\\n\\\n        case \"file\":\\n\\\n        case \"select-one\":\\n\\\n        case \"radio\":\\n\\\n            return;\\n\\\n        }\\n\\\n        // filter evt-keyup\\n\\\n        switch (evt.type) {\\n\\\n        case \"keyup\":\\n\\\n            if (!timerTimeout && (\\n\\\n                evt.target.tagName === \"INPUT\"\\n\\\n                || evt.target.tagName === \"TEXTAREA\"\\n\\\n            )) {\\n\\\n                timerTimeout = debounce();\\n\\\n                if (evt.target.dataset.valueOld !== evt.target.value) {\\n\\\n                    evt.target.dataset.valueOld = evt.target.value;\\n\\\n                    break;\\n\\\n                }\\n\\\n            }\\n\\\n            return;\\n\\\n        }\\n\\\n        switch (evt.targetOnEvent.tagName) {\\n\\\n        case \"BUTTON\":\\n\\\n        case \"FORM\":\\n\\\n            evt.preventDefault();\\n\\\n            break;\\n\\\n        }\\n\\\n        evt.stopPropagation();\\n\\\n        // handle domOnEventClickTarget\\n\\\n        if (evt.targetOnEvent.dataset.onevent === \"domOnEventClickTarget\") {\\n\\\n            document.querySelector(\\n\\\n                evt.targetOnEvent.dataset.clickTarget\\n\\\n            ).click();\\n\\\n            return;\\n\\\n        }\\n\\\n        window.domOnEventDelegateDict[evt.targetOnEvent.dataset.onevent](evt);\\n\\\n    };\\n\\\n    // handle evt\\n\\\n    [\\n\\\n        \"change\",\\n\\\n        \"click\",\\n\\\n        \"keyup\",\\n\\\n        \"submit\"\\n\\\n    ].forEach(function (eventType) {\\n\\\n        document.addEventListener(\\n\\\n            eventType,\\n\\\n            window.domOnEventDelegateDict.domOnEventDelegate\\n\\\n        );\\n\\\n    });\\n\\\n}());\\n\\\n\\n\\\n\\n\\\n// init domOnEventSelectAllWithinPre\\n\\\n(function () {\\n\\\n/*\\n\\\n * this function will limit select-all within <pre tabIndex=\"0\"> elem\\n\\\n * https://stackoverflow.com/questions/985272/selecting-text-in-an-element-akin-to-highlighting-with-your-mouse\\n\\\n */\\n\\\n    \"use strict\";\\n\\\n    if (!(\\n\\\n        typeof window === \"object\" && window && window.document\\n\\\n        && typeof document.addEventListener === \"function\"\\n\\\n    ) || window.domOnEventSelectAllWithinPre) {\\n\\\n        return;\\n\\\n    }\\n\\\n    window.domOnEventSelectAllWithinPre = function (evt) {\\n\\\n        let range;\\n\\\n        let selection;\\n\\\n        if (\\n\\\n            evt && (evt.ctrlKey || evt.metaKey) && evt.key === \"a\"\\n\\\n            && evt.target.closest(\"pre\")\\n\\\n        ) {\\n\\\n            range = document.createRange();\\n\\\n            range.selectNodeContents(evt.target.closest(\"pre\"));\\n\\\n            selection = window.getSelection();\\n\\\n            selection.removeAllRanges();\\n\\\n            selection.addRange(range);\\n\\\n            evt.preventDefault();\\n\\\n        }\\n\\\n    };\\n\\\n    // handle evt\\n\\\n    document.addEventListener(\\n\\\n        \"keydown\",\\n\\\n        window.domOnEventSelectAllWithinPre\\n\\\n    );\\n\\\n}());\\n\\\n</script>\\n\\\n<h1>\\n\\\n<!-- utility2-comment\\n\\\n<a\\n\\\n    {{#if env.npm_package_homepage}}\\n\\\n    href=\"{{env.npm_package_homepage}}\"\\n\\\n    {{/if env.npm_package_homepage}}\\n\\\n    target=\"_blank\"\\n\\\n>\\n\\\nutility2-comment -->\\n\\\n    {{env.npm_package_name}} ({{env.npm_package_version}})\\n\\\n<!-- utility2-comment\\n\\\n</a>\\n\\\nutility2-comment -->\\n\\\n</h1>\\n\\\n<h3>{{env.npm_package_description}}</h3>\\n\\\n<!-- utility2-comment\\n\\\n<a class=\"button\" download href=\"assets.app.js\">download standalone app</a><br>\\n\\\n<button class=\"button\" data-onevent=\"testRunBrowser\" id=\"buttonTestRun1\">run browser-tests</button><br>\\n\\\n<div class=\"uiAnimateSlide\" id=\"htmlTestReport1\" style=\"border-bottom: 0; border-top: 0; margin-bottom: 0; margin-top: 0; max-height: 0; padding-bottom: 0; padding-top: 0;\"></div>\\n\\\nutility2-comment -->\\n\\\n\\n\\\n\\n\\\n<!-- custom-html-start -->\\n\\\n<label>edit or paste script below to\\n\\\n    <a href=\"http://www.jslint.com\" target=\"_blank\">jslint</a>\\n\\\n</label>\\n\\\n<textarea class=\"textarea\" data-onevent=\"domOnEventInputChange\" id=\"inputJslint1\">\\n\\\n/*jslint\\n\\\n    browser: true,\\n\\\n*/\\n\\\nconst message = \"hello\";\\n\\\nconsole.log(message);\\n\\\nconsole.log(null);\\n\\\n</textarea>\\n\\\n<button class=\"button\" data-onevent=\"domOnEventInputChange\" id=\"buttonJslintAutofix1\">jslint autofix</button><br>\\n\\\n<textarea class=\"colorError readonly textarea\" id=\"outputJslint1\" readonly></textarea>\\n\\\n\\n\\\n\\n\\\n\\n\\\n<label>edit or paste script below to\\n\\\n    <a href=\"https://github.com/CSSLint/csslint/wiki/Command-line-interface#options\" target=\"_blank\">csslint</a>\\n\\\n</label>\\n\\\n<textarea class=\"textarea\" data-onevent=\"domOnEventInputChange\" id=\"inputCsslint1\">\\n\\\n/*csslint\\n\\\n    box-sizing: false,\\n\\\n*/\\n\\\nbody {\\n\\\n    box-sizing: border-box;\\n\\\n    margin: 0px;\\n\\\n}\\n\\\n</textarea>\\n\\\n<textarea class=\"colorError readonly textarea\" id=\"outputCsslint1\" readonly></textarea>\\n\\\n<label>stderr and stdout</label>\\n\\\n<textarea class=\"onevent-reset-output readonly textarea\" id=\"outputStdout1\" readonly></textarea>\\n\\\n<script>\\n\\\n/* jslint utility2:true */\\n\\\nwindow.addEventListener(\"load\", function () {\\n\\\n\"use strict\";\\n\\\nlet local;\\n\\\nlocal = window.utility2_jslint;\\n\\\nlocal.domOnEventInputChange = function (evt) {\\n\\\n    switch (evt.type + \".\" + evt.target.id) {\\n\\\n    case \"click.buttonJslintAutofix1\":\\n\\\n    case \"keyup.inputCsslint1\":\\n\\\n    case \"keyup.inputJslint1\":\\n\\\n        // csslint #inputCsslint1\\n\\\n        local.jslintAndPrint(document.querySelector(\\n\\\n            \"#inputCsslint1\"\\n\\\n        ).value, \"inputCsslint1.css\");\\n\\\n        document.querySelector(\\n\\\n            \"#outputCsslint1\"\\n\\\n        ).value = local.jslintResult.errMsg.replace((\\n\\\n            /\\\\u001b\\\\[\\\\d*m/g\\n\\\n        ), \"\").trim();\\n\\\n        // jslint #inputJslint1\\n\\\n        local.jslintAndPrint(document.querySelector(\\n\\\n            \"#inputJslint1\"\\n\\\n        ).value, \"inputJslint1.js\", {\\n\\\n            autofix: evt.target.id === \"buttonJslintAutofix1\"\\n\\\n        });\\n\\\n        if (local.jslint.jslintResult.autofix) {\\n\\\n            document.querySelector(\\n\\\n                \"#inputJslint1\"\\n\\\n            ).value = local.jslint.jslintResult.code;\\n\\\n        }\\n\\\n        document.querySelector(\\n\\\n            \"#outputJslint1\"\\n\\\n        ).value = local.jslintResult.errMsg.replace((\\n\\\n            /\\\\u001b\\\\[\\\\d*m/g\\n\\\n        ), \"\").trim();\\n\\\n        break;\\n\\\n    }\\n\\\n};\\n\\\n// handle evt\\n\\\nlocal.domOnEventInputChange({\\n\\\n    target: {\\n\\\n        id: \"inputJslint1\"\\n\\\n    },\\n\\\n    type: \"keyup\"\\n\\\n});\\n\\\n});\\n\\\n</script>\\n\\\n<!-- custom-html-end -->\\n\\\n\\n\\\n\\n\\\n<!-- utility2-comment\\n\\\n{{#if isRollup}}\\n\\\n<script src=\"assets.app.js\"></script>\\n\\\n{{#unless isRollup}}\\n\\\n<script src=\"assets.utility2.rollup.js\"></script>\\n\\\n<script>window.utility2_onReadyBefore.cnt += 1;</script>\\n\\\n<script src=\"utility2.state.init.js\"></script>\\n\\\nutility2-comment -->\\n\\\n<script src=\"assets.jslint.js\"></script>\\n\\\n<script src=\"assets.example.js\"></script>\\n\\\n<script src=\"assets.test.js\"></script>\\n\\\n<script>\\n\\\nif (window.utility2_onReadyBefore) {\\n\\\n    window.utility2_onReadyBefore();\\n\\\n}\\n\\\n</script>\\n\\\n<!-- utility2-comment\\n\\\n{{/if isRollup}}\\n\\\nutility2-comment -->\\n\\\n<div style=\"text-align: center;\">\\n\\\n    [\\n\\\n    this app was created with\\n\\\n    <a\\n\\\n        href=\"https://github.com/kaizhu256/node-utility2\" target=\"_blank\"\\n\\\n    >utility2</a>\\n\\\n    ]\\n\\\n</div>\\n\\\n</body>\\n\\\n</html>\\n\\\n';\n/* jslint ignore:end */\nlocal.assetsDict[\"/assets.jslint.js\"] = (\n    local.assetsDict[\"/assets.jslint.js\"]\n    || require(\"fs\").readFileSync(\n        require(\"path\").resolve(local.__dirname + \"/lib.jslint.js\"),\n        \"utf8\"\n    ).replace((\n        /^#!\\//\n    ), \"// \")\n);\n/* validateLineSortedReset */\nlocal.assetsDict[\"/\"] = local.assetsDict[\n    \"/assets.index.template.html\"\n].replace((\n    /\\{\\{env\\.(\\w+?)\\}\\}/g\n), function (match0, match1) {\n    switch (match1) {\n    case \"npm_package_description\":\n        return \"the greatest app in the world!\";\n    case \"npm_package_name\":\n        return \"jslint-lite\";\n    case \"npm_package_nameLib\":\n        return \"jslint\";\n    case \"npm_package_version\":\n        return \"0.0.1\";\n    default:\n        return match0;\n    }\n});\nlocal.assetsDict[\"/assets.example.html\"] = local.assetsDict[\"/\"];\n// init cli\nif (module !== require.main || globalThis.utility2_rollup) {\n    return;\n}\nlocal.assetsDict[\"/assets.example.js\"] = (\n    local.assetsDict[\"/assets.example.js\"]\n    || require(\"fs\").readFileSync(__filename, \"utf8\")\n);\nlocal.assetsDict[\"/favicon.ico\"] = local.assetsDict[\"/favicon.ico\"] || \"\";\nlocal.assetsDict[\"/index.html\"] = local.assetsDict[\"/\"];\n// if $npm_config_timeout_exit exists,\n// then exit this process after $npm_config_timeout_exit ms\nif (Number(process.env.npm_config_timeout_exit)) {\n    setTimeout(process.exit, Number(process.env.npm_config_timeout_exit));\n}\n// start server\nif (globalThis.utility2_serverHttp1) {\n    return;\n}\nprocess.env.PORT = process.env.PORT || \"8081\";\nconsole.error(\"http-server listening on port \" + process.env.PORT);\nrequire(\"http\").createServer(function (req, res) {\n    let data;\n    data = local.assetsDict[require(\"url\").parse(req.url).pathname];\n    if (data !== undefined) {\n        res.end(data);\n        return;\n    }\n    res.statusCode = 404;\n    res.end();\n}).listen(process.env.PORT);\n}());\n}());\n","/assets.test.js":"/* istanbul instrument in package jslint */\n// assets.utility2.header.js - start\n/* jslint utility2:true */\n/* istanbul ignore next */\n// run shared js-env code - init-local\n(function () {\n    \"use strict\";\n    let consoleError;\n    let local;\n    // init debugInline\n    if (!globalThis.debugInline) {\n        consoleError = console.error;\n        globalThis.debugInline = function (...argList) {\n        /*\n         * this function will both print <argList> to stderr\n         * and return <argList>[0]\n         */\n            consoleError(\"\\n\\ndebugInline\");\n            consoleError(...argList);\n            consoleError(\"\\n\");\n            return argList[0];\n        };\n    }\n    // init local\n    local = {};\n    local.local = local;\n    globalThis.globalLocal = local;\n    // init isBrowser\n    local.isBrowser = (\n        typeof globalThis.XMLHttpRequest === \"function\"\n        && globalThis.navigator\n        && typeof globalThis.navigator.userAgent === \"string\"\n    );\n    // init isWebWorker\n    local.isWebWorker = (\n        local.isBrowser && typeof globalThis.importScripts === \"function\"\n    );\n    // init function\n    local.assertJsonEqual = function (aa, bb) {\n    /*\n     * this function will assert JSON.stringify(<aa>) === JSON.stringify(<bb>)\n     */\n        let objectDeepCopyWithKeysSorted;\n        objectDeepCopyWithKeysSorted = function (obj) {\n        /*\n         * this function will recursively deep-copy <obj> with keys sorted\n         */\n            let sorted;\n            if (typeof obj !== \"object\" || !obj) {\n                return obj;\n            }\n            // recursively deep-copy list with child-keys sorted\n            if (Array.isArray(obj)) {\n                return obj.map(objectDeepCopyWithKeysSorted);\n            }\n            // recursively deep-copy obj with keys sorted\n            sorted = {};\n            Object.keys(obj).sort().forEach(function (key) {\n                sorted[key] = objectDeepCopyWithKeysSorted(obj[key]);\n            });\n            return sorted;\n        };\n        aa = JSON.stringify(objectDeepCopyWithKeysSorted(aa));\n        bb = JSON.stringify(objectDeepCopyWithKeysSorted(bb));\n        if (aa !== bb) {\n            throw new Error(JSON.stringify(aa) + \" !== \" + JSON.stringify(bb));\n        }\n    };\n    local.assertOrThrow = function (passed, msg) {\n    /*\n     * this function will throw <msg> if <passed> is falsy\n     */\n        if (passed) {\n            return;\n        }\n        throw (\n            (\n                msg\n                && typeof msg.message === \"string\"\n                && typeof msg.stack === \"string\"\n            )\n            // if msg is err, then leave as is\n            ? msg\n            : new Error(\n                typeof msg === \"string\"\n                // if msg is string, then leave as is\n                ? msg\n                // else JSON.stringify(msg)\n                : JSON.stringify(msg, undefined, 4)\n            )\n        );\n    };\n    local.coalesce = function (...argList) {\n    /*\n     * this function will coalesce null, undefined, or \"\" in <argList>\n     */\n        let arg;\n        let ii;\n        ii = 0;\n        while (ii < argList.length) {\n            arg = argList[ii];\n            if (arg !== undefined && arg !== null && arg !== \"\") {\n                return arg;\n            }\n            ii += 1;\n        }\n        return arg;\n    };\n    local.identity = function (val) {\n    /*\n     * this function will return <val>\n     */\n        return val;\n    };\n    local.nop = function () {\n    /*\n     * this function will do nothing\n     */\n        return;\n    };\n    local.objectAssignDefault = function (tgt = {}, src = {}, depth = 0) {\n    /*\n     * this function will if items from <tgt> are null, undefined, or \"\",\n     * then overwrite them with items from <src>\n     */\n        let recurse;\n        recurse = function (tgt, src, depth) {\n            Object.entries(src).forEach(function ([\n                key, bb\n            ]) {\n                let aa;\n                aa = tgt[key];\n                if (aa === undefined || aa === null || aa === \"\") {\n                    tgt[key] = bb;\n                    return;\n                }\n                if (\n                    depth !== 0\n                    && typeof aa === \"object\" && aa && !Array.isArray(aa)\n                    && typeof bb === \"object\" && bb && !Array.isArray(bb)\n                ) {\n                    recurse(aa, bb, depth - 1);\n                }\n            });\n        };\n        recurse(tgt, src, depth | 0);\n        return tgt;\n    };\n    local.onErrorThrow = function (err) {\n    /*\n     * this function will throw <err> if exists\n     */\n        if (err) {\n            throw err;\n        }\n    };\n    // bug-workaround - throw unhandledRejections in node-process\n    if (\n        typeof process === \"object\" && process\n        && typeof process.on === \"function\"\n        && process.unhandledRejections !== \"strict\"\n    ) {\n        process.unhandledRejections = \"strict\";\n        process.on(\"unhandledRejection\", function (err) {\n            throw err;\n        });\n    }\n}());\n// assets.utility2.header.js - end\n\n\n/* jslint utility2:true */\n(function (local) {\n\"use strict\";\n\n\n/* istanbul ignore next */\n// run shared js-env code - init-before\n(function () {\n// init local\nlocal = globalThis.utility2 || require(\"utility2\");\nlocal = local.requireReadme();\nglobalThis.local = local;\n// init test\nlocal.testRunDefault(local);\n}());\n\n\n// run shared js-env code - function\n(function () {\nlocal.testCase_jslint0_coverage = function (opt, onError) {\n/*\n * this function will test jslintAndPrint's coverage handling-behavior\n */\n    // jslint self\n    if (!local.isBrowser) {\n        local.jslint0(require(\"fs\").readFileSync(__filename, \"utf8\"));\n        local.jslint0(require(\"fs\").readFileSync(\"lib.jslint.js\", \"utf8\"));\n        local.jslint0(require(\"fs\").readFileSync(\n            \"lib.jslint.js\",\n            \"utf8\"\n        ).replace((\n            /[\\S\\s]*?\\n\\/\\/\\u0020jslint\\.js/\n        ), \"\").replace((\n            /\\n\\/\\*\\u0020jslint\\u0020ignore:end\\u0020\\*\\/\\n[\\S\\s]*/\n        ), \"\"));\n        local.jslint0(require(\"fs\").readFileSync(\"package.json\", \"utf8\"));\n    }\n    // test option handling-behavior\n    opt = local.jslint0([\n        // source\n        \"\"\n    ], {\n        // option\n        bitwise: true,\n        browser: true,\n        convert: true,\n        couch: true,\n        devel: true,\n        eval: true,\n        for: true,\n        fudge: true,\n        getset: true,\n        long: true,\n        node: true,\n        single: true,\n        this: true,\n        white: true\n    });\n    local.assertOrThrow(!opt.warnings.length, opt.source);\n    [\n        // option - utility2\n        \"/* jslint utility2:true */\\nlet aa = 1;\\naa();\",\n        // option - browser\n        \"/*jslint browser*/;\",\n        // option - devel\n        \"/*jslint devel*/\\ndebugger;\",\n        // option - eval\n        \"/*jslint eval*/\\nnew Function();\\neval();\",\n        // option - node\n        \"#!\\n/*jslint browser:false, node*/\\n\\\"use strict\\\";\",\n        // option - this\n        \"/*jslint this*/\\nlet aa = this;\",\n        // option - white\n        \"/*jslint white*/\\n\\t\",\n        // property\n        \"/*property aa bb*/\",\n        \"\"\n    ].forEach(function (src) {\n        local.assertOrThrow(!local.jslint0(src).warnings.length, src);\n    });\n    // test misc handling-behavior\n    [\n        // Array\n        \"new Array(1);\",\n        // Date.getTime\n        \"let aa = aa.aa().getTime();\",\n        \"let aa = aa().getTime();\",\n        \"Date.getTime();\",\n        // async/await\n        \"async function aa() {\\n    await aa();\\n}\",\n        // fart\n        \"function aa() {\\n    return () => 1;\\n}\",\n        // for\n        \"/*ignore*/let aa;for(aa in bb){}\",\n        // getset\n        \"/*jslint getset*/\\nlet aa = {get aa() {\\n    return;\\n}};\",\n        \"/*jslint getset*/\\nlet aa = {set aa(aa) {\\n    return aa;\\n}};\",\n        // json\n        \"{\\\"aa\\\":[[],-1,null]}\",\n        // label\n        \"function aa() {\\nbb:\\n    while (true) {\\n        if (true) {\\n\"\n        + \"            break bb;\\n        }\\n    }\\n}\",\n        // module\n        \"export default Object.freeze();\",\n        \"import {aa, bb} from \\\"aa\\\";\\naa(bb);\",\n        \"import {} from \\\"aa\\\";\",\n        \"import(\\\"aa\\\").then(function () {\\n    return;\\n});\",\n        // var\n        \"let [...aa] = [...aa];\",\n        \"let [\\n    aa, bb = 1\\n] = [];\",\n        \"let {aa, bb} = {};\",\n        \"\"\n    ].forEach(function (src) {\n        local.assertOrThrow(!local.jslint0(src).warnings.length || src.indexOf(\n            \"/*ignore*/\"\n        ) === 0, src);\n    });\n    onError(undefined, opt);\n};\n\nlocal.testCase_jslint0_err = function (opt, onError) {\n/*\n * this function will test jslintAndPrint's err handling-behavior\n */\n    let errCode;\n    [\n        // and: \"The '&&' subexpression should be wrapped in parens.\",\n        \"__and__\",\n        \"aa && bb || cc;\",\n        // bad_assignment_a: \"Bad assignment to '{a}'.\",\n        \"__bad_assignment_a__\",\n        \"/*jslint for*/\\nfunction aa(){for (1 in bb){}}\",\n        \"1 = 2;\",\n        \"____\",\n        \"const aa=1;for(aa in bb){}\",\n        // bad_directive_a: \"Bad directive '{a}'.\",\n        \"__bad_directive_a__\",\n        \"/*jslint !*/\",\n        // bad_get: \"A get function takes no parameters.\",\n        \"__bad_get__\",\n        \"/*jslint getset*/\\nlet aa={get aa(aa){return;}};\",\n        // bad_module_name_a: \"Bad module name '{a}'.\",\n        \"__bad_module_name_a__\",\n        \"import aa from \\\"!aa\\\";\",\n        // bad_option_a: \"Bad option '{a}'.\",\n        \"__bad_option_a__\",\n        \"/*global aa:true*/\",\n        \"/*jslint undefined*/\",\n        // bad_property_a: \"Bad property name '{a}'.\",\n        \"__bad_property_a__\",\n        \"{\\\"__proto__\\\":1}\",\n        \"aa._;\",\n        // bad_set: \"A set function takes one parameter.\",\n        \"__bad_set__\",\n        \"/*jslint getset*/\\nlet aa={set aa(){return;}};\",\n        // duplicate_a: \"Duplicate '{a}'.\",\n        \"__duplicate_a__\",\n        \"let aa;export {aa,aa};\",\n        \"{\\\"aa\\\":1,\\\"aa\\\":2}\",\n        // empty_block: \"Empty block.\",\n        \"__empty_block__\",\n        \"function aa() {}\",\n        // escape_mega: \"Unexpected escapement in mega literal.\",\n        \"__escape_mega__\",\n        // expected_a: \"Expected '{a}'.\",\n        \"__expected_a__\",\n        \"aa=/_{}/;\",\n        // expected_a_at_b_c: \"Expected '{a}' at column {b}, not column {c}.\",\n        \"__expected_a_at_b_c__\",\n        \"let aa = {\\n    aa:\\n1\\n};\",\n        // expected_a_b: \"Expected '{a}' and instead saw '{b}'.\",\n        \"__expected_a_b__\",\n        \"(aa)=>{return 1;}\",\n        \"1!=1;\",\n        \"1==1;\",\n        \";{;\",\n        \"`${`\",\n        \"delete [1];\",\n        \"for(;;){}\",\n        \"isFinite(1);\",\n        \"let aa;aa.bb = undefined;\",\n        \"let aa=!!aa;\",\n        \"let aa=(aa?1:aa);\",\n        \"let aa=(aa?aa:1);\",\n        \"let aa=(aa?false:true);\",\n        \"let aa=(aa?true:false);\",\n        \"let aa=+aa;\",\n        \"let aa=/[ ]/;\",\n        \"let aa=1+\\\"\\\";\",\n        \"let aa=\\\"\\\"+\\\"\\\";\",\n        \"new Array(\\\"\\\");\",\n        \"new Date().getTime();\",\n        \"new Object();\",\n        // expected_a_b_from_c_d:\n        // \"Expected '{a}' to match '{b}' from line {c} and instead saw '{d}'.\"\n        \"__expected_a_b_from_c_d__\",\n        \"{\\\"aa\\\":1\",\n        // expected_a_before_b: \"Expected '{a}' before '{b}'.\",\n        \"__expected_a_before_b__\",\n        \"/*jslint eval*/\\nFunction;eval;\",\n        \"let Aa = Aa();\",\n        \"let Aa = Aa.Bb();\",\n        // expected_a_next_at_b:\n        // \"Expected '{a}' at column {b} on the next line.\",\n        \"__expected_a_next_at_b__\",\n        // expected_digits_after_a: \"Expected digits after '{a}'.\",\n        \"__expected_digits_after_a__\",\n        // expected_four_digits: \"Expected four digits after '\\\\u'.\",\n        \"__expected_four_digits__\",\n        // expected_identifier_a:\n        // \"Expected an identifier and instead saw '{a}'.\",\n        \"__expected_identifier_a__\",\n        \"import {\",\n        \"let [aa,1]=[];\",\n        // expected_line_break_a_b:\n        // \"Expected a line break between '{a}' and '{b}'.\",\n        \"__expected_line_break_a_b__\",\n        // expected_regexp_factor_a:\n        // \"Expected a regexp factor and instead saw '{a}'.\",\n        \"__expected_regexp_factor_a__\",\n        // expected_space_a_b: \"Expected one space between '{a}' and '{b}'.\",\n        \"__expected_space_a_b__\",\n        \"/**//**/\",\n        \"let aa=1;\",\n        // expected_statements_a: \"Expected statements before '{a}'.\",\n        \"__expected_statements_a__\",\n        // expected_string_a: \"Expected a string and instead saw '{a}'.\",\n        \"__expected_string_a__\",\n        \"import(aa).then(aa);;\",\n        \"typeof 1===1;\",\n        // expected_type_string_a:\n        // \"Expected a type string and instead saw '{a}'.\",\n        \"__expected_type_string_a__\",\n        \"typeof 1===\\\"aa\\\";\",\n        // freeze_exports:\n        // \"Expected 'Object.freeze('. All export values should be frozen.\"\n        \"__freeze_exports__\",\n        \"export default Object.aa();\",\n        \"export function aa(){return;}\",\n        // function_in_loop: \"Don't make functions within a loop.\",\n        \"__function_in_loop__\",\n        \"function aa(){while (true) {aa.map(function(){return;});}}\",\n        \"function aa(){while (true) {aa.map(()=>1);}}\",\n        // infix_in:\n        // \"Unexpected 'in'. Compare with undefined, \"\n        // + \"or use the hasOwnProperty method instead.\"\n        \"__infix_in__\",\n        \"aa in bb;\",\n        // label_a: \"'{a}' is a statement label.\",\n        \"__label_a__\",\n        // misplaced_a: \"Place '{a}' at the outermost level.\",\n        \"__misplaced_a__\",\n        \"if(true){import aa from \\\"aa\\\";}\",\n        // misplaced_directive_a:\n        // \"Place the '/*{a}*/' directive before the first statement.\"\n        \"__misplaced_directive_a__\",\n        \"let aa;\\n/*global aa*/\",\n        // missing_browser: \"/*global*/ requires the Assume a browser option.\",\n        \"__missing_browser__\",\n        \"/*global aa*/\",\n        // missing_m: \"Expected 'm' flag on a multiline regular expression.\",\n        \"__missing_m__\",\n        \"aa=/$^/;\",\n        // naked_block: \"Naked block.\",\n        \"__naked_block__\",\n        // nested_comment: \"Nested comment.\",\n        \"__nested_comment__\",\n        \"/* /* aa */\",\n        // not_label_a: \"'{a}' is not a label.\",\n        \"__not_label_a__\",\n        // number_isNaN: \"Use Number.isNaN function to compare with NaN.\",\n        \"__number_isNaN__\",\n        \"NaN===NaN;\",\n        \"isNaN(1);\",\n        // out_of_scope_a: \"'{a}' is out of scope.\",\n        \"__out_of_scope_a__\",\n        \"function aa(){bb();}\\nfunction bb(){return;}\",\n        // redefinition_a_b: \"Redefinition of '{a}' from line {b}.\",\n        \"__redefinition_a_b__\",\n        \"let aa; let aa;\",\n        // required_a_optional_b:\n        // \"Required parameter '{a}' after optional parameter '{b}'.\"\n        \"__Required__\",\n        // reserved_a: \"Reserved name '{a}'.\",\n        \"__reserved_a__\",\n        \"let undefined;\",\n        // subscript_a: \"['{a}'] is better written in dot notation.\",\n        \"__subscript_a__\",\n        \"aa[`aa`];\",\n        // todo_comment: \"Unexpected TO\\u0044O comment.\",\n        \"__todo_comment__\",\n        \"// todo\",\n        // too_long: \"Line is longer than 80 characters.\",\n        \"__too_long__\",\n        \"/////////////////////////////////////////\"\n        + \"/////////////////////////////////////////\",\n        // too_many_digits: \"Too many digits.\",\n        \"__too_many_digits__\",\n        \"\\\"\\\\u{123456}\\\"\",\n        // unclosed_comment: \"Unclosed comment.\",\n        \"__unclosed_comment__\",\n        \"/*\",\n        // unclosed_mega: \"Unclosed mega literal.\",\n        \"__unclosed_mega__\",\n        \"`aa\",\n        // unclosed_string: \"Unclosed string.\",\n        \"__unclosed_string__\",\n        \"\\\"\\\\\",\n        \"\\\"aa\",\n        // undeclared_a: \"Undeclared '{a}'.\",\n        \"__undeclared_a__\",\n        \"aa;\",\n        // unexpected_a: \"Unexpected '{a}'.\",\n        \"__unexpected_a__\",\n        \"((1));\",\n        \"/_/;\",\n        \"1 instanceof 1;\",\n        \"1===(1==1);\",\n        \"1|1;\",\n        \";;\",\n        \"Function;\",\n        \"`${/[`]/}`;\",\n        \"aa/=2;\",\n        \"aa=/_//;\",\n        \"aa=/_/z;\",\n        \"arguments;\",\n        \"debugger;\",\n        \"eval;\",\n        \"export aa;\",\n        \"export const aa=1;\",\n        \"for(aa in bb){}\",\n        \"for(const ii=0;;){}\",\n        \"for(ii=0;ii<0;ii++){}\",\n        \"for(ii=0;ii<0;ii+=1){}\",\n        \"function aa(){try{return;}catch(ignore){}finally{return;}}\",\n        \"function aa(){try{return;}catch(ignore){}finally{switch(1){case 1:}}}\",\n        \"function aa(){while(true){continue;}}\",\n        \"function aa(){while(true){try{1;}catch(ignore){}finally{continue;}}}\",\n        \"ignore:\",\n        \"ignore;\",\n        \"import ignore from \\\"aa\\\";\",\n        \"import {ignore} from \\\"aa\\\";\",\n        \"let aa;aa+=NaN;\",\n        \"new Date.UTC();\",\n        \"new Function();\",\n        \"new Symbol();\",\n        \"this;\",\n        \"void 1;\",\n        \"yield /_/;\",\n        \"{//\\n}\",\n        \"{\\\"\\\\u{1234}\\\":1}\",\n        \"{\\\"aa\\\":\",\n        \"{\\\"aa\\\":-0x1}\",\n        \"{\\\"aa\\\":0x1}\",\n        \"____\",\n        \"{\\\"aa\\\":'aa'}\",\n        \"{\\\"aa\\\":{1:2}}\",\n        // unexpected_a_after_b: \"Unexpected '{a}' after '{b}'.\",\n        \"__unexpected_a_after_b__\",\n        // unexpected_a_before_b: \"Unexpected '{a}' before '{b}'.\",\n        \"__unexpected_a_before_b__\",\n        // unexpected_at_top_level_a: \"Expected '{a}' to be in a function.\",\n        \"__unexpected_at_top_level_a__\",\n        // unexpected_char_a: \"Unexpected character '{a}'.\",\n        \"__unexpected_char_a__\",\n        // unexpected_comment: \"Unexpected comment.\",\n        \"__unexpected_comment__\",\n        // unexpected_directive_a:\n        // \"When using modules, don't use directive '/*{a}'.\",\n        \"__unexpected_directive_a__\",\n        \"/*global aa*/\\nimport aa from \\\"aa\\\";\",\n        // unexpected_expression_a:\n        // \"Unexpected expression '{a}' in statement position.\"\n        \"__unexpected_expression_a__\",\n        \"let ii;ii++;\",\n        \"typeof 1===typeof 1;\",\n        // unexpected_label_a: \"Unexpected label '{a}'.\",\n        \"__unexpected_label_a__\",\n        \"aa:aa;\",\n        // unexpected_parens: \"Don't wrap function literals in parens.\",\n        \"__unexpected_parens__\",\n        \"let aa=(function (){return;});\",\n        // unexpected_space_a_b: \"Unexpected space between '{a}' and '{b}'.\",\n        \"__unexpected_space_a_b__\",\n        \"let aa = ( 1 );\",\n        // unexpected_statement_a:\n        // \"Unexpected statement '{a}' in expression position.\"\n        \"__unexpected_statement_a__\",\n        // unexpected_trailing_space: \"Unexpected trailing space.\",\n        \"__unexpected_trailing_space__\",\n        // unexpected_typeof_a:\n        // \"Unexpected 'typeof'. Use '===' to compare directly with {a}.\"\n        \"__unexpected_typeof_a__\",\n        \"typeof aa===\\\"undefined\\\";\",\n        // uninitialized_a: \"Uninitialized '{a}'.\",\n        \"__uninitialized_a__\",\n        \"/*jslint node*/\\nlet aa;aa();\",\n        // unreachable_a: \"Unreachable '{a}'.\",\n        \"__unreachable_a__\",\n        \"function aa(){while(true){break;1;}}\",\n        // unregistered_property_a: \"Unregistered property name '{a}'.\",\n        \"__unregistered_property_a__\",\n        // unsafe: \"Unsafe character '{a}'.\",\n        \"__unsafe__\",\n        // unused_a: \"Unused '{a}'.\",\n        \"__unused_a__\",\n        \"/*jslint node*/\\nlet aa;\",\n        // use_double: \"Use double quotes, not single quotes.\",\n        \"__use_double__\",\n        \"'';\",\n        // use_open:\n        // \"Wrap a ternary expression in parens, \"\n        // + \"with a line break after the left paren.\"\n        \"__use_open__\",\n        \"1?2:3;\",\n        \"let aa = 1?2:3;\",\n        // use_spaces: \"Use spaces, not tabs.\",\n        \"__use_spaces__\",\n        \"\\t\",\n        // var_loop: \"Don't declare variables in a loop.\",\n        \"__var_loop__\",\n        \"function aa(){while(true){var aa;}}\",\n        // var_switch: \"Don't declare variables in a switch.\",\n        \"__var_switch__\",\n        \"function aa(){switch(1){case 1:var aa;}}\",\n        // weird_condition_a: \"Weird condition '{a}'.\",\n        \"__weird_condition_a__\",\n        \"if(1&&1){1;}\",\n        \"if(1||1){1;}\",\n        // weird_expression_a: \"Weird expression '{a}'.\",\n        \"__weird_expression_a__\",\n        \"let aa=RegExp.aa;\",\n        \"let aa=RegExp[1];\",\n        \"let aa=aa[[1]];\",\n        \"let self=self[1];\",\n        \"let window=window[1];\",\n        // weird_loop: \"Weird loop.\",\n        \"__weird_loop__\",\n        \"function aa(){do {break;}while(true);}\",\n        \"function aa(){while(true){break;}}\",\n        // weird_relation_a: \"Weird relation '{a}'.\",\n        \"__weird_relation_a__\",\n        \"if(1===1){1;}\",\n        // wrap_condition: \"Wrap the condition in parens.\",\n        \"__wrap_condition__\",\n        \"let aa=(aa&&!aa?1:2);\",\n        // wrap_immediate:\n        // \"Wrap an immediate function invocation in parentheses to assist \"\n        // + \"the reader in understanding that the expression is the result \"\n        // + \"of a function, and not the function itself.\"\n        \"__wrap_immediate__\",\n        \"let aa=function(){return;}();\",\n        // wrap_parameter: \"Wrap the parameter in parens.\",\n        \"__wrap_parameter__\",\n        \"aa => 1;\",\n        // wrap_regexp: \"Wrap this regexp in parens to avoid confusion.\",\n        \"__wrap_regexp__\",\n        \"!/_/;\",\n        // wrap_unary: \"Wrap the unary expression in parens.\"\n        \"__wrap_unary__\",\n        \"let aa=aa - -aa;\",\n        // throw_error\n        \"____\",\n        \"/*jslint throw_error*/\"\n    ].forEach(function (src) {\n        if (src.slice(0, 2) === \"__\") {\n            errCode = src.slice(2, -2);\n            return;\n        }\n        local.assertOrThrow(\n            local.jslint0(src).warnings[0].code === errCode || !errCode,\n            src\n        );\n    });\n    onError(undefined, opt);\n};\n\nlocal.testCase_jslintAndPrintDir_coverage = function (opt, onError) {\n/*\n * this function will test jslintAndPrintDir's coverage handling-behavior\n */\n    if (local.isBrowser) {\n        onError(undefined, opt);\n        return;\n    }\n    Promise.all([\n        new Promise(function (resolve) {\n            local.jslintAndPrintDir(\".\", {\n                autofix: true,\n                conditional: true\n            }, resolve);\n        }),\n        new Promise(function (resolve) {\n            local.jslintAndPrintDir(\"jslintAndPrintDir\", {\n                autofix: true,\n                conditional: true\n            });\n            local.eventListenerAdd((\n                \"utility2.testRunMock.process.exit\"\n            ), resolve, {\n                once: true\n            });\n        })\n    ]).then(function (errList) {\n        errList.forEach(function (err, ii) {\n            local.assertJsonEqual(Boolean(err) | 0, ii);\n        });\n        onError();\n    });\n};\n\nlocal.testCase_jslintAndPrint_coverage = function (opt, onError) {\n/*\n * this function will test jslintAndPrint's coverage handling-behavior\n */\n    // test null-case handling-behavior\n    local.assertJsonEqual(local.jslintAndPrint(\"\"), \"\\n\");\n    // test early_stop handling-behavior\n    local.jslintAndPrint(\"aa = 1\\naa = [1,2,]\", \"aa.js\");\n    // test utility2 handling-behavior\n    if (!local.isBrowser) {\n        local.jslintAndPrint(\n            require(\"utility2\").__dirname + \"/lib.utility2.js\",\n            \"lib.utility2.js\"\n        );\n    }\n    onError(undefined, opt);\n};\n\nlocal.testCase_jslintAutofix_coverage = function (opt, onError) {\n/*\n * this function will test jslintAutofix's coverage handling-behavior\n */\n    local.testMock([\n        [\n            (\n                local.isBrowser\n                ? {}\n                : require(\"fs\")\n            ), {\n                unlinkSync: local.nop,\n                writeFileSync: local.nop\n            }\n        ],\n        [\n            (\n                local.isBrowser\n                ? {}\n                : require(\"fs\")\n            ), {\n                existsSync: local.identity,\n                unlinkSync: local.nop,\n                writeFileSync: local.nop\n            }\n        ]\n    ], function (onError) {\n        // test autofix-failed-expected_identifier_a handling-behavior\n        local.jslintAndPrint(\"(function () {\\nfunction () {}\\n}());\", \"aa.js\", {\n            autofix: true\n        });\n        // test autofix-multi-pass handling-behavior\n        local.jslintAndPrint(\"let aa;aa=1;\", \"aa.js\", {\n            autofix: true\n        });\n        local.jslintAndPrint((\n            // autofix-js - unexpected_space_a_b\n            \"(function bb () {\\n\"\n            + \"   \\\"use strict\\\";\\n\"\n            // autofix-js - expected_a_at_b_c\n            + \"     return 1;\\n\"\n            + \"}());\\n\"\n        ), \"aa.js\", {\n            autofix: true\n        });\n        // de-mux - false-positive rgx /_/\n        local.jslintAndPrint(\"let aa;\\n aa = {} / 2;\", \"aa.js\", {\n            autofix: true\n        });\n        local.jslintAndPrint((\n            \"(function () {\\n\"\n            + \"    \\\"use strict\\\";\\n\"\n            + \"    let aa;\\n\"\n            // ignore:line\n            + \"    aa = 1; // jslint ignore:line\\n\"\n            // ignore:start ... ignore:end\n            + \"/* jslint ignore:start */\\n\"\n            + \"    aa = 1;\\n\"\n            + \"/* jslint ignore:end */\\n\"\n            // autofix-js - expected_a_b\n            + \"    aa = (1 == 2);\\n\"\n            // autofix-js - expected_a_before_b\n            + \"    aa = /[-]/;\\n\"\n            // autofix-js - expected_identifier_a\n            + \"    aa = {1: 2};\\n\"\n            // autofix-js - use_double\n            + \"    aa = '1\\\"\\\\n\\\\''; // '1'\\n\"\n            // autofix-js - use_spaces\n            + \"\\taa = 1;\\n\"\n            // autofix-js-braket - normalize rgx /_/ to (/_/)\n            + \"    aa = /1/;\\n\"\n            // autofix-js-whitespace - normalize 8-space-indent\n            + \"            aa = 1;\\n\"\n            + \"    return aa;\\n\"\n            + \"}());\\n\"\n        ), \"aa.js\", {\n            autofix: true\n        });\n        onError(undefined, opt);\n    }, onError);\n};\n}());\n}());\n","/index.rollup.html":"<!doctype html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n<!-- \"assets.utility2.template.html\" -->\n<title>jslint-lite (2020.7.8)</title>\n<style>\n/* jslint utility2:true */\n/*csslint\n*/\n/* csslint ignore:start */\n*,\n*:after,\n*:before {\n    box-sizing: border-box;\n}\n.uiAnimateSlide {\n    overflow-y: hidden;\n    transition: max-height ease-in 250ms, min-height ease-in 250ms, padding-bottom ease-in 250ms, padding-top ease-in 250ms;\n}\n/* csslint ignore:end */\n@keyframes uiAnimateSpin {\n0% {\n    transform: rotate(0deg);\n}\n100% {\n    transform: rotate(360deg);\n}\n}\na {\n    overflow-wrap: break-word;\n}\nbody {\n    background: #f7f7f7;\n    font-family: Arial, Helvetica, sans-serif;\n    font-size: small;\n    margin: 0 40px;\n}\nbody > div,\nbody > input,\nbody > pre,\nbody > .button,\nbody > .textarea {\n    margin-bottom: 20px;\n    margin-top: 0;\n}\nbody > input,\nbody > .button {\n    width: 20rem;\n}\nbody > .readonly {\n    background: #ddd;\n}\nbody > .textarea {\n    height: 10rem;\n    resize: vertical;\n    width: 100%;\n}\ncode,\npre,\n.textarea {\n    font-family: Consolas, Menlo, monospace;\n    font-size: smaller;\n}\npre {\n    overflow-wrap: break-word;\n    white-space: pre-wrap;\n}\n.button {\n    background: #ddd;\n    border: 1px solid #999;\n    color: #000;\n    cursor: pointer;\n    display: inline-block;\n    padding: 2px 5px;\n    text-align: center;\n    text-decoration: none;\n}\n.button:hover {\n    background: #bbb;\n}\n.colorError {\n    color: #d00;\n}\n.textarea {\n    background: #fff;\n    border: 1px solid #999;\n    border-radius: 0;\n    cursor: auto;\n    overflow: auto;\n    padding: 2px;\n}\n.zeroPixel {\n    border: 0;\n    height: 0;\n    margin: 0;\n    padding: 0;\n    width: 0;\n}\n</style>\n</head>\n<body>\n<div class=\"uiAnimateSpin\" style=\"animation: uiAnimateSpin 2s linear infinite; border: 5px solid #999; border-radius: 50%; border-top: 5px solid #7d7; display: none; height: 25px; vertical-align: middle; width: 25px;\"></div>\n<script>\n/* jslint utility2:true */\n// init domOnEventWindowOnloadTimeElapsed\n(function () {\n/*\n * this function will measure and print time-elapsed for window.onload\n */\n    \"use strict\";\n    if (!(\n        typeof window === \"object\" && window && window.document\n        && typeof document.addEventListener === \"function\"\n    ) || window.domOnEventWindowOnloadTimeElapsed) {\n        return;\n    }\n    window.domOnEventWindowOnloadTimeElapsed = Date.now() + 100;\n    window.addEventListener(\"load\", function () {\n        setTimeout(function () {\n            window.domOnEventWindowOnloadTimeElapsed = (\n                Date.now()\n                - window.domOnEventWindowOnloadTimeElapsed\n            );\n            console.error(\n                \"domOnEventWindowOnloadTimeElapsed = \"\n                + window.domOnEventWindowOnloadTimeElapsed\n            );\n        }, 100);\n    });\n}());\n\n\n// init domOnEventAjaxProgressUpdate\n(function () {\n/*\n * this function will display incrementing ajax-progress-bar\n */\n    \"use strict\";\n    let opt;\n    let styleBar0;\n    let styleBar;\n    let styleModal0;\n    let styleModal;\n    let timeStart;\n    let timerInterval;\n    let timerTimeout;\n    let tmp;\n    let width;\n    try {\n        if (\n            window.domOnEventAjaxProgressUpdate\n            || !document.getElementById(\"domElementAjaxProgressBar1\").style\n        ) {\n            return;\n        }\n    } catch (ignore) {\n        return;\n    }\n    window.domOnEventAjaxProgressUpdate = function (gotoState, onError) {\n        gotoState = (gotoState | 0) + 1;\n        switch (gotoState) {\n        // ajaxProgress - show\n        case 1:\n            // init timerInterval and timerTimeout\n            if (!timerTimeout) {\n                timeStart = Date.now();\n                timerInterval = setInterval(opt, 2000, 1, onError);\n                timerTimeout = setTimeout(opt, opt.timeout, 2, onError);\n            }\n            // show ajaxProgressBar\n            if (width !== -1) {\n                styleBar.background = styleBar0.background;\n            }\n            setTimeout(opt, 50, gotoState, onError);\n            break;\n        // ajaxProgress - increment\n        case 2:\n            // show ajaxProgressBar\n            if (width === -1) {\n                break;\n            }\n            styleBar.background = styleBar0.background;\n            // reset ajaxProgress if it reaches end\n            if ((styleBar.width.slice(0, -1) | 0) > 95) {\n                width = 0;\n            }\n            // this algorithm will indefinitely increment ajaxProgress\n            // with successively smaller increments without reaching 100%\n            width += 1;\n            styleBar.width = Math.max(\n                100 - 75 * Math.exp(-0.125 * width),\n                styleBar.width.slice(0, -1) | 0\n            ) + \"%\";\n            // show ajaxProgressModal\n            styleModal.height = \"100%\";\n            styleModal.opacity = styleModal0.opacity;\n            if (!opt.cnt) {\n                setTimeout(opt, 0, gotoState, onError);\n            }\n            break;\n        // ajaxProgress - 100%\n        case 3:\n            width = -1;\n            styleBar.width = \"100%\";\n            setTimeout(opt, 1000, gotoState, onError);\n            break;\n        // ajaxProgress - hide\n        case 4:\n            // debug timeElapsed\n            tmp = Date.now();\n            console.error(\n                \"domOnEventAjaxProgressUpdate - timeElapsed - \"\n                + (tmp - timeStart)\n                + \" ms\"\n            );\n            // cleanup timerInterval and timerTimeout\n            timeStart = tmp;\n            clearInterval(timerInterval);\n            timerInterval = undefined;\n            clearTimeout(timerTimeout);\n            timerTimeout = undefined;\n            // hide ajaxProgressBar\n            styleBar.background = \"transparent\";\n            // hide ajaxProgressModal\n            styleModal.opacity = \"0\";\n            if (onError) {\n                onError();\n            }\n            setTimeout(opt, 250, gotoState);\n            break;\n        // ajaxProgress - reset\n        default:\n            opt.cnt = 0;\n            width = 0;\n            styleBar.width = \"0%\";\n            styleModal.height = \"0\";\n        }\n    };\n    opt = window.domOnEventAjaxProgressUpdate;\n    opt.end = function (onError) {\n        opt.cnt = 0;\n        window.domOnEventAjaxProgressUpdate(2, onError);\n    };\n    // init styleBar\n    styleBar = document.getElementById(\"domElementAjaxProgressBar1\").style;\n    styleBar0 = Object.assign({}, styleBar);\n    Object.entries({\n        background: \"#d00\",\n        height: \"2px\",\n        left: \"0\",\n        margin: \"0\",\n        padding: \"0\",\n        position: \"fixed\",\n        top: \"0\",\n        transition: \"background 250ms, width 750ms\",\n        width: \"0%\",\n        \"z-index\": \"1\"\n    }).forEach(function (entry) {\n        styleBar[entry[0]] = styleBar[entry[0]] || entry[1];\n    });\n    // init styleModal\n    styleModal = document.getElementById(\"domElementAjaxProgressModal1\") || {};\n    styleModal = styleModal.style || {};\n    styleModal0 = Object.assign({}, styleModal);\n    Object.entries({\n        height: \"0\",\n        left: \"0\",\n        margin: \"0\",\n        padding: \"0\",\n        position: \"fixed\",\n        top: \"0\",\n        transition: \"opacity 125ms\",\n        width: \"100%\",\n        \"z-index\": \"1\"\n    }).forEach(function (entry) {\n        styleModal[entry[0]] = styleModal[entry[0]] || entry[1];\n    });\n    // init state\n    width = 0;\n    opt.cnt = 0;\n    opt.timeout = 30000;\n    // init ajaxProgress\n    window.domOnEventAjaxProgressUpdate();\n}());\n\n\n// init domOnEventDelegateDict\n(function () {\n/*\n * this function will handle delegated dom-evt\n */\n    \"use strict\";\n    let debounce;\n    let timerTimeout;\n    debounce = function () {\n        return setTimeout(function () {\n            timerTimeout = undefined;\n        }, 30);\n    };\n    if (!(\n        typeof window === \"object\" && window && window.document\n        && typeof document.addEventListener === \"function\"\n    ) || window.domOnEventDelegateDict) {\n        return;\n    }\n    window.domOnEventDelegateDict = {};\n    window.domOnEventDelegateDict.domOnEventDelegate = function (evt) {\n        evt.targetOnEvent = evt.target.closest(\"[data-onevent]\");\n        if (\n            !evt.targetOnEvent\n            || evt.targetOnEvent.dataset.onevent === \"domOnEventNop\"\n            || evt.target.closest(\".disabled,.readonly\")\n        ) {\n            return;\n        }\n        // filter evt-change\n        switch (evt.type !== \"change\" && evt.target.type) {\n        case \"checkbox\":\n        case \"file\":\n        case \"select-one\":\n        case \"radio\":\n            return;\n        }\n        // filter evt-keyup\n        switch (evt.type) {\n        case \"keyup\":\n            if (!timerTimeout && (\n                evt.target.tagName === \"INPUT\"\n                || evt.target.tagName === \"TEXTAREA\"\n            )) {\n                timerTimeout = debounce();\n                if (evt.target.dataset.valueOld !== evt.target.value) {\n                    evt.target.dataset.valueOld = evt.target.value;\n                    break;\n                }\n            }\n            return;\n        }\n        switch (evt.targetOnEvent.tagName) {\n        case \"BUTTON\":\n        case \"FORM\":\n            evt.preventDefault();\n            break;\n        }\n        evt.stopPropagation();\n        // handle domOnEventClickTarget\n        if (evt.targetOnEvent.dataset.onevent === \"domOnEventClickTarget\") {\n            document.querySelector(\n                evt.targetOnEvent.dataset.clickTarget\n            ).click();\n            return;\n        }\n        window.domOnEventDelegateDict[evt.targetOnEvent.dataset.onevent](evt);\n    };\n    // handle evt\n    [\n        \"change\",\n        \"click\",\n        \"keyup\",\n        \"submit\"\n    ].forEach(function (eventType) {\n        document.addEventListener(\n            eventType,\n            window.domOnEventDelegateDict.domOnEventDelegate\n        );\n    });\n}());\n\n\n// init domOnEventSelectAllWithinPre\n(function () {\n/*\n * this function will limit select-all within <pre tabIndex=\"0\"> elem\n * https://stackoverflow.com/questions/985272/selecting-text-in-an-element-akin-to-highlighting-with-your-mouse\n */\n    \"use strict\";\n    if (!(\n        typeof window === \"object\" && window && window.document\n        && typeof document.addEventListener === \"function\"\n    ) || window.domOnEventSelectAllWithinPre) {\n        return;\n    }\n    window.domOnEventSelectAllWithinPre = function (evt) {\n        let range;\n        let selection;\n        if (\n            evt && (evt.ctrlKey || evt.metaKey) && evt.key === \"a\"\n            && evt.target.closest(\"pre\")\n        ) {\n            range = document.createRange();\n            range.selectNodeContents(evt.target.closest(\"pre\"));\n            selection = window.getSelection();\n            selection.removeAllRanges();\n            selection.addRange(range);\n            evt.preventDefault();\n        }\n    };\n    // handle evt\n    document.addEventListener(\n        \"keydown\",\n        window.domOnEventSelectAllWithinPre\n    );\n}());\n</script>\n<h1>\n\n<a\n    \n    href=\"https://github.com/kaizhu256/node-jslint-lite\"\n    \n    target=\"_blank\"\n>\n\n    jslint-lite (2020.7.8)\n\n</a>\n\n</h1>\n<h3>this zero-dependency package will provide browser-compatible versions of jslint (v2020.7.2) and csslint (v2018.2.25), with working web-demo</h3>\n\n<a class=\"button\" download href=\"assets.app.js\">download standalone app</a><br>\n<button class=\"button\" data-onevent=\"testRunBrowser\" id=\"buttonTestRun1\">run browser-tests</button><br>\n<div class=\"uiAnimateSlide\" id=\"htmlTestReport1\" style=\"border-bottom: 0; border-top: 0; margin-bottom: 0; margin-top: 0; max-height: 0; padding-bottom: 0; padding-top: 0;\"></div>\n\n\n\n<!-- custom-html-start -->\n<label>edit or paste script below to\n    <a href=\"http://www.jslint.com\" target=\"_blank\">jslint</a>\n</label>\n<textarea class=\"textarea\" data-onevent=\"domOnEventInputChange\" id=\"inputJslint1\">\n/*jslint\n    browser: true,\n*/\nconst message = \"hello\";\nconsole.log(message);\nconsole.log(null);\n</textarea>\n<button class=\"button\" data-onevent=\"domOnEventInputChange\" id=\"buttonJslintAutofix1\">jslint autofix</button><br>\n<textarea class=\"colorError readonly textarea\" id=\"outputJslint1\" readonly></textarea>\n\n\n\n<label>edit or paste script below to\n    <a href=\"https://github.com/CSSLint/csslint/wiki/Command-line-interface#options\" target=\"_blank\">csslint</a>\n</label>\n<textarea class=\"textarea\" data-onevent=\"domOnEventInputChange\" id=\"inputCsslint1\">\n/*csslint\n    box-sizing: false,\n*/\nbody {\n    box-sizing: border-box;\n    margin: 0px;\n}\n</textarea>\n<textarea class=\"colorError readonly textarea\" id=\"outputCsslint1\" readonly></textarea>\n<label>stderr and stdout</label>\n<textarea class=\"onevent-reset-output readonly textarea\" id=\"outputStdout1\" readonly></textarea>\n<script>\n/* jslint utility2:true */\nwindow.addEventListener(\"load\", function () {\n\"use strict\";\nlet local;\nlocal = window.utility2_jslint;\nlocal.domOnEventInputChange = function (evt) {\n    switch (evt.type + \".\" + evt.target.id) {\n    case \"click.buttonJslintAutofix1\":\n    case \"keyup.inputCsslint1\":\n    case \"keyup.inputJslint1\":\n        // csslint #inputCsslint1\n        local.jslintAndPrint(document.querySelector(\n            \"#inputCsslint1\"\n        ).value, \"inputCsslint1.css\");\n        document.querySelector(\n            \"#outputCsslint1\"\n        ).value = local.jslintResult.errMsg.replace((\n            /\\u001b\\[\\d*m/g\n        ), \"\").trim();\n        // jslint #inputJslint1\n        local.jslintAndPrint(document.querySelector(\n            \"#inputJslint1\"\n        ).value, \"inputJslint1.js\", {\n            autofix: evt.target.id === \"buttonJslintAutofix1\"\n        });\n        if (local.jslint.jslintResult.autofix) {\n            document.querySelector(\n                \"#inputJslint1\"\n            ).value = local.jslint.jslintResult.code;\n        }\n        document.querySelector(\n            \"#outputJslint1\"\n        ).value = local.jslintResult.errMsg.replace((\n            /\\u001b\\[\\d*m/g\n        ), \"\").trim();\n        break;\n    }\n};\n// handle evt\nlocal.domOnEventInputChange({\n    target: {\n        id: \"inputJslint1\"\n    },\n    type: \"keyup\"\n});\n});\n</script>\n<!-- custom-html-end -->\n\n\n\n\n<script src=\"assets.app.js\"></script>\n\n\n<div style=\"text-align: center;\">\n    [\n    this app was created with\n    <a\n        href=\"https://github.com/kaizhu256/node-utility2\" target=\"_blank\"\n    >utility2</a>\n    ]\n</div>\n</body>\n</html>\n"},"env":{"NODE_ENV":"test","npm_package_description":"this zero-dependency package will provide browser-compatible versions of jslint (v2020.7.2) and csslint (v2018.2.25), with working web-demo","npm_package_homepage":"https://github.com/kaizhu256/node-jslint-lite","npm_package_name":"jslint-lite","npm_package_nameLib":"jslint","npm_package_version":"2020.7.8"},"init":"(function (state) {\nlet utility2 = globalThis.utility2;\nutility2.assetsDict = utility2.assetsDict || {};\nutility2.env = utility2.env || {};\nObject.assign(utility2.assetsDict, state.assetsDict);\nObject.assign(utility2.env, state.env);\n}({}));\n"}
+{"assetsDict":{"/assets.example.html":"<!doctype html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n<!-- \"assets.utility2.template.html\" -->\n<title>jslint-lite (0.0.1)</title>\n<style>\n/* jslint utility2:true */\n/*csslint\n*/\n/* csslint ignore:start */\n*,\n*:after,\n*:before {\n    box-sizing: border-box;\n}\n.uiAnimateSlide {\n    overflow-y: hidden;\n    transition: max-height ease-in 250ms, min-height ease-in 250ms, padding-bottom ease-in 250ms, padding-top ease-in 250ms;\n}\n/* csslint ignore:end */\n@keyframes uiAnimateSpin {\n0% {\n    transform: rotate(0deg);\n}\n100% {\n    transform: rotate(360deg);\n}\n}\na {\n    overflow-wrap: break-word;\n}\nbody {\n    background: #f7f7f7;\n    font-family: Arial, Helvetica, sans-serif;\n    font-size: small;\n    margin: 0 40px;\n}\nbody > div,\nbody > input,\nbody > pre,\nbody > .button,\nbody > .textarea {\n    margin-bottom: 20px;\n    margin-top: 0;\n}\nbody > input,\nbody > .button {\n    width: 20rem;\n}\nbody > .readonly {\n    background: #ddd;\n}\nbody > .textarea {\n    height: 10rem;\n    resize: vertical;\n    width: 100%;\n}\ncode,\npre,\n.textarea {\n    font-family: Consolas, Menlo, monospace;\n    font-size: smaller;\n}\npre {\n    overflow-wrap: break-word;\n    white-space: pre-wrap;\n}\n.button {\n    background: #ddd;\n    border: 1px solid #999;\n    color: #000;\n    cursor: pointer;\n    display: inline-block;\n    padding: 2px 5px;\n    text-align: center;\n    text-decoration: none;\n}\n.button:hover {\n    background: #bbb;\n}\n.colorError {\n    color: #d00;\n}\n.textarea {\n    background: #fff;\n    border: 1px solid #999;\n    border-radius: 0;\n    cursor: auto;\n    overflow: auto;\n    padding: 2px;\n}\n.zeroPixel {\n    border: 0;\n    height: 0;\n    margin: 0;\n    padding: 0;\n    width: 0;\n}\n</style>\n</head>\n<body>\n<div class=\"uiAnimateSpin\" style=\"animation: uiAnimateSpin 2s linear infinite; border: 5px solid #999; border-radius: 50%; border-top: 5px solid #7d7; display: none; height: 25px; vertical-align: middle; width: 25px;\"></div>\n<script>\n/* jslint utility2:true */\n// init domOnEventWindowOnloadTimeElapsed\n(function () {\n/*\n * this function will measure and print time-elapsed for window.onload\n */\n    \"use strict\";\n    if (!(\n        typeof window === \"object\" && window && window.document\n        && typeof document.addEventListener === \"function\"\n    ) || window.domOnEventWindowOnloadTimeElapsed) {\n        return;\n    }\n    window.domOnEventWindowOnloadTimeElapsed = Date.now() + 100;\n    window.addEventListener(\"load\", function () {\n        setTimeout(function () {\n            window.domOnEventWindowOnloadTimeElapsed = (\n                Date.now()\n                - window.domOnEventWindowOnloadTimeElapsed\n            );\n            console.error(\n                \"domOnEventWindowOnloadTimeElapsed = \"\n                + window.domOnEventWindowOnloadTimeElapsed\n            );\n        }, 100);\n    });\n}());\n\n\n// init domOnEventAjaxProgressUpdate\n(function () {\n/*\n * this function will display incrementing ajax-progress-bar\n */\n    \"use strict\";\n    let opt;\n    let styleBar0;\n    let styleBar;\n    let styleModal0;\n    let styleModal;\n    let timeStart;\n    let timerInterval;\n    let timerTimeout;\n    let tmp;\n    let width;\n    try {\n        if (\n            window.domOnEventAjaxProgressUpdate\n            || !document.getElementById(\"domElementAjaxProgressBar1\").style\n        ) {\n            return;\n        }\n    } catch (ignore) {\n        return;\n    }\n    window.domOnEventAjaxProgressUpdate = function (gotoState, onError) {\n        gotoState = (gotoState | 0) + 1;\n        switch (gotoState) {\n        // ajaxProgress - show\n        case 1:\n            // init timerInterval and timerTimeout\n            if (!timerTimeout) {\n                timeStart = Date.now();\n                timerInterval = setInterval(opt, 2000, 1, onError);\n                timerTimeout = setTimeout(opt, opt.timeout, 2, onError);\n            }\n            // show ajaxProgressBar\n            if (width !== -1) {\n                styleBar.background = styleBar0.background;\n            }\n            setTimeout(opt, 50, gotoState, onError);\n            break;\n        // ajaxProgress - increment\n        case 2:\n            // show ajaxProgressBar\n            if (width === -1) {\n                break;\n            }\n            styleBar.background = styleBar0.background;\n            // reset ajaxProgress if it reaches end\n            if ((styleBar.width.slice(0, -1) | 0) > 95) {\n                width = 0;\n            }\n            // this algorithm will indefinitely increment ajaxProgress\n            // with successively smaller increments without reaching 100%\n            width += 1;\n            styleBar.width = Math.max(\n                100 - 75 * Math.exp(-0.125 * width),\n                styleBar.width.slice(0, -1) | 0\n            ) + \"%\";\n            // show ajaxProgressModal\n            styleModal.height = \"100%\";\n            styleModal.opacity = styleModal0.opacity;\n            if (!opt.cnt) {\n                setTimeout(opt, 0, gotoState, onError);\n            }\n            break;\n        // ajaxProgress - 100%\n        case 3:\n            width = -1;\n            styleBar.width = \"100%\";\n            setTimeout(opt, 1000, gotoState, onError);\n            break;\n        // ajaxProgress - hide\n        case 4:\n            // debug timeElapsed\n            tmp = Date.now();\n            console.error(\n                \"domOnEventAjaxProgressUpdate - timeElapsed - \"\n                + (tmp - timeStart)\n                + \" ms\"\n            );\n            // cleanup timerInterval and timerTimeout\n            timeStart = tmp;\n            clearInterval(timerInterval);\n            timerInterval = undefined;\n            clearTimeout(timerTimeout);\n            timerTimeout = undefined;\n            // hide ajaxProgressBar\n            styleBar.background = \"transparent\";\n            // hide ajaxProgressModal\n            styleModal.opacity = \"0\";\n            if (onError) {\n                onError();\n            }\n            setTimeout(opt, 250, gotoState);\n            break;\n        // ajaxProgress - reset\n        default:\n            opt.cnt = 0;\n            width = 0;\n            styleBar.width = \"0%\";\n            styleModal.height = \"0\";\n        }\n    };\n    opt = window.domOnEventAjaxProgressUpdate;\n    opt.end = function (onError) {\n        opt.cnt = 0;\n        window.domOnEventAjaxProgressUpdate(2, onError);\n    };\n    // init styleBar\n    styleBar = document.getElementById(\"domElementAjaxProgressBar1\").style;\n    styleBar0 = Object.assign({}, styleBar);\n    Object.entries({\n        background: \"#d00\",\n        height: \"2px\",\n        left: \"0\",\n        margin: \"0\",\n        padding: \"0\",\n        position: \"fixed\",\n        top: \"0\",\n        transition: \"background 250ms, width 750ms\",\n        width: \"0%\",\n        \"z-index\": \"1\"\n    }).forEach(function (entry) {\n        styleBar[entry[0]] = styleBar[entry[0]] || entry[1];\n    });\n    // init styleModal\n    styleModal = document.getElementById(\"domElementAjaxProgressModal1\") || {};\n    styleModal = styleModal.style || {};\n    styleModal0 = Object.assign({}, styleModal);\n    Object.entries({\n        height: \"0\",\n        left: \"0\",\n        margin: \"0\",\n        padding: \"0\",\n        position: \"fixed\",\n        top: \"0\",\n        transition: \"opacity 125ms\",\n        width: \"100%\",\n        \"z-index\": \"1\"\n    }).forEach(function (entry) {\n        styleModal[entry[0]] = styleModal[entry[0]] || entry[1];\n    });\n    // init state\n    width = 0;\n    opt.cnt = 0;\n    opt.timeout = 30000;\n    // init ajaxProgress\n    window.domOnEventAjaxProgressUpdate();\n}());\n\n\n// init domOnEventDelegateDict\n(function () {\n/*\n * this function will handle delegated dom-evt\n */\n    \"use strict\";\n    let debounce;\n    let timerTimeout;\n    debounce = function () {\n        return setTimeout(function () {\n            timerTimeout = undefined;\n        }, 30);\n    };\n    if (!(\n        typeof window === \"object\" && window && window.document\n        && typeof document.addEventListener === \"function\"\n    ) || window.domOnEventDelegateDict) {\n        return;\n    }\n    window.domOnEventDelegateDict = {};\n    window.domOnEventDelegateDict.domOnEventDelegate = function (evt) {\n        evt.targetOnEvent = evt.target.closest(\"[data-onevent]\");\n        if (\n            !evt.targetOnEvent\n            || evt.targetOnEvent.dataset.onevent === \"domOnEventNop\"\n            || evt.target.closest(\".disabled,.readonly\")\n        ) {\n            return;\n        }\n        // filter evt-change\n        switch (evt.type !== \"change\" && evt.target.type) {\n        case \"checkbox\":\n        case \"file\":\n        case \"select-one\":\n        case \"radio\":\n            return;\n        }\n        // filter evt-keyup\n        switch (evt.type) {\n        case \"keyup\":\n            if (!timerTimeout && (\n                evt.target.tagName === \"INPUT\"\n                || evt.target.tagName === \"TEXTAREA\"\n            )) {\n                timerTimeout = debounce();\n                if (evt.target.dataset.valueOld !== evt.target.value) {\n                    evt.target.dataset.valueOld = evt.target.value;\n                    break;\n                }\n            }\n            return;\n        }\n        switch (evt.targetOnEvent.tagName) {\n        case \"BUTTON\":\n        case \"FORM\":\n            evt.preventDefault();\n            break;\n        }\n        evt.stopPropagation();\n        // handle domOnEventClickTarget\n        if (evt.targetOnEvent.dataset.onevent === \"domOnEventClickTarget\") {\n            document.querySelector(\n                evt.targetOnEvent.dataset.clickTarget\n            ).click();\n            return;\n        }\n        window.domOnEventDelegateDict[evt.targetOnEvent.dataset.onevent](evt);\n    };\n    // handle evt\n    [\n        \"change\",\n        \"click\",\n        \"keyup\",\n        \"submit\"\n    ].forEach(function (eventType) {\n        document.addEventListener(\n            eventType,\n            window.domOnEventDelegateDict.domOnEventDelegate\n        );\n    });\n}());\n\n\n// init domOnEventSelectAllWithinPre\n(function () {\n/*\n * this function will limit select-all within <pre tabIndex=\"0\"> elem\n * https://stackoverflow.com/questions/985272/selecting-text-in-an-element-akin-to-highlighting-with-your-mouse\n */\n    \"use strict\";\n    if (!(\n        typeof window === \"object\" && window && window.document\n        && typeof document.addEventListener === \"function\"\n    ) || window.domOnEventSelectAllWithinPre) {\n        return;\n    }\n    window.domOnEventSelectAllWithinPre = function (evt) {\n        let range;\n        let selection;\n        if (\n            evt && (evt.ctrlKey || evt.metaKey) && evt.key === \"a\"\n            && evt.target.closest(\"pre\")\n        ) {\n            range = document.createRange();\n            range.selectNodeContents(evt.target.closest(\"pre\"));\n            selection = window.getSelection();\n            selection.removeAllRanges();\n            selection.addRange(range);\n            evt.preventDefault();\n        }\n    };\n    // handle evt\n    document.addEventListener(\n        \"keydown\",\n        window.domOnEventSelectAllWithinPre\n    );\n}());\n</script>\n<h1>\n<!-- utility2-comment\n<a\n    {{#if env.npm_package_homepage}}\n    href=\"{{env.npm_package_homepage}}\"\n    {{/if env.npm_package_homepage}}\n    target=\"_blank\"\n>\nutility2-comment -->\n    jslint-lite (0.0.1)\n<!-- utility2-comment\n</a>\nutility2-comment -->\n</h1>\n<h3>the greatest app in the world!</h3>\n<!-- utility2-comment\n<a class=\"button\" download href=\"assets.app.js\">download standalone app</a><br>\n<button class=\"button\" data-onevent=\"testRunBrowser\" id=\"buttonTestRun1\">run browser-tests</button><br>\n<div class=\"uiAnimateSlide\" id=\"htmlTestReport1\" style=\"border-bottom: 0; border-top: 0; margin-bottom: 0; margin-top: 0; max-height: 0; padding-bottom: 0; padding-top: 0;\"></div>\nutility2-comment -->\n\n\n<!-- custom-html-start -->\n<label>edit or paste script below to\n    <a href=\"http://www.jslint.com\" target=\"_blank\">jslint</a>\n</label>\n<textarea class=\"textarea\" data-onevent=\"domOnEventInputChange\" id=\"inputJslint1\">\n/*jslint\n    browser: true,\n*/\nconst message = \"hello\";\nconsole.log(message);\nconsole.log(null);\n</textarea>\n<button class=\"button\" data-onevent=\"domOnEventInputChange\" id=\"buttonJslintAutofix1\">jslint autofix</button><br>\n<textarea class=\"colorError readonly textarea\" id=\"outputJslint1\" readonly></textarea>\n\n\n\n<label>edit or paste script below to\n    <a href=\"https://github.com/CSSLint/csslint/wiki/Command-line-interface#options\" target=\"_blank\">csslint</a>\n</label>\n<textarea class=\"textarea\" data-onevent=\"domOnEventInputChange\" id=\"inputCsslint1\">\n/*csslint\n    box-sizing: false,\n*/\nbody {\n    box-sizing: border-box;\n    margin: 0px;\n}\n</textarea>\n<textarea class=\"colorError readonly textarea\" id=\"outputCsslint1\" readonly></textarea>\n<label>stderr and stdout</label>\n<textarea class=\"onevent-reset-output readonly textarea\" id=\"outputStdout1\" readonly></textarea>\n<script>\n/* jslint utility2:true */\nwindow.addEventListener(\"load\", function () {\n\"use strict\";\nlet local;\nlocal = window.utility2_jslint;\nlocal.domOnEventInputChange = function (evt) {\n    switch (evt.type + \".\" + evt.target.id) {\n    case \"click.buttonJslintAutofix1\":\n    case \"keyup.inputCsslint1\":\n    case \"keyup.inputJslint1\":\n        // csslint #inputCsslint1\n        local.jslintAndPrint(document.querySelector(\n            \"#inputCsslint1\"\n        ).value, \"inputCsslint1.css\");\n        document.querySelector(\n            \"#outputCsslint1\"\n        ).value = local.jslintResult.errMsg.replace((\n            /\\u001b\\[\\d*m/g\n        ), \"\").trim();\n        // jslint #inputJslint1\n        local.jslintAndPrint(document.querySelector(\n            \"#inputJslint1\"\n        ).value, \"inputJslint1.js\", {\n            autofix: evt.target.id === \"buttonJslintAutofix1\"\n        });\n        if (local.jslint.jslintResult.autofix) {\n            document.querySelector(\n                \"#inputJslint1\"\n            ).value = local.jslint.jslintResult.code;\n        }\n        document.querySelector(\n            \"#outputJslint1\"\n        ).value = local.jslintResult.errMsg.replace((\n            /\\u001b\\[\\d*m/g\n        ), \"\").trim();\n        break;\n    }\n};\n// handle evt\nlocal.domOnEventInputChange({\n    target: {\n        id: \"inputJslint1\"\n    },\n    type: \"keyup\"\n});\n});\n</script>\n<!-- custom-html-end -->\n\n\n<!-- utility2-comment\n{{#if isRollup}}\n<script src=\"assets.app.js\"></script>\n{{#unless isRollup}}\n<script src=\"assets.utility2.rollup.js\"></script>\n<script>window.utility2_onReadyBefore.cnt += 1;</script>\n<script src=\"utility2.state.init.js\"></script>\nutility2-comment -->\n<script src=\"assets.jslint.js\"></script>\n<script src=\"assets.example.js\"></script>\n<script src=\"assets.test.js\"></script>\n<script>\nif (window.utility2_onReadyBefore) {\n    window.utility2_onReadyBefore();\n}\n</script>\n<!-- utility2-comment\n{{/if isRollup}}\nutility2-comment -->\n<div style=\"text-align: center;\">\n    [\n    this app was created with\n    <a\n        href=\"https://github.com/kaizhu256/node-utility2\" target=\"_blank\"\n    >utility2</a>\n    ]\n</div>\n</body>\n</html>\n","/assets.example.js":"\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/*\nexample.js\n\nthis script will run web-demo of jslint-lite\n\ninstruction\n    1. save this script as example.js\n    2. run shell-command:\n        $ npm install jslint-lite && \\\n            PORT=8081 node example.js\n    3. open browser to http://127.0.0.1:8081 and play with web-demo\n    4. edit this script to suit your needs\n*/\n\n\n/* istanbul instrument in package jslint */\n// assets.utility2.header.js - start\n/* jslint utility2:true */\n/* istanbul ignore next */\n// run shared js-env code - init-local\n(function () {\n    \"use strict\";\n    let isBrowser;\n    let isWebWorker;\n    let local;\n    // init debugInline\n    if (!globalThis.debugInline) {\n        let consoleError;\n        consoleError = console.error;\n        globalThis.debugInline = function (...argList) {\n        /*\n         * this function will both print <argList> to stderr\n         * and return <argList>[0]\n         */\n            consoleError(\"\\n\\ndebugInline\");\n            consoleError(...argList);\n            consoleError(\"\\n\");\n            return argList[0];\n        };\n    }\n    // init isBrowser\n    isBrowser = (\n        typeof globalThis.XMLHttpRequest === \"function\"\n        && globalThis.navigator\n        && typeof globalThis.navigator.userAgent === \"string\"\n    );\n    // init isWebWorker\n    isWebWorker = (\n        isBrowser && typeof globalThis.importScripts === \"function\"\n    );\n    // init function\n    function assertJsonEqual(aa, bb) {\n    /*\n     * this function will assert JSON.stringify(<aa>) === JSON.stringify(<bb>)\n     */\n        function objectDeepCopyWithKeysSorted(obj) {\n        /*\n         * this function will recursively deep-copy <obj> with keys sorted\n         */\n            let sorted;\n            if (typeof obj !== \"object\" || !obj) {\n                return obj;\n            }\n            // recursively deep-copy list with child-keys sorted\n            if (Array.isArray(obj)) {\n                return obj.map(objectDeepCopyWithKeysSorted);\n            }\n            // recursively deep-copy obj with keys sorted\n            sorted = {};\n            Object.keys(obj).sort().forEach(function (key) {\n                sorted[key] = objectDeepCopyWithKeysSorted(obj[key]);\n            });\n            return sorted;\n        }\n        aa = JSON.stringify(objectDeepCopyWithKeysSorted(aa));\n        bb = JSON.stringify(objectDeepCopyWithKeysSorted(bb));\n        if (aa !== bb) {\n            throw new Error(JSON.stringify(aa) + \" !== \" + JSON.stringify(bb));\n        }\n    }\n    function assertOrThrow(passed, msg) {\n    /*\n     * this function will throw <msg> if <passed> is falsy\n     */\n        if (passed) {\n            return;\n        }\n        throw (\n            (\n                msg\n                && typeof msg.message === \"string\"\n                && typeof msg.stack === \"string\"\n            )\n            // if msg is err, then leave as is\n            ? msg\n            : new Error(\n                typeof msg === \"string\"\n                // if msg is string, then leave as is\n                ? msg\n                // else JSON.stringify(msg)\n                : JSON.stringify(msg, undefined, 4)\n            )\n        );\n    }\n    function coalesce(...argList) {\n    /*\n     * this function will coalesce null, undefined, or \"\" in <argList>\n     */\n        let arg;\n        let ii;\n        ii = 0;\n        while (ii < argList.length) {\n            arg = argList[ii];\n            if (arg !== undefined && arg !== null && arg !== \"\") {\n                return arg;\n            }\n            ii += 1;\n        }\n        return arg;\n    }\n    function identity(val) {\n    /*\n     * this function will return <val>\n     */\n        return val;\n    }\n    function nop() {\n    /*\n     * this function will do nothing\n     */\n        return;\n    }\n    function objectAssignDefault(tgt = {}, src = {}, depth = 0) {\n    /*\n     * this function will if items from <tgt> are null, undefined, or \"\",\n     * then overwrite them with items from <src>\n     */\n        let recurse;\n        recurse = function (tgt, src, depth) {\n            Object.entries(src).forEach(function ([\n                key, bb\n            ]) {\n                let aa;\n                aa = tgt[key];\n                if (aa === undefined || aa === null || aa === \"\") {\n                    tgt[key] = bb;\n                    return;\n                }\n                if (\n                    depth !== 0\n                    && typeof aa === \"object\" && aa && !Array.isArray(aa)\n                    && typeof bb === \"object\" && bb && !Array.isArray(bb)\n                ) {\n                    recurse(aa, bb, depth - 1);\n                }\n            });\n        };\n        recurse(tgt, src, depth | 0);\n        return tgt;\n    }\n    function onErrorThrow(err) {\n    /*\n     * this function will throw <err> if exists\n     */\n        if (err) {\n            throw err;\n        }\n    }\n    // bug-workaround - throw unhandledRejections in node-process\n    if (\n        typeof process === \"object\" && process\n        && typeof process.on === \"function\"\n        && process.unhandledRejections !== \"strict\"\n    ) {\n        process.unhandledRejections = \"strict\";\n        process.on(\"unhandledRejection\", function (err) {\n            throw err;\n        });\n    }\n    // init local\n    local = {};\n    local.local = local;\n    globalThis.globalLocal = local;\n    local.assertJsonEqual = assertJsonEqual;\n    local.assertOrThrow = assertOrThrow;\n    local.coalesce = coalesce;\n    local.identity = identity;\n    local.isBrowser = isBrowser;\n    local.isWebWorker = isWebWorker;\n    local.nop = nop;\n    local.objectAssignDefault = objectAssignDefault;\n    local.onErrorThrow = onErrorThrow;\n}());\n// assets.utility2.header.js - end\n\n\n/* jslint utility2:true */\n(function (local) {\n\"use strict\";\n\n\n// run shared js-env code - init-before\n(function () {\n// init local\nlocal = (\n    globalThis.utility2_rollup\n    || globalThis.utility2_jslint\n    || globalThis.utility2_moduleExports\n);\n// init exports\nglobalThis.local = local;\n}());\n\n\n/* istanbul ignore next */\n// run browser js-env code - init-test\n(function () {\nif (!local.isBrowser) {\n    return;\n}\n// log stderr and stdout to #outputStdout1\n[\"error\", \"log\"].forEach(function (key) {\n    let elem;\n    let fnc;\n    elem = document.querySelector(\"#outputStdout1\");\n    if (!elem) {\n        return;\n    }\n    fnc = console[key];\n    console[key] = function (...argList) {\n        fnc(...argList);\n        // append text to #outputStdout1\n        elem.textContent += argList.map(function (arg) {\n            return (\n                typeof arg === \"string\"\n                ? arg\n                : JSON.stringify(arg, undefined, 4)\n            );\n        }).join(\" \").replace((\n            /\\u001b\\[\\d*m/g\n        ), \"\") + \"\\n\";\n        // scroll textarea to bottom\n        elem.scrollTop = elem.scrollHeight;\n    };\n});\nlocal.objectAssignDefault(local, globalThis.domOnEventDelegateDict);\nglobalThis.domOnEventDelegateDict = local;\n}());\n\n\n/* istanbul ignore next */\n// run node js-env code - init-test\n(function () {\nif (local.isBrowser) {\n    return;\n}\n// init exports\nmodule.exports = local;\n// init assetsDict\nlocal.assetsDict = local.assetsDict || {};\n/* jslint ignore:start */\nlocal.assetsDict[\"/assets.index.template.html\"] = '\\\n<!doctype html>\\n\\\n<html lang=\"en\">\\n\\\n<head>\\n\\\n<meta charset=\"utf-8\">\\n\\\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\\n\\\n<!-- \"assets.utility2.template.html\" -->\\n\\\n<title>{{env.npm_package_name}} ({{env.npm_package_version}})</title>\\n\\\n<style>\\n\\\n/* jslint utility2:true */\\n\\\n/*csslint\\n\\\n*/\\n\\\n/* csslint ignore:start */\\n\\\n*,\\n\\\n*:after,\\n\\\n*:before {\\n\\\n    box-sizing: border-box;\\n\\\n}\\n\\\n.uiAnimateSlide {\\n\\\n    overflow-y: hidden;\\n\\\n    transition: max-height ease-in 250ms, min-height ease-in 250ms, padding-bottom ease-in 250ms, padding-top ease-in 250ms;\\n\\\n}\\n\\\n/* csslint ignore:end */\\n\\\n@keyframes uiAnimateSpin {\\n\\\n0% {\\n\\\n    transform: rotate(0deg);\\n\\\n}\\n\\\n100% {\\n\\\n    transform: rotate(360deg);\\n\\\n}\\n\\\n}\\n\\\na {\\n\\\n    overflow-wrap: break-word;\\n\\\n}\\n\\\nbody {\\n\\\n    background: #f7f7f7;\\n\\\n    font-family: Arial, Helvetica, sans-serif;\\n\\\n    font-size: small;\\n\\\n    margin: 0 40px;\\n\\\n}\\n\\\nbody > div,\\n\\\nbody > input,\\n\\\nbody > pre,\\n\\\nbody > .button,\\n\\\nbody > .textarea {\\n\\\n    margin-bottom: 20px;\\n\\\n    margin-top: 0;\\n\\\n}\\n\\\nbody > input,\\n\\\nbody > .button {\\n\\\n    width: 20rem;\\n\\\n}\\n\\\nbody > .readonly {\\n\\\n    background: #ddd;\\n\\\n}\\n\\\nbody > .textarea {\\n\\\n    height: 10rem;\\n\\\n    resize: vertical;\\n\\\n    width: 100%;\\n\\\n}\\n\\\ncode,\\n\\\npre,\\n\\\n.textarea {\\n\\\n    font-family: Consolas, Menlo, monospace;\\n\\\n    font-size: smaller;\\n\\\n}\\n\\\npre {\\n\\\n    overflow-wrap: break-word;\\n\\\n    white-space: pre-wrap;\\n\\\n}\\n\\\n.button {\\n\\\n    background: #ddd;\\n\\\n    border: 1px solid #999;\\n\\\n    color: #000;\\n\\\n    cursor: pointer;\\n\\\n    display: inline-block;\\n\\\n    padding: 2px 5px;\\n\\\n    text-align: center;\\n\\\n    text-decoration: none;\\n\\\n}\\n\\\n.button:hover {\\n\\\n    background: #bbb;\\n\\\n}\\n\\\n.colorError {\\n\\\n    color: #d00;\\n\\\n}\\n\\\n.textarea {\\n\\\n    background: #fff;\\n\\\n    border: 1px solid #999;\\n\\\n    border-radius: 0;\\n\\\n    cursor: auto;\\n\\\n    overflow: auto;\\n\\\n    padding: 2px;\\n\\\n}\\n\\\n.zeroPixel {\\n\\\n    border: 0;\\n\\\n    height: 0;\\n\\\n    margin: 0;\\n\\\n    padding: 0;\\n\\\n    width: 0;\\n\\\n}\\n\\\n</style>\\n\\\n</head>\\n\\\n<body>\\n\\\n<div class=\"uiAnimateSpin\" style=\"animation: uiAnimateSpin 2s linear infinite; border: 5px solid #999; border-radius: 50%; border-top: 5px solid #7d7; display: none; height: 25px; vertical-align: middle; width: 25px;\"></div>\\n\\\n<script>\\n\\\n/* jslint utility2:true */\\n\\\n// init domOnEventWindowOnloadTimeElapsed\\n\\\n(function () {\\n\\\n/*\\n\\\n * this function will measure and print time-elapsed for window.onload\\n\\\n */\\n\\\n    \"use strict\";\\n\\\n    if (!(\\n\\\n        typeof window === \"object\" && window && window.document\\n\\\n        && typeof document.addEventListener === \"function\"\\n\\\n    ) || window.domOnEventWindowOnloadTimeElapsed) {\\n\\\n        return;\\n\\\n    }\\n\\\n    window.domOnEventWindowOnloadTimeElapsed = Date.now() + 100;\\n\\\n    window.addEventListener(\"load\", function () {\\n\\\n        setTimeout(function () {\\n\\\n            window.domOnEventWindowOnloadTimeElapsed = (\\n\\\n                Date.now()\\n\\\n                - window.domOnEventWindowOnloadTimeElapsed\\n\\\n            );\\n\\\n            console.error(\\n\\\n                \"domOnEventWindowOnloadTimeElapsed = \"\\n\\\n                + window.domOnEventWindowOnloadTimeElapsed\\n\\\n            );\\n\\\n        }, 100);\\n\\\n    });\\n\\\n}());\\n\\\n\\n\\\n\\n\\\n// init domOnEventAjaxProgressUpdate\\n\\\n(function () {\\n\\\n/*\\n\\\n * this function will display incrementing ajax-progress-bar\\n\\\n */\\n\\\n    \"use strict\";\\n\\\n    let opt;\\n\\\n    let styleBar0;\\n\\\n    let styleBar;\\n\\\n    let styleModal0;\\n\\\n    let styleModal;\\n\\\n    let timeStart;\\n\\\n    let timerInterval;\\n\\\n    let timerTimeout;\\n\\\n    let tmp;\\n\\\n    let width;\\n\\\n    try {\\n\\\n        if (\\n\\\n            window.domOnEventAjaxProgressUpdate\\n\\\n            || !document.getElementById(\"domElementAjaxProgressBar1\").style\\n\\\n        ) {\\n\\\n            return;\\n\\\n        }\\n\\\n    } catch (ignore) {\\n\\\n        return;\\n\\\n    }\\n\\\n    window.domOnEventAjaxProgressUpdate = function (gotoState, onError) {\\n\\\n        gotoState = (gotoState | 0) + 1;\\n\\\n        switch (gotoState) {\\n\\\n        // ajaxProgress - show\\n\\\n        case 1:\\n\\\n            // init timerInterval and timerTimeout\\n\\\n            if (!timerTimeout) {\\n\\\n                timeStart = Date.now();\\n\\\n                timerInterval = setInterval(opt, 2000, 1, onError);\\n\\\n                timerTimeout = setTimeout(opt, opt.timeout, 2, onError);\\n\\\n            }\\n\\\n            // show ajaxProgressBar\\n\\\n            if (width !== -1) {\\n\\\n                styleBar.background = styleBar0.background;\\n\\\n            }\\n\\\n            setTimeout(opt, 50, gotoState, onError);\\n\\\n            break;\\n\\\n        // ajaxProgress - increment\\n\\\n        case 2:\\n\\\n            // show ajaxProgressBar\\n\\\n            if (width === -1) {\\n\\\n                break;\\n\\\n            }\\n\\\n            styleBar.background = styleBar0.background;\\n\\\n            // reset ajaxProgress if it reaches end\\n\\\n            if ((styleBar.width.slice(0, -1) | 0) > 95) {\\n\\\n                width = 0;\\n\\\n            }\\n\\\n            // this algorithm will indefinitely increment ajaxProgress\\n\\\n            // with successively smaller increments without reaching 100%\\n\\\n            width += 1;\\n\\\n            styleBar.width = Math.max(\\n\\\n                100 - 75 * Math.exp(-0.125 * width),\\n\\\n                styleBar.width.slice(0, -1) | 0\\n\\\n            ) + \"%\";\\n\\\n            // show ajaxProgressModal\\n\\\n            styleModal.height = \"100%\";\\n\\\n            styleModal.opacity = styleModal0.opacity;\\n\\\n            if (!opt.cnt) {\\n\\\n                setTimeout(opt, 0, gotoState, onError);\\n\\\n            }\\n\\\n            break;\\n\\\n        // ajaxProgress - 100%\\n\\\n        case 3:\\n\\\n            width = -1;\\n\\\n            styleBar.width = \"100%\";\\n\\\n            setTimeout(opt, 1000, gotoState, onError);\\n\\\n            break;\\n\\\n        // ajaxProgress - hide\\n\\\n        case 4:\\n\\\n            // debug timeElapsed\\n\\\n            tmp = Date.now();\\n\\\n            console.error(\\n\\\n                \"domOnEventAjaxProgressUpdate - timeElapsed - \"\\n\\\n                + (tmp - timeStart)\\n\\\n                + \" ms\"\\n\\\n            );\\n\\\n            // cleanup timerInterval and timerTimeout\\n\\\n            timeStart = tmp;\\n\\\n            clearInterval(timerInterval);\\n\\\n            timerInterval = undefined;\\n\\\n            clearTimeout(timerTimeout);\\n\\\n            timerTimeout = undefined;\\n\\\n            // hide ajaxProgressBar\\n\\\n            styleBar.background = \"transparent\";\\n\\\n            // hide ajaxProgressModal\\n\\\n            styleModal.opacity = \"0\";\\n\\\n            if (onError) {\\n\\\n                onError();\\n\\\n            }\\n\\\n            setTimeout(opt, 250, gotoState);\\n\\\n            break;\\n\\\n        // ajaxProgress - reset\\n\\\n        default:\\n\\\n            opt.cnt = 0;\\n\\\n            width = 0;\\n\\\n            styleBar.width = \"0%\";\\n\\\n            styleModal.height = \"0\";\\n\\\n        }\\n\\\n    };\\n\\\n    opt = window.domOnEventAjaxProgressUpdate;\\n\\\n    opt.end = function (onError) {\\n\\\n        opt.cnt = 0;\\n\\\n        window.domOnEventAjaxProgressUpdate(2, onError);\\n\\\n    };\\n\\\n    // init styleBar\\n\\\n    styleBar = document.getElementById(\"domElementAjaxProgressBar1\").style;\\n\\\n    styleBar0 = Object.assign({}, styleBar);\\n\\\n    Object.entries({\\n\\\n        background: \"#d00\",\\n\\\n        height: \"2px\",\\n\\\n        left: \"0\",\\n\\\n        margin: \"0\",\\n\\\n        padding: \"0\",\\n\\\n        position: \"fixed\",\\n\\\n        top: \"0\",\\n\\\n        transition: \"background 250ms, width 750ms\",\\n\\\n        width: \"0%\",\\n\\\n        \"z-index\": \"1\"\\n\\\n    }).forEach(function (entry) {\\n\\\n        styleBar[entry[0]] = styleBar[entry[0]] || entry[1];\\n\\\n    });\\n\\\n    // init styleModal\\n\\\n    styleModal = document.getElementById(\"domElementAjaxProgressModal1\") || {};\\n\\\n    styleModal = styleModal.style || {};\\n\\\n    styleModal0 = Object.assign({}, styleModal);\\n\\\n    Object.entries({\\n\\\n        height: \"0\",\\n\\\n        left: \"0\",\\n\\\n        margin: \"0\",\\n\\\n        padding: \"0\",\\n\\\n        position: \"fixed\",\\n\\\n        top: \"0\",\\n\\\n        transition: \"opacity 125ms\",\\n\\\n        width: \"100%\",\\n\\\n        \"z-index\": \"1\"\\n\\\n    }).forEach(function (entry) {\\n\\\n        styleModal[entry[0]] = styleModal[entry[0]] || entry[1];\\n\\\n    });\\n\\\n    // init state\\n\\\n    width = 0;\\n\\\n    opt.cnt = 0;\\n\\\n    opt.timeout = 30000;\\n\\\n    // init ajaxProgress\\n\\\n    window.domOnEventAjaxProgressUpdate();\\n\\\n}());\\n\\\n\\n\\\n\\n\\\n// init domOnEventDelegateDict\\n\\\n(function () {\\n\\\n/*\\n\\\n * this function will handle delegated dom-evt\\n\\\n */\\n\\\n    \"use strict\";\\n\\\n    let debounce;\\n\\\n    let timerTimeout;\\n\\\n    debounce = function () {\\n\\\n        return setTimeout(function () {\\n\\\n            timerTimeout = undefined;\\n\\\n        }, 30);\\n\\\n    };\\n\\\n    if (!(\\n\\\n        typeof window === \"object\" && window && window.document\\n\\\n        && typeof document.addEventListener === \"function\"\\n\\\n    ) || window.domOnEventDelegateDict) {\\n\\\n        return;\\n\\\n    }\\n\\\n    window.domOnEventDelegateDict = {};\\n\\\n    window.domOnEventDelegateDict.domOnEventDelegate = function (evt) {\\n\\\n        evt.targetOnEvent = evt.target.closest(\"[data-onevent]\");\\n\\\n        if (\\n\\\n            !evt.targetOnEvent\\n\\\n            || evt.targetOnEvent.dataset.onevent === \"domOnEventNop\"\\n\\\n            || evt.target.closest(\".disabled,.readonly\")\\n\\\n        ) {\\n\\\n            return;\\n\\\n        }\\n\\\n        // filter evt-change\\n\\\n        switch (evt.type !== \"change\" && evt.target.type) {\\n\\\n        case \"checkbox\":\\n\\\n        case \"file\":\\n\\\n        case \"select-one\":\\n\\\n        case \"radio\":\\n\\\n            return;\\n\\\n        }\\n\\\n        // filter evt-keyup\\n\\\n        switch (evt.type) {\\n\\\n        case \"keyup\":\\n\\\n            if (!timerTimeout && (\\n\\\n                evt.target.tagName === \"INPUT\"\\n\\\n                || evt.target.tagName === \"TEXTAREA\"\\n\\\n            )) {\\n\\\n                timerTimeout = debounce();\\n\\\n                if (evt.target.dataset.valueOld !== evt.target.value) {\\n\\\n                    evt.target.dataset.valueOld = evt.target.value;\\n\\\n                    break;\\n\\\n                }\\n\\\n            }\\n\\\n            return;\\n\\\n        }\\n\\\n        switch (evt.targetOnEvent.tagName) {\\n\\\n        case \"BUTTON\":\\n\\\n        case \"FORM\":\\n\\\n            evt.preventDefault();\\n\\\n            break;\\n\\\n        }\\n\\\n        evt.stopPropagation();\\n\\\n        // handle domOnEventClickTarget\\n\\\n        if (evt.targetOnEvent.dataset.onevent === \"domOnEventClickTarget\") {\\n\\\n            document.querySelector(\\n\\\n                evt.targetOnEvent.dataset.clickTarget\\n\\\n            ).click();\\n\\\n            return;\\n\\\n        }\\n\\\n        window.domOnEventDelegateDict[evt.targetOnEvent.dataset.onevent](evt);\\n\\\n    };\\n\\\n    // handle evt\\n\\\n    [\\n\\\n        \"change\",\\n\\\n        \"click\",\\n\\\n        \"keyup\",\\n\\\n        \"submit\"\\n\\\n    ].forEach(function (eventType) {\\n\\\n        document.addEventListener(\\n\\\n            eventType,\\n\\\n            window.domOnEventDelegateDict.domOnEventDelegate\\n\\\n        );\\n\\\n    });\\n\\\n}());\\n\\\n\\n\\\n\\n\\\n// init domOnEventSelectAllWithinPre\\n\\\n(function () {\\n\\\n/*\\n\\\n * this function will limit select-all within <pre tabIndex=\"0\"> elem\\n\\\n * https://stackoverflow.com/questions/985272/selecting-text-in-an-element-akin-to-highlighting-with-your-mouse\\n\\\n */\\n\\\n    \"use strict\";\\n\\\n    if (!(\\n\\\n        typeof window === \"object\" && window && window.document\\n\\\n        && typeof document.addEventListener === \"function\"\\n\\\n    ) || window.domOnEventSelectAllWithinPre) {\\n\\\n        return;\\n\\\n    }\\n\\\n    window.domOnEventSelectAllWithinPre = function (evt) {\\n\\\n        let range;\\n\\\n        let selection;\\n\\\n        if (\\n\\\n            evt && (evt.ctrlKey || evt.metaKey) && evt.key === \"a\"\\n\\\n            && evt.target.closest(\"pre\")\\n\\\n        ) {\\n\\\n            range = document.createRange();\\n\\\n            range.selectNodeContents(evt.target.closest(\"pre\"));\\n\\\n            selection = window.getSelection();\\n\\\n            selection.removeAllRanges();\\n\\\n            selection.addRange(range);\\n\\\n            evt.preventDefault();\\n\\\n        }\\n\\\n    };\\n\\\n    // handle evt\\n\\\n    document.addEventListener(\\n\\\n        \"keydown\",\\n\\\n        window.domOnEventSelectAllWithinPre\\n\\\n    );\\n\\\n}());\\n\\\n</script>\\n\\\n<h1>\\n\\\n<!-- utility2-comment\\n\\\n<a\\n\\\n    {{#if env.npm_package_homepage}}\\n\\\n    href=\"{{env.npm_package_homepage}}\"\\n\\\n    {{/if env.npm_package_homepage}}\\n\\\n    target=\"_blank\"\\n\\\n>\\n\\\nutility2-comment -->\\n\\\n    {{env.npm_package_name}} ({{env.npm_package_version}})\\n\\\n<!-- utility2-comment\\n\\\n</a>\\n\\\nutility2-comment -->\\n\\\n</h1>\\n\\\n<h3>{{env.npm_package_description}}</h3>\\n\\\n<!-- utility2-comment\\n\\\n<a class=\"button\" download href=\"assets.app.js\">download standalone app</a><br>\\n\\\n<button class=\"button\" data-onevent=\"testRunBrowser\" id=\"buttonTestRun1\">run browser-tests</button><br>\\n\\\n<div class=\"uiAnimateSlide\" id=\"htmlTestReport1\" style=\"border-bottom: 0; border-top: 0; margin-bottom: 0; margin-top: 0; max-height: 0; padding-bottom: 0; padding-top: 0;\"></div>\\n\\\nutility2-comment -->\\n\\\n\\n\\\n\\n\\\n<!-- custom-html-start -->\\n\\\n<label>edit or paste script below to\\n\\\n    <a href=\"http://www.jslint.com\" target=\"_blank\">jslint</a>\\n\\\n</label>\\n\\\n<textarea class=\"textarea\" data-onevent=\"domOnEventInputChange\" id=\"inputJslint1\">\\n\\\n/*jslint\\n\\\n    browser: true,\\n\\\n*/\\n\\\nconst message = \"hello\";\\n\\\nconsole.log(message);\\n\\\nconsole.log(null);\\n\\\n</textarea>\\n\\\n<button class=\"button\" data-onevent=\"domOnEventInputChange\" id=\"buttonJslintAutofix1\">jslint autofix</button><br>\\n\\\n<textarea class=\"colorError readonly textarea\" id=\"outputJslint1\" readonly></textarea>\\n\\\n\\n\\\n\\n\\\n\\n\\\n<label>edit or paste script below to\\n\\\n    <a href=\"https://github.com/CSSLint/csslint/wiki/Command-line-interface#options\" target=\"_blank\">csslint</a>\\n\\\n</label>\\n\\\n<textarea class=\"textarea\" data-onevent=\"domOnEventInputChange\" id=\"inputCsslint1\">\\n\\\n/*csslint\\n\\\n    box-sizing: false,\\n\\\n*/\\n\\\nbody {\\n\\\n    box-sizing: border-box;\\n\\\n    margin: 0px;\\n\\\n}\\n\\\n</textarea>\\n\\\n<textarea class=\"colorError readonly textarea\" id=\"outputCsslint1\" readonly></textarea>\\n\\\n<label>stderr and stdout</label>\\n\\\n<textarea class=\"onevent-reset-output readonly textarea\" id=\"outputStdout1\" readonly></textarea>\\n\\\n<script>\\n\\\n/* jslint utility2:true */\\n\\\nwindow.addEventListener(\"load\", function () {\\n\\\n\"use strict\";\\n\\\nlet local;\\n\\\nlocal = window.utility2_jslint;\\n\\\nlocal.domOnEventInputChange = function (evt) {\\n\\\n    switch (evt.type + \".\" + evt.target.id) {\\n\\\n    case \"click.buttonJslintAutofix1\":\\n\\\n    case \"keyup.inputCsslint1\":\\n\\\n    case \"keyup.inputJslint1\":\\n\\\n        // csslint #inputCsslint1\\n\\\n        local.jslintAndPrint(document.querySelector(\\n\\\n            \"#inputCsslint1\"\\n\\\n        ).value, \"inputCsslint1.css\");\\n\\\n        document.querySelector(\\n\\\n            \"#outputCsslint1\"\\n\\\n        ).value = local.jslintResult.errMsg.replace((\\n\\\n            /\\\\u001b\\\\[\\\\d*m/g\\n\\\n        ), \"\").trim();\\n\\\n        // jslint #inputJslint1\\n\\\n        local.jslintAndPrint(document.querySelector(\\n\\\n            \"#inputJslint1\"\\n\\\n        ).value, \"inputJslint1.js\", {\\n\\\n            autofix: evt.target.id === \"buttonJslintAutofix1\"\\n\\\n        });\\n\\\n        if (local.jslint.jslintResult.autofix) {\\n\\\n            document.querySelector(\\n\\\n                \"#inputJslint1\"\\n\\\n            ).value = local.jslint.jslintResult.code;\\n\\\n        }\\n\\\n        document.querySelector(\\n\\\n            \"#outputJslint1\"\\n\\\n        ).value = local.jslintResult.errMsg.replace((\\n\\\n            /\\\\u001b\\\\[\\\\d*m/g\\n\\\n        ), \"\").trim();\\n\\\n        break;\\n\\\n    }\\n\\\n};\\n\\\n// handle evt\\n\\\nlocal.domOnEventInputChange({\\n\\\n    target: {\\n\\\n        id: \"inputJslint1\"\\n\\\n    },\\n\\\n    type: \"keyup\"\\n\\\n});\\n\\\n});\\n\\\n</script>\\n\\\n<!-- custom-html-end -->\\n\\\n\\n\\\n\\n\\\n<!-- utility2-comment\\n\\\n{{#if isRollup}}\\n\\\n<script src=\"assets.app.js\"></script>\\n\\\n{{#unless isRollup}}\\n\\\n<script src=\"assets.utility2.rollup.js\"></script>\\n\\\n<script>window.utility2_onReadyBefore.cnt += 1;</script>\\n\\\n<script src=\"utility2.state.init.js\"></script>\\n\\\nutility2-comment -->\\n\\\n<script src=\"assets.jslint.js\"></script>\\n\\\n<script src=\"assets.example.js\"></script>\\n\\\n<script src=\"assets.test.js\"></script>\\n\\\n<script>\\n\\\nif (window.utility2_onReadyBefore) {\\n\\\n    window.utility2_onReadyBefore();\\n\\\n}\\n\\\n</script>\\n\\\n<!-- utility2-comment\\n\\\n{{/if isRollup}}\\n\\\nutility2-comment -->\\n\\\n<div style=\"text-align: center;\">\\n\\\n    [\\n\\\n    this app was created with\\n\\\n    <a\\n\\\n        href=\"https://github.com/kaizhu256/node-utility2\" target=\"_blank\"\\n\\\n    >utility2</a>\\n\\\n    ]\\n\\\n</div>\\n\\\n</body>\\n\\\n</html>\\n\\\n';\n/* jslint ignore:end */\nlocal.assetsDict[\"/assets.jslint.js\"] = (\n    local.assetsDict[\"/assets.jslint.js\"]\n    || require(\"fs\").readFileSync(\n        require(\"path\").resolve(local.__dirname + \"/lib.jslint.js\"),\n        \"utf8\"\n    ).replace((\n        /^#!\\//\n    ), \"// \")\n);\n/* validateLineSortedReset */\nlocal.assetsDict[\"/\"] = local.assetsDict[\n    \"/assets.index.template.html\"\n].replace((\n    /\\{\\{env\\.(\\w+?)\\}\\}/g\n), function (match0, match1) {\n    switch (match1) {\n    case \"npm_package_description\":\n        return \"the greatest app in the world!\";\n    case \"npm_package_name\":\n        return \"jslint-lite\";\n    case \"npm_package_nameLib\":\n        return \"jslint\";\n    case \"npm_package_version\":\n        return \"0.0.1\";\n    default:\n        return match0;\n    }\n});\nlocal.assetsDict[\"/assets.example.html\"] = local.assetsDict[\"/\"];\n// init cli\nif (module !== require.main || globalThis.utility2_rollup) {\n    return;\n}\nlocal.assetsDict[\"/assets.example.js\"] = (\n    local.assetsDict[\"/assets.example.js\"]\n    || require(\"fs\").readFileSync(__filename, \"utf8\")\n);\nlocal.assetsDict[\"/favicon.ico\"] = local.assetsDict[\"/favicon.ico\"] || \"\";\nlocal.assetsDict[\"/index.html\"] = local.assetsDict[\"/\"];\n// if $npm_config_timeout_exit exists,\n// then exit this process after $npm_config_timeout_exit ms\nif (Number(process.env.npm_config_timeout_exit)) {\n    setTimeout(process.exit, Number(process.env.npm_config_timeout_exit));\n}\n// start server\nif (globalThis.utility2_serverHttp1) {\n    return;\n}\nprocess.env.PORT = process.env.PORT || \"8081\";\nconsole.error(\"http-server listening on port \" + process.env.PORT);\nrequire(\"http\").createServer(function (req, res) {\n    let data;\n    data = local.assetsDict[require(\"url\").parse(req.url).pathname];\n    if (data !== undefined) {\n        res.end(data);\n        return;\n    }\n    res.statusCode = 404;\n    res.end();\n}).listen(process.env.PORT);\n}());\n}());\n","/assets.test.js":"/* istanbul instrument in package jslint */\n// assets.utility2.header.js - start\n/* jslint utility2:true */\n/* istanbul ignore next */\n// run shared js-env code - init-local\n(function () {\n    \"use strict\";\n    let isBrowser;\n    let isWebWorker;\n    let local;\n    // init debugInline\n    if (!globalThis.debugInline) {\n        let consoleError;\n        consoleError = console.error;\n        globalThis.debugInline = function (...argList) {\n        /*\n         * this function will both print <argList> to stderr\n         * and return <argList>[0]\n         */\n            consoleError(\"\\n\\ndebugInline\");\n            consoleError(...argList);\n            consoleError(\"\\n\");\n            return argList[0];\n        };\n    }\n    // init isBrowser\n    isBrowser = (\n        typeof globalThis.XMLHttpRequest === \"function\"\n        && globalThis.navigator\n        && typeof globalThis.navigator.userAgent === \"string\"\n    );\n    // init isWebWorker\n    isWebWorker = (\n        isBrowser && typeof globalThis.importScripts === \"function\"\n    );\n    // init function\n    function assertJsonEqual(aa, bb) {\n    /*\n     * this function will assert JSON.stringify(<aa>) === JSON.stringify(<bb>)\n     */\n        function objectDeepCopyWithKeysSorted(obj) {\n        /*\n         * this function will recursively deep-copy <obj> with keys sorted\n         */\n            let sorted;\n            if (typeof obj !== \"object\" || !obj) {\n                return obj;\n            }\n            // recursively deep-copy list with child-keys sorted\n            if (Array.isArray(obj)) {\n                return obj.map(objectDeepCopyWithKeysSorted);\n            }\n            // recursively deep-copy obj with keys sorted\n            sorted = {};\n            Object.keys(obj).sort().forEach(function (key) {\n                sorted[key] = objectDeepCopyWithKeysSorted(obj[key]);\n            });\n            return sorted;\n        }\n        aa = JSON.stringify(objectDeepCopyWithKeysSorted(aa));\n        bb = JSON.stringify(objectDeepCopyWithKeysSorted(bb));\n        if (aa !== bb) {\n            throw new Error(JSON.stringify(aa) + \" !== \" + JSON.stringify(bb));\n        }\n    }\n    function assertOrThrow(passed, msg) {\n    /*\n     * this function will throw <msg> if <passed> is falsy\n     */\n        if (passed) {\n            return;\n        }\n        throw (\n            (\n                msg\n                && typeof msg.message === \"string\"\n                && typeof msg.stack === \"string\"\n            )\n            // if msg is err, then leave as is\n            ? msg\n            : new Error(\n                typeof msg === \"string\"\n                // if msg is string, then leave as is\n                ? msg\n                // else JSON.stringify(msg)\n                : JSON.stringify(msg, undefined, 4)\n            )\n        );\n    }\n    function coalesce(...argList) {\n    /*\n     * this function will coalesce null, undefined, or \"\" in <argList>\n     */\n        let arg;\n        let ii;\n        ii = 0;\n        while (ii < argList.length) {\n            arg = argList[ii];\n            if (arg !== undefined && arg !== null && arg !== \"\") {\n                return arg;\n            }\n            ii += 1;\n        }\n        return arg;\n    }\n    function identity(val) {\n    /*\n     * this function will return <val>\n     */\n        return val;\n    }\n    function nop() {\n    /*\n     * this function will do nothing\n     */\n        return;\n    }\n    function objectAssignDefault(tgt = {}, src = {}, depth = 0) {\n    /*\n     * this function will if items from <tgt> are null, undefined, or \"\",\n     * then overwrite them with items from <src>\n     */\n        let recurse;\n        recurse = function (tgt, src, depth) {\n            Object.entries(src).forEach(function ([\n                key, bb\n            ]) {\n                let aa;\n                aa = tgt[key];\n                if (aa === undefined || aa === null || aa === \"\") {\n                    tgt[key] = bb;\n                    return;\n                }\n                if (\n                    depth !== 0\n                    && typeof aa === \"object\" && aa && !Array.isArray(aa)\n                    && typeof bb === \"object\" && bb && !Array.isArray(bb)\n                ) {\n                    recurse(aa, bb, depth - 1);\n                }\n            });\n        };\n        recurse(tgt, src, depth | 0);\n        return tgt;\n    }\n    function onErrorThrow(err) {\n    /*\n     * this function will throw <err> if exists\n     */\n        if (err) {\n            throw err;\n        }\n    }\n    // bug-workaround - throw unhandledRejections in node-process\n    if (\n        typeof process === \"object\" && process\n        && typeof process.on === \"function\"\n        && process.unhandledRejections !== \"strict\"\n    ) {\n        process.unhandledRejections = \"strict\";\n        process.on(\"unhandledRejection\", function (err) {\n            throw err;\n        });\n    }\n    // init local\n    local = {};\n    local.local = local;\n    globalThis.globalLocal = local;\n    local.assertJsonEqual = assertJsonEqual;\n    local.assertOrThrow = assertOrThrow;\n    local.coalesce = coalesce;\n    local.identity = identity;\n    local.isBrowser = isBrowser;\n    local.isWebWorker = isWebWorker;\n    local.nop = nop;\n    local.objectAssignDefault = objectAssignDefault;\n    local.onErrorThrow = onErrorThrow;\n}());\n// assets.utility2.header.js - end\n\n\n/* jslint utility2:true */\n(function (local) {\n\"use strict\";\n\n\n/* istanbul ignore next */\n// run shared js-env code - init-before\n(function () {\n// init local\nlocal = globalThis.utility2 || require(\"utility2\");\nlocal = local.requireReadme();\nglobalThis.local = local;\n// init test\nlocal.testRunDefault(local);\n}());\n\n\n// run shared js-env code - function\n(function () {\nlocal.testCase_jslint0_coverage = function (opt, onError) {\n/*\n * this function will test jslintAndPrint's coverage handling-behavior\n */\n    // jslint self\n    if (!local.isBrowser) {\n        local.jslint0(require(\"fs\").readFileSync(__filename, \"utf8\"));\n        local.jslint0(require(\"fs\").readFileSync(\"lib.jslint.js\", \"utf8\"));\n        local.jslint0(require(\"fs\").readFileSync(\n            \"lib.jslint.js\",\n            \"utf8\"\n        ).replace((\n            /[\\S\\s]*?\\n\\/\\/\\u0020jslint\\.js/\n        ), \"\").replace((\n            /\\n\\/\\*\\u0020jslint\\u0020ignore:end\\u0020\\*\\/\\n[\\S\\s]*/\n        ), \"\"));\n        local.jslint0(require(\"fs\").readFileSync(\"package.json\", \"utf8\"));\n    }\n    // test option handling-behavior\n    opt = local.jslint0([\n        // source\n        \"\"\n    ], {\n        // option\n        bitwise: true,\n        browser: true,\n        convert: true,\n        couch: true,\n        devel: true,\n        eval: true,\n        for: true,\n        fudge: true,\n        getset: true,\n        long: true,\n        node: true,\n        single: true,\n        this: true,\n        white: true\n    });\n    local.assertOrThrow(!opt.warnings.length, opt.source);\n    [\n        // option - utility2\n        \"/* jslint utility2:true */\\nlet aa = 1;\\naa();\",\n        // option - browser\n        \"/*jslint browser*/;\",\n        // option - devel\n        \"/*jslint devel*/\\ndebugger;\",\n        // option - eval\n        \"/*jslint eval*/\\nnew Function();\\neval();\",\n        // option - node\n        \"#!\\n/*jslint browser:false, node*/\\n\\\"use strict\\\";\",\n        // option - this\n        \"/*jslint this*/\\nlet aa = this;\",\n        // option - white\n        \"/*jslint white*/\\n\\t\",\n        // property\n        \"/*property aa bb*/\",\n        \"\"\n    ].forEach(function (src) {\n        local.assertOrThrow(!local.jslint0(src).warnings.length, src);\n    });\n    // test misc handling-behavior\n    [\n        // Array\n        \"new Array(1);\",\n        // Date.getTime\n        \"let aa = aa.aa().getTime();\",\n        \"let aa = aa().getTime();\",\n        \"Date.getTime();\",\n        // async/await\n        \"async function aa() {\\n    await aa();\\n}\",\n        // fart\n        \"function aa() {\\n    return () => 1;\\n}\",\n        // for\n        \"/*ignore*/let aa;for(aa in bb){}\",\n        // getset\n        \"/*jslint getset*/\\nlet aa = {get aa() {\\n    return;\\n}};\",\n        \"/*jslint getset*/\\nlet aa = {set aa(aa) {\\n    return aa;\\n}};\",\n        // json\n        \"{\\\"aa\\\":[[],-1,null]}\",\n        // label\n        \"function aa() {\\nbb:\\n    while (true) {\\n        if (true) {\\n\"\n        + \"            break bb;\\n        }\\n    }\\n}\",\n        // module\n        \"export default Object.freeze();\",\n        \"import {aa, bb} from \\\"aa\\\";\\naa(bb);\",\n        \"import {} from \\\"aa\\\";\",\n        \"import(\\\"aa\\\").then(function () {\\n    return;\\n});\",\n        // var\n        \"let [...aa] = [...aa];\",\n        \"let [\\n    aa, bb = 1\\n] = [];\",\n        \"let {aa, bb} = {};\",\n        \"\"\n    ].forEach(function (src) {\n        local.assertOrThrow(!local.jslint0(src).warnings.length || src.indexOf(\n            \"/*ignore*/\"\n        ) === 0, src);\n    });\n    onError(undefined, opt);\n};\n\nlocal.testCase_jslint0_err = function (opt, onError) {\n/*\n * this function will test jslintAndPrint's err handling-behavior\n */\n    let errCode;\n    [\n        // and: \"The '&&' subexpression should be wrapped in parens.\",\n        \"__and__\",\n        \"aa && bb || cc;\",\n        // bad_assignment_a: \"Bad assignment to '{a}'.\",\n        \"__bad_assignment_a__\",\n        \"/*jslint for*/\\nfunction aa(){for (1 in bb){}}\",\n        \"1 = 2;\",\n        \"____\",\n        \"const aa=1;for(aa in bb){}\",\n        // bad_directive_a: \"Bad directive '{a}'.\",\n        \"__bad_directive_a__\",\n        \"/*jslint !*/\",\n        // bad_get: \"A get function takes no parameters.\",\n        \"__bad_get__\",\n        \"/*jslint getset*/\\nlet aa={get aa(aa){return;}};\",\n        // bad_module_name_a: \"Bad module name '{a}'.\",\n        \"__bad_module_name_a__\",\n        \"import aa from \\\"!aa\\\";\",\n        // bad_option_a: \"Bad option '{a}'.\",\n        \"__bad_option_a__\",\n        \"/*global aa:true*/\",\n        \"/*jslint undefined*/\",\n        // bad_property_a: \"Bad property name '{a}'.\",\n        \"__bad_property_a__\",\n        \"{\\\"__proto__\\\":1}\",\n        \"aa._;\",\n        // bad_set: \"A set function takes one parameter.\",\n        \"__bad_set__\",\n        \"/*jslint getset*/\\nlet aa={set aa(){return;}};\",\n        // duplicate_a: \"Duplicate '{a}'.\",\n        \"__duplicate_a__\",\n        \"let aa;export {aa,aa};\",\n        \"{\\\"aa\\\":1,\\\"aa\\\":2}\",\n        // empty_block: \"Empty block.\",\n        \"__empty_block__\",\n        \"function aa() {}\",\n        // escape_mega: \"Unexpected escapement in mega literal.\",\n        \"__escape_mega__\",\n        // expected_a: \"Expected '{a}'.\",\n        \"__expected_a__\",\n        \"aa=/_{}/;\",\n        // expected_a_at_b_c: \"Expected '{a}' at column {b}, not column {c}.\",\n        \"__expected_a_at_b_c__\",\n        \"let aa = {\\n    aa:\\n1\\n};\",\n        // expected_a_b: \"Expected '{a}' and instead saw '{b}'.\",\n        \"__expected_a_b__\",\n        \"(aa)=>{return 1;}\",\n        \"1!=1;\",\n        \"1==1;\",\n        \";{;\",\n        \"`${`\",\n        \"delete [1];\",\n        \"for(;;){}\",\n        \"isFinite(1);\",\n        \"let aa;aa.bb = undefined;\",\n        \"let aa=!!aa;\",\n        \"let aa=(aa?1:aa);\",\n        \"let aa=(aa?aa:1);\",\n        \"let aa=(aa?false:true);\",\n        \"let aa=(aa?true:false);\",\n        \"let aa=+aa;\",\n        \"let aa=/[ ]/;\",\n        \"let aa=1+\\\"\\\";\",\n        \"let aa=\\\"\\\"+\\\"\\\";\",\n        \"new Array(\\\"\\\");\",\n        \"new Date().getTime();\",\n        \"new Object();\",\n        // expected_a_b_from_c_d:\n        // \"Expected '{a}' to match '{b}' from line {c} and instead saw '{d}'.\"\n        \"__expected_a_b_from_c_d__\",\n        \"{\\\"aa\\\":1\",\n        // expected_a_before_b: \"Expected '{a}' before '{b}'.\",\n        \"__expected_a_before_b__\",\n        \"/*jslint eval*/\\nFunction;eval;\",\n        \"let Aa = Aa();\",\n        \"let Aa = Aa.Bb();\",\n        // expected_a_next_at_b:\n        // \"Expected '{a}' at column {b} on the next line.\",\n        \"__expected_a_next_at_b__\",\n        // expected_digits_after_a: \"Expected digits after '{a}'.\",\n        \"__expected_digits_after_a__\",\n        // expected_four_digits: \"Expected four digits after '\\\\u'.\",\n        \"__expected_four_digits__\",\n        // expected_identifier_a:\n        // \"Expected an identifier and instead saw '{a}'.\",\n        \"__expected_identifier_a__\",\n        \"import {\",\n        \"let [aa,1]=[];\",\n        // expected_line_break_a_b:\n        // \"Expected a line break between '{a}' and '{b}'.\",\n        \"__expected_line_break_a_b__\",\n        // expected_regexp_factor_a:\n        // \"Expected a regexp factor and instead saw '{a}'.\",\n        \"__expected_regexp_factor_a__\",\n        // expected_space_a_b: \"Expected one space between '{a}' and '{b}'.\",\n        \"__expected_space_a_b__\",\n        \"/**//**/\",\n        \"let aa=1;\",\n        // expected_statements_a: \"Expected statements before '{a}'.\",\n        \"__expected_statements_a__\",\n        // expected_string_a: \"Expected a string and instead saw '{a}'.\",\n        \"__expected_string_a__\",\n        \"import(aa).then(aa);;\",\n        \"typeof 1===1;\",\n        // expected_type_string_a:\n        // \"Expected a type string and instead saw '{a}'.\",\n        \"__expected_type_string_a__\",\n        \"typeof 1===\\\"aa\\\";\",\n        // freeze_exports:\n        // \"Expected 'Object.freeze('. All export values should be frozen.\"\n        \"__freeze_exports__\",\n        \"export default Object.aa();\",\n        \"export function aa(){return;}\",\n        // function_in_loop: \"Don't make functions within a loop.\",\n        \"__function_in_loop__\",\n        \"function aa(){while (true) {aa.map(function(){return;});}}\",\n        \"function aa(){while (true) {aa.map(()=>1);}}\",\n        // infix_in:\n        // \"Unexpected 'in'. Compare with undefined, \"\n        // + \"or use the hasOwnProperty method instead.\"\n        \"__infix_in__\",\n        \"aa in bb;\",\n        // label_a: \"'{a}' is a statement label.\",\n        \"__label_a__\",\n        // misplaced_a: \"Place '{a}' at the outermost level.\",\n        \"__misplaced_a__\",\n        \"if(true){import aa from \\\"aa\\\";}\",\n        // misplaced_directive_a:\n        // \"Place the '/*{a}*/' directive before the first statement.\"\n        \"__misplaced_directive_a__\",\n        \"let aa;\\n/*global aa*/\",\n        // missing_browser: \"/*global*/ requires the Assume a browser option.\",\n        \"__missing_browser__\",\n        \"/*global aa*/\",\n        // missing_m: \"Expected 'm' flag on a multiline regular expression.\",\n        \"__missing_m__\",\n        \"aa=/$^/;\",\n        // naked_block: \"Naked block.\",\n        \"__naked_block__\",\n        // nested_comment: \"Nested comment.\",\n        \"__nested_comment__\",\n        \"/* /* aa */\",\n        // not_label_a: \"'{a}' is not a label.\",\n        \"__not_label_a__\",\n        // number_isNaN: \"Use Number.isNaN function to compare with NaN.\",\n        \"__number_isNaN__\",\n        \"NaN===NaN;\",\n        \"isNaN(1);\",\n        // out_of_scope_a: \"'{a}' is out of scope.\",\n        \"__out_of_scope_a__\",\n        \"function aa(){bb();}\\nfunction bb(){return;}\",\n        // redefinition_a_b: \"Redefinition of '{a}' from line {b}.\",\n        \"__redefinition_a_b__\",\n        \"let aa; let aa;\",\n        // required_a_optional_b:\n        // \"Required parameter '{a}' after optional parameter '{b}'.\"\n        \"__Required__\",\n        // reserved_a: \"Reserved name '{a}'.\",\n        \"__reserved_a__\",\n        \"let undefined;\",\n        // subscript_a: \"['{a}'] is better written in dot notation.\",\n        \"__subscript_a__\",\n        \"aa[`aa`];\",\n        // todo_comment: \"Unexpected TO\\u0044O comment.\",\n        \"__todo_comment__\",\n        \"// todo\",\n        // too_long: \"Line is longer than 80 characters.\",\n        \"__too_long__\",\n        \"/////////////////////////////////////////\"\n        + \"/////////////////////////////////////////\",\n        // too_many_digits: \"Too many digits.\",\n        \"__too_many_digits__\",\n        \"\\\"\\\\u{123456}\\\"\",\n        // unclosed_comment: \"Unclosed comment.\",\n        \"__unclosed_comment__\",\n        \"/*\",\n        // unclosed_mega: \"Unclosed mega literal.\",\n        \"__unclosed_mega__\",\n        \"`aa\",\n        // unclosed_string: \"Unclosed string.\",\n        \"__unclosed_string__\",\n        \"\\\"\\\\\",\n        \"\\\"aa\",\n        // undeclared_a: \"Undeclared '{a}'.\",\n        \"__undeclared_a__\",\n        \"aa;\",\n        // unexpected_a: \"Unexpected '{a}'.\",\n        \"__unexpected_a__\",\n        \"((1));\",\n        \"/_/;\",\n        \"1 instanceof 1;\",\n        \"1===(1==1);\",\n        \"1|1;\",\n        \";;\",\n        \"Function;\",\n        \"`${/[`]/}`;\",\n        \"aa/=2;\",\n        \"aa=/_//;\",\n        \"aa=/_/z;\",\n        \"arguments;\",\n        \"debugger;\",\n        \"eval;\",\n        \"export aa;\",\n        \"export const aa=1;\",\n        \"for(aa in bb){}\",\n        \"for(const ii=0;;){}\",\n        \"for(ii=0;ii<0;ii++){}\",\n        \"for(ii=0;ii<0;ii+=1){}\",\n        \"function aa(){try{return;}catch(ignore){}finally{return;}}\",\n        \"function aa(){try{return;}catch(ignore){}finally{switch(1){case 1:}}}\",\n        \"function aa(){while(true){continue;}}\",\n        \"function aa(){while(true){try{1;}catch(ignore){}finally{continue;}}}\",\n        \"ignore:\",\n        \"ignore;\",\n        \"import ignore from \\\"aa\\\";\",\n        \"import {ignore} from \\\"aa\\\";\",\n        \"let aa;aa+=NaN;\",\n        \"new Date.UTC();\",\n        \"new Function();\",\n        \"new Symbol();\",\n        \"this;\",\n        \"void 1;\",\n        \"yield /_/;\",\n        \"{//\\n}\",\n        \"{\\\"\\\\u{1234}\\\":1}\",\n        \"{\\\"aa\\\":\",\n        \"{\\\"aa\\\":-0x1}\",\n        \"{\\\"aa\\\":0x1}\",\n        \"____\",\n        \"{\\\"aa\\\":'aa'}\",\n        \"{\\\"aa\\\":{1:2}}\",\n        // unexpected_a_after_b: \"Unexpected '{a}' after '{b}'.\",\n        \"__unexpected_a_after_b__\",\n        // unexpected_a_before_b: \"Unexpected '{a}' before '{b}'.\",\n        \"__unexpected_a_before_b__\",\n        // unexpected_at_top_level_a: \"Expected '{a}' to be in a function.\",\n        \"__unexpected_at_top_level_a__\",\n        // unexpected_char_a: \"Unexpected character '{a}'.\",\n        \"__unexpected_char_a__\",\n        // unexpected_comment: \"Unexpected comment.\",\n        \"__unexpected_comment__\",\n        // unexpected_directive_a:\n        // \"When using modules, don't use directive '/*{a}'.\",\n        \"__unexpected_directive_a__\",\n        \"/*global aa*/\\nimport aa from \\\"aa\\\";\",\n        // unexpected_expression_a:\n        // \"Unexpected expression '{a}' in statement position.\"\n        \"__unexpected_expression_a__\",\n        \"let ii;ii++;\",\n        \"typeof 1===typeof 1;\",\n        // unexpected_label_a: \"Unexpected label '{a}'.\",\n        \"__unexpected_label_a__\",\n        \"aa:aa;\",\n        // unexpected_parens: \"Don't wrap function literals in parens.\",\n        \"__unexpected_parens__\",\n        \"let aa=(function (){return;});\",\n        // unexpected_space_a_b: \"Unexpected space between '{a}' and '{b}'.\",\n        \"__unexpected_space_a_b__\",\n        \"let aa = ( 1 );\",\n        // unexpected_statement_a:\n        // \"Unexpected statement '{a}' in expression position.\"\n        \"__unexpected_statement_a__\",\n        // unexpected_trailing_space: \"Unexpected trailing space.\",\n        \"__unexpected_trailing_space__\",\n        // unexpected_typeof_a:\n        // \"Unexpected 'typeof'. Use '===' to compare directly with {a}.\"\n        \"__unexpected_typeof_a__\",\n        \"typeof aa===\\\"undefined\\\";\",\n        // uninitialized_a: \"Uninitialized '{a}'.\",\n        \"__uninitialized_a__\",\n        \"/*jslint node*/\\nlet aa;aa();\",\n        // unreachable_a: \"Unreachable '{a}'.\",\n        \"__unreachable_a__\",\n        \"function aa(){while(true){break;1;}}\",\n        // unregistered_property_a: \"Unregistered property name '{a}'.\",\n        \"__unregistered_property_a__\",\n        // unsafe: \"Unsafe character '{a}'.\",\n        \"__unsafe__\",\n        // unused_a: \"Unused '{a}'.\",\n        \"__unused_a__\",\n        \"/*jslint node*/\\nlet aa;\",\n        // use_double: \"Use double quotes, not single quotes.\",\n        \"__use_double__\",\n        \"'';\",\n        // use_open:\n        // \"Wrap a ternary expression in parens, \"\n        // + \"with a line break after the left paren.\"\n        \"__use_open__\",\n        \"1?2:3;\",\n        \"let aa = 1?2:3;\",\n        // use_spaces: \"Use spaces, not tabs.\",\n        \"__use_spaces__\",\n        \"\\t\",\n        // var_loop: \"Don't declare variables in a loop.\",\n        \"__var_loop__\",\n        \"function aa(){while(true){var aa;}}\",\n        // var_switch: \"Don't declare variables in a switch.\",\n        \"__var_switch__\",\n        \"function aa(){switch(1){case 1:var aa;}}\",\n        // weird_condition_a: \"Weird condition '{a}'.\",\n        \"__weird_condition_a__\",\n        \"if(1&&1){1;}\",\n        \"if(1||1){1;}\",\n        // weird_expression_a: \"Weird expression '{a}'.\",\n        \"__weird_expression_a__\",\n        \"let aa=RegExp.aa;\",\n        \"let aa=RegExp[1];\",\n        \"let aa=aa[[1]];\",\n        \"let self=self[1];\",\n        \"let window=window[1];\",\n        // weird_loop: \"Weird loop.\",\n        \"__weird_loop__\",\n        \"function aa(){do {break;}while(true);}\",\n        \"function aa(){while(true){break;}}\",\n        // weird_relation_a: \"Weird relation '{a}'.\",\n        \"__weird_relation_a__\",\n        \"if(1===1){1;}\",\n        // wrap_condition: \"Wrap the condition in parens.\",\n        \"__wrap_condition__\",\n        \"let aa=(aa&&!aa?1:2);\",\n        // wrap_immediate:\n        // \"Wrap an immediate function invocation in parentheses to assist \"\n        // + \"the reader in understanding that the expression is the result \"\n        // + \"of a function, and not the function itself.\"\n        \"__wrap_immediate__\",\n        \"let aa=function(){return;}();\",\n        // wrap_parameter: \"Wrap the parameter in parens.\",\n        \"__wrap_parameter__\",\n        \"aa => 1;\",\n        // wrap_regexp: \"Wrap this regexp in parens to avoid confusion.\",\n        \"__wrap_regexp__\",\n        \"!/_/;\",\n        // wrap_unary: \"Wrap the unary expression in parens.\"\n        \"__wrap_unary__\",\n        \"let aa=aa - -aa;\",\n        // throw_error\n        \"____\",\n        \"/*jslint throw_error*/\"\n    ].forEach(function (src) {\n        if (src.slice(0, 2) === \"__\") {\n            errCode = src.slice(2, -2);\n            return;\n        }\n        local.assertOrThrow(\n            local.jslint0(src).warnings[0].code === errCode || !errCode,\n            src\n        );\n    });\n    onError(undefined, opt);\n};\n\nlocal.testCase_jslintAndPrintDir_coverage = function (opt, onError) {\n/*\n * this function will test jslintAndPrintDir's coverage handling-behavior\n */\n    if (local.isBrowser) {\n        onError(undefined, opt);\n        return;\n    }\n    Promise.all([\n        new Promise(function (resolve) {\n            local.jslintAndPrintDir(\".\", {\n                autofix: true,\n                conditional: true\n            }, resolve);\n        }),\n        new Promise(function (resolve) {\n            local.jslintAndPrintDir(\"jslintAndPrintDir\", {\n                autofix: true,\n                conditional: true\n            });\n            local.eventListenerAdd((\n                \"utility2.testRunMock.process.exit\"\n            ), resolve, {\n                once: true\n            });\n        })\n    ]).then(function (errList) {\n        errList.forEach(function (err, ii) {\n            local.assertJsonEqual(Boolean(err) | 0, ii);\n        });\n        onError();\n    });\n};\n\nlocal.testCase_jslintAndPrint_coverage = function (opt, onError) {\n/*\n * this function will test jslintAndPrint's coverage handling-behavior\n */\n    // test null-case handling-behavior\n    local.assertJsonEqual(local.jslintAndPrint(\"\"), \"\\n\");\n    // test early_stop handling-behavior\n    local.jslintAndPrint(\"aa = 1\\naa = [1,2,]\", \"aa.js\");\n    // test utility2 handling-behavior\n    if (!local.isBrowser) {\n        local.jslintAndPrint(\n            require(\"utility2\").__dirname + \"/lib.utility2.js\",\n            \"lib.utility2.js\"\n        );\n    }\n    onError(undefined, opt);\n};\n\nlocal.testCase_jslintAutofix_coverage = function (opt, onError) {\n/*\n * this function will test jslintAutofix's coverage handling-behavior\n */\n    local.testMock([\n        [\n            (\n                local.isBrowser\n                ? {}\n                : require(\"fs\")\n            ), {\n                unlinkSync: local.nop,\n                writeFileSync: local.nop\n            }\n        ],\n        [\n            (\n                local.isBrowser\n                ? {}\n                : require(\"fs\")\n            ), {\n                existsSync: local.identity,\n                unlinkSync: local.nop,\n                writeFileSync: local.nop\n            }\n        ]\n    ], function (onError) {\n        // test autofix-failed-expected_identifier_a handling-behavior\n        local.jslintAndPrint(\"(function () {\\nfunction () {}\\n}());\", \"aa.js\", {\n            autofix: true\n        });\n        // test autofix-multi-pass handling-behavior\n        local.jslintAndPrint(\"let aa;aa=1;\", \"aa.js\", {\n            autofix: true\n        });\n        local.jslintAndPrint((\n            // autofix-js - unexpected_space_a_b\n            \"(function bb () {\\n\"\n            + \"   \\\"use strict\\\";\\n\"\n            // autofix-js - expected_a_at_b_c\n            + \"     return 1;\\n\"\n            + \"}());\\n\"\n        ), \"aa.js\", {\n            autofix: true\n        });\n        // de-mux - false-positive rgx /_/\n        local.jslintAndPrint(\"let aa;\\n aa = {} / 2;\", \"aa.js\", {\n            autofix: true\n        });\n        local.jslintAndPrint((\n            \"(function () {\\n\"\n            + \"    \\\"use strict\\\";\\n\"\n            + \"    let aa;\\n\"\n            // ignore:line\n            + \"    aa = 1; // jslint ignore:line\\n\"\n            // ignore:start ... ignore:end\n            + \"/* jslint ignore:start */\\n\"\n            + \"    aa = 1;\\n\"\n            + \"/* jslint ignore:end */\\n\"\n            // autofix-js - expected_a_b\n            + \"    aa = (1 == 2);\\n\"\n            // autofix-js - expected_a_before_b\n            + \"    aa = /[-]/;\\n\"\n            // autofix-js - expected_identifier_a\n            + \"    aa = {1: 2};\\n\"\n            // autofix-js - use_double\n            + \"    aa = '1\\\"\\\\n\\\\''; // '1'\\n\"\n            // autofix-js - use_spaces\n            + \"\\taa = 1;\\n\"\n            // autofix-js-braket - normalize rgx /_/ to (/_/)\n            + \"    aa = /1/;\\n\"\n            // autofix-js-whitespace - normalize 8-space-indent\n            + \"            aa = 1;\\n\"\n            + \"    return aa;\\n\"\n            + \"}());\\n\"\n        ), \"aa.js\", {\n            autofix: true\n        });\n        onError(undefined, opt);\n    }, onError);\n};\n}());\n}());\n","/index.rollup.html":"<!doctype html>\n<html lang=\"en\">\n<head>\n<meta charset=\"utf-8\">\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n<!-- \"assets.utility2.template.html\" -->\n<title>jslint-lite (2020.8.19)</title>\n<style>\n/* jslint utility2:true */\n/*csslint\n*/\n/* csslint ignore:start */\n*,\n*:after,\n*:before {\n    box-sizing: border-box;\n}\n.uiAnimateSlide {\n    overflow-y: hidden;\n    transition: max-height ease-in 250ms, min-height ease-in 250ms, padding-bottom ease-in 250ms, padding-top ease-in 250ms;\n}\n/* csslint ignore:end */\n@keyframes uiAnimateSpin {\n0% {\n    transform: rotate(0deg);\n}\n100% {\n    transform: rotate(360deg);\n}\n}\na {\n    overflow-wrap: break-word;\n}\nbody {\n    background: #f7f7f7;\n    font-family: Arial, Helvetica, sans-serif;\n    font-size: small;\n    margin: 0 40px;\n}\nbody > div,\nbody > input,\nbody > pre,\nbody > .button,\nbody > .textarea {\n    margin-bottom: 20px;\n    margin-top: 0;\n}\nbody > input,\nbody > .button {\n    width: 20rem;\n}\nbody > .readonly {\n    background: #ddd;\n}\nbody > .textarea {\n    height: 10rem;\n    resize: vertical;\n    width: 100%;\n}\ncode,\npre,\n.textarea {\n    font-family: Consolas, Menlo, monospace;\n    font-size: smaller;\n}\npre {\n    overflow-wrap: break-word;\n    white-space: pre-wrap;\n}\n.button {\n    background: #ddd;\n    border: 1px solid #999;\n    color: #000;\n    cursor: pointer;\n    display: inline-block;\n    padding: 2px 5px;\n    text-align: center;\n    text-decoration: none;\n}\n.button:hover {\n    background: #bbb;\n}\n.colorError {\n    color: #d00;\n}\n.textarea {\n    background: #fff;\n    border: 1px solid #999;\n    border-radius: 0;\n    cursor: auto;\n    overflow: auto;\n    padding: 2px;\n}\n.zeroPixel {\n    border: 0;\n    height: 0;\n    margin: 0;\n    padding: 0;\n    width: 0;\n}\n</style>\n</head>\n<body>\n<div class=\"uiAnimateSpin\" style=\"animation: uiAnimateSpin 2s linear infinite; border: 5px solid #999; border-radius: 50%; border-top: 5px solid #7d7; display: none; height: 25px; vertical-align: middle; width: 25px;\"></div>\n<script>\n/* jslint utility2:true */\n// init domOnEventWindowOnloadTimeElapsed\n(function () {\n/*\n * this function will measure and print time-elapsed for window.onload\n */\n    \"use strict\";\n    if (!(\n        typeof window === \"object\" && window && window.document\n        && typeof document.addEventListener === \"function\"\n    ) || window.domOnEventWindowOnloadTimeElapsed) {\n        return;\n    }\n    window.domOnEventWindowOnloadTimeElapsed = Date.now() + 100;\n    window.addEventListener(\"load\", function () {\n        setTimeout(function () {\n            window.domOnEventWindowOnloadTimeElapsed = (\n                Date.now()\n                - window.domOnEventWindowOnloadTimeElapsed\n            );\n            console.error(\n                \"domOnEventWindowOnloadTimeElapsed = \"\n                + window.domOnEventWindowOnloadTimeElapsed\n            );\n        }, 100);\n    });\n}());\n\n\n// init domOnEventAjaxProgressUpdate\n(function () {\n/*\n * this function will display incrementing ajax-progress-bar\n */\n    \"use strict\";\n    let opt;\n    let styleBar0;\n    let styleBar;\n    let styleModal0;\n    let styleModal;\n    let timeStart;\n    let timerInterval;\n    let timerTimeout;\n    let tmp;\n    let width;\n    try {\n        if (\n            window.domOnEventAjaxProgressUpdate\n            || !document.getElementById(\"domElementAjaxProgressBar1\").style\n        ) {\n            return;\n        }\n    } catch (ignore) {\n        return;\n    }\n    window.domOnEventAjaxProgressUpdate = function (gotoState, onError) {\n        gotoState = (gotoState | 0) + 1;\n        switch (gotoState) {\n        // ajaxProgress - show\n        case 1:\n            // init timerInterval and timerTimeout\n            if (!timerTimeout) {\n                timeStart = Date.now();\n                timerInterval = setInterval(opt, 2000, 1, onError);\n                timerTimeout = setTimeout(opt, opt.timeout, 2, onError);\n            }\n            // show ajaxProgressBar\n            if (width !== -1) {\n                styleBar.background = styleBar0.background;\n            }\n            setTimeout(opt, 50, gotoState, onError);\n            break;\n        // ajaxProgress - increment\n        case 2:\n            // show ajaxProgressBar\n            if (width === -1) {\n                break;\n            }\n            styleBar.background = styleBar0.background;\n            // reset ajaxProgress if it reaches end\n            if ((styleBar.width.slice(0, -1) | 0) > 95) {\n                width = 0;\n            }\n            // this algorithm will indefinitely increment ajaxProgress\n            // with successively smaller increments without reaching 100%\n            width += 1;\n            styleBar.width = Math.max(\n                100 - 75 * Math.exp(-0.125 * width),\n                styleBar.width.slice(0, -1) | 0\n            ) + \"%\";\n            // show ajaxProgressModal\n            styleModal.height = \"100%\";\n            styleModal.opacity = styleModal0.opacity;\n            if (!opt.cnt) {\n                setTimeout(opt, 0, gotoState, onError);\n            }\n            break;\n        // ajaxProgress - 100%\n        case 3:\n            width = -1;\n            styleBar.width = \"100%\";\n            setTimeout(opt, 1000, gotoState, onError);\n            break;\n        // ajaxProgress - hide\n        case 4:\n            // debug timeElapsed\n            tmp = Date.now();\n            console.error(\n                \"domOnEventAjaxProgressUpdate - timeElapsed - \"\n                + (tmp - timeStart)\n                + \" ms\"\n            );\n            // cleanup timerInterval and timerTimeout\n            timeStart = tmp;\n            clearInterval(timerInterval);\n            timerInterval = undefined;\n            clearTimeout(timerTimeout);\n            timerTimeout = undefined;\n            // hide ajaxProgressBar\n            styleBar.background = \"transparent\";\n            // hide ajaxProgressModal\n            styleModal.opacity = \"0\";\n            if (onError) {\n                onError();\n            }\n            setTimeout(opt, 250, gotoState);\n            break;\n        // ajaxProgress - reset\n        default:\n            opt.cnt = 0;\n            width = 0;\n            styleBar.width = \"0%\";\n            styleModal.height = \"0\";\n        }\n    };\n    opt = window.domOnEventAjaxProgressUpdate;\n    opt.end = function (onError) {\n        opt.cnt = 0;\n        window.domOnEventAjaxProgressUpdate(2, onError);\n    };\n    // init styleBar\n    styleBar = document.getElementById(\"domElementAjaxProgressBar1\").style;\n    styleBar0 = Object.assign({}, styleBar);\n    Object.entries({\n        background: \"#d00\",\n        height: \"2px\",\n        left: \"0\",\n        margin: \"0\",\n        padding: \"0\",\n        position: \"fixed\",\n        top: \"0\",\n        transition: \"background 250ms, width 750ms\",\n        width: \"0%\",\n        \"z-index\": \"1\"\n    }).forEach(function (entry) {\n        styleBar[entry[0]] = styleBar[entry[0]] || entry[1];\n    });\n    // init styleModal\n    styleModal = document.getElementById(\"domElementAjaxProgressModal1\") || {};\n    styleModal = styleModal.style || {};\n    styleModal0 = Object.assign({}, styleModal);\n    Object.entries({\n        height: \"0\",\n        left: \"0\",\n        margin: \"0\",\n        padding: \"0\",\n        position: \"fixed\",\n        top: \"0\",\n        transition: \"opacity 125ms\",\n        width: \"100%\",\n        \"z-index\": \"1\"\n    }).forEach(function (entry) {\n        styleModal[entry[0]] = styleModal[entry[0]] || entry[1];\n    });\n    // init state\n    width = 0;\n    opt.cnt = 0;\n    opt.timeout = 30000;\n    // init ajaxProgress\n    window.domOnEventAjaxProgressUpdate();\n}());\n\n\n// init domOnEventDelegateDict\n(function () {\n/*\n * this function will handle delegated dom-evt\n */\n    \"use strict\";\n    let debounce;\n    let timerTimeout;\n    debounce = function () {\n        return setTimeout(function () {\n            timerTimeout = undefined;\n        }, 30);\n    };\n    if (!(\n        typeof window === \"object\" && window && window.document\n        && typeof document.addEventListener === \"function\"\n    ) || window.domOnEventDelegateDict) {\n        return;\n    }\n    window.domOnEventDelegateDict = {};\n    window.domOnEventDelegateDict.domOnEventDelegate = function (evt) {\n        evt.targetOnEvent = evt.target.closest(\"[data-onevent]\");\n        if (\n            !evt.targetOnEvent\n            || evt.targetOnEvent.dataset.onevent === \"domOnEventNop\"\n            || evt.target.closest(\".disabled,.readonly\")\n        ) {\n            return;\n        }\n        // filter evt-change\n        switch (evt.type !== \"change\" && evt.target.type) {\n        case \"checkbox\":\n        case \"file\":\n        case \"select-one\":\n        case \"radio\":\n            return;\n        }\n        // filter evt-keyup\n        switch (evt.type) {\n        case \"keyup\":\n            if (!timerTimeout && (\n                evt.target.tagName === \"INPUT\"\n                || evt.target.tagName === \"TEXTAREA\"\n            )) {\n                timerTimeout = debounce();\n                if (evt.target.dataset.valueOld !== evt.target.value) {\n                    evt.target.dataset.valueOld = evt.target.value;\n                    break;\n                }\n            }\n            return;\n        }\n        switch (evt.targetOnEvent.tagName) {\n        case \"BUTTON\":\n        case \"FORM\":\n            evt.preventDefault();\n            break;\n        }\n        evt.stopPropagation();\n        // handle domOnEventClickTarget\n        if (evt.targetOnEvent.dataset.onevent === \"domOnEventClickTarget\") {\n            document.querySelector(\n                evt.targetOnEvent.dataset.clickTarget\n            ).click();\n            return;\n        }\n        window.domOnEventDelegateDict[evt.targetOnEvent.dataset.onevent](evt);\n    };\n    // handle evt\n    [\n        \"change\",\n        \"click\",\n        \"keyup\",\n        \"submit\"\n    ].forEach(function (eventType) {\n        document.addEventListener(\n            eventType,\n            window.domOnEventDelegateDict.domOnEventDelegate\n        );\n    });\n}());\n\n\n// init domOnEventSelectAllWithinPre\n(function () {\n/*\n * this function will limit select-all within <pre tabIndex=\"0\"> elem\n * https://stackoverflow.com/questions/985272/selecting-text-in-an-element-akin-to-highlighting-with-your-mouse\n */\n    \"use strict\";\n    if (!(\n        typeof window === \"object\" && window && window.document\n        && typeof document.addEventListener === \"function\"\n    ) || window.domOnEventSelectAllWithinPre) {\n        return;\n    }\n    window.domOnEventSelectAllWithinPre = function (evt) {\n        let range;\n        let selection;\n        if (\n            evt && (evt.ctrlKey || evt.metaKey) && evt.key === \"a\"\n            && evt.target.closest(\"pre\")\n        ) {\n            range = document.createRange();\n            range.selectNodeContents(evt.target.closest(\"pre\"));\n            selection = window.getSelection();\n            selection.removeAllRanges();\n            selection.addRange(range);\n            evt.preventDefault();\n        }\n    };\n    // handle evt\n    document.addEventListener(\n        \"keydown\",\n        window.domOnEventSelectAllWithinPre\n    );\n}());\n</script>\n<h1>\n\n<a\n    \n    href=\"https://github.com/kaizhu256/node-jslint-lite\"\n    \n    target=\"_blank\"\n>\n\n    jslint-lite (2020.8.19)\n\n</a>\n\n</h1>\n<h3>this zero-dependency package will provide browser-compatible versions of jslint (v2020.7.2) and csslint (v2018.2.25), with working web-demo</h3>\n\n<a class=\"button\" download href=\"assets.app.js\">download standalone app</a><br>\n<button class=\"button\" data-onevent=\"testRunBrowser\" id=\"buttonTestRun1\">run browser-tests</button><br>\n<div class=\"uiAnimateSlide\" id=\"htmlTestReport1\" style=\"border-bottom: 0; border-top: 0; margin-bottom: 0; margin-top: 0; max-height: 0; padding-bottom: 0; padding-top: 0;\"></div>\n\n\n\n<!-- custom-html-start -->\n<label>edit or paste script below to\n    <a href=\"http://www.jslint.com\" target=\"_blank\">jslint</a>\n</label>\n<textarea class=\"textarea\" data-onevent=\"domOnEventInputChange\" id=\"inputJslint1\">\n/*jslint\n    browser: true,\n*/\nconst message = \"hello\";\nconsole.log(message);\nconsole.log(null);\n</textarea>\n<button class=\"button\" data-onevent=\"domOnEventInputChange\" id=\"buttonJslintAutofix1\">jslint autofix</button><br>\n<textarea class=\"colorError readonly textarea\" id=\"outputJslint1\" readonly></textarea>\n\n\n\n<label>edit or paste script below to\n    <a href=\"https://github.com/CSSLint/csslint/wiki/Command-line-interface#options\" target=\"_blank\">csslint</a>\n</label>\n<textarea class=\"textarea\" data-onevent=\"domOnEventInputChange\" id=\"inputCsslint1\">\n/*csslint\n    box-sizing: false,\n*/\nbody {\n    box-sizing: border-box;\n    margin: 0px;\n}\n</textarea>\n<textarea class=\"colorError readonly textarea\" id=\"outputCsslint1\" readonly></textarea>\n<label>stderr and stdout</label>\n<textarea class=\"onevent-reset-output readonly textarea\" id=\"outputStdout1\" readonly></textarea>\n<script>\n/* jslint utility2:true */\nwindow.addEventListener(\"load\", function () {\n\"use strict\";\nlet local;\nlocal = window.utility2_jslint;\nlocal.domOnEventInputChange = function (evt) {\n    switch (evt.type + \".\" + evt.target.id) {\n    case \"click.buttonJslintAutofix1\":\n    case \"keyup.inputCsslint1\":\n    case \"keyup.inputJslint1\":\n        // csslint #inputCsslint1\n        local.jslintAndPrint(document.querySelector(\n            \"#inputCsslint1\"\n        ).value, \"inputCsslint1.css\");\n        document.querySelector(\n            \"#outputCsslint1\"\n        ).value = local.jslintResult.errMsg.replace((\n            /\\u001b\\[\\d*m/g\n        ), \"\").trim();\n        // jslint #inputJslint1\n        local.jslintAndPrint(document.querySelector(\n            \"#inputJslint1\"\n        ).value, \"inputJslint1.js\", {\n            autofix: evt.target.id === \"buttonJslintAutofix1\"\n        });\n        if (local.jslint.jslintResult.autofix) {\n            document.querySelector(\n                \"#inputJslint1\"\n            ).value = local.jslint.jslintResult.code;\n        }\n        document.querySelector(\n            \"#outputJslint1\"\n        ).value = local.jslintResult.errMsg.replace((\n            /\\u001b\\[\\d*m/g\n        ), \"\").trim();\n        break;\n    }\n};\n// handle evt\nlocal.domOnEventInputChange({\n    target: {\n        id: \"inputJslint1\"\n    },\n    type: \"keyup\"\n});\n});\n</script>\n<!-- custom-html-end -->\n\n\n\n\n<script src=\"assets.app.js\"></script>\n\n\n<div style=\"text-align: center;\">\n    [\n    this app was created with\n    <a\n        href=\"https://github.com/kaizhu256/node-utility2\" target=\"_blank\"\n    >utility2</a>\n    ]\n</div>\n</body>\n</html>\n"},"env":{"NODE_ENV":"test","npm_package_description":"this zero-dependency package will provide browser-compatible versions of jslint (v2020.7.2) and csslint (v2018.2.25), with working web-demo","npm_package_homepage":"https://github.com/kaizhu256/node-jslint-lite","npm_package_name":"jslint-lite","npm_package_nameLib":"jslint","npm_package_version":"2020.8.19"},"init":"(function (state) {\nlet utility2 = globalThis.utility2;\nutility2.assetsDict = utility2.assetsDict || {};\nutility2.env = utility2.env || {};\nObject.assign(utility2.assetsDict, state.assetsDict);\nObject.assign(utility2.env, state.env);\n}({}));\n"}
 ));
 
 /* jslint ignore:end */
@@ -72076,7 +72212,7 @@ local.assetsDict["/assets.jslint.css"] = (
 local.assetsDict["/assets.jslint.js"] = (
 "// usr/bin/env node\n\
 /*\n\
- * lib.jslint.js (2020.7.8)\n\
+ * lib.jslint.js (2020.8.19)\n\
  * https://github.com/kaizhu256/node-jslint-lite\n\
  * this zero-dependency package will provide browser-compatible versions of jslint (v2020.7.2) and csslint (v2018.2.25), with working web-demo\n\
  *\n\
@@ -72090,10 +72226,12 @@ local.assetsDict["/assets.jslint.js"] = (
 // run shared js-env code - init-local\n\
 (function () {\n\
     \"use strict\";\n\
-    let consoleError;\n\
+    let isBrowser;\n\
+    let isWebWorker;\n\
     let local;\n\
     // init debugInline\n\
     if (!globalThis.debugInline) {\n\
+        let consoleError;\n\
         consoleError = console.error;\n\
         globalThis.debugInline = function (...argList) {\n\
         /*\n\
@@ -72106,27 +72244,22 @@ local.assetsDict["/assets.jslint.js"] = (
             return argList[0];\n\
         };\n\
     }\n\
-    // init local\n\
-    local = {};\n\
-    local.local = local;\n\
-    globalThis.globalLocal = local;\n\
     // init isBrowser\n\
-    local.isBrowser = (\n\
+    isBrowser = (\n\
         typeof globalThis.XMLHttpRequest === \"function\"\n\
         && globalThis.navigator\n\
         && typeof globalThis.navigator.userAgent === \"string\"\n\
     );\n\
     // init isWebWorker\n\
-    local.isWebWorker = (\n\
-        local.isBrowser && typeof globalThis.importScripts === \"function\"\n\
+    isWebWorker = (\n\
+        isBrowser && typeof globalThis.importScripts === \"function\"\n\
     );\n\
     // init function\n\
-    local.assertJsonEqual = function (aa, bb) {\n\
+    function assertJsonEqual(aa, bb) {\n\
     /*\n\
      * this function will assert JSON.stringify(<aa>) === JSON.stringify(<bb>)\n\
      */\n\
-        let objectDeepCopyWithKeysSorted;\n\
-        objectDeepCopyWithKeysSorted = function (obj) {\n\
+        function objectDeepCopyWithKeysSorted(obj) {\n\
         /*\n\
          * this function will recursively deep-copy <obj> with keys sorted\n\
          */\n\
@@ -72144,14 +72277,14 @@ local.assetsDict["/assets.jslint.js"] = (
                 sorted[key] = objectDeepCopyWithKeysSorted(obj[key]);\n\
             });\n\
             return sorted;\n\
-        };\n\
+        }\n\
         aa = JSON.stringify(objectDeepCopyWithKeysSorted(aa));\n\
         bb = JSON.stringify(objectDeepCopyWithKeysSorted(bb));\n\
         if (aa !== bb) {\n\
             throw new Error(JSON.stringify(aa) + \" !== \" + JSON.stringify(bb));\n\
         }\n\
-    };\n\
-    local.assertOrThrow = function (passed, msg) {\n\
+    }\n\
+    function assertOrThrow(passed, msg) {\n\
     /*\n\
      * this function will throw <msg> if <passed> is falsy\n\
      */\n\
@@ -72174,8 +72307,8 @@ local.assetsDict["/assets.jslint.js"] = (
                 : JSON.stringify(msg, undefined, 4)\n\
             )\n\
         );\n\
-    };\n\
-    local.coalesce = function (...argList) {\n\
+    }\n\
+    function coalesce(...argList) {\n\
     /*\n\
      * this function will coalesce null, undefined, or \"\" in <argList>\n\
      */\n\
@@ -72190,20 +72323,20 @@ local.assetsDict["/assets.jslint.js"] = (
             ii += 1;\n\
         }\n\
         return arg;\n\
-    };\n\
-    local.identity = function (val) {\n\
+    }\n\
+    function identity(val) {\n\
     /*\n\
      * this function will return <val>\n\
      */\n\
         return val;\n\
-    };\n\
-    local.nop = function () {\n\
+    }\n\
+    function nop() {\n\
     /*\n\
      * this function will do nothing\n\
      */\n\
         return;\n\
-    };\n\
-    local.objectAssignDefault = function (tgt = {}, src = {}, depth = 0) {\n\
+    }\n\
+    function objectAssignDefault(tgt = {}, src = {}, depth = 0) {\n\
     /*\n\
      * this function will if items from <tgt> are null, undefined, or \"\",\n\
      * then overwrite them with items from <src>\n\
@@ -72230,15 +72363,15 @@ local.assetsDict["/assets.jslint.js"] = (
         };\n\
         recurse(tgt, src, depth | 0);\n\
         return tgt;\n\
-    };\n\
-    local.onErrorThrow = function (err) {\n\
+    }\n\
+    function onErrorThrow(err) {\n\
     /*\n\
      * this function will throw <err> if exists\n\
      */\n\
         if (err) {\n\
             throw err;\n\
         }\n\
-    };\n\
+    }\n\
     // bug-workaround - throw unhandledRejections in node-process\n\
     if (\n\
         typeof process === \"object\" && process\n\
@@ -72250,6 +72383,19 @@ local.assetsDict["/assets.jslint.js"] = (
             throw err;\n\
         });\n\
     }\n\
+    // init local\n\
+    local = {};\n\
+    local.local = local;\n\
+    globalThis.globalLocal = local;\n\
+    local.assertJsonEqual = assertJsonEqual;\n\
+    local.assertOrThrow = assertOrThrow;\n\
+    local.coalesce = coalesce;\n\
+    local.identity = identity;\n\
+    local.isBrowser = isBrowser;\n\
+    local.isWebWorker = isWebWorker;\n\
+    local.nop = nop;\n\
+    local.objectAssignDefault = objectAssignDefault;\n\
+    local.onErrorThrow = onErrorThrow;\n\
 }());\n\
 // assets.utility2.header.js - end\n\
 \n\
@@ -72442,8 +72588,7 @@ local.objectDeepCopyWithKeysSorted = function (obj) {\n\
 /*\n\
  * this function will recursively deep-copy <obj> with keys sorted\n\
  */\n\
-    let objectDeepCopyWithKeysSorted;\n\
-    objectDeepCopyWithKeysSorted = function (obj) {\n\
+    function objectDeepCopyWithKeysSorted(obj) {\n\
     /*\n\
      * this function will recursively deep-copy <obj> with keys sorted\n\
      */\n\
@@ -72461,7 +72606,7 @@ local.objectDeepCopyWithKeysSorted = function (obj) {\n\
             sorted[key] = objectDeepCopyWithKeysSorted(obj[key]);\n\
         });\n\
         return sorted;\n\
-    };\n\
+    }\n\
     return objectDeepCopyWithKeysSorted(obj);\n\
 };\n\
 }());\n\
@@ -88580,7 +88725,6 @@ jslintAutofix = function (code, file, opt, {fileType, globalList, iiLine}) {\n\
         });\n\
         break;\n\
     case \".js\":\n\
-    case \".json\":\n\
         // de-mux - code to [code, ignoreList]\n\
         ignoreList = [];\n\
         code = code.replace((\n\
@@ -88797,15 +88941,11 @@ jslintAutofix = function (code, file, opt, {fileType, globalList, iiLine}) {\n\
         ), function () {\n\
             return ignoreList.shift().trimStart();\n\
         });\n\
-        // autofix-json - sort-keys\n\
-        if (fileType === \".json\") {\n\
-            code = JSON.stringify(\n\
-                local.objectDeepCopyWithKeysSorted(JSON.parse(code)),\n\
-                undefined,\n\
-                4\n\
-            );\n\
-            break;\n\
-        }\n\
+        break;\n\
+    case \".json\":\n\
+        code = JSON.stringify(local.objectDeepCopyWithKeysSorted(JSON.parse(\n\
+            code\n\
+        )), undefined, 4);\n\
         break;\n\
     case \".md\":\n\
         // autofix-md - recurse ```javascript...```\n\
@@ -88909,7 +89049,7 @@ jslintRecurse = function (code, file, opt, {\n\
             /^\\/\\*jslint\\b|(^\\/\\*\\u0020jslint\\u0020utility2:true\\u0020\\*\\/$)/m\n\
         ),\n\
         \".json\": (\n\
-            /^\\s*?(?:\\[|\\{)/\n\
+            /^\\s*?\\{\\s*?\"!!jslint_utility2\":\\s*?true/\n\
         ),\n\
         \".md\": (\n\
             /(^\\/\\*\\u0020jslint\\u0020utility2:true\\u0020\\*\\/$)/m\n\
@@ -88919,11 +89059,11 @@ jslintRecurse = function (code, file, opt, {\n\
         )\n\
     };\n\
     // jslint - .json\n\
-    if (fileType === \".js\" && tmp[\".json\"].test(code)) {\n\
+    if (fileType === \".js\" && tmp[\".json\"].test(code.slice(0, 4096))) {\n\
         fileType = \".json\";\n\
     }\n\
     // init mode-utility2\n\
-    tmp = tmp[fileType] && tmp[fileType].exec(code);\n\
+    tmp = tmp[fileType] && tmp[fileType].exec(code.slice(0, 4096));\n\
     opt.utility2 = Boolean((tmp && tmp[1]) || modeAutofix);\n\
     // if not modeConditional, then do not jslint\n\
     if ((modeConditional && !tmp) || modeCoverage) {\n\
@@ -89506,7 +89646,7 @@ if (module === require.main && !globalThis.utility2_rollup) {\n\
 ");
 // usr/bin/env node
 /*
- * lib.jslint.js (2020.7.8)
+ * lib.jslint.js (2020.8.19)
  * https://github.com/kaizhu256/node-jslint-lite
  * this zero-dependency package will provide browser-compatible versions of jslint (v2020.7.2) and csslint (v2018.2.25), with working web-demo
  *
@@ -89520,10 +89660,12 @@ if (module === require.main && !globalThis.utility2_rollup) {\n\
 // run shared js-env code - init-local
 (function () {
     "use strict";
-    let consoleError;
+    let isBrowser;
+    let isWebWorker;
     let local;
     // init debugInline
     if (!globalThis.debugInline) {
+        let consoleError;
         consoleError = console.error;
         globalThis.debugInline = function (...argList) {
         /*
@@ -89536,27 +89678,22 @@ if (module === require.main && !globalThis.utility2_rollup) {\n\
             return argList[0];
         };
     }
-    // init local
-    local = {};
-    local.local = local;
-    globalThis.globalLocal = local;
     // init isBrowser
-    local.isBrowser = (
+    isBrowser = (
         typeof globalThis.XMLHttpRequest === "function"
         && globalThis.navigator
         && typeof globalThis.navigator.userAgent === "string"
     );
     // init isWebWorker
-    local.isWebWorker = (
-        local.isBrowser && typeof globalThis.importScripts === "function"
+    isWebWorker = (
+        isBrowser && typeof globalThis.importScripts === "function"
     );
     // init function
-    local.assertJsonEqual = function (aa, bb) {
+    function assertJsonEqual(aa, bb) {
     /*
      * this function will assert JSON.stringify(<aa>) === JSON.stringify(<bb>)
      */
-        let objectDeepCopyWithKeysSorted;
-        objectDeepCopyWithKeysSorted = function (obj) {
+        function objectDeepCopyWithKeysSorted(obj) {
         /*
          * this function will recursively deep-copy <obj> with keys sorted
          */
@@ -89574,14 +89711,14 @@ if (module === require.main && !globalThis.utility2_rollup) {\n\
                 sorted[key] = objectDeepCopyWithKeysSorted(obj[key]);
             });
             return sorted;
-        };
+        }
         aa = JSON.stringify(objectDeepCopyWithKeysSorted(aa));
         bb = JSON.stringify(objectDeepCopyWithKeysSorted(bb));
         if (aa !== bb) {
             throw new Error(JSON.stringify(aa) + " !== " + JSON.stringify(bb));
         }
-    };
-    local.assertOrThrow = function (passed, msg) {
+    }
+    function assertOrThrow(passed, msg) {
     /*
      * this function will throw <msg> if <passed> is falsy
      */
@@ -89604,8 +89741,8 @@ if (module === require.main && !globalThis.utility2_rollup) {\n\
                 : JSON.stringify(msg, undefined, 4)
             )
         );
-    };
-    local.coalesce = function (...argList) {
+    }
+    function coalesce(...argList) {
     /*
      * this function will coalesce null, undefined, or "" in <argList>
      */
@@ -89620,20 +89757,20 @@ if (module === require.main && !globalThis.utility2_rollup) {\n\
             ii += 1;
         }
         return arg;
-    };
-    local.identity = function (val) {
+    }
+    function identity(val) {
     /*
      * this function will return <val>
      */
         return val;
-    };
-    local.nop = function () {
+    }
+    function nop() {
     /*
      * this function will do nothing
      */
         return;
-    };
-    local.objectAssignDefault = function (tgt = {}, src = {}, depth = 0) {
+    }
+    function objectAssignDefault(tgt = {}, src = {}, depth = 0) {
     /*
      * this function will if items from <tgt> are null, undefined, or "",
      * then overwrite them with items from <src>
@@ -89660,15 +89797,15 @@ if (module === require.main && !globalThis.utility2_rollup) {\n\
         };
         recurse(tgt, src, depth | 0);
         return tgt;
-    };
-    local.onErrorThrow = function (err) {
+    }
+    function onErrorThrow(err) {
     /*
      * this function will throw <err> if exists
      */
         if (err) {
             throw err;
         }
-    };
+    }
     // bug-workaround - throw unhandledRejections in node-process
     if (
         typeof process === "object" && process
@@ -89680,6 +89817,19 @@ if (module === require.main && !globalThis.utility2_rollup) {\n\
             throw err;
         });
     }
+    // init local
+    local = {};
+    local.local = local;
+    globalThis.globalLocal = local;
+    local.assertJsonEqual = assertJsonEqual;
+    local.assertOrThrow = assertOrThrow;
+    local.coalesce = coalesce;
+    local.identity = identity;
+    local.isBrowser = isBrowser;
+    local.isWebWorker = isWebWorker;
+    local.nop = nop;
+    local.objectAssignDefault = objectAssignDefault;
+    local.onErrorThrow = onErrorThrow;
 }());
 // assets.utility2.header.js - end
 
@@ -89872,8 +90022,7 @@ local.objectDeepCopyWithKeysSorted = function (obj) {
 /*
  * this function will recursively deep-copy <obj> with keys sorted
  */
-    let objectDeepCopyWithKeysSorted;
-    objectDeepCopyWithKeysSorted = function (obj) {
+    function objectDeepCopyWithKeysSorted(obj) {
     /*
      * this function will recursively deep-copy <obj> with keys sorted
      */
@@ -89891,7 +90040,7 @@ local.objectDeepCopyWithKeysSorted = function (obj) {
             sorted[key] = objectDeepCopyWithKeysSorted(obj[key]);
         });
         return sorted;
-    };
+    }
     return objectDeepCopyWithKeysSorted(obj);
 };
 }());
@@ -106010,7 +106159,6 @@ jslintAutofix = function (code, file, opt, {fileType, globalList, iiLine}) {
         });
         break;
     case ".js":
-    case ".json":
         // de-mux - code to [code, ignoreList]
         ignoreList = [];
         code = code.replace((
@@ -106227,15 +106375,11 @@ jslintAutofix = function (code, file, opt, {fileType, globalList, iiLine}) {
         ), function () {
             return ignoreList.shift().trimStart();
         });
-        // autofix-json - sort-keys
-        if (fileType === ".json") {
-            code = JSON.stringify(
-                local.objectDeepCopyWithKeysSorted(JSON.parse(code)),
-                undefined,
-                4
-            );
-            break;
-        }
+        break;
+    case ".json":
+        code = JSON.stringify(local.objectDeepCopyWithKeysSorted(JSON.parse(
+            code
+        )), undefined, 4);
         break;
     case ".md":
         // autofix-md - recurse ```javascript...```
@@ -106339,7 +106483,7 @@ jslintRecurse = function (code, file, opt, {
             /^\/\*jslint\b|(^\/\*\u0020jslint\u0020utility2:true\u0020\*\/$)/m
         ),
         ".json": (
-            /^\s*?(?:\[|\{)/
+            /^\s*?\{\s*?"!!jslint_utility2":\s*?true/
         ),
         ".md": (
             /(^\/\*\u0020jslint\u0020utility2:true\u0020\*\/$)/m
@@ -106349,11 +106493,11 @@ jslintRecurse = function (code, file, opt, {
         )
     };
     // jslint - .json
-    if (fileType === ".js" && tmp[".json"].test(code)) {
+    if (fileType === ".js" && tmp[".json"].test(code.slice(0, 4096))) {
         fileType = ".json";
     }
     // init mode-utility2
-    tmp = tmp[fileType] && tmp[fileType].exec(code);
+    tmp = tmp[fileType] && tmp[fileType].exec(code.slice(0, 4096));
     opt.utility2 = Boolean((tmp && tmp[1]) || modeAutofix);
     // if not modeConditional, then do not jslint
     if ((modeConditional && !tmp) || modeCoverage) {
@@ -106964,10 +107108,12 @@ instruction
 // run shared js-env code - init-local
 (function () {
     "use strict";
-    let consoleError;
+    let isBrowser;
+    let isWebWorker;
     let local;
     // init debugInline
     if (!globalThis.debugInline) {
+        let consoleError;
         consoleError = console.error;
         globalThis.debugInline = function (...argList) {
         /*
@@ -106980,27 +107126,22 @@ instruction
             return argList[0];
         };
     }
-    // init local
-    local = {};
-    local.local = local;
-    globalThis.globalLocal = local;
     // init isBrowser
-    local.isBrowser = (
+    isBrowser = (
         typeof globalThis.XMLHttpRequest === "function"
         && globalThis.navigator
         && typeof globalThis.navigator.userAgent === "string"
     );
     // init isWebWorker
-    local.isWebWorker = (
-        local.isBrowser && typeof globalThis.importScripts === "function"
+    isWebWorker = (
+        isBrowser && typeof globalThis.importScripts === "function"
     );
     // init function
-    local.assertJsonEqual = function (aa, bb) {
+    function assertJsonEqual(aa, bb) {
     /*
      * this function will assert JSON.stringify(<aa>) === JSON.stringify(<bb>)
      */
-        let objectDeepCopyWithKeysSorted;
-        objectDeepCopyWithKeysSorted = function (obj) {
+        function objectDeepCopyWithKeysSorted(obj) {
         /*
          * this function will recursively deep-copy <obj> with keys sorted
          */
@@ -107018,14 +107159,14 @@ instruction
                 sorted[key] = objectDeepCopyWithKeysSorted(obj[key]);
             });
             return sorted;
-        };
+        }
         aa = JSON.stringify(objectDeepCopyWithKeysSorted(aa));
         bb = JSON.stringify(objectDeepCopyWithKeysSorted(bb));
         if (aa !== bb) {
             throw new Error(JSON.stringify(aa) + " !== " + JSON.stringify(bb));
         }
-    };
-    local.assertOrThrow = function (passed, msg) {
+    }
+    function assertOrThrow(passed, msg) {
     /*
      * this function will throw <msg> if <passed> is falsy
      */
@@ -107048,8 +107189,8 @@ instruction
                 : JSON.stringify(msg, undefined, 4)
             )
         );
-    };
-    local.coalesce = function (...argList) {
+    }
+    function coalesce(...argList) {
     /*
      * this function will coalesce null, undefined, or "" in <argList>
      */
@@ -107064,20 +107205,20 @@ instruction
             ii += 1;
         }
         return arg;
-    };
-    local.identity = function (val) {
+    }
+    function identity(val) {
     /*
      * this function will return <val>
      */
         return val;
-    };
-    local.nop = function () {
+    }
+    function nop() {
     /*
      * this function will do nothing
      */
         return;
-    };
-    local.objectAssignDefault = function (tgt = {}, src = {}, depth = 0) {
+    }
+    function objectAssignDefault(tgt = {}, src = {}, depth = 0) {
     /*
      * this function will if items from <tgt> are null, undefined, or "",
      * then overwrite them with items from <src>
@@ -107104,15 +107245,15 @@ instruction
         };
         recurse(tgt, src, depth | 0);
         return tgt;
-    };
-    local.onErrorThrow = function (err) {
+    }
+    function onErrorThrow(err) {
     /*
      * this function will throw <err> if exists
      */
         if (err) {
             throw err;
         }
-    };
+    }
     // bug-workaround - throw unhandledRejections in node-process
     if (
         typeof process === "object" && process
@@ -107124,6 +107265,19 @@ instruction
             throw err;
         });
     }
+    // init local
+    local = {};
+    local.local = local;
+    globalThis.globalLocal = local;
+    local.assertJsonEqual = assertJsonEqual;
+    local.assertOrThrow = assertOrThrow;
+    local.coalesce = coalesce;
+    local.identity = identity;
+    local.isBrowser = isBrowser;
+    local.isWebWorker = isWebWorker;
+    local.nop = nop;
+    local.objectAssignDefault = objectAssignDefault;
+    local.onErrorThrow = onErrorThrow;
 }());
 // assets.utility2.header.js - end
 
@@ -107810,10 +107964,12 @@ require("http").createServer(function (req, res) {
 // run shared js-env code - init-local
 (function () {
     "use strict";
-    let consoleError;
+    let isBrowser;
+    let isWebWorker;
     let local;
     // init debugInline
     if (!globalThis.debugInline) {
+        let consoleError;
         consoleError = console.error;
         globalThis.debugInline = function (...argList) {
         /*
@@ -107826,27 +107982,22 @@ require("http").createServer(function (req, res) {
             return argList[0];
         };
     }
-    // init local
-    local = {};
-    local.local = local;
-    globalThis.globalLocal = local;
     // init isBrowser
-    local.isBrowser = (
+    isBrowser = (
         typeof globalThis.XMLHttpRequest === "function"
         && globalThis.navigator
         && typeof globalThis.navigator.userAgent === "string"
     );
     // init isWebWorker
-    local.isWebWorker = (
-        local.isBrowser && typeof globalThis.importScripts === "function"
+    isWebWorker = (
+        isBrowser && typeof globalThis.importScripts === "function"
     );
     // init function
-    local.assertJsonEqual = function (aa, bb) {
+    function assertJsonEqual(aa, bb) {
     /*
      * this function will assert JSON.stringify(<aa>) === JSON.stringify(<bb>)
      */
-        let objectDeepCopyWithKeysSorted;
-        objectDeepCopyWithKeysSorted = function (obj) {
+        function objectDeepCopyWithKeysSorted(obj) {
         /*
          * this function will recursively deep-copy <obj> with keys sorted
          */
@@ -107864,14 +108015,14 @@ require("http").createServer(function (req, res) {
                 sorted[key] = objectDeepCopyWithKeysSorted(obj[key]);
             });
             return sorted;
-        };
+        }
         aa = JSON.stringify(objectDeepCopyWithKeysSorted(aa));
         bb = JSON.stringify(objectDeepCopyWithKeysSorted(bb));
         if (aa !== bb) {
             throw new Error(JSON.stringify(aa) + " !== " + JSON.stringify(bb));
         }
-    };
-    local.assertOrThrow = function (passed, msg) {
+    }
+    function assertOrThrow(passed, msg) {
     /*
      * this function will throw <msg> if <passed> is falsy
      */
@@ -107894,8 +108045,8 @@ require("http").createServer(function (req, res) {
                 : JSON.stringify(msg, undefined, 4)
             )
         );
-    };
-    local.coalesce = function (...argList) {
+    }
+    function coalesce(...argList) {
     /*
      * this function will coalesce null, undefined, or "" in <argList>
      */
@@ -107910,20 +108061,20 @@ require("http").createServer(function (req, res) {
             ii += 1;
         }
         return arg;
-    };
-    local.identity = function (val) {
+    }
+    function identity(val) {
     /*
      * this function will return <val>
      */
         return val;
-    };
-    local.nop = function () {
+    }
+    function nop() {
     /*
      * this function will do nothing
      */
         return;
-    };
-    local.objectAssignDefault = function (tgt = {}, src = {}, depth = 0) {
+    }
+    function objectAssignDefault(tgt = {}, src = {}, depth = 0) {
     /*
      * this function will if items from <tgt> are null, undefined, or "",
      * then overwrite them with items from <src>
@@ -107950,15 +108101,15 @@ require("http").createServer(function (req, res) {
         };
         recurse(tgt, src, depth | 0);
         return tgt;
-    };
-    local.onErrorThrow = function (err) {
+    }
+    function onErrorThrow(err) {
     /*
      * this function will throw <err> if exists
      */
         if (err) {
             throw err;
         }
-    };
+    }
     // bug-workaround - throw unhandledRejections in node-process
     if (
         typeof process === "object" && process
@@ -107970,6 +108121,19 @@ require("http").createServer(function (req, res) {
             throw err;
         });
     }
+    // init local
+    local = {};
+    local.local = local;
+    globalThis.globalLocal = local;
+    local.assertJsonEqual = assertJsonEqual;
+    local.assertOrThrow = assertOrThrow;
+    local.coalesce = coalesce;
+    local.identity = identity;
+    local.isBrowser = isBrowser;
+    local.isWebWorker = isWebWorker;
+    local.nop = nop;
+    local.objectAssignDefault = objectAssignDefault;
+    local.onErrorThrow = onErrorThrow;
 }());
 // assets.utility2.header.js - end
 
