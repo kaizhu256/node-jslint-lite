@@ -1,9 +1,9 @@
-<svg height="1198" width="720" xmlns="http://www.w3.org/2000/svg">
-<rect height="1198" fill="#555" width="720"></rect>
+<svg height="1310" width="720" xmlns="http://www.w3.org/2000/svg">
+<rect height="1310" fill="#555" width="720"></rect>
 <text fill="#7f7" font-family="Courier New" font-size="12" xml:space="preserve">
 <tspan x="10" y="26"></tspan>
 
-<tspan x="10" y="42">\x1b[35m[MODE_BUILD=buildApidoc]\x1b[0m - 2020-08-19T21:58:27.321Z - npm-testing /home/travis/bu\</tspan>
+<tspan x="10" y="42">\x1b[35m[MODE_BUILD=buildApidoc]\x1b[0m - 2020-08-19T22:04:06.910Z - npm-testing /home/travis/bu\</tspan>
 <tspan x="10" y="58">ild/kaizhu256/node-jslint-lite</tspan>
 
 <tspan x="10" y="74"></tspan>
@@ -13,7 +13,7 @@
 <tspan x="10" y="106">buildApidoc - merged test-report from file /home/travis/build/kaizhu256/node-jslint-lite/.tmp/bu\</tspan>
 <tspan x="10" y="122">ild/test-report.json</tspan>
 
-<tspan x="10" y="138">&gt; http-server listening on port 54904</tspan>
+<tspan x="10" y="138">&gt; http-server listening on port 54204</tspan>
 
 <tspan x="10" y="154">apidocCreate - readExample /home/travis/build/kaizhu256/node-jslint-lite/package.json</tspan>
 
@@ -71,13 +71,13 @@
 
 <tspan x="10" y="650">jslint - 10ms - /home/travis/build/kaizhu256/node-jslint-lite/package.json</tspan>
 
-<tspan x="10" y="666">jslint - 51ms - /home/travis/build/kaizhu256/node-jslint-lite/test.js</tspan>
+<tspan x="10" y="666">jslint - 49ms - /home/travis/build/kaizhu256/node-jslint-lite/test.js</tspan>
 
-<tspan x="10" y="682">jslint - 248ms - /home/travis/build/kaizhu256/node-jslint-lite/lib.jslint.js</tspan>
+<tspan x="10" y="682">jslint - 211ms - /home/travis/build/kaizhu256/node-jslint-lite/lib.jslint.js</tspan>
 
 <tspan x="10" y="698">fsWriteFileWithMkdirp - /home/travis/build/kaizhu256/node-jslint-lite/.tmp/build/apidoc.html</tspan>
 
-<tspan x="10" y="714">testRunDefault - 470 ms - [node test-case 1 of 1 passed] - testCase_buildApidoc_default</tspan>
+<tspan x="10" y="714">testRunDefault - 493 ms - [node test-case 1 of 1 passed] - testCase_buildApidoc_default</tspan>
 
 <tspan x="10" y="730">fsWriteFileWithMkdirpSync - /home/travis/build/kaizhu256/node-jslint-lite/.tmp/build/test-report\</tspan>
 <tspan x="10" y="746">.json</tspan>
@@ -91,45 +91,58 @@
 
 <tspan x="10" y="826">-------------------------------------------------------</tspan>
 
-<tspan x="10" y="842">| test-report - buildApidoc - node - linux v14.8.0 - 2020-08-19T21:58:27.421Z</tspan>
+<tspan x="10" y="842">| test-report - buildApidoc - node - linux v14.8.0 - 2020-08-19T22:04:07.000Z</tspan>
 
-<tspan x="10" y="858">|     471 ms            0 failed        1 passed      |</tspan>
+<tspan x="10" y="858">|     493 ms            0 failed        1 passed      |</tspan>
 
 <tspan x="10" y="874">-------------------------------------------------------</tspan>
 
 <tspan x="10" y="890">| test-report - npmTest - browser - / - Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTM\</tspan>
-<tspan x="10" y="906">L, like Gecko) HeadlessChrome/84.0.4147.135 Safari/537.36 - 2020-08-19T21:58:21.927Z</tspan>
+<tspan x="10" y="906">L, like Gecko) HeadlessChrome/84.0.4147.135 Safari/537.36 - 2020-08-19T22:04:01.539Z</tspan>
 
-<tspan x="10" y="922">|     174 ms            0 failed        6 passed      |</tspan>
+<tspan x="10" y="922">|     171 ms            0 failed        6 passed      |</tspan>
 
 <tspan x="10" y="938">-------------------------------------------------------</tspan>
 
-<tspan x="10" y="954">| test-report - npmTest - node - linux v14.8.0 - 2020-08-19T21:58:17.340Z</tspan>
+<tspan x="10" y="954">| test-report - npmTest - node - linux v14.8.0 - 2020-08-19T22:03:57.307Z</tspan>
 
-<tspan x="10" y="970">|    7124 ms            0 failed        9 passed      |</tspan>
+<tspan x="10" y="970">|    6837 ms            0 failed        9 passed      |</tspan>
 
 <tspan x="10" y="986">-------------------------------------------------------</tspan>
 
-<tspan x="10" y="1002"></tspan>
+<tspan x="10" y="1002">| test-report - npmTestPublished - browser - / - Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537\</tspan>
+<tspan x="10" y="1018">.36 (KHTML, like Gecko) HeadlessChrome/84.0.4147.135 Safari/537.36 - 2020-08-19T22:03:20.736Z</tspan>
 
-<tspan x="10" y="1018">fsWriteFileWithMkdirpSync - /home/travis/build/kaizhu256/node-jslint-lite/.tmp/build/test-report\</tspan>
-<tspan x="10" y="1034">.html</tspan>
+<tspan x="10" y="1034">|     199 ms            0 failed        6 passed      |</tspan>
 
-<tspan x="10" y="1050">fsWriteFileWithMkdirpSync - /home/travis/build/kaizhu256/node-jslint-lite/.tmp/build/build.badge\</tspan>
-<tspan x="10" y="1066">.svg</tspan>
+<tspan x="10" y="1050">-------------------------------------------------------</tspan>
 
-<tspan x="10" y="1082">fsWriteFileWithMkdirpSync - /home/travis/build/kaizhu256/node-jslint-lite/.tmp/build/test-report\</tspan>
-<tspan x="10" y="1098">.badge.svg</tspan>
+<tspan x="10" y="1066">| test-report - npmTestPublished - node - linux v14.8.0 - 2020-08-19T22:03:16.020Z</tspan>
+
+<tspan x="10" y="1082">|    7058 ms            0 failed        9 passed      |</tspan>
+
+<tspan x="10" y="1098">-------------------------------------------------------</tspan>
 
 <tspan x="10" y="1114"></tspan>
 
-<tspan x="10" y="1130">buildApidoc - 0 failed tests</tspan>
+<tspan x="10" y="1130">fsWriteFileWithMkdirpSync - /home/travis/build/kaizhu256/node-jslint-lite/.tmp/build/test-report\</tspan>
+<tspan x="10" y="1146">.html</tspan>
 
-<tspan x="10" y="1146"></tspan>
+<tspan x="10" y="1162">fsWriteFileWithMkdirpSync - /home/travis/build/kaizhu256/node-jslint-lite/.tmp/build/build.badge\</tspan>
+<tspan x="10" y="1178">.svg</tspan>
 
-<tspan x="10" y="1162"></tspan>
+<tspan x="10" y="1194">fsWriteFileWithMkdirpSync - /home/travis/build/kaizhu256/node-jslint-lite/.tmp/build/test-report\</tspan>
+<tspan x="10" y="1210">.badge.svg</tspan>
 
-<tspan x="10" y="1178">\x1b[35m[MODE_BUILD=buildApidoc]\x1b[0m - 2020-08-19T21:58:28.186Z - EXIT_CODE - 0</tspan>
+<tspan x="10" y="1226"></tspan>
+
+<tspan x="10" y="1242">buildApidoc - 0 failed tests</tspan>
+
+<tspan x="10" y="1258"></tspan>
+
+<tspan x="10" y="1274"></tspan>
+
+<tspan x="10" y="1290">\x1b[35m[MODE_BUILD=buildApidoc]\x1b[0m - 2020-08-19T22:04:07.798Z - EXIT_CODE - 0</tspan>
 
 </text>
 </svg>
