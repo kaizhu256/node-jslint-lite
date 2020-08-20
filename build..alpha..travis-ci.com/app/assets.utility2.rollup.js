@@ -30776,7 +30776,9 @@ local.jslintAndPrintDir = function (dir, opt, onError) {
                     }
                     // jslint file
                     require("fs").readFile(file, "utf8", function (err, data) {
-                        local.onErrorThrow(err);
+                        if (err) {
+                            return;
+                        }
                         local.jslintAndPrint(data, file, opt);
                         errCnt += local.jslintResult.errList.length;
                         console.error(
@@ -69821,7 +69823,9 @@ local.jslintAndPrintDir = function (dir, opt, onError) {\n\
                     }\n\
                     // jslint file\n\
                     require(\"fs\").readFile(file, \"utf8\", function (err, data) {\n\
-                        local.onErrorThrow(err);\n\
+                        if (err) {\n\
+                            return;\n\
+                        }\n\
                         local.jslintAndPrint(data, file, opt);\n\
                         errCnt += local.jslintResult.errList.length;\n\
                         console.error(\n\

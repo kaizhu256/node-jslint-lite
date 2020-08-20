@@ -1114,7 +1114,9 @@ case &quot;keyup.inputJslint1&quot;:\n\
                     }
                     // jslint file
                     require(&quot;fs&quot;).readFile(file, &quot;utf8&quot;, function (err, data) {
-                        local.onErrorThrow(err);
+                        if (err) {
+                            return;
+                        }
                         local.jslintAndPrint(data, file, opt);
                         errCnt += local.jslintResult.errList.length;
                         console.error(
