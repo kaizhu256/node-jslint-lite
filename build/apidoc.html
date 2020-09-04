@@ -571,26 +571,7 @@
 <span class="apidocCodeCommentSpan">/*
  * this function will assert JSON.stringify(&lt;aa&gt;) === JSON.stringify(&lt;bb&gt;)
  */
-</span>    function objectDeepCopyWithKeysSorted(obj) {
-    /*
-     * this function will recursively deep-copy &lt;obj&gt; with keys sorted
-     */
-        let sorted;
-        if (typeof obj !== &quot;object&quot; || !obj) {
-            return obj;
-        }
-        // recursively deep-copy list with child-keys sorted
-        if (Array.isArray(obj)) {
-            return obj.map(objectDeepCopyWithKeysSorted);
-        }
-        // recursively deep-copy obj with keys sorted
-        sorted = {};
-        Object.keys(obj).sort().forEach(function (key) {
-            sorted[key] = objectDeepCopyWithKeysSorted(obj[key]);
-        });
-        return sorted;
-    }
-    aa = JSON.stringify(objectDeepCopyWithKeysSorted(aa));
+</span>    aa = JSON.stringify(objectDeepCopyWithKeysSorted(aa));
     bb = JSON.stringify(objectDeepCopyWithKeysSorted(bb));
     if (aa !== bb) {
         throw new Error(JSON.stringify(aa) + &quot; !== &quot; + JSON.stringify(bb));
@@ -1114,7 +1095,9 @@ case &quot;keyup.inputJslint1&quot;:\n\
                     }
                     // jslint file
                     require(&quot;fs&quot;).readFile(file, &quot;utf8&quot;, function (err, data) {
-                        local.onErrorThrow(err);
+                        if (err) {
+                            return;
+                        }
                         local.jslintAndPrint(data, file, opt);
                         errCnt += local.jslintResult.errList.length;
                         console.error(
@@ -1673,9 +1656,9 @@ globalThis.domOnEventDelegateDict = local;
     });
     return sorted;
 }
-aa = JSON.stringify(objectDeepCopyWithKeysSorted(aa));
-bb = JSON.stringify(objectDeepCopyWithKeysSorted(bb));
-if (aa !== bb) {
+function assertJsonEqual(aa, bb) {
+/*
+ * this function will assert JSON.stringify(&lt;aa&gt;) === JSON.stringify(&lt;bb&gt;)
 ...</pre></li>
     </ul>
 
