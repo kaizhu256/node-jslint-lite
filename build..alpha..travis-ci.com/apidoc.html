@@ -1217,30 +1217,24 @@ globalThis.domOnEventDelegateDict = local;
         </a>
     </h2>
     <ul>
-    <li>description and source-code<pre class="apidocCodePre">objectDeepCopyWithKeysSorted = function (obj) {
+    <li>description and source-code<pre class="apidocCodePre">function objectDeepCopyWithKeysSorted(obj) {
 <span class="apidocCodeCommentSpan">/*
  * this function will recursively deep-copy &lt;obj&gt; with keys sorted
  */
-</span>    function objectDeepCopyWithKeysSorted(obj) {
-    /*
-     * this function will recursively deep-copy &lt;obj&gt; with keys sorted
-     */
-        let sorted;
-        if (!(typeof obj === &quot;object&quot; &amp;&amp; obj)) {
-            return obj;
-        }
-        // recursively deep-copy list with child-keys sorted
-        if (Array.isArray(obj)) {
-            return obj.map(objectDeepCopyWithKeysSorted);
-        }
-        // recursively deep-copy obj with keys sorted
-        sorted = {};
-        Object.keys(obj).sort().forEach(function (key) {
-            sorted[key] = objectDeepCopyWithKeysSorted(obj[key]);
-        });
-        return sorted;
+</span>    let sorted;
+    if (typeof obj !== &quot;object&quot; || !obj) {
+        return obj;
     }
-    return objectDeepCopyWithKeysSorted(obj);
+    // recursively deep-copy list with child-keys sorted
+    if (Array.isArray(obj)) {
+        return obj.map(objectDeepCopyWithKeysSorted);
+    }
+    // recursively deep-copy obj with keys sorted
+    sorted = {};
+    Object.keys(obj).sort().forEach(function (key) {
+        sorted[key] = objectDeepCopyWithKeysSorted(obj[key]);
+    });
+    return sorted;
 }</pre></li>
     <li>example use<pre class="apidocCodePre">n/a</pre></li>
     </ul>
@@ -2080,21 +2074,21 @@ var SyntaxUnit = require(&quot;../util/SyntaxUnit&quot;);
     process.exit(Boolean(local.jslintResult.errList.length));
 }</pre></li>
     <li>example use<pre class="apidocCodePre">...
-       cliDict._help();
-       return;
-   }
-   if (cliDict[process.argv[2]]) {
-       cliDict[process.argv[2]]();
-       return;
-   }
-   cliDict.<span class="apidocCodeKeywordSpan">_default</span>();
+        cliDict._help();
+        return;
+    }
+    if (cliDict[process.argv[2]]) {
+        cliDict[process.argv[2]]();
+        return;
+    }
+    cliDict.<span class="apidocCodeKeywordSpan">_default</span>();
 };
+}());
 
-local.objectDeepCopyWithKeysSorted = function (obj) {
-/*
-* this function will recursively deep-copy &lt;obj&gt; with keys sorted
-*/
-   function objectDeepCopyWithKeysSorted(obj) {
+
+// run shared js-env code - function
+(function () {
+/* jslint ignore:start */
 ...</pre></li>
     </ul>
 
