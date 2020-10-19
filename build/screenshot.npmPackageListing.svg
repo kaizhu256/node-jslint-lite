@@ -5,7 +5,7 @@
 
 <tspan x="10" y="42"></tspan>
 
-<tspan x="10" y="58">0.    2020-10-19 17:57:29 +0000    645547 bytes .</tspan>
+<tspan x="10" y="58">0.    2020-10-19 17:48:58 -0500    645750 bytes .</tspan>
 
 <tspan x="10" y="74">1.    2020-10-19 10:34:18 -0500       158 bytes .gitignore</tspan>
 
@@ -31,13 +31,13 @@
 
 <tspan x="10" y="250">12.   2020-07-08 12:17:34 -0500       442 bytes jslintAndPrintDir/test.sh</tspan>
 
-<tspan x="10" y="266">13.   2020-10-19 10:34:18 -0500    571620 bytes lib.jslint.js</tspan>
+<tspan x="10" y="266">13.   2020-10-19 22:43:36 +0000    571620 bytes lib.jslint.js</tspan>
 
 <tspan x="10" y="282">14.   2020-07-08 12:17:34 -0500      2002 bytes npm_scripts.sh</tspan>
 
 <tspan x="10" y="298">15.   2020-08-19 15:49:39 -0500      1237 bytes package.json</tspan>
 
-<tspan x="10" y="314">16.   2020-10-19 17:57:29 +0000     26757 bytes test.js</tspan>
+<tspan x="10" y="314">16.   2020-10-19 17:48:58 -0500     26960 bytes test.js</tspan>
 
 </text>
 </svg>

@@ -322,8 +322,7 @@ local.testCase_jslint0_err = function (opt, onError) {
         "__bad_assignment_a__",
         "/*jslint for*/\nfunction aa(){for (1 in bb){}}",
         "1 = 2;",
-        "____",
-        //!! "const aa=1;for(aa in bb){}",
+        "const aa=1;for(aa in bb){}",
         // bad_directive_a: "Bad directive '{a}'.",
         "__bad_directive_a__",
         "/*jslint !*/",
@@ -377,6 +376,7 @@ local.testCase_jslint0_err = function (opt, onError) {
         "let aa=(aa?true:false);",
         "let aa=+aa;",
         "let aa=/[ ]/;",
+        "let aa=/aa{/;",
         "let aa=1+\"\";",
         "let aa=\"\"+\"\";",
         "new Array(\"\");",
@@ -396,8 +396,10 @@ local.testCase_jslint0_err = function (opt, onError) {
         "__expected_a_next_at_b__",
         // expected_digits_after_a: "Expected digits after '{a}'.",
         "__expected_digits_after_a__",
+        "let aa=0x;",
         // expected_four_digits: "Expected four digits after '\\u'.",
         "__expected_four_digits__",
+        "let aa=\"\\u1\";",
         // expected_identifier_a:
         // "Expected an identifier and instead saw '{a}'.",
         "__expected_identifier_a__",
@@ -439,6 +441,7 @@ local.testCase_jslint0_err = function (opt, onError) {
         "aa in bb;",
         // label_a: "'{a}' is a statement label.",
         "__label_a__",
+        "aa:while(true){aa;}",
         // misplaced_a: "Place '{a}' at the outermost level.",
         "__misplaced_a__",
         "if(true){import aa from \"aa\";}",
@@ -468,7 +471,7 @@ local.testCase_jslint0_err = function (opt, onError) {
         "function aa(){bb();}\nfunction bb(){return;}",
         // redefinition_a_b: "Redefinition of '{a}' from line {b}.",
         "__redefinition_a_b__",
-        "let aa; let aa;",
+        "let aa;let aa;",
         // required_a_optional_b:
         // "Required parameter '{a}' after optional parameter '{b}'."
         "__Required__",
@@ -649,19 +652,24 @@ local.testCase_jslint0_err = function (opt, onError) {
         "!/_/;",
         // wrap_unary: "Wrap the unary expression in parens."
         "__wrap_unary__",
-        "let aa=aa - -aa;",
-        // throw_error
-        "____"
+        "let aa=aa - -aa;"
+        //!! // throw_error
+        //!! "____",
         //!! "/*jslint throw_error*/"
     ].forEach(function (src) {
+        let warnings;
         if (src.slice(0, 2) === "__") {
             errCode = src.slice(2, -2);
             return;
         }
-        if (!local.jslint0(src).warnings.some(function (err) {
+        warnings = local.jslint0(src).warnings;
+        if (!warnings.some(function (err) {
             return err.code === errCode;
         })) {
-            local.assertOrThrow(false, src);
+            local.assertOrThrow(false, {
+                src,
+                warnings
+            });
         }
     });
     onError(undefined, opt);
