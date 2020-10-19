@@ -415,6 +415,7 @@ local.testCase_jslint0_err = function (opt, onError) {
         // expected_regexp_factor_a:
         // "Expected a regexp factor and instead saw '{a}'.",
         "__expected_regexp_factor_a__",
+        "/ /",
         // expected_space_a_b: "Expected one space between '{a}' and '{b}'.",
         "__expected_space_a_b__",
         "/**//**/",
