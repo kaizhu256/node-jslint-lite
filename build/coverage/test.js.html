@@ -1137,6 +1137,10 @@
 <a href="#l812" id="l812">812</a>
 <a href="#l813" id="l813">813</a>
 <a href="#l814" id="l814">814</a>
+<a href="#l815" id="l815">815</a>
+<a href="#l816" id="l816">816</a>
+<a href="#l817" id="l817">817</a>
+<a href="#l818" id="l818">818</a>
 </td>
         <td class="line-coverage"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1799,14 +1803,18 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">472</span>
-<span class="cline-any cline-yes">472</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">480</span>
+<span class="cline-any cline-yes">480</span>
 <span class="cline-any cline-yes">166</span>
 <span class="cline-any cline-yes">166</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">306</span>
-<span class="cline-any cline-yes">306</span>
-<span class="cline-any cline-yes">388</span>
+<span class="cline-any cline-yes">314</span>
+<span class="cline-any cline-yes">314</span>
+<span class="cline-any cline-yes">396</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -2319,7 +2327,9 @@ local.testCase_jslint0_err = function (opt, onError) {
         "1!=1",
         "1==1",
         ";{",
+        "`${/ /}`",
         "`${`",
+        "`${{`",
         "delete [1]",
         "for(;;){}",
         "isFinite(1)",
@@ -2472,6 +2482,7 @@ local.testCase_jslint0_err = function (opt, onError) {
         ";",
         "Function",
         "`${/[`]/}`",
+        "`${/`/}`",
         "aa/=2",
         "aa=/_//",
         "aa=/_/z",
@@ -2488,8 +2499,8 @@ local.testCase_jslint0_err = function (opt, onError) {
         "function aa(){try{return;}catch(ignore){}finally{switch(1){case 1:}}}",
         "function aa(){while(true){continue;}}",
         "function aa(){while(true){try{1;}catch(ignore){}finally{continue;}}}",
-        "ignore:",
         "ignore",
+        "ignore:",
         "import ignore from \"aa\"",
         "import {ignore} from \"aa\"",
         "let aa;aa+=NaN",
@@ -2515,12 +2526,13 @@ local.testCase_jslint0_err = function (opt, onError) {
         "__unexpected_at_top_level_a__",
         // unexpected_char_a: "Unexpected character '{a}'.",
         "__unexpected_char_a__",
+        "#",
         // unexpected_comment: "Unexpected comment.",
         "__unexpected_comment__",
         // unexpected_directive_a:
         // "When using modules, don't use directive '/*{a}'.",
         "__unexpected_directive_a__",
-        "/*global aa*/\nimport aa from \"aa\";",
+        "/*global aa*/\nimport aa from \"aa\"",
         // unexpected_expression_a:
         // "Unexpected expression '{a}' in statement position."
         "__unexpected_expression_a__",
