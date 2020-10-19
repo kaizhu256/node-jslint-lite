@@ -1133,8 +1133,6 @@
 <a href="#l808" id="l808">808</a>
 <a href="#l809" id="l809">809</a>
 <a href="#l810" id="l810">810</a>
-<a href="#l811" id="l811">811</a>
-<a href="#l812" id="l812">812</a>
 </td>
         <td class="line-coverage"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1793,16 +1791,14 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">464</span>
+<span class="cline-any cline-yes">464</span>
+<span class="cline-any cline-yes">166</span>
+<span class="cline-any cline-yes">166</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">458</span>
-<span class="cline-any cline-yes">458</span>
-<span class="cline-any cline-yes">168</span>
-<span class="cline-any cline-yes">168</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">290</span>
-<span class="cline-any cline-yes">290</span>
-<span class="cline-any cline-yes">300</span>
+<span class="cline-any cline-yes">298</span>
+<span class="cline-any cline-yes">298</span>
+<span class="cline-any cline-yes">322</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -2273,7 +2269,7 @@ local.testCase_jslint0_err = function (opt, onError) {
         // bad_assignment_a: "Bad assignment to '{a}'.",
         "__bad_assignment_a__",
         "/*jslint for*/\nfunction aa(){for (1 in bb){}}",
-        "1 = 2;",
+        "1=2;",
         "const aa=1;for(aa in bb){}",
         // bad_directive_a: "Bad directive '{a}'.",
         "__bad_directive_a__",
@@ -2306,10 +2302,9 @@ local.testCase_jslint0_err = function (opt, onError) {
         "__escape_mega__",
         // expected_a: "Expected '{a}'.",
         "__expected_a__",
-        //!! "aa=/_{}/;",
         // expected_a_at_b_c: "Expected '{a}' at column {b}, not column {c}.",
         "__expected_a_at_b_c__",
-        "let aa = {\n    aa:\n1\n};",
+        "let aa={\n    aa:\n1\n};",
         // expected_a_b: "Expected '{a}' and instead saw '{b}'.",
         "__expected_a_b__",
         "(aa)=&gt;{return 1;}",
@@ -2320,7 +2315,7 @@ local.testCase_jslint0_err = function (opt, onError) {
         "delete [1];",
         "for(;;){}",
         "isFinite(1);",
-        "let aa;aa.bb = undefined;",
+        "let aa;aa.bb=undefined;",
         "let aa=!!aa;",
         "let aa=(aa?1:aa);",
         "let aa=(aa?aa:1);",
@@ -2340,9 +2335,10 @@ local.testCase_jslint0_err = function (opt, onError) {
         "{\"aa\":1",
         // expected_a_before_b: "Expected '{a}' before '{b}'.",
         "__expected_a_before_b__",
+        ".0;",
         "/*jslint eval*/\nFunction;eval;",
-        "let Aa = Aa();",
-        "let Aa = Aa.Bb();",
+        "let Aa=Aa();",
+        "let Aa=Aa.Bb();",
         // expected_a_next_at_b:
         // "Expected '{a}' at column {b} on the next line.",
         "__expected_a_next_at_b__",
@@ -2351,7 +2347,7 @@ local.testCase_jslint0_err = function (opt, onError) {
         "let aa=0x;",
         // expected_four_digits: "Expected four digits after '\\u'.",
         "__expected_four_digits__",
-        "let aa=\"\\u1\";",
+        "\"\\u1\";",
         // expected_identifier_a:
         // "Expected an identifier and instead saw '{a}'.",
         "__expected_identifier_a__",
@@ -2496,15 +2492,13 @@ local.testCase_jslint0_err = function (opt, onError) {
         "{//\n}",
         "{\"\\u{1234}\":1}",
         "{\"aa\":",
-        //!! "{\"aa\":-0x1}",
-        //!! "{\"aa\":0x1}",
-        "____",
-        //!! "{\"aa\":'aa'}",
-        //!! "{\"aa\":{1:2}}",
+        "{\"aa\":'aa'}",
+        "{\"aa\":{1:2}}",
         // unexpected_a_after_b: "Unexpected '{a}' after '{b}'.",
         "__unexpected_a_after_b__",
         // unexpected_a_before_b: "Unexpected '{a}' before '{b}'.",
         "__unexpected_a_before_b__",
+        "let aa=\"\\a\";",
         // unexpected_at_top_level_a: "Expected '{a}' to be in a function.",
         "__unexpected_at_top_level_a__",
         // unexpected_char_a: "Unexpected character '{a}'.",
@@ -2528,7 +2522,7 @@ local.testCase_jslint0_err = function (opt, onError) {
         "let aa=(function (){return;});",
         // unexpected_space_a_b: "Unexpected space between '{a}' and '{b}'.",
         "__unexpected_space_a_b__",
-        "let aa = ( 1 );",
+        "let aa=( 1 );",
         // unexpected_statement_a:
         // "Unexpected statement '{a}' in expression position."
         "__unexpected_statement_a__",
@@ -2559,7 +2553,7 @@ local.testCase_jslint0_err = function (opt, onError) {
         // + "with a line break after the left paren."
         "__use_open__",
         "1?2:3;",
-        "let aa = 1?2:3;",
+        "let aa=1?2:3;",
         // use_spaces: "Use spaces, not tabs.",
         "__use_spaces__",
         "\t",
