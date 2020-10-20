@@ -669,10 +669,10 @@ local.testCase_jslint0_err = function (opt, onError) {
         "!/_/",
         // wrap_unary: "Wrap the unary expression in parens."
         "__wrap_unary__",
-        "aa=aa - -aa"
-        //!! // throw_error
-        //!! "____",
-        //!! "/*jslint throw_error*/"
+        "aa=aa - -aa",
+        // throw_error
+        "__undefined__",
+        "/*jslint throw_error*/"
     ].forEach(function (src) {
         let warnings;
         if (src.slice(0, 2) === "__") {
@@ -682,7 +682,7 @@ local.testCase_jslint0_err = function (opt, onError) {
         }
         warnings = local.jslint0(src).warnings;
         if (!warnings.some(function (err) {
-            return err.code === errCode;
+            return String(err.code) === errCode;
         })) {
             local.assertOrThrow(false, {
                 src,

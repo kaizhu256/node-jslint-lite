@@ -1834,25 +1834,25 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">500</span>
-<span class="cline-any cline-yes">500</span>
-<span class="cline-any cline-yes">166</span>
-<span class="cline-any cline-yes">166</span>
-<span class="cline-any cline-yes">166</span>
+<span class="cline-any cline-yes">504</span>
+<span class="cline-any cline-yes">504</span>
+<span class="cline-any cline-yes">168</span>
+<span class="cline-any cline-yes">168</span>
+<span class="cline-any cline-yes">168</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">334</span>
-<span class="cline-any cline-yes">334</span>
-<span class="cline-any cline-yes">460</span>
+<span class="cline-any cline-yes">336</span>
+<span class="cline-any cline-yes">336</span>
+<span class="cline-any cline-yes">462</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">334</span>
+<span class="cline-any cline-yes">336</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">334</span>
+<span class="cline-any cline-yes">336</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -2665,10 +2665,10 @@ local.testCase_jslint0_err = function (opt, onError) {
         "!/_/",
         // wrap_unary: "Wrap the unary expression in parens."
         "__wrap_unary__",
-        "aa=aa - -aa"
-        //!! // throw_error
-        //!! "____",
-        //!! "/*jslint throw_error*/"
+        "aa=aa - -aa",
+        // throw_error
+        "__undefined__",
+        "/*jslint throw_error*/"
     ].forEach(function (src) {
         let warnings;
         if (src.slice(0, 2) === "__") {
@@ -2678,7 +2678,7 @@ local.testCase_jslint0_err = function (opt, onError) {
         }
         warnings = local.jslint0(src).warnings;
         <span class="missing-if-branch" title="if path not taken">I</span>if (!warnings.some(function (err) {
-            return err.code === errCode;
+            return String(err.code) === errCode;
         })) {
 <span class="cstat-no" title="statement not covered">            local.assertOrThrow(false, {</span>
                 src,
