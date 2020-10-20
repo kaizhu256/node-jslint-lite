@@ -1,1 +1,198 @@
-{"testPlatformList":[{"name":"buildApidoc - node - linux v14.14.0 - 2020-10-20T18:44:56.177Z","testCaseList":[{"isBrowser":false,"name":"testCase_buildApp_default","status":"passed","errStack":"","timeElapsed":4532,"timeStart":1603219500381,"isDone":true}],"timeElapsed":8595,"testsFailed":0,"testsPassed":1,"testsPending":0,"status":"passed","timeStart":1603219496318},{"name":"buildApp - node - linux v14.14.0 - 2020-10-20T18:45:00.239Z","testCaseList":[],"timeElapsed":0,"testsFailed":0,"testsPassed":0,"testsPending":0,"status":"passed"},{"name":"deployGithubTest - browser - /node-jslint-lite/build..alpha..travis-ci.com/app/ - Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/86.0.4240.75 Safari/537.36 - 2020-10-20T18:45:56.729Z","testCaseList":[{"isBrowser":true,"name":"testCase_jslint0_coverage","status":"passed","errStack":"","timeElapsed":9,"timeStart":1603219556880,"isDone":true},{"isBrowser":true,"name":"testCase_jslint0_err","status":"passed","errStack":"","timeElapsed":25,"timeStart":1603219556925,"isDone":true},{"isBrowser":true,"name":"testCase_jslintAndPrintDir_coverage","status":"passed","errStack":"","timeElapsed":0,"timeStart":1603219556953,"isDone":true},{"isBrowser":true,"name":"testCase_jslintAndPrint_coverage","status":"passed","errStack":"","timeElapsed":16,"timeStart":1603219556965,"isDone":true},{"isBrowser":true,"name":"testCase_jslintAutofix_coverage","status":"passed","errStack":"","timeElapsed":8,"timeStart":1603219556993,"isDone":true},{"isBrowser":true,"name":"testCase_nop_default","status":"passed","errStack":"","timeElapsed":1,"timeStart":1603219557010,"isDone":true}],"timeStart":1603219556871,"timeElapsed":148,"testsFailed":0,"testsPassed":6,"testsPending":0,"status":"passed","screenshot":"screenshot.deployGithubTest.browser.%2Fnode-jslint-lite%2Fbuild%2Fapp.png"},{"name":"deployGithubTest - browser - /node-jslint-lite/build..alpha..travis-ci.com/app/ - Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/86.0.4240.75 Safari/537.36 - 2020-10-20T18:45:56.774Z","testCaseList":[{"isBrowser":true,"name":"testCase_jslint0_coverage","status":"passed","errStack":"","timeElapsed":24,"timeStart":1603219556944,"isDone":true},{"isBrowser":true,"name":"testCase_jslint0_err","status":"passed","errStack":"","timeElapsed":50,"timeStart":1603219556997,"isDone":true},{"isBrowser":true,"name":"testCase_jslintAndPrintDir_coverage","status":"passed","errStack":"","timeElapsed":0,"timeStart":1603219557057,"isDone":true},{"isBrowser":true,"name":"testCase_jslintAndPrint_coverage","status":"passed","errStack":"","timeElapsed":12,"timeStart":1603219557066,"isDone":true},{"isBrowser":true,"name":"testCase_jslintAutofix_coverage","status":"passed","errStack":"","timeElapsed":9,"timeStart":1603219557087,"isDone":true},{"isBrowser":true,"name":"testCase_nop_default","status":"passed","errStack":"","timeElapsed":0,"timeStart":1603219557106,"isDone":true}],"timeStart":1603219556935,"timeElapsed":181,"testsFailed":0,"testsPassed":6,"testsPending":0,"status":"passed","screenshot":"screenshot.deployGithubTest.browser.%2Fnode-jslint-lite%2Fbuild%2Fapp.png"},{"name":"deployGithubTest - node - linux v14.14.0 - 2020-10-20T18:45:55.542Z","testCaseList":[],"timeElapsed":0,"testsFailed":0,"testsPassed":0,"testsPending":0,"status":"passed"},{"name":"deployHerokuTest - browser - / - Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/86.0.4240.75 Safari/537.36 - 2020-10-20T18:46:14.536Z","testCaseList":[{"isBrowser":true,"name":"testCase_jslint0_coverage","status":"passed","errStack":"","timeElapsed":11,"timeStart":1603219574714,"isDone":true},{"isBrowser":true,"name":"testCase_jslint0_err","status":"passed","errStack":"","timeElapsed":28,"timeStart":1603219574739,"isDone":true},{"isBrowser":true,"name":"testCase_jslintAndPrintDir_coverage","status":"passed","errStack":"","timeElapsed":0,"timeStart":1603219574774,"isDone":true},{"isBrowser":true,"name":"testCase_jslintAndPrint_coverage","status":"passed","errStack":"","timeElapsed":11,"timeStart":1603219574785,"isDone":true},{"isBrowser":true,"name":"testCase_jslintAutofix_coverage","status":"passed","errStack":"","timeElapsed":10,"timeStart":1603219574801,"isDone":true},{"isBrowser":true,"name":"testCase_nop_default","status":"passed","errStack":"","timeElapsed":0,"timeStart":1603219574819,"isDone":true}],"timeStart":1603219574703,"timeElapsed":122,"testsFailed":0,"testsPassed":6,"testsPending":0,"status":"passed","screenshot":"screenshot.deployHerokuTest.browser.%2F.png"},{"name":"deployHerokuTest - browser - / - Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/86.0.4240.75 Safari/537.36 - 2020-10-20T18:46:14.557Z","testCaseList":[{"isBrowser":true,"name":"testCase_jslint0_coverage","status":"passed","errStack":"","timeElapsed":9,"timeStart":1603219574708,"isDone":true},{"isBrowser":true,"name":"testCase_jslint0_err","status":"passed","errStack":"","timeElapsed":24,"timeStart":1603219574739,"isDone":true},{"isBrowser":true,"name":"testCase_jslintAndPrintDir_coverage","status":"passed","errStack":"","timeElapsed":0,"timeStart":1603219574770,"isDone":true},{"isBrowser":true,"name":"testCase_jslintAndPrint_coverage","status":"passed","errStack":"","timeElapsed":10,"timeStart":1603219574780,"isDone":true},{"isBrowser":true,"name":"testCase_jslintAutofix_coverage","status":"passed","errStack":"","timeElapsed":10,"timeStart":1603219574796,"isDone":true},{"isBrowser":true,"name":"testCase_nop_default","status":"passed","errStack":"","timeElapsed":0,"timeStart":1603219574812,"isDone":true}],"timeStart":1603219574692,"timeElapsed":127,"testsFailed":0,"testsPassed":6,"testsPending":0,"status":"passed","screenshot":"screenshot.deployHerokuTest.browser.%2F.png"},{"name":"deployHerokuTest - node - linux v14.14.0 - 2020-10-20T18:46:13.264Z","testCaseList":[],"timeElapsed":0,"testsFailed":0,"testsPassed":0,"testsPending":0,"status":"passed"},{"name":"npmTest - browser - / - Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/86.0.4240.75 Safari/537.36 - 2020-10-20T18:44:50.574Z","testCaseList":[{"isBrowser":true,"name":"testCase_jslint0_coverage","status":"passed","errStack":"","timeElapsed":25,"timeStart":1603219491064,"isDone":true},{"isBrowser":true,"name":"testCase_jslint0_err","status":"passed","errStack":"","timeElapsed":100,"timeStart":1603219491100,"isDone":true},{"isBrowser":true,"name":"testCase_jslintAndPrintDir_coverage","status":"passed","errStack":"","timeElapsed":0,"timeStart":1603219491203,"isDone":true},{"isBrowser":true,"name":"testCase_jslintAndPrint_coverage","status":"passed","errStack":"","timeElapsed":2,"timeStart":1603219491206,"isDone":true},{"isBrowser":true,"name":"testCase_jslintAutofix_coverage","status":"passed","errStack":"","timeElapsed":20,"timeStart":1603219491212,"isDone":true},{"isBrowser":true,"name":"testCase_nop_default","status":"passed","errStack":"","timeElapsed":0,"timeStart":1603219491236,"isDone":true}],"timeStart":1603219491057,"timeElapsed":183,"testsFailed":0,"testsPassed":6,"testsPending":0,"status":"passed","screenshot":"screenshot.npmTest.browser.%2F.png"},{"name":"npmTest - node - linux v14.14.0 - 2020-10-20T18:44:45.636Z","testCaseList":[{"isBrowser":false,"name":"testCase_buildApidoc_default","status":"passed","errStack":"","timeElapsed":1186,"timeStart":1603219487594,"isDone":true},{"isBrowser":false,"name":"testCase_buildApp_default","status":"passed","errStack":"","timeElapsed":7346,"timeStart":1603219487600,"isDone":true},{"isBrowser":false,"name":"testCase_jslint0_coverage","status":"passed","errStack":"","timeElapsed":1040,"timeStart":1603219487600,"isDone":true},{"isBrowser":false,"name":"testCase_jslint0_err","status":"passed","errStack":"","timeElapsed":48,"timeStart":1603219488640,"isDone":true},{"isBrowser":false,"name":"testCase_jslintAndPrintDir_coverage","status":"passed","errStack":"","timeElapsed":1296,"timeStart":1603219488688,"isDone":true},{"isBrowser":false,"name":"testCase_jslintAndPrint_coverage","status":"passed","errStack":"","timeElapsed":4,"timeStart":1603219488689,"isDone":true},{"isBrowser":false,"name":"testCase_jslintAutofix_coverage","status":"passed","errStack":"","timeElapsed":54,"timeStart":1603219488694,"isDone":true},{"isBrowser":false,"name":"testCase_nop_default","status":"passed","errStack":"","timeElapsed":0,"timeStart":1603219488748,"isDone":true},{"isBrowser":false,"name":"testCase_webpage_default","status":"passed","errStack":"","timeElapsed":2810,"timeStart":1603219488748,"isDone":true}],"timeElapsed":7409,"testsFailed":0,"testsPassed":9,"testsPending":0,"status":"passed","timeStart":1603219487538}],"date":"2020-10-20T18:46:13.271Z","errStackList":[],"timeElapsed":1584,"testsFailed":0,"testsPassed":40,"testsPending":0,"timeStart":1603219573272}
+{
+    "testPlatformList": [
+        {
+            "name": "buildApidoc - node - linux v14.14.0 - 2020-10-20T18:53:39.285Z",
+            "testCaseList": [
+                {
+                    "isBrowser": false,
+                    "name": "testCase_buildApp_default",
+                    "status": "passed",
+                    "errStack": "",
+                    "timeElapsed": 4516,
+                    "timeStart": 1603220023317,
+                    "isDone": true
+                }
+            ],
+            "timeElapsed": 8421,
+            "testsFailed": 0,
+            "testsPassed": 1,
+            "testsPending": 0,
+            "status": "passed",
+            "timeStart": 1603220019413
+        },
+        {
+            "name": "buildApp - node - linux v14.14.0 - 2020-10-20T18:53:43.183Z",
+            "testCaseList": [],
+            "timeElapsed": 0,
+            "testsFailed": 0,
+            "testsPassed": 0,
+            "testsPending": 0,
+            "status": "passed"
+        },
+        {
+            "name": "npmTest - browser - / - Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/86.0.4240.75 Safari/537.36 - 2020-10-20T18:53:33.818Z",
+            "testCaseList": [
+                {
+                    "isBrowser": true,
+                    "name": "testCase_jslint0_coverage",
+                    "status": "passed",
+                    "errStack": "",
+                    "timeElapsed": 32,
+                    "timeStart": 1603220014266,
+                    "isDone": true
+                },
+                {
+                    "isBrowser": true,
+                    "name": "testCase_jslint0_err",
+                    "status": "passed",
+                    "errStack": "",
+                    "timeElapsed": 110,
+                    "timeStart": 1603220014314,
+                    "isDone": true
+                },
+                {
+                    "isBrowser": true,
+                    "name": "testCase_jslintAndPrintDir_coverage",
+                    "status": "passed",
+                    "errStack": "",
+                    "timeElapsed": 0,
+                    "timeStart": 1603220014436,
+                    "isDone": true
+                },
+                {
+                    "isBrowser": true,
+                    "name": "testCase_jslintAndPrint_coverage",
+                    "status": "passed",
+                    "errStack": "",
+                    "timeElapsed": 3,
+                    "timeStart": 1603220014450,
+                    "isDone": true
+                },
+                {
+                    "isBrowser": true,
+                    "name": "testCase_jslintAutofix_coverage",
+                    "status": "passed",
+                    "errStack": "",
+                    "timeElapsed": 13,
+                    "timeStart": 1603220014464,
+                    "isDone": true
+                },
+                {
+                    "isBrowser": true,
+                    "name": "testCase_nop_default",
+                    "status": "passed",
+                    "errStack": "",
+                    "timeElapsed": 0,
+                    "timeStart": 1603220014489,
+                    "isDone": true
+                }
+            ],
+            "timeStart": 1603220014260,
+            "timeElapsed": 239,
+            "testsFailed": 0,
+            "testsPassed": 6,
+            "testsPending": 0,
+            "status": "passed",
+            "screenshot": "screenshot.npmTest.browser.%2F.png"
+        },
+        {
+            "name": "npmTest - node - linux v14.14.0 - 2020-10-20T18:53:29.246Z",
+            "testCaseList": [
+                {
+                    "isBrowser": false,
+                    "name": "testCase_buildApidoc_default",
+                    "status": "passed",
+                    "errStack": "",
+                    "timeElapsed": 1025,
+                    "timeStart": 1603220011181,
+                    "isDone": true
+                },
+                {
+                    "isBrowser": false,
+                    "name": "testCase_buildApp_default",
+                    "status": "passed",
+                    "errStack": "",
+                    "timeElapsed": 6963,
+                    "timeStart": 1603220011185,
+                    "isDone": true
+                },
+                {
+                    "isBrowser": false,
+                    "name": "testCase_jslint0_coverage",
+                    "status": "passed",
+                    "errStack": "",
+                    "timeElapsed": 895,
+                    "timeStart": 1603220011186,
+                    "isDone": true
+                },
+                {
+                    "isBrowser": false,
+                    "name": "testCase_jslint0_err",
+                    "status": "passed",
+                    "errStack": "",
+                    "timeElapsed": 45,
+                    "timeStart": 1603220012081,
+                    "isDone": true
+                },
+                {
+                    "isBrowser": false,
+                    "name": "testCase_jslintAndPrintDir_coverage",
+                    "status": "passed",
+                    "errStack": "",
+                    "timeElapsed": 1164,
+                    "timeStart": 1603220012126,
+                    "isDone": true
+                },
+                {
+                    "isBrowser": false,
+                    "name": "testCase_jslintAndPrint_coverage",
+                    "status": "passed",
+                    "errStack": "",
+                    "timeElapsed": 4,
+                    "timeStart": 1603220012130,
+                    "isDone": true
+                },
+                {
+                    "isBrowser": false,
+                    "name": "testCase_jslintAutofix_coverage",
+                    "status": "passed",
+                    "errStack": "",
+                    "timeElapsed": 43,
+                    "timeStart": 1603220012134,
+                    "isDone": true
+                },
+                {
+                    "isBrowser": false,
+                    "name": "testCase_nop_default",
+                    "status": "passed",
+                    "errStack": "",
+                    "timeElapsed": 1,
+                    "timeStart": 1603220012177,
+                    "isDone": true
+                },
+                {
+                    "isBrowser": false,
+                    "name": "testCase_webpage_default",
+                    "status": "passed",
+                    "errStack": "",
+                    "timeElapsed": 2591,
+                    "timeStart": 1603220012178,
+                    "isDone": true
+                }
+            ],
+            "timeElapsed": 7022,
+            "testsFailed": 0,
+            "testsPassed": 9,
+            "testsPending": 0,
+            "status": "passed",
+            "timeStart": 1603220011126
+        }
+    ],
+    "date": "2020-10-20T18:53:43.187Z",
+    "errStackList": [],
+    "timeElapsed": 4647,
+    "testsFailed": 0,
+    "testsPassed": 16,
+    "testsPending": 0,
+    "timeStart": 1603220023187
+}
