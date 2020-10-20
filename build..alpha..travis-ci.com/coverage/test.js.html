@@ -1164,6 +1164,12 @@
 <a href="#l839" id="l839">839</a>
 <a href="#l840" id="l840">840</a>
 <a href="#l841" id="l841">841</a>
+<a href="#l842" id="l842">842</a>
+<a href="#l843" id="l843">843</a>
+<a href="#l844" id="l844">844</a>
+<a href="#l845" id="l845">845</a>
+<a href="#l846" id="l846">846</a>
+<a href="#l847" id="l847">847</a>
 </td>
         <td class="line-coverage"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1848,25 +1854,31 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">514</span>
-<span class="cline-any cline-yes">514</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">530</span>
+<span class="cline-any cline-yes">530</span>
 <span class="cline-any cline-yes">168</span>
 <span class="cline-any cline-yes">168</span>
 <span class="cline-any cline-yes">168</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">346</span>
-<span class="cline-any cline-yes">346</span>
-<span class="cline-any cline-yes">476</span>
+<span class="cline-any cline-yes">362</span>
+<span class="cline-any cline-yes">362</span>
+<span class="cline-any cline-yes">500</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">346</span>
+<span class="cline-any cline-yes">362</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">346</span>
+<span class="cline-any cline-yes">362</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -2328,12 +2340,12 @@ local.testCase_jslint0_err = function (opt, onError) {
     [
         // and: "The '&amp;&amp;' subexpression should be wrapped in parens.",
         "__and__",
-        "aa &amp;&amp; bb || cc",
+        "aa &amp;&amp; aa || aa",
         // bad_assignment_a: "Bad assignment to '{a}'.",
         "__bad_assignment_a__",
-        "/*jslint for*/\nfunction aa(){for (0 in bb){}}",
+        "/*jslint for*/\nfunction aa(){for (0 in aa){}}",
         "0=0",
-        "const aa=0;for(aa in bb){}",
+        "const aa=0;for(aa in aa){}",
         // bad_directive_a: "Bad directive '{a}'.",
         "__bad_directive_a__",
         "/*jslint !*/",
@@ -2376,13 +2388,14 @@ local.testCase_jslint0_err = function (opt, onError) {
         "(aa?aa:0)",
         "(aa?false:true)",
         "(aa?true:false)",
+        "/=1",
         "0!=0",
         "0==0",
         ";{",
         "`${/ /}`",
         "`${`",
         "`${{`",
-        "aa.bb=undefined",
+        "aa.aa=undefined",
         "aa=\"\"+\"\"",
         "aa=+aa",
         "aa=/[ ]/",
@@ -2402,12 +2415,14 @@ local.testCase_jslint0_err = function (opt, onError) {
         "__expected_a_before_b__",
         ".0",
         "/*jslint eval*/\nFunction;eval",
+        "=&gt;1",
         "aa=/(:)/",
         "aa=/=/",
         "aa=/?/",
         "aa=/[/",
         "let Aa=Aa()",
-        "let Aa=Aa.Bb()",
+        "let Aa=Aa.Aa()",
+        "new Aa",
         // expected_a_next_at_b:
         // "Expected '{a}' at column {b} on the next line.",
         "__expected_a_next_at_b__",
@@ -2420,6 +2435,8 @@ local.testCase_jslint0_err = function (opt, onError) {
         // expected_identifier_a:
         // "Expected an identifier and instead saw '{a}'.",
         "__expected_identifier_a__",
+        "aa.0",
+        "aa?.0",
         "import {",
         "let [aa,0]=[]",
         // expected_line_break_a_b:
@@ -2456,7 +2473,7 @@ local.testCase_jslint0_err = function (opt, onError) {
         // "Unexpected 'in'. Compare with undefined, "
         // + "or use the hasOwnProperty method instead."
         "__infix_in__",
-        "aa in bb",
+        "aa in aa",
         // label_a: "'{a}' is a statement label.",
         "__label_a__",
         "aa:while(true){aa;}",
@@ -2493,7 +2510,8 @@ local.testCase_jslint0_err = function (opt, onError) {
         "let aa;let aa",
         // required_a_optional_b:
         // "Required parameter '{a}' after optional parameter '{b}'."
-        "__Required__",
+        "__required_a_optional_b__",
+        "function aa(aa=0,{}){}",
         // reserved_a: "Reserved name '{a}'.",
         "__reserved_a__",
         "let undefined",
@@ -2527,13 +2545,11 @@ local.testCase_jslint0_err = function (opt, onError) {
         "__unexpected_a__",
         "((0))",
         "(+0?+0:+0)()",
-        //!! "(aa?bb:0())()",
-        //!! "(aa?0():bb)()",
         "/*/",
         "/_/",
         "0 instanceof 0",
         "0===(0==0)",
-        "0[0]",
+        "0[0][0]",
         "0|0",
         ";",
         "Function",
@@ -2542,17 +2558,19 @@ local.testCase_jslint0_err = function (opt, onError) {
         "`${\"`\"}`",
         "`${/[`]/}`",
         "`${/`/}`",
+        "aa((1))",
         "aa+=NaN",
         "aa/=0",
         "aa=/[0-]/",
         "aa=/_//",
         "aa=/_/z",
+        "aa=aa++",
         "arguments",
         "debugger",
         "eval",
         "export aa",
         "export const aa=0",
-        "for(aa in bb){}",
+        "for(aa in aa){}",
         "for(const ii=0;;){}",
         "for(ii=0;ii&lt;0;ii++){}",
         "for(ii=0;ii&lt;0;ii+=0){}",
