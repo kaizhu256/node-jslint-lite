@@ -1170,6 +1170,8 @@
 <a href="#l845" id="l845">845</a>
 <a href="#l846" id="l846">846</a>
 <a href="#l847" id="l847">847</a>
+<a href="#l848" id="l848">848</a>
+<a href="#l849" id="l849">849</a>
 </td>
         <td class="line-coverage"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1860,25 +1862,27 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">530</span>
-<span class="cline-any cline-yes">530</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">534</span>
+<span class="cline-any cline-yes">534</span>
 <span class="cline-any cline-yes">168</span>
 <span class="cline-any cline-yes">168</span>
 <span class="cline-any cline-yes">168</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">362</span>
-<span class="cline-any cline-yes">362</span>
-<span class="cline-any cline-yes">500</span>
+<span class="cline-any cline-yes">366</span>
+<span class="cline-any cline-yes">366</span>
+<span class="cline-any cline-yes">516</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">362</span>
+<span class="cline-any cline-yes">366</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">362</span>
+<span class="cline-any cline-yes">366</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -2351,7 +2355,7 @@ local.testCase_jslint0_err = function (opt, onError) {
         "/*jslint !*/",
         // bad_get: "A get function takes no parameters.",
         "__bad_get__",
-        "/*jslint getset*/\naa={get aa(aa){return;}}",
+        "/*jslint getset*/\naa={get aa(aa){}}",
         // bad_module_name_a: "Bad module name '{a}'.",
         "__bad_module_name_a__",
         "import aa from \"!aa\"",
@@ -2365,14 +2369,14 @@ local.testCase_jslint0_err = function (opt, onError) {
         "{\"__proto__\":0}",
         // bad_set: "A set function takes one parameter.",
         "__bad_set__",
-        "/*jslint getset*/\naa={set aa(){return;}}",
+        "/*jslint getset*/\naa={set aa(){}}",
         // duplicate_a: "Duplicate '{a}'.",
         "__duplicate_a__",
         "let aa;export {aa,aa}",
         "{\"aa\":0,\"aa\":0}",
         // empty_block: "Empty block.",
         "__empty_block__",
-        "function aa() {}",
+        "function aa(){}",
         // escape_mega: "Unexpected escapement in mega literal.",
         "__escape_mega__",
         // expected_a: "Expected '{a}'.",
@@ -2437,6 +2441,7 @@ local.testCase_jslint0_err = function (opt, onError) {
         "__expected_identifier_a__",
         "aa.0",
         "aa?.0",
+        "function aa({aa:aa,aa=aa},{aa:0}){}",
         "import {",
         "let [aa,0]=[]",
         // expected_line_break_a_b:
@@ -2464,11 +2469,11 @@ local.testCase_jslint0_err = function (opt, onError) {
         // "Expected 'Object.freeze('. All export values should be frozen."
         "__freeze_exports__",
         "export default Object.aa()",
-        "export function aa(){return;}",
+        "export function aa(){}",
         // function_in_loop: "Don't make functions within a loop.",
         "__function_in_loop__",
-        "function aa(){while (true) {aa.map(()=&gt;0);}}",
-        "function aa(){while (true) {aa.map(function(){return;});}}",
+        "function aa(){while (true){aa.map(()=&gt;0);}}",
+        "function aa(){while (true){aa.map(function(){});}}",
         // infix_in:
         // "Unexpected 'in'. Compare with undefined, "
         // + "or use the hasOwnProperty method instead."
@@ -2504,13 +2509,14 @@ local.testCase_jslint0_err = function (opt, onError) {
         "isNaN(0)",
         // out_of_scope_a: "'{a}' is out of scope.",
         "__out_of_scope_a__",
-        "function aa(){bb();}\nfunction bb(){return;}",
+        "function aa(){bb();}\nfunction bb(){}",
         // redefinition_a_b: "Redefinition of '{a}' from line {b}.",
         "__redefinition_a_b__",
         "let aa;let aa",
         // required_a_optional_b:
         // "Required parameter '{a}' after optional parameter '{b}'."
         "__required_a_optional_b__",
+        "function aa(aa=0,[]){}",
         "function aa(aa=0,{}){}",
         // reserved_a: "Reserved name '{a}'.",
         "__reserved_a__",
@@ -2575,7 +2581,7 @@ local.testCase_jslint0_err = function (opt, onError) {
         "for(ii=0;ii&lt;0;ii++){}",
         "for(ii=0;ii&lt;0;ii+=0){}",
         "function aa(){try{return;}catch(ignore){}finally{return;}}",
-        "function aa(){try{return;}catch(ignore){}finally{switch(0){case 0:}}}",
+        "function aa(){try{}catch(ignore){}finally{switch(0){case 0:}}}",
         "function aa(){while(true){continue;}}",
         "function aa(){while(true){try{0;}catch(ignore){}finally{continue;}}}",
         "function ignore(){let ignore;}",
@@ -2624,7 +2630,7 @@ local.testCase_jslint0_err = function (opt, onError) {
         "aa:aa",
         // unexpected_parens: "Don't wrap function literals in parens.",
         "__unexpected_parens__",
-        "aa=(function(){return;})",
+        "aa=(function(){})",
         // unexpected_space_a_b: "Unexpected space between '{a}' and '{b}'.",
         "__unexpected_space_a_b__",
         "let aa=( 0 );",
@@ -2695,7 +2701,7 @@ local.testCase_jslint0_err = function (opt, onError) {
         // + "the reader in understanding that the expression is the result "
         // + "of a function, and not the function itself."
         "__wrap_immediate__",
-        "aa=function(){return;}()",
+        "aa=function(){}()",
         // wrap_parameter: "Wrap the parameter in parens.",
         "__wrap_parameter__",
         "aa=&gt;0",
