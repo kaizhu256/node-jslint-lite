@@ -415,7 +415,10 @@ local.testCase_jslint0_err = function (opt, onError) {
         "__expected_identifier_a__",
         "aa.0",
         "aa?.0",
-        "function aa({aa:aa,aa=aa},{aa:0}){}",
+        "function aa(1){}",
+        "function aa([aa]){}\nfunction aa([aa],[aa,aa=aa],[0]){}",
+        "function aa({aa}){}\nfunction aa({aa},{aa:aa,aa=aa},{aa:0}){}",
+        "function(){}",
         "import {",
         "let [aa,0]=[]",
         // expected_line_break_a_b:
@@ -490,6 +493,7 @@ local.testCase_jslint0_err = function (opt, onError) {
         // required_a_optional_b:
         // "Required parameter '{a}' after optional parameter '{b}'."
         "__required_a_optional_b__",
+        "function aa(aa=0,...){}",
         "function aa(aa=0,[]){}",
         "function aa(aa=0,{}){}",
         // reserved_a: "Reserved name '{a}'.",

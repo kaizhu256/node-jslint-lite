@@ -1172,6 +1172,10 @@
 <a href="#l847" id="l847">847</a>
 <a href="#l848" id="l848">848</a>
 <a href="#l849" id="l849">849</a>
+<a href="#l850" id="l850">850</a>
+<a href="#l851" id="l851">851</a>
+<a href="#l852" id="l852">852</a>
+<a href="#l853" id="l853">853</a>
 </td>
         <td class="line-coverage"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1864,25 +1868,29 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">534</span>
-<span class="cline-any cline-yes">534</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">542</span>
+<span class="cline-any cline-yes">542</span>
 <span class="cline-any cline-yes">168</span>
 <span class="cline-any cline-yes">168</span>
 <span class="cline-any cline-yes">168</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">366</span>
-<span class="cline-any cline-yes">366</span>
-<span class="cline-any cline-yes">516</span>
+<span class="cline-any cline-yes">374</span>
+<span class="cline-any cline-yes">374</span>
+<span class="cline-any cline-yes">526</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">366</span>
+<span class="cline-any cline-yes">374</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">366</span>
+<span class="cline-any cline-yes">374</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -2441,7 +2449,10 @@ local.testCase_jslint0_err = function (opt, onError) {
         "__expected_identifier_a__",
         "aa.0",
         "aa?.0",
-        "function aa({aa:aa,aa=aa},{aa:0}){}",
+        "function aa(1){}",
+        "function aa([aa]){}\nfunction aa([aa],[aa,aa=aa],[0]){}",
+        "function aa({aa}){}\nfunction aa({aa},{aa:aa,aa=aa},{aa:0}){}",
+        "function(){}",
         "import {",
         "let [aa,0]=[]",
         // expected_line_break_a_b:
@@ -2516,6 +2527,7 @@ local.testCase_jslint0_err = function (opt, onError) {
         // required_a_optional_b:
         // "Required parameter '{a}' after optional parameter '{b}'."
         "__required_a_optional_b__",
+        "function aa(aa=0,...){}",
         "function aa(aa=0,[]){}",
         "function aa(aa=0,{}){}",
         // reserved_a: "Reserved name '{a}'.",
