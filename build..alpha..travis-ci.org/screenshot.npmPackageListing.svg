@@ -1,0 +1,27 @@
+<svg height="206" width="720" xmlns="http://www.w3.org/2000/svg">
+<rect height="206" fill="#555" width="720"></rect>
+<text fill="#7f7" font-family="Courier New" font-size="12" xml:space="preserve">
+<tspan x="10" y="26">package files</tspan>
+
+<tspan x="10" y="42"></tspan>
+
+<tspan x="10" y="58">0.    2020-06-03 12:11:41 -0500    638173 bytes .</tspan>
+
+<tspan x="10" y="74">1.    2020-03-17 00:50:46 -0500       125 bytes .gitignore</tspan>
+
+<tspan x="10" y="90">2.    2019-09-24 15:27:14 -0500      1015 bytes .travis.yml</tspan>
+
+<tspan x="10" y="106">3.    2018-06-21 05:54:04 -0500      1090 bytes LICENSE</tspan>
+
+<tspan x="10" y="122">4.    2020-06-03 12:11:41 -0500     41637 bytes README.md</tspan>
+
+<tspan x="10" y="138">5.    2020-06-03 12:11:41 -0500    578468 bytes lib.jslint.js</tspan>
+
+<tspan x="10" y="154">6.    2019-10-09 12:11:07 -0500      2002 bytes npm_scripts.sh</tspan>
+
+<tspan x="10" y="170">7.    2020-06-02 11:46:08 -0500      1259 bytes package.json</tspan>
+
+<tspan x="10" y="186">8.    2020-06-03 12:11:41 -0500     12577 bytes test.js</tspan>
+
+</text>
+</svg>

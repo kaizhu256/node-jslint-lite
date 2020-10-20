@@ -1,0 +1,2150 @@
+<div class="apidocDiv">
+<style>
+/*csslint
+*/
+.apidocDiv {
+    background: #fff;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.apidocDiv a[href] {
+    color: #33f;
+    font-weight: bold;
+    text-decoration: none;
+}
+.apidocDiv a[href]:hover {
+    text-decoration: underline;
+}
+.apidocCodeCommentSpan {
+    background: #bbf;
+    color: #000;
+    display: block;
+}
+.apidocCodeKeywordSpan {
+    color: #d00;
+    font-weight: bold;
+}
+.apidocCodePre {
+    background: #eef;
+    border: 1px solid;
+    color: #777;
+    overflow-wrap: break-word;
+    padding: 5px;
+    white-space: pre-wrap;
+}
+.apidocFooterDiv {
+    margin-top: 20px;
+    text-align: center;
+}
+.apidocModuleLi {
+    margin-top: 10px;
+}
+.apidocSectionDiv {
+    border-top: 1px solid;
+    margin-top: 20px;
+}
+.apidocSignatureSpan {
+    color: #777;
+    font-weight: bold;
+}
+</style>
+<h1>api documentation for
+    <a
+
+        href="https://github.com/kaizhu256/node-jslint-lite"
+
+    >jslint-lite (2020.6.9)</a>
+</h1>
+<h4>this zero-dependency package will provide browser-compatible versions of jslint (v2020.3.28) and csslint (v2018.2.25), with working web-demo</h4>
+<div class="apidocSectionDiv"><a
+    href="#apidoc.tableOfContents"
+    id="apidoc.tableOfContents"
+><h1>table of contents</h1></a><ol>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.jslint-lite">module jslint-lite</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.elem.jslint-lite.CSSLint._Reporter">
+            function <span class="apidocSignatureSpan">jslint-lite.</span>CSSLint._Reporter
+            <span class="apidocSignatureSpan">(lines, ruleset, allow, ignore)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.elem.jslint-lite.assertJsonEqual">
+            function <span class="apidocSignatureSpan">jslint-lite.</span>assertJsonEqual
+            <span class="apidocSignatureSpan">(aa, bb)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.elem.jslint-lite.assertOrThrow">
+            function <span class="apidocSignatureSpan">jslint-lite.</span>assertOrThrow
+            <span class="apidocSignatureSpan">(passed, msg)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.elem.jslint-lite.cliRun">
+            function <span class="apidocSignatureSpan">jslint-lite.</span>cliRun
+            <span class="apidocSignatureSpan">(opt)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.elem.jslint-lite.coalesce">
+            function <span class="apidocSignatureSpan">jslint-lite.</span>coalesce
+            <span class="apidocSignatureSpan">(...argList)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.elem.jslint-lite.identity">
+            function <span class="apidocSignatureSpan">jslint-lite.</span>identity
+            <span class="apidocSignatureSpan">(val)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.elem.jslint-lite.jslint0">
+            function <span class="apidocSignatureSpan">jslint-lite.</span>jslint0
+            <span class="apidocSignatureSpan">( source = &quot;&quot;, option_object = empty()</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.elem.jslint-lite.jslintAndPrint">
+            function <span class="apidocSignatureSpan">jslint-lite.</span>jslintAndPrint
+            <span class="apidocSignatureSpan">(code, file = &quot;undefined&quot;, opt = {})</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.elem.jslint-lite.jslintAndPrintDir">
+            function <span class="apidocSignatureSpan">jslint-lite.</span>jslintAndPrintDir
+            <span class="apidocSignatureSpan">(dir, opt, onError)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.elem.jslint-lite.nop">
+            function <span class="apidocSignatureSpan">jslint-lite.</span>nop
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.elem.jslint-lite.objectAssignDefault">
+            function <span class="apidocSignatureSpan">jslint-lite.</span>objectAssignDefault
+            <span class="apidocSignatureSpan">(tgt = {}, src = {}, depth = 0)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.elem.jslint-lite.objectDeepCopyWithKeysSorted">
+            function <span class="apidocSignatureSpan">jslint-lite.</span>objectDeepCopyWithKeysSorted
+            <span class="apidocSignatureSpan">(obj)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.elem.jslint-lite.onErrorThrow">
+            function <span class="apidocSignatureSpan">jslint-lite.</span>onErrorThrow
+            <span class="apidocSignatureSpan">(err)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">number <span class="apidocSignatureSpan">jslint-lite.</span>timeExit</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">jslint-lite.</span>CSSLint</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">jslint-lite.</span>CSSLint.Util</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">jslint-lite.</span>CSSLint._Reporter.prototype</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">jslint-lite.</span>cliDict</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">jslint-lite.</span>jslint</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">jslint-lite.</span>jslintResult</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">jslint-lite.</span>local</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">string <span class="apidocSignatureSpan">jslint-lite.</span>__dirname</span>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.jslint-lite.CSSLint">module jslint-lite.CSSLint</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.elem.jslint-lite.CSSLint._Reporter">
+            function <span class="apidocSignatureSpan">jslint-lite.CSSLint.</span>_Reporter
+            <span class="apidocSignatureSpan">(lines, ruleset, allow, ignore)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.elem.jslint-lite.CSSLint.addFormatter">
+            function <span class="apidocSignatureSpan">jslint-lite.CSSLint.</span>addFormatter
+            <span class="apidocSignatureSpan">(formatter)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.elem.jslint-lite.CSSLint.addRule">
+            function <span class="apidocSignatureSpan">jslint-lite.CSSLint.</span>addRule
+            <span class="apidocSignatureSpan">(rule)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.elem.jslint-lite.CSSLint.clearRules">
+            function <span class="apidocSignatureSpan">jslint-lite.CSSLint.</span>clearRules
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.elem.jslint-lite.CSSLint.format">
+            function <span class="apidocSignatureSpan">jslint-lite.CSSLint.</span>format
+            <span class="apidocSignatureSpan">(results, filename, formatId, options)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.elem.jslint-lite.CSSLint.getFormatter">
+            function <span class="apidocSignatureSpan">jslint-lite.CSSLint.</span>getFormatter
+            <span class="apidocSignatureSpan">(formatId)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.elem.jslint-lite.CSSLint.getRules">
+            function <span class="apidocSignatureSpan">jslint-lite.CSSLint.</span>getRules
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.elem.jslint-lite.CSSLint.getRuleset">
+            function <span class="apidocSignatureSpan">jslint-lite.CSSLint.</span>getRuleset
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.elem.jslint-lite.CSSLint.hasFormat">
+            function <span class="apidocSignatureSpan">jslint-lite.CSSLint.</span>hasFormat
+            <span class="apidocSignatureSpan">(formatId)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.elem.jslint-lite.CSSLint.verify">
+            function <span class="apidocSignatureSpan">jslint-lite.CSSLint.</span>verify
+            <span class="apidocSignatureSpan">(text, ruleset)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">jslint-lite.CSSLint.</span>Util</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">jslint-lite.CSSLint.</span>_listeners</span>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">string <span class="apidocSignatureSpan">jslint-lite.CSSLint.</span>version</span>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.jslint-lite.CSSLint.Util">module jslint-lite.CSSLint.Util</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.elem.jslint-lite.CSSLint.Util.forEach">
+            function <span class="apidocSignatureSpan">jslint-lite.CSSLint.Util.</span>forEach
+            <span class="apidocSignatureSpan">(values, func)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.elem.jslint-lite.CSSLint.Util.indexOf">
+            function <span class="apidocSignatureSpan">jslint-lite.CSSLint.Util.</span>indexOf
+            <span class="apidocSignatureSpan">(values, value)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.elem.jslint-lite.CSSLint.Util.mix">
+            function <span class="apidocSignatureSpan">jslint-lite.CSSLint.Util.</span>mix
+            <span class="apidocSignatureSpan">(receiver, supplier)</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.jslint-lite.CSSLint._Reporter">module jslint-lite.CSSLint._Reporter</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.elem.jslint-lite.CSSLint._Reporter._Reporter">
+            function <span class="apidocSignatureSpan">jslint-lite.CSSLint.</span>_Reporter
+            <span class="apidocSignatureSpan">(lines, ruleset, allow, ignore)</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.jslint-lite.CSSLint._Reporter.prototype">module jslint-lite.CSSLint._Reporter.prototype</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.elem.jslint-lite.CSSLint._Reporter.prototype.constructor">
+            function <span class="apidocSignatureSpan">jslint-lite.CSSLint._Reporter.prototype.</span>constructor
+            <span class="apidocSignatureSpan">(lines, ruleset, allow, ignore)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.elem.jslint-lite.CSSLint._Reporter.prototype.error">
+            function <span class="apidocSignatureSpan">jslint-lite.CSSLint._Reporter.prototype.</span>error
+            <span class="apidocSignatureSpan">(message, line, col, rule)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.elem.jslint-lite.CSSLint._Reporter.prototype.info">
+            function <span class="apidocSignatureSpan">jslint-lite.CSSLint._Reporter.prototype.</span>info
+            <span class="apidocSignatureSpan">(message, line, col, rule)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.elem.jslint-lite.CSSLint._Reporter.prototype.report">
+            function <span class="apidocSignatureSpan">jslint-lite.CSSLint._Reporter.prototype.</span>report
+            <span class="apidocSignatureSpan">(message, line, col, rule)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.elem.jslint-lite.CSSLint._Reporter.prototype.rollupError">
+            function <span class="apidocSignatureSpan">jslint-lite.CSSLint._Reporter.prototype.</span>rollupError
+            <span class="apidocSignatureSpan">(message, rule)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.elem.jslint-lite.CSSLint._Reporter.prototype.rollupWarn">
+            function <span class="apidocSignatureSpan">jslint-lite.CSSLint._Reporter.prototype.</span>rollupWarn
+            <span class="apidocSignatureSpan">(message, rule)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.elem.jslint-lite.CSSLint._Reporter.prototype.stat">
+            function <span class="apidocSignatureSpan">jslint-lite.CSSLint._Reporter.prototype.</span>stat
+            <span class="apidocSignatureSpan">(name, value)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.elem.jslint-lite.CSSLint._Reporter.prototype.warn">
+            function <span class="apidocSignatureSpan">jslint-lite.CSSLint._Reporter.prototype.</span>warn
+            <span class="apidocSignatureSpan">(message, line, col, rule)</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.jslint-lite.cliDict">module jslint-lite.cliDict</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.elem.jslint-lite.cliDict._default">
+            function <span class="apidocSignatureSpan">jslint-lite.cliDict.</span>_default
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.elem.jslint-lite.cliDict.dir">
+            function <span class="apidocSignatureSpan">jslint-lite.cliDict.</span>dir
+            <span class="apidocSignatureSpan">()</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+</ol></div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.jslint-lite" id="apidoc.module.jslint-lite">module jslint-lite</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.elem.jslint-lite.CSSLint._Reporter" id="apidoc.elem.jslint-lite.CSSLint._Reporter">
+        function <span class="apidocSignatureSpan">jslint-lite.</span>CSSLint._Reporter
+        <span class="apidocSignatureSpan">(lines, ruleset, allow, ignore)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function Reporter(lines, ruleset, allow, ignore) {
+    &quot;use strict&quot;;
+
+<span class="apidocCodeCommentSpan">    /**
+     * List of messages being reported.
+     * @property messages
+     * @type String[]
+     */
+</span>    this.messages = [];
+
+    /**
+     * List of statistics being reported.
+     * @property stats
+     * @type String[]
+     */
+    this.stats = [];
+
+    /**
+     * Lines of code being reported on. Used to provide contextual information
+     * for messages.
+     * @property lines
+     * @type String[]
+     */
+    this.lines = lines;
+
+    /**
+     * Information about the rules. Used to determine whether an issue is an
+     * error or warning.
+     * @property ruleset
+     * @type Object
+     */
+    this.ruleset = ruleset;
+
+    /**
+     * Lines with specific rule messages to leave out of the report.
+     * @property allow
+     * @type Object
+     */
+    this.allow = allow;
+    if (!this.allow) {
+        this.allow = {};
+    }
+
+    /**
+     * Linesets not to include in the report.
+     * @property ignore
+     * @type [][]
+     */
+    this.ignore = ignore;
+    if (!this.ignore) {
+        this.ignore = [];
+    }
+}</pre></li>
+    <li>example use<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.elem.jslint-lite.assertJsonEqual" id="apidoc.elem.jslint-lite.assertJsonEqual">
+        function <span class="apidocSignatureSpan">jslint-lite.</span>assertJsonEqual
+        <span class="apidocSignatureSpan">(aa, bb)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">assertJsonEqual = function (aa, bb) {
+<span class="apidocCodeCommentSpan">/*
+ * this function will assert JSON.stringify(&lt;aa&gt;) === JSON.stringify(&lt;bb&gt;)
+ */
+</span>    let objectDeepCopyWithKeysSorted;
+    objectDeepCopyWithKeysSorted = function (obj) {
+    /*
+     * this function will recursively deep-copy &lt;obj&gt; with keys sorted
+     */
+        let sorted;
+        if (typeof obj !== &quot;object&quot; || !obj) {
+            return obj;
+        }
+        // recursively deep-copy list with child-keys sorted
+        if (Array.isArray(obj)) {
+            return obj.map(objectDeepCopyWithKeysSorted);
+        }
+        // recursively deep-copy obj with keys sorted
+        sorted = {};
+        Object.keys(obj).sort().forEach(function (key) {
+            sorted[key] = objectDeepCopyWithKeysSorted(obj[key]);
+        });
+        return sorted;
+    };
+    aa = JSON.stringify(objectDeepCopyWithKeysSorted(aa));
+    bb = JSON.stringify(objectDeepCopyWithKeysSorted(bb));
+    if (aa !== bb) {
+        throw new Error(JSON.stringify(aa) + &quot; !== &quot; + JSON.stringify(bb));
+    }
+}</pre></li>
+    <li>example use<pre class="apidocCodePre">...
+                &quot;utility2.testRunMock.process.exit&quot;
+            ), resolve, {
+                once: true
+            });
+        })
+    ]).then(function (errList) {
+        errList.forEach(function (err, ii) {
+            local.<span class="apidocCodeKeywordSpan">assertJsonEqual</span>(Boolean(err) | 0, ii);
+        });
+        onError();
+    });
+};
+
+local.testCase_jslintAndPrint_coverage = function (opt, onError) {
+/*
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.elem.jslint-lite.assertOrThrow" id="apidoc.elem.jslint-lite.assertOrThrow">
+        function <span class="apidocSignatureSpan">jslint-lite.</span>assertOrThrow
+        <span class="apidocSignatureSpan">(passed, msg)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">assertOrThrow = function (passed, msg) {
+<span class="apidocCodeCommentSpan">/*
+ * this function will throw &lt;msg&gt; if &lt;passed&gt; is falsy
+ */
+</span>    if (passed) {
+        return;
+    }
+    throw (
+        (
+            msg
+            &amp;&amp; typeof msg.message === &quot;string&quot;
+            &amp;&amp; typeof msg.stack === &quot;string&quot;
+        )
+        // if msg is err, then leave as is
+        ? msg
+        : new Error(
+            typeof msg === &quot;string&quot;
+            // if msg is string, then leave as is
+            ? msg
+            // else JSON.stringify(msg)
+            : JSON.stringify(msg, undefined, 4)
+        )
+    );
+}</pre></li>
+    <li>example use<pre class="apidocCodePre">...
+        argList: local.coalesce(commandList[ii][1], &quot;&quot;).trim(),
+        command: [
+            key
+        ],
+        description: commandList[ii][2]
+    };
+} catch (ignore) {
+    local.<span class="apidocCodeKeywordSpan">assertOrThrow</span>(undefined, new Error(
+        &quot;cliRun - cannot parse comment in COMMAND &quot;
+        + key
+        + &quot;:\nnew RegExp(&quot;
+        + JSON.stringify(opt.rgxComment.source)
+        + &quot;).exec(&quot; + JSON.stringify(str).replace((
+            /\\\\/g
+        ), &quot;\u0000&quot;).replace((
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.elem.jslint-lite.cliRun" id="apidoc.elem.jslint-lite.cliRun">
+        function <span class="apidocSignatureSpan">jslint-lite.</span>cliRun
+        <span class="apidocSignatureSpan">(opt)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">cliRun = function (opt) {
+<span class="apidocCodeCommentSpan">/*
+ * this function will run cli with given &lt;opt&gt;
+ */
+</span>    let cliDict;
+    cliDict = local.cliDict;
+    cliDict._eval = cliDict._eval || function () {
+    /*
+     * &lt;code&gt;
+     * will eval &lt;code&gt;
+     */
+        globalThis.local = local;
+        require(&quot;vm&quot;).runInThisContext(process.argv[3]);
+    };
+    cliDict._help = cliDict._help || function () {
+    /*
+     *
+     * will print help
+     */
+        let commandList;
+        let file;
+        let packageJson;
+        let str;
+        let strDict;
+        commandList = [
+            {
+                argList: &quot;&lt;arg2&gt;  ...&quot;,
+                description: &quot;usage:&quot;,
+                command: [
+                    &quot;&lt;arg1&gt;&quot;
+                ]
+            }, {
+                argList: &quot;&apos;console.log(\&quot;hello world\&quot;)&apos;&quot;,
+                description: &quot;example:&quot;,
+                command: [
+                    &quot;--eval&quot;
+                ]
+            }
+        ];
+        file = __filename.replace((
+            /.*\//
+        ), &quot;&quot;);
+        opt = Object.assign({}, opt);
+        packageJson = require(&quot;./package.json&quot;);
+        // validate comment
+        opt.rgxComment = opt.rgxComment || (
+            /\)\u0020\{\n(?:|\u0020{4})\/\*\n(?:\u0020|\u0020{5})\*((?:\u0020&lt;[^&gt;]*?&gt;|\u0020\.\.\.)*?)\n(?:\u0020|\u0020{5})\*\u0020
+(will\u0020.*?\S)\n(?:\u0020|\u0020{5})\*\/\n(?:\u0020{4}|\u0020{8})\S/
+        );
+        strDict = {};
+        Object.keys(cliDict).sort().forEach(function (key, ii) {
+            if (key[0] === &quot;_&quot; &amp;&amp; key !== &quot;_default&quot;) {
+                return;
+            }
+            str = String(cliDict[key]);
+            if (key === &quot;_default&quot;) {
+                key = &quot;&quot;;
+            }
+            strDict[str] = strDict[str] || (ii + 2);
+            ii = strDict[str];
+            if (commandList[ii]) {
+                commandList[ii].command.push(key);
+                return;
+            }
+            try {
+                commandList[ii] = opt.rgxComment.exec(str);
+                commandList[ii] = {
+                    argList: local.coalesce(commandList[ii][1], &quot;&quot;).trim(),
+                    command: [
+                        key
+                    ],
+                    description: commandList[ii][2]
+                };
+            } catch (ignore) {
+                local.assertOrThrow(undefined, new Error(
+                    &quot;cliRun - cannot parse comment in COMMAND &quot;
+                    + key
+                    + &quot;:\nnew RegExp(&quot;
+                    + JSON.stringify(opt.rgxComment.source)
+                    + &quot;).exec(&quot; + JSON.stringify(str).replace((
+                        /\\\\/g
+                    ), &quot;\u0000&quot;).replace((
+                        /\\n/g
+                    ), &quot;\\n\\\n&quot;).replace((
+                        /\u0000/g
+                    ), &quot;\\\\&quot;) + &quot;);&quot;
+                ));
+            }
+        });
+        str = &quot;&quot;;
+        str += packageJson.name + &quot; (&quot; + packageJson.version + &quot;)\n\n&quot;;
+        str += commandList.filter(function (elem) {
+            return elem;
+        }).map(function (elem, ii) {
+            elem.command = elem.command.filter(function (elem) {
+                return elem;
+            });
+            switch (ii) {
+            case 0:
+            case 1:
+                elem.argList = [
+                    elem.argList
+                ];
+                break;
+            default:
+                elem.argList = elem.argList.split(&quot; &quot;);
+                elem.description = (
+                    &quot;# COMMAND &quot;
+                    + (elem.command[0] || &quot;&lt;none&gt;&quot;) + &quot;\n# &quot;
+                    + elem.description
+                );
+            }
+            return (
+                elem.description + &quot;\n  &quot; + file...</pre></li>
+    <li>example use<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.elem.jslint-lite.coalesce" id="apidoc.elem.jslint-lite.coalesce">
+        function <span class="apidocSignatureSpan">jslint-lite.</span>coalesce
+        <span class="apidocSignatureSpan">(...argList)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">coalesce = function (...argList) {
+<span class="apidocCodeCommentSpan">/*
+ * this function will coalesce null, undefined, or &quot;&quot; in &lt;argList&gt;
+ */
+</span>    let arg;
+    let ii;
+    ii = 0;
+    while (ii &lt; argList.length) {
+        arg = argList[ii];
+        if (arg !== undefined &amp;&amp; arg !== null &amp;&amp; arg !== &quot;&quot;) {
+            return arg;
+        }
+        ii += 1;
+    }
+    return arg;
+}</pre></li>
+    <li>example use<pre class="apidocCodePre">...
+if (commandList[ii]) {
+    commandList[ii].command.push(key);
+    return;
+}
+try {
+    commandList[ii] = opt.rgxComment.exec(str);
+    commandList[ii] = {
+        argList: local.<span class="apidocCodeKeywordSpan">coalesce</span>(commandList[ii][1], &quot;&quot;).trim(),
+        command: [
+            key
+        ],
+        description: commandList[ii][2]
+    };
+} catch (ignore) {
+    local.assertOrThrow(undefined, new Error(
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.elem.jslint-lite.identity" id="apidoc.elem.jslint-lite.identity">
+        function <span class="apidocSignatureSpan">jslint-lite.</span>identity
+        <span class="apidocSignatureSpan">(val)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">identity = function (val) {
+<span class="apidocCodeCommentSpan">/*
+ * this function will return &lt;val&gt;
+ */
+</span>    return val;
+}</pre></li>
+    <li>example use<pre class="apidocCodePre">...
+cliDict.help = cliDict.help || cliDict._help;
+cliDict._interactive = cliDict._interactive || function () {
+/*
+ *
+ * will start interactive-mode
+ */
+    globalThis.local = local;
+    local.<span class="apidocCodeKeywordSpan">identity</span>(local.replStart || require(&quot;repl&quot;).start)({
+        useGlobal: true
+    });
+};
+cliDict[&quot;--interactive&quot;] = cliDict[&quot;--interactive&quot;] || cliDict._interactive;
+cliDict[&quot;-i&quot;] = cliDict[&quot;-i&quot;] || cliDict._interactive;
+cliDict._version = cliDict._version || function () {
+/*
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.elem.jslint-lite.jslint0" id="apidoc.elem.jslint-lite.jslint0">
+        function <span class="apidocSignatureSpan">jslint-lite.</span>jslint0
+        <span class="apidocSignatureSpan">( source = &quot;&quot;, option_object = empty()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">jslint0 = function ( source = &quot;&quot;, option_object = empty(),
+    global_array = []
+) {
+    // hack-jslint - init lines_extra
+    line_ignore = undefined;
+    lines = (
+        Array.isArray(source)
+        ? source
+        : source.split(
+            /\n|\r\n?/
+        )
+    );
+    lines_extra = lines.map(function () {
+        return {};
+    });
+    try {
+        warnings = [];
+        option = Object.assign(empty(), option_object);
+        anon = &quot;anonymous&quot;;
+        block_stack = [];
+        declared_globals = empty();
+        directive_mode = true;
+        directives = [];
+        early_stop = true;
+        exports = empty();
+        froms = [];
+        fudge = (
+            option.fudge
+            ? 1
+            : 0
+        );
+        functions = [];
+        global = {
+            id: &quot;(global)&quot;,
+            body: true,
+            context: empty(),
+            from: 0,
+            level: 0,
+            line: 0,
+            live: [],
+            loop: 0,
+            switch: 0,
+            thru: 0
+        };
+        blockage = global;
+        functionage = global;
+        json_mode = false;
+        mega_mode = false;
+        module_mode = false;
+        next_token = global;
+        property = empty();
+        shebang = false;
+        stack = [];
+        tenure = undefined;
+        token = global;
+        token_nr = 0;
+        var_mode = undefined;
+        populate(standard, declared_globals, false);
+        populate(global_array, declared_globals, false);
+        Object.keys(option).forEach(function (name) {
+            if (option[name] === true) {
+                const allowed = allowed_option[name];
+                if (Array.isArray(allowed)) {
+                    populate(allowed, declared_globals, false);
+                }
+            }
+        });
+        tokenize(source);
+        advance();
+        if (json_mode) {
+            tree = json_value();
+            advance(&quot;(end)&quot;);
+        } else {
+
+// Because browsers encourage combining of script files, the first token might
+// be a semicolon to defend against a missing semicolon in the preceding file.
+
+            if (option.browser) {
+                if (next_token.id === &quot;;&quot;) {
+                    advance(&quot;;&quot;);
+                }
+            } else {
+
+// If we are not in a browser, then the file form of strict pragma may be used.
+
+                if (
+                    next_token.value === &quot;use strict&quot;
+                ) {
+                    advance(&quot;(string)&quot;);
+                    advance(&quot;;&quot;);
+                }
+            }
+            tree = statements();
+            advance(&quot;(end)&quot;);
+            functionage = global;
+            walk_statement(tree);
+            if (warnings.length === 0) {
+                uninitialized_and_unused();
+                if (!option.white) {
+                    whitage();
+                }
+            }
+        }
+        if (!option.browser) {
+            directives.forEach(function (comment) {
+                if (comment.directive === &quot;global&quot;) {
+                    warn(&quot;missing_browser&quot;, comment);
+                }
+            });
+        }
+        early_stop = false;
+        // hack-jslint - throw_error
+        if (option.throw_error) {
+            throw new Error();
+        }
+    } catch (e) {
+        // hack-jslint - early_stop
+        e.early_stop = true;
+        e.column = e.column || -1;
+        e.line = e.line || -1;
+        if (e.name !== &quot;JSLintError&quot;) {
+            warnings.push(e);
+        }
+    }
+    // hack-jslint - autofix
+    warnings = warnings.filter(function (warning) {
+        let aa;
+        let bb;
+        let tmp;
+        if (!lines_extra[warning.line]) {
+            return true;
+        }
+        aa = lines_extra[warning.line].source;
+        warning.a = warning.a || aa.trim();
+        switch (option.autofix &amp;&amp; warning.code) {
+        // expected_a_at_b_c: &quot;Expected &apos;{a}&apos; at column {b}, not column {c}.&quot;,
+        case &quot;expected_a_at_b_c&quo...</pre></li>
+    <li>example use<pre class="apidocCodePre">...
+(function () {
+local.testCase_jslint0_coverage = function (opt, onError) {
+/*
+* this function will test jslintAndPrint&apos;s coverage handling-behavior
+*/
+   // jslint self
+   if (!local.isBrowser) {
+       local.<span class="apidocCodeKeywordSpan">jslint0</span>(require(&quot;fs&quot;).readFileSync(__filename, &quot;utf8&quot
+;));
+       local.jslint0(require(&quot;fs&quot;).readFileSync(&quot;lib.jslint.js&quot;, &quot;utf8&quot;));
+       local.jslint0(require(&quot;fs&quot;).readFileSync(
+           &quot;lib.jslint.js&quot;,
+           &quot;utf8&quot;
+       ).replace((
+           /[\S\s]*?\n\/\/\u0020jslint\.js/
+       ), &quot;&quot;).replace((
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.elem.jslint-lite.jslintAndPrint" id="apidoc.elem.jslint-lite.jslintAndPrint">
+        function <span class="apidocSignatureSpan">jslint-lite.</span>jslintAndPrint
+        <span class="apidocSignatureSpan">(code, file = &quot;undefined&quot;, opt = {})</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">jslintAndPrint = function (code, file = &quot;undefined&quot;, opt = {}) {
+<span class="apidocCodeCommentSpan">/*
+ * this function will jslint-autofix &lt;code&gt;
+ */
+</span>    return jslintRecurse(code, file, opt, {});
+}</pre></li>
+    <li>example use<pre class="apidocCodePre">...
+local = window.utility2_jslint;\n\
+local.domOnEventInputChange = function (evt) {\n\
+switch (evt.type + &quot;.&quot; + evt.target.id) {\n\
+case &quot;click.buttonJslintAutofix1&quot;:\n\
+case &quot;keyup.inputCsslint1&quot;:\n\
+case &quot;keyup.inputJslint1&quot;:\n\
+    // csslint #inputCsslint1\n\
+    local.<span class="apidocCodeKeywordSpan">jslintAndPrint</span>(document.querySelector(\n\
+        &quot;#inputCsslint1&quot;\n\
+    ).value, &quot;inputCsslint1.css&quot;);\n\
+    document.querySelector(\n\
+        &quot;#outputCsslint1&quot;\n\
+    ).value = local.jslintResult.errMsg.replace((\n\
+        /\\u001b\\[\\d*m/g\n\
+    ), &quot;&quot;).trim();\n\
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.elem.jslint-lite.jslintAndPrintDir" id="apidoc.elem.jslint-lite.jslintAndPrintDir">
+        function <span class="apidocSignatureSpan">jslint-lite.</span>jslintAndPrintDir
+        <span class="apidocSignatureSpan">(dir, opt, onError)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">jslintAndPrintDir = function (dir, opt, onError) {
+<span class="apidocCodeCommentSpan">/*
+ * this function will jslint files in &lt;dir&gt;
+ */
+</span>    let errCnt;
+    errCnt = 0;
+    onError = onError || function (err) {
+        process.exit(Math.min((err &amp;&amp; err.message) | 0, 127));
+    };
+    dir = require(&quot;path&quot;).resolve(dir) + require(&quot;path&quot;).sep;
+    require(&quot;fs&quot;).readdir(dir, function (err, fileList) {
+        local.onErrorThrow(err);
+        Promise.all(fileList.map(function (file) {
+            return new Promise(function (resolve) {
+                let timeStart;
+                timeStart = Date.now();
+                file = dir + file;
+                switch ((
+                    /\.\w+?$|$/m
+                ).exec(file)[0]) {
+                case &quot;.css&quot;:
+                case &quot;.html&quot;:
+                case &quot;.js&quot;:
+                case &quot;.json&quot;:
+                case &quot;.md&quot;:
+                case &quot;.sh&quot;:
+                    if ((
+                        /\b(?:assets\.app\.js|lock|min|raw|rollup)\b/
+                    ).test(file)) {
+                        resolve();
+                        return;
+                    }
+                    // jslint file
+                    require(&quot;fs&quot;).readFile(file, &quot;utf8&quot;, function (err, data) {
+                        local.onErrorThrow(err);
+                        local.jslintAndPrint(data, file, opt);
+                        errCnt += local.jslintResult.errList.length;
+                        console.error(
+                            &quot;jslint - &quot; + (Date.now() - timeStart) + &quot;ms - &quot;
+                            + file
+                        );
+                        resolve();
+                    });
+                    return;
+                }
+                resolve();
+            });
+        })).then(function () {
+            onError(errCnt &amp;&amp; new Error(errCnt));
+        });
+    });
+}</pre></li>
+    <li>example use<pre class="apidocCodePre">...
+ */
+if (local.isBrowser) {
+    onError(undefined, opt);
+    return;
+}
+Promise.all([
+    new Promise(function (resolve) {
+        local.<span class="apidocCodeKeywordSpan">jslintAndPrintDir</span>(&quot;.&quot;, {
+            autofix: true,
+            conditional: true
+        }, resolve);
+    }),
+    new Promise(function (resolve) {
+        local.jslintAndPrintDir(&quot;jslintAndPrintDir&quot;, {
+            autofix: true,
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.elem.jslint-lite.nop" id="apidoc.elem.jslint-lite.nop">
+        function <span class="apidocSignatureSpan">jslint-lite.</span>nop
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">nop = function () {
+<span class="apidocCodeCommentSpan">/*
+ * this function will do nothing
+ */
+</span>    return;
+}</pre></li>
+    <li>example use<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.elem.jslint-lite.objectAssignDefault" id="apidoc.elem.jslint-lite.objectAssignDefault">
+        function <span class="apidocSignatureSpan">jslint-lite.</span>objectAssignDefault
+        <span class="apidocSignatureSpan">(tgt = {}, src = {}, depth = 0)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">objectAssignDefault = function (tgt = {}, src = {}, depth = 0) {
+<span class="apidocCodeCommentSpan">/*
+ * this function will if items from &lt;tgt&gt; are null, undefined, or &quot;&quot;,
+ * then overwrite them with items from &lt;src&gt;
+ */
+</span>    let recurse;
+    recurse = function (tgt, src, depth) {
+        Object.entries(src).forEach(function ([
+            key, bb
+        ]) {
+            let aa;
+            aa = tgt[key];
+            if (aa === undefined || aa === null || aa === &quot;&quot;) {
+                tgt[key] = bb;
+                return;
+            }
+            if (
+                depth !== 0
+                &amp;&amp; typeof aa === &quot;object&quot; &amp;&amp; aa &amp;&amp; !Array.isArray(aa)
+                &amp;&amp; typeof bb === &quot;object&quot; &amp;&amp; bb &amp;&amp; !Array.isArray(bb)
+            ) {
+                recurse(aa, bb, depth - 1);
+            }
+        });
+    };
+    recurse(tgt, src, depth | 0);
+    return tgt;
+}</pre></li>
+    <li>example use<pre class="apidocCodePre">...
+        }).join(&quot; &quot;).replace((
+            /\u001b\[\d*m/g
+        ), &quot;&quot;) + &quot;\n&quot;;
+        // scroll textarea to bottom
+        elem.scrollTop = elem.scrollHeight;
+    };
+});
+local.<span class="apidocCodeKeywordSpan">objectAssignDefault</span>(local, globalThis.domOnEventDelegateDict);
+globalThis.domOnEventDelegateDict = local;
+}());
+
+
+/* istanbul ignore next */
+// run node js-env code - init-test
+(function () {
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.elem.jslint-lite.objectDeepCopyWithKeysSorted" id="apidoc.elem.jslint-lite.objectDeepCopyWithKeysSorted">
+        function <span class="apidocSignatureSpan">jslint-lite.</span>objectDeepCopyWithKeysSorted
+        <span class="apidocSignatureSpan">(obj)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">objectDeepCopyWithKeysSorted = function (obj) {
+<span class="apidocCodeCommentSpan">/*
+ * this function will recursively deep-copy &lt;obj&gt; with keys sorted
+ */
+</span>    let objectDeepCopyWithKeysSorted;
+    objectDeepCopyWithKeysSorted = function (obj) {
+    /*
+     * this function will recursively deep-copy &lt;obj&gt; with keys sorted
+     */
+        let sorted;
+        if (!(typeof obj === &quot;object&quot; &amp;&amp; obj)) {
+            return obj;
+        }
+        // recursively deep-copy list with child-keys sorted
+        if (Array.isArray(obj)) {
+            return obj.map(objectDeepCopyWithKeysSorted);
+        }
+        // recursively deep-copy obj with keys sorted
+        sorted = {};
+        Object.keys(obj).sort().forEach(function (key) {
+            sorted[key] = objectDeepCopyWithKeysSorted(obj[key]);
+        });
+        return sorted;
+    };
+    return objectDeepCopyWithKeysSorted(obj);
+}</pre></li>
+    <li>example use<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.elem.jslint-lite.onErrorThrow" id="apidoc.elem.jslint-lite.onErrorThrow">
+        function <span class="apidocSignatureSpan">jslint-lite.</span>onErrorThrow
+        <span class="apidocSignatureSpan">(err)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">onErrorThrow = function (err) {
+<span class="apidocCodeCommentSpan">/*
+ * this function will throw &lt;err&gt; if exists
+ */
+</span>    if (err) {
+        throw err;
+    }
+}</pre></li>
+    <li>example use<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.jslint-lite.CSSLint" id="apidoc.module.jslint-lite.CSSLint">module jslint-lite.CSSLint</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.elem.jslint-lite.CSSLint._Reporter" id="apidoc.elem.jslint-lite.CSSLint._Reporter">
+        function <span class="apidocSignatureSpan">jslint-lite.CSSLint.</span>_Reporter
+        <span class="apidocSignatureSpan">(lines, ruleset, allow, ignore)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function Reporter(lines, ruleset, allow, ignore) {
+    &quot;use strict&quot;;
+
+<span class="apidocCodeCommentSpan">    /**
+     * List of messages being reported.
+     * @property messages
+     * @type String[]
+     */
+</span>    this.messages = [];
+
+    /**
+     * List of statistics being reported.
+     * @property stats
+     * @type String[]
+     */
+    this.stats = [];
+
+    /**
+     * Lines of code being reported on. Used to provide contextual information
+     * for messages.
+     * @property lines
+     * @type String[]
+     */
+    this.lines = lines;
+
+    /**
+     * Information about the rules. Used to determine whether an issue is an
+     * error or warning.
+     * @property ruleset
+     * @type Object
+     */
+    this.ruleset = ruleset;
+
+    /**
+     * Lines with specific rule messages to leave out of the report.
+     * @property allow
+     * @type Object
+     */
+    this.allow = allow;
+    if (!this.allow) {
+        this.allow = {};
+    }
+
+    /**
+     * Linesets not to include in the report.
+     * @property ignore
+     * @type [][]
+     */
+    this.ignore = ignore;
+    if (!this.ignore) {
+        this.ignore = [];
+    }
+}</pre></li>
+    <li>example use<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.elem.jslint-lite.CSSLint.addFormatter" id="apidoc.elem.jslint-lite.CSSLint.addFormatter">
+        function <span class="apidocSignatureSpan">jslint-lite.CSSLint.</span>addFormatter
+        <span class="apidocSignatureSpan">(formatter)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function(formatter) {
+    // formatters.push(formatter);
+    formatters[formatter.id] = formatter;
+}</pre></li>
+    <li>example use<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.elem.jslint-lite.CSSLint.addRule" id="apidoc.elem.jslint-lite.CSSLint.addRule">
+        function <span class="apidocSignatureSpan">jslint-lite.CSSLint.</span>addRule
+        <span class="apidocSignatureSpan">(rule)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function(rule) {
+    rules.push(rule);
+    rules[rule.id] = rule;
+}</pre></li>
+    <li>example use<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.elem.jslint-lite.CSSLint.clearRules" id="apidoc.elem.jslint-lite.CSSLint.clearRules">
+        function <span class="apidocSignatureSpan">jslint-lite.CSSLint.</span>clearRules
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function() {
+    rules = [];
+}</pre></li>
+    <li>example use<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.elem.jslint-lite.CSSLint.format" id="apidoc.elem.jslint-lite.CSSLint.format">
+        function <span class="apidocSignatureSpan">jslint-lite.CSSLint.</span>format
+        <span class="apidocSignatureSpan">(results, filename, formatId, options)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function(results, filename, formatId, options) {
+    var formatter = api.getFormatter(formatId),
+        result = null;
+
+    if (formatter) {
+        result = formatter.startFormat();
+        result += formatter.formatResults(results, filename, options || {});
+        result += formatter.endFormat();
+    }
+
+    return result;
+}</pre></li>
+    <li>example use<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.elem.jslint-lite.CSSLint.getFormatter" id="apidoc.elem.jslint-lite.CSSLint.getFormatter">
+        function <span class="apidocSignatureSpan">jslint-lite.CSSLint.</span>getFormatter
+        <span class="apidocSignatureSpan">(formatId)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function(formatId) {
+    return formatters[formatId];
+}</pre></li>
+    <li>example use<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.elem.jslint-lite.CSSLint.getRules" id="apidoc.elem.jslint-lite.CSSLint.getRules">
+        function <span class="apidocSignatureSpan">jslint-lite.CSSLint.</span>getRules
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function() {
+    return [].concat(rules).sort(function(a, b) {
+        return a.id &gt; b.id ? 1 : 0;
+    });
+}</pre></li>
+    <li>example use<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.elem.jslint-lite.CSSLint.getRuleset" id="apidoc.elem.jslint-lite.CSSLint.getRuleset">
+        function <span class="apidocSignatureSpan">jslint-lite.CSSLint.</span>getRuleset
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function() {
+    var ruleset = {},
+        i = 0,
+        len = rules.length;
+
+    while (i &lt; len) {
+        ruleset[rules[i++].id] = 1;    // by default, everything is a warning
+    }
+
+    return ruleset;
+}</pre></li>
+    <li>example use<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.elem.jslint-lite.CSSLint.hasFormat" id="apidoc.elem.jslint-lite.CSSLint.hasFormat">
+        function <span class="apidocSignatureSpan">jslint-lite.CSSLint.</span>hasFormat
+        <span class="apidocSignatureSpan">(formatId)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function(formatId) {
+    return formatters.hasOwnProperty(formatId);
+}</pre></li>
+    <li>example use<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.elem.jslint-lite.CSSLint.verify" id="apidoc.elem.jslint-lite.CSSLint.verify">
+        function <span class="apidocSignatureSpan">jslint-lite.CSSLint.</span>verify
+        <span class="apidocSignatureSpan">(text, ruleset)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function(text, ruleset) {
+
+    var i = 0,
+        reporter,
+        lines,
+        allow = {},
+        ignore = [],
+        report,
+        parser = new parserlib.css.Parser({
+            starHack: true,
+            ieFilters: true,
+            underscoreHack: true,
+            strict: false
+        });
+
+    // normalize line endings
+    lines = text.replace(/\n\r?/g, &quot;$split$&quot;).split(&quot;$split$&quot;);
+
+    // find &apos;allow&apos; comments
+    CSSLint.Util.forEach(lines, function (line, lineno) {
+        var allowLine = line &amp;&amp; line.match(/\/\*[ \t]*csslint[ \t]+allow:[ \t]*([^\*]*)\*\//i),
+            allowRules = allowLine &amp;&amp; allowLine[1],
+            allowRuleset = {};
+
+        if (allowRules) {
+            allowRules.toLowerCase().split(&quot;,&quot;).forEach(function(allowRule) {
+                allowRuleset[allowRule.trim()] = true;
+            });
+            if (Object.keys(allowRuleset).length &gt; 0) {
+                allow[lineno + 1] = allowRuleset;
+            }
+        }
+    });
+
+    var ignoreStart = null,
+        ignoreEnd = null;
+    CSSLint.Util.forEach(lines, function (line, lineno) {
+        // Keep oldest, &quot;unclosest&quot; ignore:start
+        if (ignoreStart === null &amp;&amp; line.match(/\/\*[ \t]*csslint[ \t]+ignore:start[ \t]*\*\//i)) {
+            ignoreStart = lineno;
+        }
+
+        if (line.match(/\/\*[ \t]*csslint[ \t]+ignore:end[ \t]*\*\//i)) {
+            ignoreEnd = lineno;
+        }
+
+        if (ignoreStart !== null &amp;&amp; ignoreEnd !== null) {
+            ignore.push([ignoreStart, ignoreEnd]);
+            ignoreStart = ignoreEnd = null;
+        }
+    });
+
+    // Close remaining ignore block, if any
+    if (ignoreStart !== null) {
+        ignore.push([ignoreStart, lines.length]);
+    }
+
+    if (!ruleset) {
+        ruleset = api.getRuleset();
+    }
+
+    if (embeddedRuleset.test(text)) {
+        // defensively copy so that caller&apos;s version does not get modified
+        ruleset = clone(ruleset);
+        ruleset = applyEmbeddedRuleset(text, ruleset);
+    }
+
+    reporter = new Reporter(lines, ruleset, allow, ignore);
+
+    ruleset.errors = 2;       // always report parsing errors as errors
+    for (i in ruleset) {
+        if (ruleset.hasOwnProperty(i) &amp;&amp; ruleset[i]) {
+            if (rules[i]) {
+                rules[i].init(parser, reporter);
+            }
+        }
+    }
+
+
+    // capture most horrible error type
+    try {
+        parser.parse(text);
+    } catch (ex) {
+        reporter.error(&quot;Fatal error, cannot continue: &quot; + ex.message, ex.line, ex.col, {});
+    }
+
+    report = {
+        messages    : reporter.messages,
+        stats       : reporter.stats,
+        ruleset     : reporter.ruleset,
+        allow       : reporter.allow,
+        ignore      : reporter.ignore
+    };
+
+    // sort by line numbers, rollups at the bottom
+    report.messages.sort(function (a, b) {
+        if (a.rollup &amp;&amp; !b.rollup) {
+            return 1;
+        } else if (!a.rollup &amp;&amp; b.rollup) {
+            return -1;
+        } else {
+            return a.line - b.line;
+        }
+    });
+
+    return report;
+}</pre></li>
+    <li>example use<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+
+
+
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.jslint-lite.CSSLint.Util" id="apidoc.module.jslint-lite.CSSLint.Util">module jslint-lite.CSSLint.Util</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.elem.jslint-lite.CSSLint.Util.forEach" id="apidoc.elem.jslint-lite.CSSLint.Util.forEach">
+        function <span class="apidocSignatureSpan">jslint-lite.CSSLint.Util.</span>forEach
+        <span class="apidocSignatureSpan">(values, func)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function(values, func) {
+    &quot;use strict&quot;;
+    if (values.forEach) {
+        return values.forEach(func);
+    } else {
+        for (var i=0, len=values.length; i &lt; len; i++) {
+            func(values[i], i, values);
+        }
+    }
+}</pre></li>
+    <li>example use<pre class="apidocCodePre">...
+    }
+    // recursively deep-copy list with child-keys sorted
+    if (Array.isArray(obj)) {
+        return obj.map(objectDeepCopyWithKeysSorted);
+    }
+    // recursively deep-copy obj with keys sorted
+    sorted = {};
+    Object.keys(obj).sort().<span class="apidocCodeKeywordSpan">forEach</span>(function (key) {
+        sorted[key] = objectDeepCopyWithKeysSorted(obj[key]);
+    });
+    return sorted;
+};
+aa = JSON.stringify(objectDeepCopyWithKeysSorted(aa));
+bb = JSON.stringify(objectDeepCopyWithKeysSorted(bb));
+if (aa !== bb) {
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.elem.jslint-lite.CSSLint.Util.indexOf" id="apidoc.elem.jslint-lite.CSSLint.Util.indexOf">
+        function <span class="apidocSignatureSpan">jslint-lite.CSSLint.Util.</span>indexOf
+        <span class="apidocSignatureSpan">(values, value)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function(values, value) {
+    &quot;use strict&quot;;
+    if (values.indexOf) {
+        return values.indexOf(value);
+    } else {
+        for (var i=0, len=values.length; i &lt; len; i++) {
+            if (values[i] === value) {
+                return i;
+            }
+        }
+        return -1;
+    }
+}</pre></li>
+    <li>example use<pre class="apidocCodePre">...
+    &quot;:after&quot;:        1
+};
+
+Pseudos.ELEMENT = 1;
+Pseudos.CLASS = 2;
+
+Pseudos.isElement = function(pseudo) {
+    return pseudo.<span class="apidocCodeKeywordSpan">indexOf</span>(&quot;::&quot;) === 0 || Pseudos[pseudo.toLowerCase()] ===
+Pseudos.ELEMENT;
+};
+},{}],13:[function(require,module,exports){
+&quot;use strict&quot;;
+
+module.exports = Selector;
+
+var SyntaxUnit = require(&quot;../util/SyntaxUnit&quot;);
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.elem.jslint-lite.CSSLint.Util.mix" id="apidoc.elem.jslint-lite.CSSLint.Util.mix">
+        function <span class="apidocSignatureSpan">jslint-lite.CSSLint.Util.</span>mix
+        <span class="apidocSignatureSpan">(receiver, supplier)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function(receiver, supplier) {
+    &quot;use strict&quot;;
+    var prop;
+
+    for (prop in supplier) {
+        if (supplier.hasOwnProperty(prop)) {
+            receiver[prop] = supplier[prop];
+        }
+    }
+
+    return prop;
+}</pre></li>
+    <li>example use<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.jslint-lite.CSSLint._Reporter" id="apidoc.module.jslint-lite.CSSLint._Reporter">module jslint-lite.CSSLint._Reporter</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.elem.jslint-lite.CSSLint._Reporter._Reporter" id="apidoc.elem.jslint-lite.CSSLint._Reporter._Reporter">
+        function <span class="apidocSignatureSpan">jslint-lite.CSSLint.</span>_Reporter
+        <span class="apidocSignatureSpan">(lines, ruleset, allow, ignore)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function Reporter(lines, ruleset, allow, ignore) {
+    &quot;use strict&quot;;
+
+<span class="apidocCodeCommentSpan">    /**
+     * List of messages being reported.
+     * @property messages
+     * @type String[]
+     */
+</span>    this.messages = [];
+
+    /**
+     * List of statistics being reported.
+     * @property stats
+     * @type String[]
+     */
+    this.stats = [];
+
+    /**
+     * Lines of code being reported on. Used to provide contextual information
+     * for messages.
+     * @property lines
+     * @type String[]
+     */
+    this.lines = lines;
+
+    /**
+     * Information about the rules. Used to determine whether an issue is an
+     * error or warning.
+     * @property ruleset
+     * @type Object
+     */
+    this.ruleset = ruleset;
+
+    /**
+     * Lines with specific rule messages to leave out of the report.
+     * @property allow
+     * @type Object
+     */
+    this.allow = allow;
+    if (!this.allow) {
+        this.allow = {};
+    }
+
+    /**
+     * Linesets not to include in the report.
+     * @property ignore
+     * @type [][]
+     */
+    this.ignore = ignore;
+    if (!this.ignore) {
+        this.ignore = [];
+    }
+}</pre></li>
+    <li>example use<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.jslint-lite.CSSLint._Reporter.prototype" id="apidoc.module.jslint-lite.CSSLint._Reporter.prototype">module jslint-lite.CSSLint._Reporter.prototype</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.elem.jslint-lite.CSSLint._Reporter.prototype.constructor" id="apidoc.elem.jslint-lite.CSSLint._Reporter.prototype.constructor">
+        function <span class="apidocSignatureSpan">jslint-lite.CSSLint._Reporter.prototype.</span>constructor
+        <span class="apidocSignatureSpan">(lines, ruleset, allow, ignore)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function Reporter(lines, ruleset, allow, ignore) {
+    &quot;use strict&quot;;
+
+<span class="apidocCodeCommentSpan">    /**
+     * List of messages being reported.
+     * @property messages
+     * @type String[]
+     */
+</span>    this.messages = [];
+
+    /**
+     * List of statistics being reported.
+     * @property stats
+     * @type String[]
+     */
+    this.stats = [];
+
+    /**
+     * Lines of code being reported on. Used to provide contextual information
+     * for messages.
+     * @property lines
+     * @type String[]
+     */
+    this.lines = lines;
+
+    /**
+     * Information about the rules. Used to determine whether an issue is an
+     * error or warning.
+     * @property ruleset
+     * @type Object
+     */
+    this.ruleset = ruleset;
+
+    /**
+     * Lines with specific rule messages to leave out of the report.
+     * @property allow
+     * @type Object
+     */
+    this.allow = allow;
+    if (!this.allow) {
+        this.allow = {};
+    }
+
+    /**
+     * Linesets not to include in the report.
+     * @property ignore
+     * @type [][]
+     */
+    this.ignore = ignore;
+    if (!this.ignore) {
+        this.ignore = [];
+    }
+}</pre></li>
+    <li>example use<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.elem.jslint-lite.CSSLint._Reporter.prototype.error" id="apidoc.elem.jslint-lite.CSSLint._Reporter.prototype.error">
+        function <span class="apidocSignatureSpan">jslint-lite.CSSLint._Reporter.prototype.</span>error
+        <span class="apidocSignatureSpan">(message, line, col, rule)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function(message, line, col, rule) {
+    &quot;use strict&quot;;
+    this.messages.push({
+        type    : &quot;error&quot;,
+        line    : line,
+        col     : col,
+        message : message,
+        evidence: this.lines[line-1],
+        rule    : rule || {}
+    });
+}</pre></li>
+    <li>example use<pre class="apidocCodePre">...
+    window.domOnEventWindowOnloadTimeElapsed = Date.now() + 100;\n\
+    window.addEventListener(&quot;load&quot;, function () {\n\
+        setTimeout(function () {\n\
+            window.domOnEventWindowOnloadTimeElapsed = (\n\
+                Date.now()\n\
+                - window.domOnEventWindowOnloadTimeElapsed\n\
+            );\n\
+            console.<span class="apidocCodeKeywordSpan">error</span>(\n\
+                &quot;domOnEventWindowOnloadTimeElapsed = &quot;\n\
+                + window.domOnEventWindowOnloadTimeElapsed\n\
+            );\n\
+        }, 100);\n\
+    });\n\
+}());\n\
+\n\
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.elem.jslint-lite.CSSLint._Reporter.prototype.info" id="apidoc.elem.jslint-lite.CSSLint._Reporter.prototype.info">
+        function <span class="apidocSignatureSpan">jslint-lite.CSSLint._Reporter.prototype.</span>info
+        <span class="apidocSignatureSpan">(message, line, col, rule)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function(message, line, col, rule) {
+    &quot;use strict&quot;;
+    this.messages.push({
+        type    : &quot;info&quot;,
+        line    : line,
+        col     : col,
+        message : message,
+        evidence: this.lines[line-1],
+        rule    : rule
+    });
+}</pre></li>
+    <li>example use<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.elem.jslint-lite.CSSLint._Reporter.prototype.report" id="apidoc.elem.jslint-lite.CSSLint._Reporter.prototype.report">
+        function <span class="apidocSignatureSpan">jslint-lite.CSSLint._Reporter.prototype.</span>report
+        <span class="apidocSignatureSpan">(message, line, col, rule)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function(message, line, col, rule) {
+    &quot;use strict&quot;;
+
+    // Check if rule violation should be allowed
+    if (this.allow.hasOwnProperty(line) &amp;&amp; this.allow[line].hasOwnProperty(rule.id)) {
+        return;
+    }
+
+    var ignore = false;
+    CSSLint.Util.forEach(this.ignore, function (range) {
+        if (range[0] &lt;= line &amp;&amp; line &lt;= range[1]) {
+            ignore = true;
+        }
+    });
+    if (ignore) {
+        return;
+    }
+
+    this.messages.push({
+        type    : this.ruleset[rule.id] === 2 ? &quot;error&quot; : &quot;warning&quot;,
+        line    : line,
+        col     : col,
+        message : message,
+        evidence: this.lines[line-1],
+        rule    : rule
+    });
+}</pre></li>
+    <li>example use<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.elem.jslint-lite.CSSLint._Reporter.prototype.rollupError" id="apidoc.elem.jslint-lite.CSSLint._Reporter.prototype.rollupError">
+        function <span class="apidocSignatureSpan">jslint-lite.CSSLint._Reporter.prototype.</span>rollupError
+        <span class="apidocSignatureSpan">(message, rule)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function(message, rule) {
+    &quot;use strict&quot;;
+    this.messages.push({
+        type    : &quot;error&quot;,
+        rollup  : true,
+        message : message,
+        rule    : rule
+    });
+}</pre></li>
+    <li>example use<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.elem.jslint-lite.CSSLint._Reporter.prototype.rollupWarn" id="apidoc.elem.jslint-lite.CSSLint._Reporter.prototype.rollupWarn">
+        function <span class="apidocSignatureSpan">jslint-lite.CSSLint._Reporter.prototype.</span>rollupWarn
+        <span class="apidocSignatureSpan">(message, rule)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function(message, rule) {
+    &quot;use strict&quot;;
+    this.messages.push({
+        type    : &quot;warning&quot;,
+        rollup  : true,
+        message : message,
+        rule    : rule
+    });
+}</pre></li>
+    <li>example use<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.elem.jslint-lite.CSSLint._Reporter.prototype.stat" id="apidoc.elem.jslint-lite.CSSLint._Reporter.prototype.stat">
+        function <span class="apidocSignatureSpan">jslint-lite.CSSLint._Reporter.prototype.</span>stat
+        <span class="apidocSignatureSpan">(name, value)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function(name, value) {
+    &quot;use strict&quot;;
+    this.stats[name] = value;
+}</pre></li>
+    <li>example use<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.elem.jslint-lite.CSSLint._Reporter.prototype.warn" id="apidoc.elem.jslint-lite.CSSLint._Reporter.prototype.warn">
+        function <span class="apidocSignatureSpan">jslint-lite.CSSLint._Reporter.prototype.</span>warn
+        <span class="apidocSignatureSpan">(message, line, col, rule)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function(message, line, col, rule) {
+    &quot;use strict&quot;;
+    this.report(message, line, col, rule);
+}</pre></li>
+    <li>example use<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.jslint-lite.cliDict" id="apidoc.module.jslint-lite.cliDict">module jslint-lite.cliDict</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.elem.jslint-lite.cliDict._default" id="apidoc.elem.jslint-lite.cliDict._default">
+        function <span class="apidocSignatureSpan">jslint-lite.cliDict.</span>_default
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">_default = function () {
+<span class="apidocCodeCommentSpan">/*
+ * &lt;file1&gt; &lt;file2&gt; ...
+ * will jslint &lt;file1&gt; &lt;file2&gt; ... and print errors to stderr
+ */
+</span>    // jslint files
+    process.argv.slice(2).forEach(function (file) {
+        if (file[0] === &quot;-&quot;) {
+            return;
+        }
+        local.jslintAndPrint(
+            require(&quot;fs&quot;).readFileSync(require(&quot;path&quot;).resolve(file), &quot;utf8&quot;),
+            file,
+            {
+                autofix: process.argv.indexOf(&quot;--autofix&quot;) &gt;= 0,
+                conditional: process.argv.indexOf(&quot;--conditional&quot;) &gt;= 0
+            }
+        );
+    });
+    // if err occurred, then exit with non-zero code
+    process.exit(Boolean(local.jslintResult.errList.length));
+}</pre></li>
+    <li>example use<pre class="apidocCodePre">...
+       cliDict._help();
+       return;
+   }
+   if (cliDict[process.argv[2]]) {
+       cliDict[process.argv[2]]();
+       return;
+   }
+   cliDict.<span class="apidocCodeKeywordSpan">_default</span>();
+};
+
+local.objectDeepCopyWithKeysSorted = function (obj) {
+/*
+* this function will recursively deep-copy &lt;obj&gt; with keys sorted
+*/
+   let objectDeepCopyWithKeysSorted;
+...</pre></li>
+    </ul>
+
+
+
+    <h2>
+        <a href="#apidoc.elem.jslint-lite.cliDict.dir" id="apidoc.elem.jslint-lite.cliDict.dir">
+        function <span class="apidocSignatureSpan">jslint-lite.cliDict.</span>dir
+        <span class="apidocSignatureSpan">()</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">dir = function () {
+<span class="apidocCodeCommentSpan">/*
+ * &lt;dir&gt;
+ * will jslint files in shallow &lt;dir&gt;
+ */
+</span>    local.jslintAndPrintDir(process.argv[3], {
+        autofix: process.argv.indexOf(&quot;--autofix&quot;) &gt;= 0,
+        conditional: process.argv.indexOf(&quot;--conditional&quot;) &gt;= 0
+    });
+}</pre></li>
+    <li>example use<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocFooterDiv">
+    [ this document was created with
+    <a href="https://github.com/kaizhu256/node-utility2" target="_blank">utility2</a>
+    ]
+</div>
+</div>
