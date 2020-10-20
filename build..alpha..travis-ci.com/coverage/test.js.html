@@ -1157,6 +1157,13 @@
 <a href="#l832" id="l832">832</a>
 <a href="#l833" id="l833">833</a>
 <a href="#l834" id="l834">834</a>
+<a href="#l835" id="l835">835</a>
+<a href="#l836" id="l836">836</a>
+<a href="#l837" id="l837">837</a>
+<a href="#l838" id="l838">838</a>
+<a href="#l839" id="l839">839</a>
+<a href="#l840" id="l840">840</a>
+<a href="#l841" id="l841">841</a>
 </td>
         <td class="line-coverage"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1834,25 +1841,32 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">504</span>
-<span class="cline-any cline-yes">504</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">514</span>
+<span class="cline-any cline-yes">514</span>
 <span class="cline-any cline-yes">168</span>
 <span class="cline-any cline-yes">168</span>
 <span class="cline-any cline-yes">168</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">336</span>
-<span class="cline-any cline-yes">336</span>
-<span class="cline-any cline-yes">462</span>
+<span class="cline-any cline-yes">346</span>
+<span class="cline-any cline-yes">346</span>
+<span class="cline-any cline-yes">476</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">336</span>
+<span class="cline-any cline-yes">346</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">336</span>
+<span class="cline-any cline-yes">346</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -2317,9 +2331,9 @@ local.testCase_jslint0_err = function (opt, onError) {
         "aa &amp;&amp; bb || cc",
         // bad_assignment_a: "Bad assignment to '{a}'.",
         "__bad_assignment_a__",
-        "/*jslint for*/\nfunction aa(){for (1 in bb){}}",
-        "1=2",
-        "const aa=1;for(aa in bb){}",
+        "/*jslint for*/\nfunction aa(){for (0 in bb){}}",
+        "0=0",
+        "const aa=0;for(aa in bb){}",
         // bad_directive_a: "Bad directive '{a}'.",
         "__bad_directive_a__",
         "/*jslint !*/",
@@ -2336,14 +2350,14 @@ local.testCase_jslint0_err = function (opt, onError) {
         // bad_property_a: "Bad property name '{a}'.",
         "__bad_property_a__",
         "aa._",
-        "{\"__proto__\":1}",
+        "{\"__proto__\":0}",
         // bad_set: "A set function takes one parameter.",
         "__bad_set__",
         "/*jslint getset*/\naa={set aa(){return;}}",
         // duplicate_a: "Duplicate '{a}'.",
         "__duplicate_a__",
         "let aa;export {aa,aa}",
-        "{\"aa\":1,\"aa\":2}",
+        "{\"aa\":0,\"aa\":0}",
         // empty_block: "Empty block.",
         "__empty_block__",
         "function aa() {}",
@@ -2357,13 +2371,13 @@ local.testCase_jslint0_err = function (opt, onError) {
         // expected_a_b: "Expected '{a}' and instead saw '{b}'.",
         "__expected_a_b__",
         "!!aa",
-        "(aa)=&gt;{return 1;}",
-        "(aa?1:aa)",
-        "(aa?aa:1)",
+        "(aa)=&gt;{return 0;}",
+        "(aa?0:aa)",
+        "(aa?aa:0)",
         "(aa?false:true)",
         "(aa?true:false)",
-        "1!=1",
-        "1==1",
+        "0!=0",
+        "0==0",
         ";{",
         "`${/ /}`",
         "`${`",
@@ -2373,17 +2387,17 @@ local.testCase_jslint0_err = function (opt, onError) {
         "aa=+aa",
         "aa=/[ ]/",
         "aa=/aa{/",
-        "aa=1+\"\"",
-        "delete [1]",
+        "aa=0+\"\"",
+        "delete [0]",
         "for(;;){}",
-        "isFinite(1)",
+        "isFinite(0)",
         "new Array(\"\")",
         "new Date().getTime()",
         "new Object()",
         // expected_a_b_from_c_d:
         // "Expected '{a}' to match '{b}' from line {c} and instead saw '{d}'."
         "__expected_a_b_from_c_d__",
-        "{\"aa\":1",
+        "{\"aa\":0",
         // expected_a_before_b: "Expected '{a}' before '{b}'.",
         "__expected_a_before_b__",
         ".0",
@@ -2407,7 +2421,7 @@ local.testCase_jslint0_err = function (opt, onError) {
         // "Expected an identifier and instead saw '{a}'.",
         "__expected_identifier_a__",
         "import {",
-        "let [aa,1]=[]",
+        "let [aa,0]=[]",
         // expected_line_break_a_b:
         // "Expected a line break between '{a}' and '{b}'.",
         "__expected_line_break_a_b__",
@@ -2418,17 +2432,17 @@ local.testCase_jslint0_err = function (opt, onError) {
         // expected_space_a_b: "Expected one space between '{a}' and '{b}'.",
         "__expected_space_a_b__",
         "/**//**/",
-        "let aa=1;",
+        "let aa=0;",
         // expected_statements_a: "Expected statements before '{a}'.",
         "__expected_statements_a__",
         // expected_string_a: "Expected a string and instead saw '{a}'.",
         "__expected_string_a__",
         "import(aa).then(aa)",
-        "typeof 1===1",
+        "typeof 0===0",
         // expected_type_string_a:
         // "Expected a type string and instead saw '{a}'.",
         "__expected_type_string_a__",
-        "typeof 1===\"aa\"",
+        "typeof 0===\"aa\"",
         // freeze_exports:
         // "Expected 'Object.freeze('. All export values should be frozen."
         "__freeze_exports__",
@@ -2436,7 +2450,7 @@ local.testCase_jslint0_err = function (opt, onError) {
         "export function aa(){return;}",
         // function_in_loop: "Don't make functions within a loop.",
         "__function_in_loop__",
-        "function aa(){while (true) {aa.map(()=&gt;1);}}",
+        "function aa(){while (true) {aa.map(()=&gt;0);}}",
         "function aa(){while (true) {aa.map(function(){return;});}}",
         // infix_in:
         // "Unexpected 'in'. Compare with undefined, "
@@ -2470,7 +2484,7 @@ local.testCase_jslint0_err = function (opt, onError) {
         // number_isNaN: "Use Number.isNaN function to compare with NaN.",
         "__number_isNaN__",
         "NaN===NaN",
-        "isNaN(1)",
+        "isNaN(0)",
         // out_of_scope_a: "'{a}' is out of scope.",
         "__out_of_scope_a__",
         "function aa(){bb();}\nfunction bb(){return;}",
@@ -2511,20 +2525,25 @@ local.testCase_jslint0_err = function (opt, onError) {
         "aa",
         // unexpected_a: "Unexpected '{a}'.",
         "__unexpected_a__",
-        "((1))",
+        "((0))",
+        "(+0?+0:+0)()",
+        //!! "(aa?bb:0())()",
+        //!! "(aa?0():bb)()",
         "/*/",
         "/_/",
-        "1 instanceof 1",
-        "1===(1==1)",
-        "1|1",
+        "0 instanceof 0",
+        "0===(0==0)",
+        "0[0]",
+        "0|0",
         ";",
         "Function",
         "[-0x0]",
+        "[0x0]",
         "`${\"`\"}`",
         "`${/[`]/}`",
         "`${/`/}`",
         "aa+=NaN",
-        "aa/=2",
+        "aa/=0",
         "aa=/[0-]/",
         "aa=/_//",
         "aa=/_/z",
@@ -2532,15 +2551,15 @@ local.testCase_jslint0_err = function (opt, onError) {
         "debugger",
         "eval",
         "export aa",
-        "export const aa=1",
+        "export const aa=0",
         "for(aa in bb){}",
         "for(const ii=0;;){}",
         "for(ii=0;ii&lt;0;ii++){}",
-        "for(ii=0;ii&lt;0;ii+=1){}",
+        "for(ii=0;ii&lt;0;ii+=0){}",
         "function aa(){try{return;}catch(ignore){}finally{return;}}",
-        "function aa(){try{return;}catch(ignore){}finally{switch(1){case 1:}}}",
+        "function aa(){try{return;}catch(ignore){}finally{switch(0){case 0:}}}",
         "function aa(){while(true){continue;}}",
-        "function aa(){while(true){try{1;}catch(ignore){}finally{continue;}}}",
+        "function aa(){while(true){try{0;}catch(ignore){}finally{continue;}}}",
         "function ignore(){let ignore;}",
         "ignore",
         "ignore:",
@@ -2550,13 +2569,15 @@ local.testCase_jslint0_err = function (opt, onError) {
         "new Function()",
         "new Symbol()",
         "this",
-        "void 1",
+        "void 0",
+        "while((true)){}",
+        "while(0){}",
         "yield /_/",
-        "{\"\\u{1234}\":1}",
+        "{\"\\u{1234}\":0}",
         "{\"aa\":",
         "{\"aa\":'aa'}",
         "{//\n}",
-        "{1:2}",
+        "{0:0}",
         // unexpected_a_after_b: "Unexpected '{a}' after '{b}'.",
         "__unexpected_a_after_b__",
         "0a",
@@ -2579,7 +2600,7 @@ local.testCase_jslint0_err = function (opt, onError) {
         // "Unexpected expression '{a}' in statement position."
         "__unexpected_expression_a__",
         "aa++",
-        "typeof 1===typeof 1",
+        "typeof 0===typeof 0",
         // unexpected_label_a: "Unexpected label '{a}'.",
         "__unexpected_label_a__",
         "aa:aa",
@@ -2588,7 +2609,7 @@ local.testCase_jslint0_err = function (opt, onError) {
         "aa=(function(){return;})",
         // unexpected_space_a_b: "Unexpected space between '{a}' and '{b}'.",
         "__unexpected_space_a_b__",
-        "let aa=( 1 );",
+        "let aa=( 0 );",
         // unexpected_statement_a:
         // "Unexpected statement '{a}' in expression position."
         "__unexpected_statement_a__",
@@ -2603,7 +2624,7 @@ local.testCase_jslint0_err = function (opt, onError) {
         "/*jslint node*/\nlet aa;aa();",
         // unreachable_a: "Unreachable '{a}'.",
         "__unreachable_a__",
-        "function aa(){while(true){break;1;}}",
+        "function aa(){while(true){break;0;}}",
         // unregistered_property_a: "Unregistered property name '{a}'.",
         "__unregistered_property_a__",
         "/*property aa*/\naa.bb",
@@ -2619,8 +2640,8 @@ local.testCase_jslint0_err = function (opt, onError) {
         // "Wrap a ternary expression in parens, "
         // + "with a line break after the left paren."
         "__use_open__",
-        "1?2:3",
-        "aa=1?2:3",
+        "0?0:0",
+        "aa=0?0:0",
         // use_spaces: "Use spaces, not tabs.",
         "__use_spaces__",
         "\t",
@@ -2629,28 +2650,28 @@ local.testCase_jslint0_err = function (opt, onError) {
         "function aa(){while(true){var aa;}}",
         // var_switch: "Don't declare variables in a switch.",
         "__var_switch__",
-        "function aa(){switch(1){case 1:var aa;}}",
+        "function aa(){switch(0){case 0:var aa;}}",
         // weird_condition_a: "Weird condition '{a}'.",
         "__weird_condition_a__",
-        "if(1&amp;&amp;1){1;}",
-        "if(1||1){1;}",
+        "if(0&amp;&amp;0){0;}",
+        "if(0||0){0;}",
         // weird_expression_a: "Weird expression '{a}'.",
         "__weird_expression_a__",
         "aa=RegExp.aa",
-        "aa=RegExp[1]",
-        "aa[[1]]",
-        "self=self[1]",
-        "window=window[1]",
+        "aa=RegExp[0]",
+        "aa[[0]]",
+        "self=self[0]",
+        "window=window[0]",
         // weird_loop: "Weird loop.",
         "__weird_loop__",
         "function aa(){do {break;}while(true);}",
         "function aa(){while(true){break;}}",
         // weird_relation_a: "Weird relation '{a}'.",
         "__weird_relation_a__",
-        "if(1===1){1;}",
+        "if(0===0){0;}",
         // wrap_condition: "Wrap the condition in parens.",
         "__wrap_condition__",
-        "(aa&amp;&amp;!aa?1:2)",
+        "(aa&amp;&amp;!aa?0:1)",
         // wrap_immediate:
         // "Wrap an immediate function invocation in parentheses to assist "
         // + "the reader in understanding that the expression is the result "
@@ -2659,7 +2680,7 @@ local.testCase_jslint0_err = function (opt, onError) {
         "aa=function(){return;}()",
         // wrap_parameter: "Wrap the parameter in parens.",
         "__wrap_parameter__",
-        "aa =&gt; 1",
+        "aa=&gt;0",
         // wrap_regexp: "Wrap this regexp in parens to avoid confusion.",
         "__wrap_regexp__",
         "!/_/",
