@@ -14439,97 +14439,99 @@ function do_var() {
     if (functionage.loop > 0 && the_statement.id === "var") {
         warn("var_loop", the_statement);
     }
-    if (next_token.id === "{" && the_statement.id !== "var") {
-        const the_brace = next_token;
-        advance("{");
-        (function pair() {
-            if (!next_token.identifier) {
-                return stop("expected_identifier_a", next_token);
-            }
-            const name = next_token;
-            survey(name);
-            advance();
-            if (next_token.id === ":") {
-                advance(":");
+    (function next() {
+        if (next_token.id === "{" && the_statement.id !== "var") {
+            const the_brace = next_token;
+            advance("{");
+            (function pair() {
                 if (!next_token.identifier) {
                     return stop("expected_identifier_a", next_token);
                 }
-                next_token.label = name;
-                the_statement.names.push(next_token);
-                enroll(next_token, "variable", is_const);
+                const name = next_token;
+                survey(name);
                 advance();
-                the_brace.open = true;
-            } else {
-                the_statement.names.push(name);
-                enroll(name, "variable", is_const);
-            }
-            name.dead = false;
-            name.init = true;
-            if (next_token.id === "=") {
-                advance("=");
-                name.expression = expression();
-                the_brace.open = true;
-            }
-            if (next_token.id === ",") {
-                advance(",");
-                return pair();
-            }
-        }());
-        advance("}");
-        advance("=");
-        the_statement.expression = expression(0);
-    } else if (next_token.id === "[" && the_statement.id !== "var") {
-        const the_bracket = next_token;
-        advance("[");
-        (function element() {
-            let ellipsis;
-            if (next_token.id === "...") {
-                ellipsis = true;
-                advance("...");
-            }
-            if (!next_token.identifier) {
-                return stop("expected_identifier_a", next_token);
-            }
-            const name = next_token;
-            advance();
-            the_statement.names.push(name);
-            enroll(name, "variable", is_const);
-            name.dead = false;
-            name.init = true;
-            if (ellipsis) {
-                name.ellipsis = true;
-            } else {
+                if (next_token.id === ":") {
+                    advance(":");
+                    if (!next_token.identifier) {
+                        return stop("expected_identifier_a", next_token);
+                    }
+                    next_token.label = name;
+                    the_statement.names.push(next_token);
+                    enroll(next_token, "variable", is_const);
+                    advance();
+                    the_brace.open = true;
+                } else {
+                    the_statement.names.push(name);
+                    enroll(name, "variable", is_const);
+                }
+                name.dead = false;
+                name.init = true;
                 if (next_token.id === "=") {
                     advance("=");
                     name.expression = expression();
-                    the_bracket.open = true;
+                    the_brace.open = true;
                 }
                 if (next_token.id === ",") {
                     advance(",");
-                    return element();
+                    return pair();
                 }
-            }
-        }());
-        advance("]");
-        advance("=");
-        the_statement.expression = expression(0);
-    } else if (next_token.identifier) {
-        const name = next_token;
-        advance();
-        if (name.id === "ignore") {
-            warn("unexpected_a", name);
-        }
-        enroll(name, "variable", is_const);
-        if (next_token.id === "=" || is_const) {
+            }());
+            advance("}");
             advance("=");
-            name.dead = false;
-            name.init = true;
-            name.expression = expression(0);
+            the_statement.expression = expression(0);
+        } else if (next_token.id === "[" && the_statement.id !== "var") {
+            const the_bracket = next_token;
+            advance("[");
+            (function element() {
+                let ellipsis;
+                if (next_token.id === "...") {
+                    ellipsis = true;
+                    advance("...");
+                }
+                if (!next_token.identifier) {
+                    return stop("expected_identifier_a", next_token);
+                }
+                const name = next_token;
+                advance();
+                the_statement.names.push(name);
+                enroll(name, "variable", is_const);
+                name.dead = false;
+                name.init = true;
+                if (ellipsis) {
+                    name.ellipsis = true;
+                } else {
+                    if (next_token.id === "=") {
+                        advance("=");
+                        name.expression = expression();
+                        the_bracket.open = true;
+                    }
+                    if (next_token.id === ",") {
+                        advance(",");
+                        return element();
+                    }
+                }
+            }());
+            advance("]");
+            advance("=");
+            the_statement.expression = expression(0);
+        } else if (next_token.identifier) {
+            const name = next_token;
+            advance();
+            if (name.id === "ignore") {
+                warn("unexpected_a", name);
+            }
+            enroll(name, "variable", is_const);
+            if (next_token.id === "=" || is_const) {
+                advance("=");
+                name.dead = false;
+                name.init = true;
+                name.expression = expression(0);
+            }
+            the_statement.names.push(name);
+        } else {
+            return stop("expected_identifier_a", next_token);
         }
-        the_statement.names.push(name);
-    } else {
-        stop("expected_identifier_a", next_token);
-    }
+    }());
     semicolon();
     return the_statement;
 }
