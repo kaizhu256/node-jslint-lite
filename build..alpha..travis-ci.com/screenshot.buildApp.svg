@@ -3,7 +3,7 @@
 <text fill="#7f7" font-family="Courier New" font-size="12" xml:space="preserve">
 <tspan x="10" y="26"></tspan>
 
-<tspan x="10" y="42">\x1b[35m[MODE_BUILD=buildApp]\x1b[0m - 2020-10-21T15:11:54.564Z - npm-testing /home/travis/build\</tspan>
+<tspan x="10" y="42">\x1b[35m[MODE_BUILD=buildApp]\x1b[0m - 2020-10-21T15:18:46.516Z - npm-testing /home/travis/build\</tspan>
 <tspan x="10" y="58">/kaizhu256/node-jslint-lite</tspan>
 
 <tspan x="10" y="74"></tspan>
@@ -13,7 +13,7 @@
 <tspan x="10" y="106">buildApp - merged test-report from file /home/travis/build/kaizhu256/node-jslint-lite/.tmp/build\</tspan>
 <tspan x="10" y="122">/test-report.json</tspan>
 
-<tspan x="10" y="138">&gt; http-server listening on port 62604</tspan>
+<tspan x="10" y="138">&gt; http-server listening on port 55298</tspan>
 
 <tspan x="10" y="154">buildApp - wrote - /home/travis/build/kaizhu256/node-jslint-lite/package.json</tspan>
 
@@ -27,37 +27,37 @@
 <tspan x="10" y="234">buildApp - replace-skipped - "\\n\\/\\*\ jslint\ ignore:start\ \\*\\/\\nlocal.assetsDict\\[\"\\/\</tspan>
 <tspan x="10" y="250">assets.index.template.html\"\\]\ =\ '\\\\\\n[\\S\\s]*?\\n\\/\\*\ jslint\ ignore:end\ \\*\\/\\n"</tspan>
 
-<tspan x="10" y="266">buildApp - replace-skipped - "\\n####\ changelog\ [\\S\\s]*?\\n#\ quickstart\ example.js\\n"</tspan>
+<tspan x="10" y="266"></tspan>
 
-<tspan x="10" y="282">buildApp - replace-skipped - "\\n#\ quickstart\ [\\S\\s]*?\\n#\ extra\ screenshots\\n"</tspan>
+<tspan x="10" y="282">buildApp - merged test-report from file /home/travis/build/kaizhu256/node-jslint-lite/.tmp/build\</tspan>
+<tspan x="10" y="298">/test-report.json</tspan>
 
-<tspan x="10" y="298">buildApp - replace-skipped - "^1\\.\ .*?screenshot\\.(?:npmTest|testExampleJs|testExampleSh).*?\\</tspan>
-<tspan x="10" y="314">\.png[\\S\\s]*?\\n\\n"</tspan>
+<tspan x="10" y="314">buildApp - replace-skipped - "\\n####\ changelog\ [\\S\\s]*?\\n#\ quickstart\ example.js\\n"</tspan>
 
-<tspan x="10" y="330">buildApp - replace-unmatched - "$ npm install jslint-lite"</tspan>
+<tspan x="10" y="330">buildApp - replace-skipped - "\\n#\ quickstart\ [\\S\\s]*?\\n#\ extra\ screenshots\\n"</tspan>
 
-<tspan x="10" y="346">buildApp - replace-skipped - "    // || globalThis.utility2_rollup_old"</tspan>
+<tspan x="10" y="346">buildApp - replace-skipped - "^1\\.\ .*?screenshot\\.(?:npmTest|testExampleJs|testExampleSh).*?\\</tspan>
+<tspan x="10" y="362">\.png[\\S\\s]*?\\n\\n"</tspan>
 
-<tspan x="10" y="362">buildApp - replace-skipped - "    // || require(\"./assets.utility2.rollup.js\")"</tspan>
+<tspan x="10" y="378">buildApp - replace-unmatched - "$ npm install jslint-lite"</tspan>
 
-<tspan x="10" y="378">buildApp - wrote - /home/travis/build/kaizhu256/node-jslint-lite/README.md</tspan>
+<tspan x="10" y="394">buildApp - replace-skipped - "    // || globalThis.utility2_rollup_old"</tspan>
 
-<tspan x="10" y="394">buildApp - wrote - /home/travis/build/kaizhu256/node-jslint-lite/lib.jslint.js</tspan>
+<tspan x="10" y="410">buildApp - replace-skipped - "    // || require(\"./assets.utility2.rollup.js\")"</tspan>
 
-<tspan x="10" y="410">buildApp - wrote - /home/travis/build/kaizhu256/node-jslint-lite/test.js</tspan>
+<tspan x="10" y="426">buildApp - wrote - /home/travis/build/kaizhu256/node-jslint-lite/README.md</tspan>
 
-<tspan x="10" y="426"></tspan>
+<tspan x="10" y="442">buildApp - wrote - /home/travis/build/kaizhu256/node-jslint-lite/test.js</tspan>
 
-<tspan x="10" y="442">buildApp - merged test-report from file /home/travis/build/kaizhu256/node-jslint-lite/.tmp/build\</tspan>
-<tspan x="10" y="458">/test-report.json</tspan>
+<tspan x="10" y="458">buildApp - wrote - /home/travis/build/kaizhu256/node-jslint-lite/lib.jslint.js</tspan>
 
 <tspan x="10" y="474">jslint - 3ms - /home/travis/build/kaizhu256/node-jslint-lite/README.md</tspan>
 
-<tspan x="10" y="490">jslint - 3ms - /home/travis/build/kaizhu256/node-jslint-lite/npm_scripts.sh</tspan>
+<tspan x="10" y="490">jslint - 4ms - /home/travis/build/kaizhu256/node-jslint-lite/npm_scripts.sh</tspan>
 
-<tspan x="10" y="506">jslint - 12ms - /home/travis/build/kaizhu256/node-jslint-lite/package.json</tspan>
+<tspan x="10" y="506">jslint - 9ms - /home/travis/build/kaizhu256/node-jslint-lite/package.json</tspan>
 
-<tspan x="10" y="522">jslint - 58ms - /home/travis/build/kaizhu256/node-jslint-lite/test.js</tspan>
+<tspan x="10" y="522">jslint - 50ms - /home/travis/build/kaizhu256/node-jslint-lite/test.js</tspan>
 
 <tspan x="10" y="538">buildApp - wrote - /home/travis/build/kaizhu256/node-jslint-lite/.tmp/build/app.standalone/asset\</tspan>
 <tspan x="10" y="554">s.app.js</tspan>
@@ -99,36 +99,36 @@
 
 <tspan x="10" y="922">buildApp - wrote - /home/travis/build/kaizhu256/node-jslint-lite/.tmp/build/app/assets.app.js</tspan>
 
-<tspan x="10" y="938">jslint - 333ms - /home/travis/build/kaizhu256/node-jslint-lite/lib.jslint.js</tspan>
+<tspan x="10" y="938">jslint - 4ms - /home/travis/build/kaizhu256/node-jslint-lite/.tmp/build/app/assets.example.html</tspan>
 
-<tspan x="10" y="954">jslint - 4ms - /home/travis/build/kaizhu256/node-jslint-lite/.tmp/build/app/assets.example.html</tspan>
+<tspan x="10" y="954">jslint - 315ms - /home/travis/build/kaizhu256/node-jslint-lite/lib.jslint.js</tspan>
 
-<tspan x="10" y="970">jslint - 48ms - /home/travis/build/kaizhu256/node-jslint-lite/.tmp/build/app/assets.example.js</tspan>
+<tspan x="10" y="970">jslint - 47ms - /home/travis/build/kaizhu256/node-jslint-lite/.tmp/build/app/assets.example.js</tspan>
 
-<tspan x="10" y="986">jslint - 52ms - /home/travis/build/kaizhu256/node-jslint-lite/.tmp/build/app/assets.jslint.css</tspan>
+<tspan x="10" y="986">jslint - 49ms - /home/travis/build/kaizhu256/node-jslint-lite/.tmp/build/app/assets.jslint.css</tspan>
 
-<tspan x="10" y="1002">jslint - 56ms - /home/travis/build/kaizhu256/node-jslint-lite/.tmp/build/app/assets.jslint.html</tspan>
+<tspan x="10" y="1002">jslint - 51ms - /home/travis/build/kaizhu256/node-jslint-lite/.tmp/build/app/assets.jslint.html</tspan>
 
-<tspan x="10" y="1018">jslint - 96ms - /home/travis/build/kaizhu256/node-jslint-lite/.tmp/build/app/assets.test.js</tspan>
+<tspan x="10" y="1018">jslint - 88ms - /home/travis/build/kaizhu256/node-jslint-lite/.tmp/build/app/assets.test.js</tspan>
 
-<tspan x="10" y="1034">jslint - 99ms - /home/travis/build/kaizhu256/node-jslint-lite/.tmp/build/app/assets.utility2.htm\</tspan>
+<tspan x="10" y="1034">jslint - 90ms - /home/travis/build/kaizhu256/node-jslint-lite/.tmp/build/app/assets.utility2.htm\</tspan>
 <tspan x="10" y="1050">l</tspan>
 
-<tspan x="10" y="1066">jslint - 103ms - /home/travis/build/kaizhu256/node-jslint-lite/.tmp/build/app/index.html</tspan>
+<tspan x="10" y="1066">jslint - 92ms - /home/travis/build/kaizhu256/node-jslint-lite/.tmp/build/app/index.html</tspan>
 
-<tspan x="10" y="1082">jslint - 107ms - /home/travis/build/kaizhu256/node-jslint-lite/.tmp/build/app/utility2.state.ini\</tspan>
-<tspan x="10" y="1098">t.js</tspan>
+<tspan x="10" y="1082">jslint - 93ms - /home/travis/build/kaizhu256/node-jslint-lite/.tmp/build/app/utility2.state.init\</tspan>
+<tspan x="10" y="1098">.js</tspan>
 
-<tspan x="10" y="1114">&gt; http-server listening on port 60696</tspan>
+<tspan x="10" y="1114">&gt; http-server listening on port 51744</tspan>
 
-<tspan x="10" y="1130">jslint - 280ms - /home/travis/build/kaizhu256/node-jslint-lite/.tmp/build/app/assets.jslint.js</tspan>
+<tspan x="10" y="1130">jslint - 266ms - /home/travis/build/kaizhu256/node-jslint-lite/.tmp/build/app/assets.jslint.js</tspan>
 
-<tspan x="10" y="1146">jslint - 445ms - /home/travis/build/kaizhu256/node-jslint-lite/.tmp/build/app/assets.utility2.li\</tspan>
+<tspan x="10" y="1146">jslint - 420ms - /home/travis/build/kaizhu256/node-jslint-lite/.tmp/build/app/assets.utility2.li\</tspan>
 <tspan x="10" y="1162">b.jslint.js</tspan>
 
-<tspan x="10" y="1178">testRunDefault - 5945 ms - testCase pending - testCase_buildApp_default ...</tspan>
+<tspan x="10" y="1178">testRunDefault - 5668 ms - testCase pending - testCase_buildApp_default ...</tspan>
 
-<tspan x="10" y="1194">testRunDefault - 8524 ms - [node test-case 1 of 1 passed] - testCase_buildApp_default</tspan>
+<tspan x="10" y="1194">testRunDefault - 8191 ms - [node test-case 1 of 1 passed] - testCase_buildApp_default</tspan>
 
 <tspan x="10" y="1210">fsWriteFileWithMkdirpSync - /home/travis/build/kaizhu256/node-jslint-lite/.tmp/build/test-report\</tspan>
 <tspan x="10" y="1226">.json</tspan>
@@ -142,22 +142,22 @@
 
 <tspan x="10" y="1306">-------------------------------------------------------</tspan>
 
-<tspan x="10" y="1322">| test-report - buildApidoc - node - linux v14.14.0 - 2020-10-21T15:11:50.715Z</tspan>
+<tspan x="10" y="1322">| test-report - buildApidoc - node - linux v14.14.0 - 2020-10-21T15:18:42.942Z</tspan>
 
-<tspan x="10" y="1338">|    8524 ms            0 failed        1 passed      |</tspan>
+<tspan x="10" y="1338">|    8191 ms            0 failed        1 passed      |</tspan>
 
 <tspan x="10" y="1354">-------------------------------------------------------</tspan>
 
 <tspan x="10" y="1370">| test-report - npmTest - browser - / - Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTM\</tspan>
-<tspan x="10" y="1386">L, like Gecko) HeadlessChrome/86.0.4240.111 Safari/537.36 - 2020-10-21T15:11:45.212Z</tspan>
+<tspan x="10" y="1386">L, like Gecko) HeadlessChrome/86.0.4240.111 Safari/537.36 - 2020-10-21T15:18:37.617Z</tspan>
 
-<tspan x="10" y="1402">|     217 ms            0 failed        6 passed      |</tspan>
+<tspan x="10" y="1402">|     185 ms            0 failed        6 passed      |</tspan>
 
 <tspan x="10" y="1418">-------------------------------------------------------</tspan>
 
-<tspan x="10" y="1434">| test-report - npmTest - node - linux v14.14.0 - 2020-10-21T15:11:40.538Z</tspan>
+<tspan x="10" y="1434">| test-report - npmTest - node - linux v14.14.0 - 2020-10-21T15:18:33.234Z</tspan>
 
-<tspan x="10" y="1450">|    7246 ms            0 failed        9 passed      |</tspan>
+<tspan x="10" y="1450">|    6927 ms            0 failed        9 passed      |</tspan>
 
 <tspan x="10" y="1466">-------------------------------------------------------</tspan>
 
@@ -180,7 +180,7 @@
 
 <tspan x="10" y="1642"></tspan>
 
-<tspan x="10" y="1658">\x1b[35m[MODE_BUILD=buildApp]\x1b[0m - 2020-10-21T15:11:59.533Z - EXIT_CODE - 0</tspan>
+<tspan x="10" y="1658">\x1b[35m[MODE_BUILD=buildApp]\x1b[0m - 2020-10-21T15:18:51.393Z - EXIT_CODE - 0</tspan>
 
 </text>
 </svg>
