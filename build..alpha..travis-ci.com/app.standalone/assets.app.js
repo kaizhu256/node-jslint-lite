@@ -24805,16 +24805,16 @@ return CSSLint;
 
 
 /*
-repo https://github.com/douglascrockford/JSLint/tree/17fa477631d6d1fc7de1ba7cb8ec5937aab68112
-committed 2020-09-10T21:16:05Z
+repo https://github.com/douglascrockford/JSLint/tree/873a757ad7060e778a85b1bcd4a03d9e9f334a3b
+committed 2020-10-24T03:28:10Z
 */
 
 
 /*
-file https://github.com/douglascrockford/JSLint/blob/17fa477631d6d1fc7de1ba7cb8ec5937aab68112/jslint.js
+file https://github.com/douglascrockford/JSLint/blob/873a757ad7060e778a85b1bcd4a03d9e9f334a3b/jslint.js
 */
 // jslint.js
-// 2020-09-09
+// 2020-10-21
 // Copyright (c) 2015 Douglas Crockford  (www.JSLint.com)
 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -25235,7 +25235,7 @@ const rx_token = tag_regexp ` ^ (
   | [
       ( ) { } \[ \] , : ; ' " ~ \`
   ]
-  | \? \.?
+  | \? [ ? . ]?
   | = (?:
         = =?
       | >
@@ -25267,9 +25267,12 @@ const rx_bits = /^[01]*n?/;
 // mega
 const rx_mega = /[`\\]|\$\{/;
 // JSON number
-const rx_JSON_number = tag_regexp ` ^ -? \d+ (?: \. \d* )? (?:
-    [ e E ] [ \- + ]? \d+
-)? $ `;
+const rx_JSON_number = tag_regexp ` ^
+    -?
+    (?: 0 | [ 1-9 ] \d* )
+    (?: \. \d* )?
+    (?: [ e E ] [ \- + ]? \d+ )?
+$ `;
 // initial cap
 const rx_cap = /^[A-Z]/;
 
@@ -27385,6 +27388,7 @@ assignment("<<=");
 assignment(">>=");
 assignment(">>>=");
 
+infix("??", 35);
 infix("||", 40);
 infix("&&", 50);
 infix("|", 70);
@@ -30089,7 +30093,7 @@ local.jslint0 = Object.freeze(function (
     });
     return {
         directives,
-        edition: "2020-09-09",
+        edition: "2020-10-21",
         exports,
         froms,
         functions,
@@ -46949,6 +46953,8 @@ local.buildApp = function ({
     let buildReadme;
     let buildTest;
     let fileDict;
+    let packageJson;
+    let packageNameLib;
     let port;
     let promiseList;
     let src;
@@ -47029,12 +47035,12 @@ local.buildApp = function ({
             {
                 url: "/LICENSE"
             }, {
-                file: "/assets." + process.env.npm_package_nameLib + ".html",
+                file: "/assets." + packageNameLib + ".html",
                 url: "/index.html"
             }, {
-                url: "/assets." + process.env.npm_package_nameLib + ".css"
+                url: "/assets." + packageNameLib + ".css"
             }, {
-                url: "/assets." + process.env.npm_package_nameLib + ".js"
+                url: "/assets." + packageNameLib + ".js"
             }, {
                 url: "/assets.app.js"
             }, {
@@ -47126,7 +47132,7 @@ local.buildApp = function ({
         });
     };
     buildLib = function (resolve) {
-        src = fileDict["lib." + process.env.npm_package_nameLib + ".js"];
+        src = fileDict["lib." + packageNameLib + ".js"];
         // render lib.xxx.js
         tgt = local.templateRenderMyApp(
             local.assetsDict["/assets.my_app.template.js"]
@@ -47155,17 +47161,12 @@ local.buildApp = function ({
             }
         ]);
         // write lib.xxx.js
-        writeFile(
-            "lib." + process.env.npm_package_nameLib + ".js",
-            tgt,
-            resolve
-        );
+        writeFile("lib." + packageNameLib + ".js", tgt, resolve);
     };
     buildReadme = function (resolve) {
     /*
      * this function will build readme with template assets.readme.template.md
      */
-        let packageJson;
         let packageJsonRgx;
         let toc;
         // reset toc
@@ -47179,7 +47180,7 @@ local.buildApp = function ({
         tgt = local.templateRenderMyApp(
             local.assetsDict["/assets.readme.template.md"]
         );
-        // init package.json
+        // init packageJson
         src.replace(packageJsonRgx, function (match0, match1) {
             // remove null from package.json
             packageJson = JSON.parse(match1.replace((
@@ -47278,7 +47279,7 @@ local.buildApp = function ({
             }
         ]);
         // customize private-repository
-        tgtReplaceConditional(process.env.npm_package_private, [
+        tgtReplaceConditional(packageJson.private, [
             {
                 aa: (
                     /\n\[!\[NPM\]\(https:\/\/nodei.co\/npm\/.*?\n/
@@ -47288,7 +47289,7 @@ local.buildApp = function ({
                 aa: "$ npm install ",
                 bb: (
                     "$ git clone \\\n"
-                    + process.env.npm_package_repository_url.replace(
+                    + packageJson.repository.url.replace(
                         "git+https://github.com/",
                         "git@github.com:"
                     ) + " \\\n--single-branch -b beta node_modules/"
@@ -47361,11 +47362,11 @@ local.buildApp = function ({
         // customize shNpmTestPublished
         tgt = tgt.replace(
             "$ npm install " + process.env.GITHUB_REPO + "#alpha",
-            "$ npm install " + process.env.npm_package_name
+            "$ npm install " + packageJson.name
         );
         tgtReplaceConditional(src.indexOf("    shNpmTestPublished\n") < 0, [
             {
-                aa: "$ npm install " + process.env.npm_package_name,
+                aa: "$ npm install " + packageJson.name,
                 bb: "$ npm install " + process.env.GITHUB_REPO + "#alpha"
             }, {
                 aa: (
@@ -47475,6 +47476,12 @@ local.buildApp = function ({
     };
     // buildInit
     Promise.resolve().then(function () {
+        // init packageJson
+        packageJson = JSON.parse(
+            require("fs").readFileSync("package.json", "utf8")
+        );
+        // init packageNameLib
+        packageNameLib = packageJson.nameLib || packageJson.name;
         fileDict = {};
         promiseList = [];
         // cleanup build-dir
@@ -47512,7 +47519,7 @@ local.buildApp = function ({
         // read file
         [
             "README.md",
-            "lib." + process.env.npm_package_nameLib + ".js",
+            "lib." + packageNameLib + ".js",
             "package.json",
             "test.js"
         ].forEach(function (file) {
@@ -49789,7 +49796,11 @@ local.testMock = function (mockList, onTestCase, onError) {
         // restore mock[0] from mock[2]
         mockList.reverse().forEach(function (mock) {
             Object.keys(mock[2]).forEach(function (key) {
-                mock[0][key] = mock[2][key];
+                try {
+                    mock[0][key] = mock[2][key];
+                } catch (errCaught) {
+                    console.error(errCaught);
+                }
             });
         });
         onError(err);
@@ -49811,7 +49822,11 @@ local.testMock = function (mockList, onTestCase, onError) {
         });
         // override mock[0] with mock[1]
         Object.keys(mock[1]).forEach(function (key) {
-            mock[0][key] = mock[1][key];
+            try {
+                mock[0][key] = mock[1][key];
+            } catch (errCaught) {
+                console.error(errCaught);
+            }
         });
     });
     // try to run onTestCase with mock[0]
@@ -63868,16 +63883,16 @@ return CSSLint;\n\
 \n\
 \n\
 /*\n\
-repo https://github.com/douglascrockford/JSLint/tree/17fa477631d6d1fc7de1ba7cb8ec5937aab68112\n\
-committed 2020-09-10T21:16:05Z\n\
+repo https://github.com/douglascrockford/JSLint/tree/873a757ad7060e778a85b1bcd4a03d9e9f334a3b\n\
+committed 2020-10-24T03:28:10Z\n\
 */\n\
 \n\
 \n\
 /*\n\
-file https://github.com/douglascrockford/JSLint/blob/17fa477631d6d1fc7de1ba7cb8ec5937aab68112/jslint.js\n\
+file https://github.com/douglascrockford/JSLint/blob/873a757ad7060e778a85b1bcd4a03d9e9f334a3b/jslint.js\n\
 */\n\
 // jslint.js\n\
-// 2020-09-09\n\
+// 2020-10-21\n\
 // Copyright (c) 2015 Douglas Crockford  (www.JSLint.com)\n\
 \n\
 // Permission is hereby granted, free of charge, to any person obtaining a copy\n\
@@ -64298,7 +64313,7 @@ const rx_token = tag_regexp ` ^ (\n\
   | [\n\
       ( ) { } \\[ \\] , : ; ' \" ~ \\`\n\
   ]\n\
-  | \\? \\.?\n\
+  | \\? [ ? . ]?\n\
   | = (?:\n\
         = =?\n\
       | >\n\
@@ -64330,9 +64345,12 @@ const rx_bits = /^[01]*n?/;\n\
 // mega\n\
 const rx_mega = /[`\\\\]|\\$\\{/;\n\
 // JSON number\n\
-const rx_JSON_number = tag_regexp ` ^ -? \\d+ (?: \\. \\d* )? (?:\n\
-    [ e E ] [ \\- + ]? \\d+\n\
-)? $ `;\n\
+const rx_JSON_number = tag_regexp ` ^\n\
+    -?\n\
+    (?: 0 | [ 1-9 ] \\d* )\n\
+    (?: \\. \\d* )?\n\
+    (?: [ e E ] [ \\- + ]? \\d+ )?\n\
+$ `;\n\
 // initial cap\n\
 const rx_cap = /^[A-Z]/;\n\
 \n\
@@ -66448,6 +66466,7 @@ assignment(\"<<=\");\n\
 assignment(\">>=\");\n\
 assignment(\">>>=\");\n\
 \n\
+infix(\"??\", 35);\n\
 infix(\"||\", 40);\n\
 infix(\"&&\", 50);\n\
 infix(\"|\", 70);\n\
@@ -69152,7 +69171,7 @@ local.jslint0 = Object.freeze(function (\n\
     });\n\
     return {\n\
         directives,\n\
-        edition: \"2020-09-09\",\n\
+        edition: \"2020-10-21\",\n\
         exports,\n\
         froms,\n\
         functions,\n\
@@ -70580,9 +70599,9 @@ local.testCase_ajax_default = function (opt, onError) {\n\
             {\n\
                 // test 404-not-found handling-behavior\n\
                 url: \"/test.err-404\"\n\
-            }, {\n\
-                // test 500-internal-server-error handling-behavior\n\
-                url: \"/test.err-500\"\n\
+            //!! }, {\n\
+                //!! // test 500-internal-server-error handling-behavior\n\
+                //!! url: \"/test.err-500\"\n\
             }, {\n\
                 // test undefined-status-code handling-behavior\n\
                 url: \"/test.err-undefined\"\n\
@@ -83386,16 +83405,16 @@ return CSSLint;\n\
 \n\
 \n\
 /*\n\
-repo https://github.com/douglascrockford/JSLint/tree/17fa477631d6d1fc7de1ba7cb8ec5937aab68112\n\
-committed 2020-09-10T21:16:05Z\n\
+repo https://github.com/douglascrockford/JSLint/tree/873a757ad7060e778a85b1bcd4a03d9e9f334a3b\n\
+committed 2020-10-24T03:28:10Z\n\
 */\n\
 \n\
 \n\
 /*\n\
-file https://github.com/douglascrockford/JSLint/blob/17fa477631d6d1fc7de1ba7cb8ec5937aab68112/jslint.js\n\
+file https://github.com/douglascrockford/JSLint/blob/873a757ad7060e778a85b1bcd4a03d9e9f334a3b/jslint.js\n\
 */\n\
 // jslint.js\n\
-// 2020-09-09\n\
+// 2020-10-21\n\
 // Copyright (c) 2015 Douglas Crockford  (www.JSLint.com)\n\
 \n\
 // Permission is hereby granted, free of charge, to any person obtaining a copy\n\
@@ -83816,7 +83835,7 @@ const rx_token = tag_regexp ` ^ (\n\
   | [\n\
       ( ) { } \\[ \\] , : ; ' \" ~ \\`\n\
   ]\n\
-  | \\? \\.?\n\
+  | \\? [ ? . ]?\n\
   | = (?:\n\
         = =?\n\
       | >\n\
@@ -83848,9 +83867,12 @@ const rx_bits = /^[01]*n?/;\n\
 // mega\n\
 const rx_mega = /[`\\\\]|\\$\\{/;\n\
 // JSON number\n\
-const rx_JSON_number = tag_regexp ` ^ -? \\d+ (?: \\. \\d* )? (?:\n\
-    [ e E ] [ \\- + ]? \\d+\n\
-)? $ `;\n\
+const rx_JSON_number = tag_regexp ` ^\n\
+    -?\n\
+    (?: 0 | [ 1-9 ] \\d* )\n\
+    (?: \\. \\d* )?\n\
+    (?: [ e E ] [ \\- + ]? \\d+ )?\n\
+$ `;\n\
 // initial cap\n\
 const rx_cap = /^[A-Z]/;\n\
 \n\
@@ -85966,6 +85988,7 @@ assignment(\"<<=\");\n\
 assignment(\">>=\");\n\
 assignment(\">>>=\");\n\
 \n\
+infix(\"??\", 35);\n\
 infix(\"||\", 40);\n\
 infix(\"&&\", 50);\n\
 infix(\"|\", 70);\n\
@@ -88670,7 +88693,7 @@ local.jslint0 = Object.freeze(function (\n\
     });\n\
     return {\n\
         directives,\n\
-        edition: \"2020-09-09\",\n\
+        edition: \"2020-10-21\",\n\
         exports,\n\
         froms,\n\
         functions,\n\
@@ -100844,16 +100867,16 @@ return CSSLint;
 
 
 /*
-repo https://github.com/douglascrockford/JSLint/tree/17fa477631d6d1fc7de1ba7cb8ec5937aab68112
-committed 2020-09-10T21:16:05Z
+repo https://github.com/douglascrockford/JSLint/tree/873a757ad7060e778a85b1bcd4a03d9e9f334a3b
+committed 2020-10-24T03:28:10Z
 */
 
 
 /*
-file https://github.com/douglascrockford/JSLint/blob/17fa477631d6d1fc7de1ba7cb8ec5937aab68112/jslint.js
+file https://github.com/douglascrockford/JSLint/blob/873a757ad7060e778a85b1bcd4a03d9e9f334a3b/jslint.js
 */
 // jslint.js
-// 2020-09-09
+// 2020-10-21
 // Copyright (c) 2015 Douglas Crockford  (www.JSLint.com)
 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -101274,7 +101297,7 @@ const rx_token = tag_regexp ` ^ (
   | [
       ( ) { } \[ \] , : ; ' " ~ \`
   ]
-  | \? \.?
+  | \? [ ? . ]?
   | = (?:
         = =?
       | >
@@ -101306,9 +101329,12 @@ const rx_bits = /^[01]*n?/;
 // mega
 const rx_mega = /[`\\]|\$\{/;
 // JSON number
-const rx_JSON_number = tag_regexp ` ^ -? \d+ (?: \. \d* )? (?:
-    [ e E ] [ \- + ]? \d+
-)? $ `;
+const rx_JSON_number = tag_regexp ` ^
+    -?
+    (?: 0 | [ 1-9 ] \d* )
+    (?: \. \d* )?
+    (?: [ e E ] [ \- + ]? \d+ )?
+$ `;
 // initial cap
 const rx_cap = /^[A-Z]/;
 
@@ -103424,6 +103450,7 @@ assignment("<<=");
 assignment(">>=");
 assignment(">>>=");
 
+infix("??", 35);
 infix("||", 40);
 infix("&&", 50);
 infix("|", 70);
@@ -106128,7 +106155,7 @@ local.jslint0 = Object.freeze(function (
     });
     return {
         directives,
-        edition: "2020-09-09",
+        edition: "2020-10-21",
         exports,
         froms,
         functions,

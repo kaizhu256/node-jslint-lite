@@ -11134,16 +11134,16 @@ return CSSLint;
 
 
 /*
-repo https://github.com/douglascrockford/JSLint/tree/17fa477631d6d1fc7de1ba7cb8ec5937aab68112
-committed 2020-09-10T21:16:05Z
+repo https://github.com/douglascrockford/JSLint/tree/873a757ad7060e778a85b1bcd4a03d9e9f334a3b
+committed 2020-10-24T03:28:10Z
 */
 
 
 /*
-file https://github.com/douglascrockford/JSLint/blob/17fa477631d6d1fc7de1ba7cb8ec5937aab68112/jslint.js
+file https://github.com/douglascrockford/JSLint/blob/873a757ad7060e778a85b1bcd4a03d9e9f334a3b/jslint.js
 */
 // jslint.js
-// 2020-09-09
+// 2020-10-21
 // Copyright (c) 2015 Douglas Crockford  (www.JSLint.com)
 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -11564,7 +11564,7 @@ const rx_token = tag_regexp ` ^ (
   | [
       ( ) { } \[ \] , : ; ' " ~ \`
   ]
-  | \? \.?
+  | \? [ ? . ]?
   | = (?:
         = =?
       | >
@@ -11596,9 +11596,12 @@ const rx_bits = /^[01]*n?/;
 // mega
 const rx_mega = /[`\\]|\$\{/;
 // JSON number
-const rx_JSON_number = tag_regexp ` ^ -? \d+ (?: \. \d* )? (?:
-    [ e E ] [ \- + ]? \d+
-)? $ `;
+const rx_JSON_number = tag_regexp ` ^
+    -?
+    (?: 0 | [ 1-9 ] \d* )
+    (?: \. \d* )?
+    (?: [ e E ] [ \- + ]? \d+ )?
+$ `;
 // initial cap
 const rx_cap = /^[A-Z]/;
 
@@ -13714,6 +13717,7 @@ assignment("<<=");
 assignment(">>=");
 assignment(">>>=");
 
+infix("??", 35);
 infix("||", 40);
 infix("&&", 50);
 infix("|", 70);
@@ -16418,7 +16422,7 @@ local.jslint0 = Object.freeze(function (
     });
     return {
         directives,
-        edition: "2020-09-09",
+        edition: "2020-10-21",
         exports,
         froms,
         functions,
