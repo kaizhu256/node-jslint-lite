@@ -280,7 +280,7 @@
 <div class="header high">
 
     <h2 style="font-weight: bold;">
-        <a href="https://github.com/kaizhu256/node-jslint-lite">jslint-lite (2020.8.19)</a>
+        <a href="https://github.com/kaizhu256/node-jslint-lite">jslint-lite (2020.10.27)</a>
     </h2>
 
     <h2>Code coverage report for <span class="entity">test.js</span></h2>
@@ -301,20 +301,20 @@
             Functions: 13
         </td>
         <td>
-            99.32%<br>
-            (145 / 146)
+            100%<br>
+            (145 / 145)
         </td>
         <td>
-            98.8%<br>
-            (82 / 83)
+            100%<br>
+            (81 / 81)
         </td>
         <td>
             100%<br>
             (31 / 31)
         </td>
         <td>
-            99.32%<br>
-            (145 / 146)
+            100%<br>
+            (145 / 145)
         </td>
     </tbody>
     </table>
@@ -1185,8 +1185,6 @@
 <a href="#l860" id="l860">860</a>
 <a href="#l861" id="l861">861</a>
 <a href="#l862" id="l862">862</a>
-<a href="#l863" id="l863">863</a>
-<a href="#l864" id="l864">864</a>
 </td>
         <td class="line-coverage"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1903,8 +1901,6 @@
 <span class="cline-any cline-yes">396</span>
 <span class="cline-any cline-yes">396</span>
 <span class="cline-any cline-yes">584</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -2767,14 +2763,12 @@ local.testCase_jslint0_err = function (opt, onError) {
             return;
         }
         warnings = local.jslint0(src).warnings;
-        <span class="missing-if-branch" title="if path not taken">I</span>if (!warnings.some(function (err) {
+        local.assertOrThrow(warnings.some(function (err) {
             return String(err.code) === errCode;
-        })) {
-<span class="cstat-no" title="statement not covered">            local.assertOrThrow(false, {</span>
-                src,
-                warnings
-            });
-        }
+        }), {
+            src,
+            warnings
+        });
         local.assertOrThrow(src0 &lt; src, [
             src0, src
         ]);

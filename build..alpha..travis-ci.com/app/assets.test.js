@@ -711,14 +711,12 @@ local.testCase_jslint0_err = function (opt, onError) {
             return;
         }
         warnings = local.jslint0(src).warnings;
-        if (!warnings.some(function (err) {
+        local.assertOrThrow(warnings.some(function (err) {
             return String(err.code) === errCode;
-        })) {
-            local.assertOrThrow(false, {
-                src,
-                warnings
-            });
-        }
+        }), {
+            src,
+            warnings
+        });
         local.assertOrThrow(src0 < src, [
             src0, src
         ]);
