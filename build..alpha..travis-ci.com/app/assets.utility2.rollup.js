@@ -13447,7 +13447,7 @@ if (module === require.main && !globalThis.utility2_rollup) {
 /* script-begin /assets.utility2.lib.jslint.js */
 // usr/bin/env node
 /*
- * lib.jslint.js (2020.8.19)
+ * lib.jslint.js (2020.10.27)
  * https://github.com/kaizhu256/node-jslint-lite
  * this zero-dependency package will provide browser-compatible versions of jslint (v2020.7.2) and csslint (v2018.2.25), with working web-demo
  *
@@ -48341,6 +48341,7 @@ local.middlewareInit = function (req, res, next) {
         // application
         ".js": "application/javascript; charset=utf-8",
         ".json": "application/json; charset=utf-8",
+        ".mjs": "application/javascript; charset=utf-8",
         ".pdf": "application/pdf",
         ".wasm": "application/wasm",
         ".xml": "application/xml; charset=utf-8",
@@ -52525,7 +52526,7 @@ local.domOnEventInputChange({\n\
 local.assetsDict["/assets.utility2.lib.jslint.js"] = (
 "// usr/bin/env node\n\
 /*\n\
- * lib.jslint.js (2020.8.19)\n\
+ * lib.jslint.js (2020.10.27)\n\
  * https://github.com/kaizhu256/node-jslint-lite\n\
  * this zero-dependency package will provide browser-compatible versions of jslint (v2020.7.2) and csslint (v2018.2.25), with working web-demo\n\
  *\n\
