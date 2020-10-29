@@ -52,7 +52,7 @@
 
         href="https://github.com/kaizhu256/node-jslint-lite"
 
-    >jslint-lite (2020.8.19)</a>
+    >jslint-lite (2020.10.27)</a>
 </h1>
 <h4>this zero-dependency package will provide browser-compatible versions of jslint (v2020.7.2) and csslint (v2018.2.25), with working web-demo</h4>
 <div class="apidocSectionDiv"><a
@@ -571,26 +571,7 @@
 <span class="apidocCodeCommentSpan">/*
  * this function will assert JSON.stringify(&lt;aa&gt;) === JSON.stringify(&lt;bb&gt;)
  */
-</span>    function objectDeepCopyWithKeysSorted(obj) {
-    /*
-     * this function will recursively deep-copy &lt;obj&gt; with keys sorted
-     */
-        let sorted;
-        if (typeof obj !== &quot;object&quot; || !obj) {
-            return obj;
-        }
-        // recursively deep-copy list with child-keys sorted
-        if (Array.isArray(obj)) {
-            return obj.map(objectDeepCopyWithKeysSorted);
-        }
-        // recursively deep-copy obj with keys sorted
-        sorted = {};
-        Object.keys(obj).sort().forEach(function (key) {
-            sorted[key] = objectDeepCopyWithKeysSorted(obj[key]);
-        });
-        return sorted;
-    }
-    aa = JSON.stringify(objectDeepCopyWithKeysSorted(aa));
+</span>    aa = JSON.stringify(objectDeepCopyWithKeysSorted(aa));
     bb = JSON.stringify(objectDeepCopyWithKeysSorted(bb));
     if (aa !== bb) {
         throw new Error(JSON.stringify(aa) + &quot; !== &quot; + JSON.stringify(bb));
@@ -1114,7 +1095,9 @@ case &quot;keyup.inputJslint1&quot;:\n\
                     }
                     // jslint file
                     require(&quot;fs&quot;).readFile(file, &quot;utf8&quot;, function (err, data) {
-                        local.onErrorThrow(err);
+                        if (err) {
+                            return;
+                        }
                         local.jslintAndPrint(data, file, opt);
                         errCnt += local.jslintResult.errList.length;
                         console.error(
@@ -1234,30 +1217,24 @@ globalThis.domOnEventDelegateDict = local;
         </a>
     </h2>
     <ul>
-    <li>description and source-code<pre class="apidocCodePre">objectDeepCopyWithKeysSorted = function (obj) {
+    <li>description and source-code<pre class="apidocCodePre">function objectDeepCopyWithKeysSorted(obj) {
 <span class="apidocCodeCommentSpan">/*
  * this function will recursively deep-copy &lt;obj&gt; with keys sorted
  */
-</span>    function objectDeepCopyWithKeysSorted(obj) {
-    /*
-     * this function will recursively deep-copy &lt;obj&gt; with keys sorted
-     */
-        let sorted;
-        if (!(typeof obj === &quot;object&quot; &amp;&amp; obj)) {
-            return obj;
-        }
-        // recursively deep-copy list with child-keys sorted
-        if (Array.isArray(obj)) {
-            return obj.map(objectDeepCopyWithKeysSorted);
-        }
-        // recursively deep-copy obj with keys sorted
-        sorted = {};
-        Object.keys(obj).sort().forEach(function (key) {
-            sorted[key] = objectDeepCopyWithKeysSorted(obj[key]);
-        });
-        return sorted;
+</span>    let sorted;
+    if (typeof obj !== &quot;object&quot; || !obj) {
+        return obj;
     }
-    return objectDeepCopyWithKeysSorted(obj);
+    // recursively deep-copy list with child-keys sorted
+    if (Array.isArray(obj)) {
+        return obj.map(objectDeepCopyWithKeysSorted);
+    }
+    // recursively deep-copy obj with keys sorted
+    sorted = {};
+    Object.keys(obj).sort().forEach(function (key) {
+        sorted[key] = objectDeepCopyWithKeysSorted(obj[key]);
+    });
+    return sorted;
 }</pre></li>
     <li>example use<pre class="apidocCodePre">n/a</pre></li>
     </ul>
@@ -1673,9 +1650,9 @@ globalThis.domOnEventDelegateDict = local;
     });
     return sorted;
 }
-aa = JSON.stringify(objectDeepCopyWithKeysSorted(aa));
-bb = JSON.stringify(objectDeepCopyWithKeysSorted(bb));
-if (aa !== bb) {
+function assertJsonEqual(aa, bb) {
+/*
+ * this function will assert JSON.stringify(&lt;aa&gt;) === JSON.stringify(&lt;bb&gt;)
 ...</pre></li>
     </ul>
 
@@ -2097,21 +2074,21 @@ var SyntaxUnit = require(&quot;../util/SyntaxUnit&quot;);
     process.exit(Boolean(local.jslintResult.errList.length));
 }</pre></li>
     <li>example use<pre class="apidocCodePre">...
-       cliDict._help();
-       return;
-   }
-   if (cliDict[process.argv[2]]) {
-       cliDict[process.argv[2]]();
-       return;
-   }
-   cliDict.<span class="apidocCodeKeywordSpan">_default</span>();
+        cliDict._help();
+        return;
+    }
+    if (cliDict[process.argv[2]]) {
+        cliDict[process.argv[2]]();
+        return;
+    }
+    cliDict.<span class="apidocCodeKeywordSpan">_default</span>();
 };
+}());
 
-local.objectDeepCopyWithKeysSorted = function (obj) {
-/*
-* this function will recursively deep-copy &lt;obj&gt; with keys sorted
-*/
-   function objectDeepCopyWithKeysSorted(obj) {
+
+// run shared js-env code - function
+(function () {
+/* jslint ignore:start */
 ...</pre></li>
     </ul>
 

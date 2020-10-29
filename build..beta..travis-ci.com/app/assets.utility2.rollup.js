@@ -16,6 +16,15 @@
     let isBrowser;
     let isWebWorker;
     let local;
+    // polyfill globalThis
+    if (!(typeof globalThis === "object" && globalThis)) {
+        if (typeof window === "object" && window && window.window === window) {
+            window.globalThis = window;
+        }
+        if (typeof global === "object" && global && global.global === global) {
+            global.globalThis = global;
+        }
+    }
     // init debugInline
     if (!globalThis.debugInline) {
         let consoleError;
@@ -42,29 +51,29 @@
         isBrowser && typeof globalThis.importScripts === "function"
     );
     // init function
+    function objectDeepCopyWithKeysSorted(obj) {
+    /*
+     * this function will recursively deep-copy <obj> with keys sorted
+     */
+        let sorted;
+        if (typeof obj !== "object" || !obj) {
+            return obj;
+        }
+        // recursively deep-copy list with child-keys sorted
+        if (Array.isArray(obj)) {
+            return obj.map(objectDeepCopyWithKeysSorted);
+        }
+        // recursively deep-copy obj with keys sorted
+        sorted = {};
+        Object.keys(obj).sort().forEach(function (key) {
+            sorted[key] = objectDeepCopyWithKeysSorted(obj[key]);
+        });
+        return sorted;
+    }
     function assertJsonEqual(aa, bb) {
     /*
      * this function will assert JSON.stringify(<aa>) === JSON.stringify(<bb>)
      */
-        function objectDeepCopyWithKeysSorted(obj) {
-        /*
-         * this function will recursively deep-copy <obj> with keys sorted
-         */
-            let sorted;
-            if (typeof obj !== "object" || !obj) {
-                return obj;
-            }
-            // recursively deep-copy list with child-keys sorted
-            if (Array.isArray(obj)) {
-                return obj.map(objectDeepCopyWithKeysSorted);
-            }
-            // recursively deep-copy obj with keys sorted
-            sorted = {};
-            Object.keys(obj).sort().forEach(function (key) {
-                sorted[key] = objectDeepCopyWithKeysSorted(obj[key]);
-            });
-            return sorted;
-        }
         aa = JSON.stringify(objectDeepCopyWithKeysSorted(aa));
         bb = JSON.stringify(objectDeepCopyWithKeysSorted(bb));
         if (aa !== bb) {
@@ -182,6 +191,7 @@
     local.isWebWorker = isWebWorker;
     local.nop = nop;
     local.objectAssignDefault = objectAssignDefault;
+    local.objectDeepCopyWithKeysSorted = objectDeepCopyWithKeysSorted;
     local.onErrorThrow = onErrorThrow;
 }());
 // assets.utility2.header.js - end
@@ -222,6 +232,15 @@
     let isBrowser;
     let isWebWorker;
     let local;
+    // polyfill globalThis
+    if (!(typeof globalThis === "object" && globalThis)) {
+        if (typeof window === "object" && window && window.window === window) {
+            window.globalThis = window;
+        }
+        if (typeof global === "object" && global && global.global === global) {
+            global.globalThis = global;
+        }
+    }
     // init debugInline
     if (!globalThis.debugInline) {
         let consoleError;
@@ -248,29 +267,29 @@
         isBrowser && typeof globalThis.importScripts === "function"
     );
     // init function
+    function objectDeepCopyWithKeysSorted(obj) {
+    /*
+     * this function will recursively deep-copy <obj> with keys sorted
+     */
+        let sorted;
+        if (typeof obj !== "object" || !obj) {
+            return obj;
+        }
+        // recursively deep-copy list with child-keys sorted
+        if (Array.isArray(obj)) {
+            return obj.map(objectDeepCopyWithKeysSorted);
+        }
+        // recursively deep-copy obj with keys sorted
+        sorted = {};
+        Object.keys(obj).sort().forEach(function (key) {
+            sorted[key] = objectDeepCopyWithKeysSorted(obj[key]);
+        });
+        return sorted;
+    }
     function assertJsonEqual(aa, bb) {
     /*
      * this function will assert JSON.stringify(<aa>) === JSON.stringify(<bb>)
      */
-        function objectDeepCopyWithKeysSorted(obj) {
-        /*
-         * this function will recursively deep-copy <obj> with keys sorted
-         */
-            let sorted;
-            if (typeof obj !== "object" || !obj) {
-                return obj;
-            }
-            // recursively deep-copy list with child-keys sorted
-            if (Array.isArray(obj)) {
-                return obj.map(objectDeepCopyWithKeysSorted);
-            }
-            // recursively deep-copy obj with keys sorted
-            sorted = {};
-            Object.keys(obj).sort().forEach(function (key) {
-                sorted[key] = objectDeepCopyWithKeysSorted(obj[key]);
-            });
-            return sorted;
-        }
         aa = JSON.stringify(objectDeepCopyWithKeysSorted(aa));
         bb = JSON.stringify(objectDeepCopyWithKeysSorted(bb));
         if (aa !== bb) {
@@ -388,6 +407,7 @@
     local.isWebWorker = isWebWorker;
     local.nop = nop;
     local.objectAssignDefault = objectAssignDefault;
+    local.objectDeepCopyWithKeysSorted = objectDeepCopyWithKeysSorted;
     local.onErrorThrow = onErrorThrow;
 }());
 // assets.utility2.header.js - end
@@ -1542,6 +1562,15 @@ if (module === require.main && !globalThis.utility2_rollup) {
     let isBrowser;
     let isWebWorker;
     let local;
+    // polyfill globalThis
+    if (!(typeof globalThis === "object" && globalThis)) {
+        if (typeof window === "object" && window && window.window === window) {
+            window.globalThis = window;
+        }
+        if (typeof global === "object" && global && global.global === global) {
+            global.globalThis = global;
+        }
+    }
     // init debugInline
     if (!globalThis.debugInline) {
         let consoleError;
@@ -1568,29 +1597,29 @@ if (module === require.main && !globalThis.utility2_rollup) {
         isBrowser && typeof globalThis.importScripts === "function"
     );
     // init function
+    function objectDeepCopyWithKeysSorted(obj) {
+    /*
+     * this function will recursively deep-copy <obj> with keys sorted
+     */
+        let sorted;
+        if (typeof obj !== "object" || !obj) {
+            return obj;
+        }
+        // recursively deep-copy list with child-keys sorted
+        if (Array.isArray(obj)) {
+            return obj.map(objectDeepCopyWithKeysSorted);
+        }
+        // recursively deep-copy obj with keys sorted
+        sorted = {};
+        Object.keys(obj).sort().forEach(function (key) {
+            sorted[key] = objectDeepCopyWithKeysSorted(obj[key]);
+        });
+        return sorted;
+    }
     function assertJsonEqual(aa, bb) {
     /*
      * this function will assert JSON.stringify(<aa>) === JSON.stringify(<bb>)
      */
-        function objectDeepCopyWithKeysSorted(obj) {
-        /*
-         * this function will recursively deep-copy <obj> with keys sorted
-         */
-            let sorted;
-            if (typeof obj !== "object" || !obj) {
-                return obj;
-            }
-            // recursively deep-copy list with child-keys sorted
-            if (Array.isArray(obj)) {
-                return obj.map(objectDeepCopyWithKeysSorted);
-            }
-            // recursively deep-copy obj with keys sorted
-            sorted = {};
-            Object.keys(obj).sort().forEach(function (key) {
-                sorted[key] = objectDeepCopyWithKeysSorted(obj[key]);
-            });
-            return sorted;
-        }
         aa = JSON.stringify(objectDeepCopyWithKeysSorted(aa));
         bb = JSON.stringify(objectDeepCopyWithKeysSorted(bb));
         if (aa !== bb) {
@@ -1708,6 +1737,7 @@ if (module === require.main && !globalThis.utility2_rollup) {
     local.isWebWorker = isWebWorker;
     local.nop = nop;
     local.objectAssignDefault = objectAssignDefault;
+    local.objectDeepCopyWithKeysSorted = objectDeepCopyWithKeysSorted;
     local.onErrorThrow = onErrorThrow;
 }());
 // assets.utility2.header.js - end
@@ -13417,7 +13447,7 @@ if (module === require.main && !globalThis.utility2_rollup) {
 /* script-begin /assets.utility2.lib.jslint.js */
 // usr/bin/env node
 /*
- * lib.jslint.js (2020.8.19)
+ * lib.jslint.js (2020.10.27)
  * https://github.com/kaizhu256/node-jslint-lite
  * this zero-dependency package will provide browser-compatible versions of jslint (v2020.7.2) and csslint (v2018.2.25), with working web-demo
  *
@@ -13434,6 +13464,15 @@ if (module === require.main && !globalThis.utility2_rollup) {
     let isBrowser;
     let isWebWorker;
     let local;
+    // polyfill globalThis
+    if (!(typeof globalThis === "object" && globalThis)) {
+        if (typeof window === "object" && window && window.window === window) {
+            window.globalThis = window;
+        }
+        if (typeof global === "object" && global && global.global === global) {
+            global.globalThis = global;
+        }
+    }
     // init debugInline
     if (!globalThis.debugInline) {
         let consoleError;
@@ -13460,29 +13499,29 @@ if (module === require.main && !globalThis.utility2_rollup) {
         isBrowser && typeof globalThis.importScripts === "function"
     );
     // init function
+    function objectDeepCopyWithKeysSorted(obj) {
+    /*
+     * this function will recursively deep-copy <obj> with keys sorted
+     */
+        let sorted;
+        if (typeof obj !== "object" || !obj) {
+            return obj;
+        }
+        // recursively deep-copy list with child-keys sorted
+        if (Array.isArray(obj)) {
+            return obj.map(objectDeepCopyWithKeysSorted);
+        }
+        // recursively deep-copy obj with keys sorted
+        sorted = {};
+        Object.keys(obj).sort().forEach(function (key) {
+            sorted[key] = objectDeepCopyWithKeysSorted(obj[key]);
+        });
+        return sorted;
+    }
     function assertJsonEqual(aa, bb) {
     /*
      * this function will assert JSON.stringify(<aa>) === JSON.stringify(<bb>)
      */
-        function objectDeepCopyWithKeysSorted(obj) {
-        /*
-         * this function will recursively deep-copy <obj> with keys sorted
-         */
-            let sorted;
-            if (typeof obj !== "object" || !obj) {
-                return obj;
-            }
-            // recursively deep-copy list with child-keys sorted
-            if (Array.isArray(obj)) {
-                return obj.map(objectDeepCopyWithKeysSorted);
-            }
-            // recursively deep-copy obj with keys sorted
-            sorted = {};
-            Object.keys(obj).sort().forEach(function (key) {
-                sorted[key] = objectDeepCopyWithKeysSorted(obj[key]);
-            });
-            return sorted;
-        }
         aa = JSON.stringify(objectDeepCopyWithKeysSorted(aa));
         bb = JSON.stringify(objectDeepCopyWithKeysSorted(bb));
         if (aa !== bb) {
@@ -13600,6 +13639,7 @@ if (module === require.main && !globalThis.utility2_rollup) {
     local.isWebWorker = isWebWorker;
     local.nop = nop;
     local.objectAssignDefault = objectAssignDefault;
+    local.objectDeepCopyWithKeysSorted = objectDeepCopyWithKeysSorted;
     local.onErrorThrow = onErrorThrow;
 }());
 // assets.utility2.header.js - end
@@ -13787,32 +13827,6 @@ local.cliRun = function (opt) {
         return;
     }
     cliDict._default();
-};
-
-local.objectDeepCopyWithKeysSorted = function (obj) {
-/*
- * this function will recursively deep-copy <obj> with keys sorted
- */
-    function objectDeepCopyWithKeysSorted(obj) {
-    /*
-     * this function will recursively deep-copy <obj> with keys sorted
-     */
-        let sorted;
-        if (!(typeof obj === "object" && obj)) {
-            return obj;
-        }
-        // recursively deep-copy list with child-keys sorted
-        if (Array.isArray(obj)) {
-            return obj.map(objectDeepCopyWithKeysSorted);
-        }
-        // recursively deep-copy obj with keys sorted
-        sorted = {};
-        Object.keys(obj).sort().forEach(function (key) {
-            sorted[key] = objectDeepCopyWithKeysSorted(obj[key]);
-        });
-        return sorted;
-    }
-    return objectDeepCopyWithKeysSorted(obj);
 };
 }());
 
@@ -24567,16 +24581,16 @@ return CSSLint;
 
 
 /*
-repo https://github.com/douglascrockford/JSLint/tree/118167e967b4ebfc08759fdd1ab2d87f5a27cc37
-committed 2020-07-02T15:21:03Z
+repo https://github.com/douglascrockford/JSLint/tree/873a757ad7060e778a85b1bcd4a03d9e9f334a3b
+committed 2020-10-24T03:28:10Z
 */
 
 
 /*
-file https://github.com/douglascrockford/JSLint/blob/118167e967b4ebfc08759fdd1ab2d87f5a27cc37/jslint.js
+file https://github.com/douglascrockford/JSLint/blob/873a757ad7060e778a85b1bcd4a03d9e9f334a3b/jslint.js
 */
 // jslint.js
-// 2020-07-02
+// 2020-10-21
 // Copyright (c) 2015 Douglas Crockford  (www.JSLint.com)
 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -24671,7 +24685,7 @@ let lines_extra;
     body, browser, c, calls, catch, charCodeAt, closer, closure, code, column,
     concat, constant, context, convert, couch, create, d, dead, default, devel,
     directive, directives, disrupt, dot, duplicate_a, edition, ellipsis, else,
-    empty_block, escape_mega, eval, every, expected_a, expected_a_at_b_c,
+    empty_block, eval, every, expected_a, expected_a_at_b_c,
     expected_a_b, expected_a_b_from_c_d, expected_a_before_b,
     expected_a_next_at_b, expected_digits_after_a, expected_four_digits,
     expected_identifier_a, expected_line_break_a_b, expected_regexp_factor_a,
@@ -24684,7 +24698,7 @@ let lines_extra;
     margin, match, message, misplaced_a, misplaced_directive_a, missing_browser,
     missing_m, module, naked_block, name, names, nested_comment, new, node,
     not_label_a, nr, nud, number_isNaN, ok, open, opening, option,
-    out_of_scope_a, parameters, parent, pop, property, push, quote,
+    out_of_scope_a, parameters, parent, pop, property, push, quote, raw,
     redefinition_a_b, replace, required_a_optional_b, reserved_a, role, search,
     shebang, signature, single, slice, some, sort, split, startsWith, statement,
     stop, subscript_a, switch, test, this, thru, toString, todo_comment,
@@ -24695,7 +24709,7 @@ let lines_extra;
     unexpected_expression_a, unexpected_label_a, unexpected_parens,
     unexpected_space_a_b, unexpected_statement_a, unexpected_trailing_space,
     unexpected_typeof_a, uninitialized_a, unreachable_a,
-    unregistered_property_a, unsafe, unused_a, use_double, use_open, use_spaces,
+    unregistered_property_a, unused_a, use_double, use_open, use_spaces,
     used, value, var_loop, var_switch, variable, warning, warnings,
     weird_condition_a, weird_expression_a, weird_loop, weird_relation_a, white,
     wrap_condition, wrap_immediate, wrap_parameter, wrap_regexp, wrap_unary,
@@ -24840,7 +24854,6 @@ const bundle = {
     bad_set: "A set function takes one parameter.",
     duplicate_a: "Duplicate '{a}'.",
     empty_block: "Empty block.",
-    escape_mega: "Unexpected escapement in mega literal.",
     expected_a: "Expected '{a}'.",
     expected_a_at_b_c: "Expected '{a}' at column {b}, not column {c}.",
     expected_a_b: "Expected '{a}' and instead saw '{b}'.",
@@ -24914,7 +24927,6 @@ const bundle = {
     uninitialized_a: "Uninitialized '{a}'.",
     unreachable_a: "Unreachable '{a}'.",
     unregistered_property_a: "Unregistered property name '{a}'.",
-    unsafe: "Unsafe character '{a}'.",
     unused_a: "Unused '{a}'.",
     use_double: "Use double quotes, not single quotes.",
     use_open: (
@@ -24941,40 +24953,102 @@ const bundle = {
 
 // Regular expression literals:
 
+function tag_regexp(strings) {
+    return new RegExp(strings.raw[0].replace(/\s/g, ""));
+}
+
 // supplant {variables}
 const rx_supplant = /\{([^{}]*)\}/g;
 // carriage return, carriage return linefeed, or linefeed
-const rx_crlf = /\n|\r\n?/;
-// unsafe characters that are silently deleted by one or more browsers
-const rx_unsafe = /[\u0000-\u001f\u007f-\u009f\u00ad\u0600-\u0604\u070f\u17b4\u17b5\u200c-\u200f\u2028-\u202f\u2060-\u206f\ufeff\ufff0-\uffff]/;
+const rx_crlf = tag_regexp `
+      \n
+    | \r \n?
+`;
 // identifier
-const rx_identifier = /^([a-zA-Z_$][a-zA-Z0-9_$]*)$/;
-const rx_module = /^[a-zA-Z0-9_$:.@\-\/]+$/;
-const rx_bad_property = /^_|\$|Sync\$|_$/;
+const rx_identifier = tag_regexp ` ^(
+    [ a-z A-Z _ $ ]
+    [ a-z A-Z 0-9 _ $ ]*
+)$`;
+const rx_module = tag_regexp ` ^ [ a-z A-Z 0-9 _ $ : . @ \- \/ ]+ $ `;
+const rx_bad_property = tag_regexp `
+    ^_
+  | \$
+  | Sync $
+  | _ $
+`;
 // star slash
-const rx_star_slash = /\*\//;
+const rx_star_slash = tag_regexp ` \* \/ `;
 // slash star
-const rx_slash_star = /\/\*/;
+const rx_slash_star = tag_regexp ` \/ \* `;
 // slash star or ending slash
-const rx_slash_star_or_slash = /\/\*|\/$/;
+const rx_slash_star_or_slash = tag_regexp ` \/ \* | \/ $ `;
 // uncompleted work comment
-const rx_todo = /\b(?:todo|TO\s?DO|HACK)\b/;
+const rx_todo = tag_regexp ` \b (?:
+    todo
+  | TO \s? DO
+  | HACK
+) \b `;
 // tab
 const rx_tab = /\t/g;
 // directive
-const rx_directive = /^(jslint|property|global)\s+(.*)$/;
-const rx_directive_part = /^([a-zA-Z$_][a-zA-Z0-9$_]*)(?::\s*(true|false))?,?\s*(.*)$/;
-// token (sorry it is so long)
+const rx_directive = tag_regexp ` ^ (
+    jslint
+  | property
+  | global
+) \s+ ( .* ) $ `;
+const rx_directive_part = tag_regexp ` ^ (
+    [ a-z A-Z $ _ ] [ a-z A-Z 0-9 $ _ ]*
+) (?:
+    : \s* ( true | false )
+)? ,? \s* ( .* ) $ `;
+// token
+const rx_token = tag_regexp ` ^ (
+    (\s+)
+  | (
+      [ a-z A-Z _ $ ]
+      [ a-z A-Z 0-9 _ $ ]*
+    )
+  | [
+      ( ) { } \[ \] , : ; ' " ~ \`
+  ]
+  | \? [ ? . ]?
+  | = (?:
+        = =?
+      | >
+    )?
+  | \.+
+  | \* [ * \/ = ]?
+  | \/ [ * \/ ]?
+  | \+ [ = + ]?
+  | - [ = \- ]?
+  | [ \^ % ] =?
+  | & [ & = ]?
+  | \| [ | = ]?
+  | >{1,3} =?
+  | < <? =?
+  | ! (?:
+        !
+      | = =?
+    )?
+  | (
+        0 n?
+      | [ 1-9 ] [ 0-9 ]* n?
+    )
+) ( .* ) $ `;
 // hack-jslint - bigint
-const rx_token = /^((\s+)|([a-zA-Z_$][a-zA-Z0-9_$]*)|[(){}\[\],:;'"~`]|\?\.?|=(?:==?|>)?|\.+|\*[*\/=]?|\/[*\/]?|\+[=+]?|-[=\-]?|[\^%]=?|&[&=]?|\|[|=]?|>{1,3}=?|<<?=?|!(?:!|==?)?|(0n?|[1-9][0-9]*n?))(.*)$/;
-const rx_digits = /^([0-9]+)(.*)$/;
-const rx_hexs = /^([0-9a-fA-F]+n?)(.*)$/;
-const rx_octals = /^([0-7]+n?)(.*)$/;
-const rx_bits = /^([01]+n?)(.*)$/;
+const rx_digits = /^[0-9]*n?/;
+const rx_hexs = /^[0-9A-F]*n?/i;
+const rx_octals = /^[0-7]*n?/;
+const rx_bits = /^[01]*n?/;
 // mega
 const rx_mega = /[`\\]|\$\{/;
 // JSON number
-const rx_JSON_number = /^-?\d+(?:\.\d*)?(?:e[\-+]?\d+)?$/i;
+const rx_JSON_number = tag_regexp ` ^
+    -?
+    (?: 0 | [ 1-9 ] \d* )
+    (?: \. \d* )?
+    (?: [ e E ] [ \- + ]? \d+ )?
+$ `;
 // initial cap
 const rx_cap = /^[A-Z]/;
 
@@ -25249,6 +25323,7 @@ function tokenize(source) {
                 [].concat(
                     allowed_option.browser,
                     allowed_option.node,
+                    "global",
                     "globalThis"
                 ).forEach(function (key) {
                     declared_globals[key] = false;
@@ -25271,15 +25346,6 @@ function tokenize(source) {
                 }
                 source_line = source_line.replace(rx_tab, " ");
             }
-            at = source_line.search(rx_unsafe);
-            if (at >= 0) {
-                warn_at(
-                    "unsafe",
-                    line,
-                    column + at,
-                    "U+" + source_line.charCodeAt(at).toString(16)
-                );
-            }
             if (!option.white && source_line.slice(-1) === " ") {
                 warn_at(
                     "unexpected_trailing_space",
@@ -25295,7 +25361,7 @@ function tokenize(source) {
 // found with a regular expression. Regular expressions cannot correctly match
 // regular expression literals, so we will match those the hard way. String
 // literals and number literals can be matched by regular expressions, but they
-// don't provide good warnings. The functions snip, next_char, prev_char,
+// don't provide good warnings. The functions snip, next_char, back_char,
 // some_digits, and escape help in the parsing of literals.
 
     function snip() {
@@ -25353,24 +25419,16 @@ function tokenize(source) {
     }
 
     function some_digits(rx, quiet) {
-        const result = source_line.match(rx);
-        if (result) {
-            char = result[1];
-            column += char.length;
-            source_line = result[2];
-            snippet += char;
-        } else {
-            char = "";
-            if (!quiet) {
-                warn_at(
-                    "expected_digits_after_a",
-                    line,
-                    column,
-                    snippet
-                );
-            }
+        const digits = source_line.match(rx)[0];
+        const length = digits.length;
+        if (!quiet && length === 0) {
+            warn_at("expected_digits_after_a", line, column, snippet);
         }
-        return char.length;
+        column += length;
+        source_line = source_line.slice(length);
+        snippet += digits;
+        next_char();
+        return length;
     }
 
     function escape(extra) {
@@ -25567,11 +25625,10 @@ function tokenize(source) {
                 next_char();
             } else if (char === "{") {
                 if (some_digits(rx_digits, true) === 0) {
-                    warn_at("expected_a", line, column, "0");
+                    warn_at("expected_a_before_b", line, column, "0", ",");
                 }
-                if (next_char() === ",") {
+                if (char === ",") {
                     some_digits(rx_digits, true);
-                    next_char();
                 }
                 next_char("}");
             } else {
@@ -25839,7 +25896,6 @@ function tokenize(source) {
     function frack() {
         if (char === ".") {
             some_digits(rx_digits);
-            next_char();
         }
         if (char === "E" || char === "e") {
             next_char();
@@ -25847,7 +25903,6 @@ function tokenize(source) {
                 back_char();
             }
             some_digits(rx_digits);
-            next_char();
         }
     }
 
@@ -25858,13 +25913,10 @@ function tokenize(source) {
                 frack();
             } else if (char === "b") {
                 some_digits(rx_bits);
-                next_char();
             } else if (char === "o") {
                 some_digits(rx_octals);
-                next_char();
             } else if (char === "x") {
                 some_digits(rx_hexs);
-                next_char();
             }
         } else {
             next_char();
@@ -26016,16 +26068,19 @@ function tokenize(source) {
                         : part()
                     );
                 }
-
-// if either ` or ${ was found, then the preceding joins the snippet to become
-// a string token.
-
                 snippet += source_line.slice(0, at);
                 column += at;
                 source_line = source_line.slice(at);
                 if (source_line[0] === "\\") {
-                    stop_at("escape_mega", line, at);
+                    snippet += source_line.slice(0, 2);
+                    source_line = source_line.slice(2);
+                    column += 2;
+                    return part();
                 }
+
+// if either ` or ${ was found, then the preceding joins the snippet to become
+// a string token.
+
                 make("(string)", snippet).quote = "`";
                 snippet = "";
 
@@ -27109,6 +27164,7 @@ assignment("<<=");
 assignment(">>=");
 assignment(">>>=");
 
+infix("??", 35);
 infix("||", 40);
 infix("&&", 50);
 infix("|", 70);
@@ -29813,7 +29869,7 @@ local.jslint0 = Object.freeze(function (
     });
     return {
         directives,
-        edition: "2020-07-02",
+        edition: "2020-10-21",
         exports,
         froms,
         functions,
@@ -30776,7 +30832,9 @@ local.jslintAndPrintDir = function (dir, opt, onError) {
                     }
                     // jslint file
                     require("fs").readFile(file, "utf8", function (err, data) {
-                        local.onErrorThrow(err);
+                        if (err) {
+                            return;
+                        }
                         local.jslintAndPrint(data, file, opt);
                         errCnt += local.jslintResult.errList.length;
                         console.error(
@@ -30866,6 +30924,15 @@ if (module === require.main && !globalThis.utility2_rollup) {
     let isBrowser;
     let isWebWorker;
     let local;
+    // polyfill globalThis
+    if (!(typeof globalThis === "object" && globalThis)) {
+        if (typeof window === "object" && window && window.window === window) {
+            window.globalThis = window;
+        }
+        if (typeof global === "object" && global && global.global === global) {
+            global.globalThis = global;
+        }
+    }
     // init debugInline
     if (!globalThis.debugInline) {
         let consoleError;
@@ -30892,29 +30959,29 @@ if (module === require.main && !globalThis.utility2_rollup) {
         isBrowser && typeof globalThis.importScripts === "function"
     );
     // init function
+    function objectDeepCopyWithKeysSorted(obj) {
+    /*
+     * this function will recursively deep-copy <obj> with keys sorted
+     */
+        let sorted;
+        if (typeof obj !== "object" || !obj) {
+            return obj;
+        }
+        // recursively deep-copy list with child-keys sorted
+        if (Array.isArray(obj)) {
+            return obj.map(objectDeepCopyWithKeysSorted);
+        }
+        // recursively deep-copy obj with keys sorted
+        sorted = {};
+        Object.keys(obj).sort().forEach(function (key) {
+            sorted[key] = objectDeepCopyWithKeysSorted(obj[key]);
+        });
+        return sorted;
+    }
     function assertJsonEqual(aa, bb) {
     /*
      * this function will assert JSON.stringify(<aa>) === JSON.stringify(<bb>)
      */
-        function objectDeepCopyWithKeysSorted(obj) {
-        /*
-         * this function will recursively deep-copy <obj> with keys sorted
-         */
-            let sorted;
-            if (typeof obj !== "object" || !obj) {
-                return obj;
-            }
-            // recursively deep-copy list with child-keys sorted
-            if (Array.isArray(obj)) {
-                return obj.map(objectDeepCopyWithKeysSorted);
-            }
-            // recursively deep-copy obj with keys sorted
-            sorted = {};
-            Object.keys(obj).sort().forEach(function (key) {
-                sorted[key] = objectDeepCopyWithKeysSorted(obj[key]);
-            });
-            return sorted;
-        }
         aa = JSON.stringify(objectDeepCopyWithKeysSorted(aa));
         bb = JSON.stringify(objectDeepCopyWithKeysSorted(bb));
         if (aa !== bb) {
@@ -31032,6 +31099,7 @@ if (module === require.main && !globalThis.utility2_rollup) {
     local.isWebWorker = isWebWorker;
     local.nop = nop;
     local.objectAssignDefault = objectAssignDefault;
+    local.objectDeepCopyWithKeysSorted = objectDeepCopyWithKeysSorted;
     local.onErrorThrow = onErrorThrow;
 }());
 // assets.utility2.header.js - end
@@ -31296,6 +31364,15 @@ if (local.isBrowser) {
     let isBrowser;
     let isWebWorker;
     let local;
+    // polyfill globalThis
+    if (!(typeof globalThis === "object" && globalThis)) {
+        if (typeof window === "object" && window && window.window === window) {
+            window.globalThis = window;
+        }
+        if (typeof global === "object" && global && global.global === global) {
+            global.globalThis = global;
+        }
+    }
     // init debugInline
     if (!globalThis.debugInline) {
         let consoleError;
@@ -31322,29 +31399,29 @@ if (local.isBrowser) {
         isBrowser && typeof globalThis.importScripts === "function"
     );
     // init function
+    function objectDeepCopyWithKeysSorted(obj) {
+    /*
+     * this function will recursively deep-copy <obj> with keys sorted
+     */
+        let sorted;
+        if (typeof obj !== "object" || !obj) {
+            return obj;
+        }
+        // recursively deep-copy list with child-keys sorted
+        if (Array.isArray(obj)) {
+            return obj.map(objectDeepCopyWithKeysSorted);
+        }
+        // recursively deep-copy obj with keys sorted
+        sorted = {};
+        Object.keys(obj).sort().forEach(function (key) {
+            sorted[key] = objectDeepCopyWithKeysSorted(obj[key]);
+        });
+        return sorted;
+    }
     function assertJsonEqual(aa, bb) {
     /*
      * this function will assert JSON.stringify(<aa>) === JSON.stringify(<bb>)
      */
-        function objectDeepCopyWithKeysSorted(obj) {
-        /*
-         * this function will recursively deep-copy <obj> with keys sorted
-         */
-            let sorted;
-            if (typeof obj !== "object" || !obj) {
-                return obj;
-            }
-            // recursively deep-copy list with child-keys sorted
-            if (Array.isArray(obj)) {
-                return obj.map(objectDeepCopyWithKeysSorted);
-            }
-            // recursively deep-copy obj with keys sorted
-            sorted = {};
-            Object.keys(obj).sort().forEach(function (key) {
-                sorted[key] = objectDeepCopyWithKeysSorted(obj[key]);
-            });
-            return sorted;
-        }
         aa = JSON.stringify(objectDeepCopyWithKeysSorted(aa));
         bb = JSON.stringify(objectDeepCopyWithKeysSorted(bb));
         if (aa !== bb) {
@@ -31462,6 +31539,7 @@ if (local.isBrowser) {
     local.isWebWorker = isWebWorker;
     local.nop = nop;
     local.objectAssignDefault = objectAssignDefault;
+    local.objectDeepCopyWithKeysSorted = objectDeepCopyWithKeysSorted;
     local.onErrorThrow = onErrorThrow;
 }());
 // assets.utility2.header.js - end
@@ -44065,7 +44143,7 @@ if (module === require.main && !globalThis.utility2_rollup) {
 /* script-begin /assets.utility2.js */
 // usr/bin/env node
 /*
- * lib.utility2.js (2020.8.19)
+ * lib.utility2.js (2020.9.1)
  * https://github.com/kaizhu256/node-utility2
  * this zero-dependency package will provide high-level functions to to build, test, and deploy webapps
  *
@@ -44082,6 +44160,15 @@ if (module === require.main && !globalThis.utility2_rollup) {
     let isBrowser;
     let isWebWorker;
     let local;
+    // polyfill globalThis
+    if (!(typeof globalThis === "object" && globalThis)) {
+        if (typeof window === "object" && window && window.window === window) {
+            window.globalThis = window;
+        }
+        if (typeof global === "object" && global && global.global === global) {
+            global.globalThis = global;
+        }
+    }
     // init debugInline
     if (!globalThis.debugInline) {
         let consoleError;
@@ -44108,29 +44195,29 @@ if (module === require.main && !globalThis.utility2_rollup) {
         isBrowser && typeof globalThis.importScripts === "function"
     );
     // init function
+    function objectDeepCopyWithKeysSorted(obj) {
+    /*
+     * this function will recursively deep-copy <obj> with keys sorted
+     */
+        let sorted;
+        if (typeof obj !== "object" || !obj) {
+            return obj;
+        }
+        // recursively deep-copy list with child-keys sorted
+        if (Array.isArray(obj)) {
+            return obj.map(objectDeepCopyWithKeysSorted);
+        }
+        // recursively deep-copy obj with keys sorted
+        sorted = {};
+        Object.keys(obj).sort().forEach(function (key) {
+            sorted[key] = objectDeepCopyWithKeysSorted(obj[key]);
+        });
+        return sorted;
+    }
     function assertJsonEqual(aa, bb) {
     /*
      * this function will assert JSON.stringify(<aa>) === JSON.stringify(<bb>)
      */
-        function objectDeepCopyWithKeysSorted(obj) {
-        /*
-         * this function will recursively deep-copy <obj> with keys sorted
-         */
-            let sorted;
-            if (typeof obj !== "object" || !obj) {
-                return obj;
-            }
-            // recursively deep-copy list with child-keys sorted
-            if (Array.isArray(obj)) {
-                return obj.map(objectDeepCopyWithKeysSorted);
-            }
-            // recursively deep-copy obj with keys sorted
-            sorted = {};
-            Object.keys(obj).sort().forEach(function (key) {
-                sorted[key] = objectDeepCopyWithKeysSorted(obj[key]);
-            });
-            return sorted;
-        }
         aa = JSON.stringify(objectDeepCopyWithKeysSorted(aa));
         bb = JSON.stringify(objectDeepCopyWithKeysSorted(bb));
         if (aa !== bb) {
@@ -44248,6 +44335,7 @@ if (module === require.main && !globalThis.utility2_rollup) {
     local.isWebWorker = isWebWorker;
     local.nop = nop;
     local.objectAssignDefault = objectAssignDefault;
+    local.objectDeepCopyWithKeysSorted = objectDeepCopyWithKeysSorted;
     local.onErrorThrow = onErrorThrow;
 }());
 // assets.utility2.header.js - end
@@ -44311,12 +44399,21 @@ local.assetsDict["/assets.utility2.header.js"] = '\
 // assets.utility2.header.js - start\n\
 /* jslint utility2:true */\n\
 /* istanbul ignore next */\n\
-// run shared js-env code - init-local\n\
+// run shared js\-env code - init-local\n\
 (function () {\n\
     "use strict";\n\
     let isBrowser;\n\
     let isWebWorker;\n\
     let local;\n\
+    // polyfill globalThis\n\
+    if (!(typeof globalThis === "object" && globalThis)) {\n\
+        if (typeof window === "object" && window && window.window === window) {\n\
+            window.globalThis = window;\n\
+        }\n\
+        if (typeof global === "object" && global && global.global === global) {\n\
+            global.globalThis = global;\n\
+        }\n\
+    }\n\
     // init debugInline\n\
     if (!globalThis.debugInline) {\n\
         let consoleError;\n\
@@ -44343,29 +44440,29 @@ local.assetsDict["/assets.utility2.header.js"] = '\
         isBrowser && typeof globalThis.importScripts === "function"\n\
     );\n\
     // init function\n\
+    function objectDeepCopyWithKeysSorted(obj) {\n\
+    /*\n\
+     * this function will recursively deep-copy <obj> with keys sorted\n\
+     */\n\
+        let sorted;\n\
+        if (typeof obj !== "object" || !obj) {\n\
+            return obj;\n\
+        }\n\
+        // recursively deep-copy list with child-keys sorted\n\
+        if (Array.isArray(obj)) {\n\
+            return obj.map(objectDeepCopyWithKeysSorted);\n\
+        }\n\
+        // recursively deep-copy obj with keys sorted\n\
+        sorted = {};\n\
+        Object.keys(obj).sort().forEach(function (key) {\n\
+            sorted[key] = objectDeepCopyWithKeysSorted(obj[key]);\n\
+        });\n\
+        return sorted;\n\
+    }\n\
     function assertJsonEqual(aa, bb) {\n\
     /*\n\
      * this function will assert JSON.stringify(<aa>) === JSON.stringify(<bb>)\n\
      */\n\
-        function objectDeepCopyWithKeysSorted(obj) {\n\
-        /*\n\
-         * this function will recursively deep-copy <obj> with keys sorted\n\
-         */\n\
-            let sorted;\n\
-            if (typeof obj !== "object" || !obj) {\n\
-                return obj;\n\
-            }\n\
-            // recursively deep-copy list with child-keys sorted\n\
-            if (Array.isArray(obj)) {\n\
-                return obj.map(objectDeepCopyWithKeysSorted);\n\
-            }\n\
-            // recursively deep-copy obj with keys sorted\n\
-            sorted = {};\n\
-            Object.keys(obj).sort().forEach(function (key) {\n\
-                sorted[key] = objectDeepCopyWithKeysSorted(obj[key]);\n\
-            });\n\
-            return sorted;\n\
-        }\n\
         aa = JSON.stringify(objectDeepCopyWithKeysSorted(aa));\n\
         bb = JSON.stringify(objectDeepCopyWithKeysSorted(bb));\n\
         if (aa !== bb) {\n\
@@ -44483,6 +44580,7 @@ local.assetsDict["/assets.utility2.header.js"] = '\
     local.isWebWorker = isWebWorker;\n\
     local.nop = nop;\n\
     local.objectAssignDefault = objectAssignDefault;\n\
+    local.objectDeepCopyWithKeysSorted = objectDeepCopyWithKeysSorted;\n\
     local.onErrorThrow = onErrorThrow;\n\
 }());\n\
 // assets.utility2.header.js - end\n\
@@ -44597,6 +44695,16 @@ pre {\n\
 <div class="uiAnimateSpin" style="animation: uiAnimateSpin 2s linear infinite; border: 5px solid #999; border-radius: 50%; border-top: 5px solid #7d7; display: none; height: 25px; vertical-align: middle; width: 25px;"></div>\n\
 <script>\n\
 /* jslint utility2:true */\n\
+// polyfill globalThis\n\
+(function () {\n\
+/*\n\
+ * this function will polyfill globalThis\n\
+ */\n\
+    "use strict";\n\
+    window.globalThis = window.globalThis || globalThis;\n\
+}());\n\
+\n\
+\n\
 // init domOnEventWindowOnloadTimeElapsed\n\
 (function () {\n\
 /*\n\
@@ -45649,24 +45757,19 @@ let onErrorThrow;
 localEventListenerDict = {};
 localEventListenerId = 0;
 onErrorThrow = local.onErrorThrow;
-// init lib Blob
-local.Blob = globalThis.Blob || function (list, opt) {
-    /*
-     * this function will emulate in node, browser's Blob class
-     * https://developer.mozilla.org/en-US/docs/Web/API/Blob/Blob
-     */
-    this.buf = local.bufferConcat(list.map(function (elem) {
-        if (
-            typeof elem === "string"
-            || Object.prototype.toString.call(elem) === "[object Uint8Array]"
-        ) {
-            return elem;
-        }
-        // emulate in node, browser-behavior - auto-stringify arbitrary data
-        return String(elem);
-    }));
-    this.type = (opt && opt.type) || "";
-};
+
+
+// polyfill TextDecoder and TextEncoder
+(function () {
+    try {
+        globalThis.TextDecoder = (
+            globalThis.TextDecoder || require("util").TextDecoder
+        );
+        globalThis.TextEncoder = (
+            globalThis.TextEncoder || require("util").TextEncoder
+        );
+    } catch (ignore) {}
+}());
 
 // init lib _http
 local._http = {};
@@ -46259,23 +46362,7 @@ local.ajax = function (opt, onError) {
     Object.keys(xhr.headers).forEach(function (key) {
         xhr.setRequestHeader(key, xhr.headers[key]);
     });
-    // send data
-    switch ((xhr.data && xhr.data.constructor) || true) {
-    // Blob
-    // https://developer.mozilla.org/en-US/docs/Web/API/Blob
-    case local2.Blob:
-        local2.blobRead(xhr.data, function (err, data) {
-            if (err) {
-                xhr.onEvent(err);
-                return;
-            }
-            // send data
-            xhr.send(data);
-        });
-        break;
-    default:
-        xhr.send(xhr.data);
-    }
+    xhr.send(xhr.data);
     return xhr;
 };
 
@@ -46377,44 +46464,6 @@ local.base64ToUtf8 = function (str) {
  * this function will convert base64 <str> to utf8 str
  */
     return local.bufferValidateAndCoerce(local.base64ToBuffer(str), "string");
-};
-
-local.blobRead = function (blob, onError) {
-/*
- * this function will read from <blob>
- */
-    let isDone;
-    let reader;
-    if (!local.isBrowser) {
-        onError(undefined, local.bufferValidateAndCoerce(blob.buf));
-        return;
-    }
-    reader = new FileReader();
-    reader.onabort = function (evt) {
-        if (isDone) {
-            return;
-        }
-        isDone = true;
-        switch (evt.type) {
-        case "abort":
-        case "error":
-            onError(new Error("blobRead - " + evt.type));
-            break;
-        case "load":
-            onError(
-                undefined,
-                Object.prototype.toString.call(reader.result)
-                === "[object ArrayBuffer]"
-                // convert ArrayBuffer to Uint8Array
-                ? new Uint8Array(reader.result)
-                : reader.result
-            );
-            break;
-        }
-    };
-    reader.onerror = reader.onabort;
-    reader.onload = reader.onabort;
-    reader.readAsArrayBuffer(blob);
 };
 
 local.browserTest = function (opt, onError) {
@@ -46680,6 +46729,8 @@ local.buildApp = function ({
     let buildReadme;
     let buildTest;
     let fileDict;
+    let packageJson;
+    let packageNameLib;
     let port;
     let promiseList;
     let src;
@@ -46760,14 +46811,12 @@ local.buildApp = function ({
             {
                 url: "/LICENSE"
             }, {
-                file: (
-                    "/assets." + process.env.npm_package_nameLib + ".html"
-                ),
+                file: "/assets." + packageNameLib + ".html",
                 url: "/index.html"
             }, {
-                url: "/assets." + process.env.npm_package_nameLib + ".css"
+                url: "/assets." + packageNameLib + ".css"
             }, {
-                url: "/assets." + process.env.npm_package_nameLib + ".js"
+                url: "/assets." + packageNameLib + ".js"
             }, {
                 url: "/assets.app.js"
             }, {
@@ -46859,7 +46908,7 @@ local.buildApp = function ({
         });
     };
     buildLib = function (resolve) {
-        src = fileDict["lib." + process.env.npm_package_nameLib + ".js"];
+        src = fileDict["lib." + packageNameLib + ".js"];
         // render lib.xxx.js
         tgt = local.templateRenderMyApp(
             local.assetsDict["/assets.my_app.template.js"]
@@ -46888,17 +46937,12 @@ local.buildApp = function ({
             }
         ]);
         // write lib.xxx.js
-        writeFile(
-            "lib." + process.env.npm_package_nameLib + ".js",
-            tgt,
-            resolve
-        );
+        writeFile("lib." + packageNameLib + ".js", tgt, resolve);
     };
     buildReadme = function (resolve) {
     /*
      * this function will build readme with template assets.readme.template.md
      */
-        let packageJson;
         let packageJsonRgx;
         let toc;
         // reset toc
@@ -46912,7 +46956,7 @@ local.buildApp = function ({
         tgt = local.templateRenderMyApp(
             local.assetsDict["/assets.readme.template.md"]
         );
-        // init package.json
+        // init packageJson
         src.replace(packageJsonRgx, function (match0, match1) {
             // remove null from package.json
             packageJson = JSON.parse(match1.replace((
@@ -47011,7 +47055,7 @@ local.buildApp = function ({
             }
         ]);
         // customize private-repository
-        tgtReplaceConditional(process.env.npm_package_private, [
+        tgtReplaceConditional(packageJson.private, [
             {
                 aa: (
                     /\n\[!\[NPM\]\(https:\/\/nodei.co\/npm\/.*?\n/
@@ -47021,7 +47065,7 @@ local.buildApp = function ({
                 aa: "$ npm install ",
                 bb: (
                     "$ git clone \\\n"
-                    + process.env.npm_package_repository_url.replace(
+                    + packageJson.repository.url.replace(
                         "git+https://github.com/",
                         "git@github.com:"
                     ) + " \\\n--single-branch -b beta node_modules/"
@@ -47094,11 +47138,11 @@ local.buildApp = function ({
         // customize shNpmTestPublished
         tgt = tgt.replace(
             "$ npm install " + process.env.GITHUB_REPO + "#alpha",
-            "$ npm install " + process.env.npm_package_name
+            "$ npm install " + packageJson.name
         );
         tgtReplaceConditional(src.indexOf("    shNpmTestPublished\n") < 0, [
             {
-                aa: "$ npm install " + process.env.npm_package_name,
+                aa: "$ npm install " + packageJson.name,
                 bb: "$ npm install " + process.env.GITHUB_REPO + "#alpha"
             }, {
                 aa: (
@@ -47208,6 +47252,12 @@ local.buildApp = function ({
     };
     // buildInit
     Promise.resolve().then(function () {
+        // init packageJson
+        packageJson = JSON.parse(
+            require("fs").readFileSync("package.json", "utf8")
+        );
+        // init packageNameLib
+        packageNameLib = packageJson.nameLib || packageJson.name;
         fileDict = {};
         promiseList = [];
         // cleanup build-dir
@@ -47245,7 +47295,7 @@ local.buildApp = function ({
         // read file
         [
             "README.md",
-            "lib." + process.env.npm_package_nameLib + ".js",
+            "lib." + packageNameLib + ".js",
             "package.json",
             "test.js"
         ].forEach(function (file) {
@@ -48014,6 +48064,7 @@ local.jslintAutofixLocalFunction = function (code, file) {
         "identity",
         "nop",
         "objectAssignDefault",
+        "objectDeepCopyWithKeysSorted",
         "onErrorThrow"
     ].forEach(function (key) {
         dictFnc[key] = true;
@@ -48290,6 +48341,7 @@ local.middlewareInit = function (req, res, next) {
         // application
         ".js": "application/javascript; charset=utf-8",
         ".json": "application/json; charset=utf-8",
+        ".mjs": "application/javascript; charset=utf-8",
         ".pdf": "application/pdf",
         ".wasm": "application/wasm",
         ".xml": "application/xml; charset=utf-8",
@@ -48366,32 +48418,6 @@ local.middlewareUtility2StateInit = function (req, res, next) {
     res.end(state.init.replace("({})", function () {
         return "(\n" + JSON.stringify(state) + "\n)";
     }));
-};
-
-local.objectDeepCopyWithKeysSorted = function (obj) {
-/*
- * this function will recursively deep-copy <obj> with keys sorted
- */
-    function objectDeepCopyWithKeysSorted(obj) {
-    /*
-     * this function will recursively deep-copy <obj> with keys sorted
-     */
-        let sorted;
-        if (!(typeof obj === "object" && obj)) {
-            return obj;
-        }
-        // recursively deep-copy list with child-keys sorted
-        if (Array.isArray(obj)) {
-            return obj.map(objectDeepCopyWithKeysSorted);
-        }
-        // recursively deep-copy obj with keys sorted
-        sorted = {};
-        Object.keys(obj).sort().forEach(function (key) {
-            sorted[key] = objectDeepCopyWithKeysSorted(obj[key]);
-        });
-        return sorted;
-    }
-    return objectDeepCopyWithKeysSorted(obj);
 };
 
 local.onErrorWithStack = function (onError) {
@@ -48789,7 +48815,7 @@ local.requireReadme = function () {
             "/assets." + env.npm_package_nameLib + extname
         ] = local.fsReadFileOrDefaultSync(
             require("path").resolve(env.npm_package_main).replace((
-                /\.\w+$/
+                /\.\w+?$/
             ), extname),
             "utf8",
             ""
@@ -49547,7 +49573,11 @@ local.testMock = function (mockList, onTestCase, onError) {
         // restore mock[0] from mock[2]
         mockList.reverse().forEach(function (mock) {
             Object.keys(mock[2]).forEach(function (key) {
-                mock[0][key] = mock[2][key];
+                try {
+                    mock[0][key] = mock[2][key];
+                } catch (errCaught) {
+                    console.error(errCaught);
+                }
             });
         });
         onError(err);
@@ -49569,7 +49599,11 @@ local.testMock = function (mockList, onTestCase, onError) {
         });
         // override mock[0] with mock[1]
         Object.keys(mock[1]).forEach(function (key) {
-            mock[0][key] = mock[1][key];
+            try {
+                mock[0][key] = mock[1][key];
+            } catch (errCaught) {
+                console.error(errCaught);
+            }
         });
     });
     // try to run onTestCase with mock[0]
@@ -50889,6 +50923,15 @@ instruction\n\
     let isBrowser;\n\
     let isWebWorker;\n\
     let local;\n\
+    // polyfill globalThis\n\
+    if (!(typeof globalThis === \"object\" && globalThis)) {\n\
+        if (typeof window === \"object\" && window && window.window === window) {\n\
+            window.globalThis = window;\n\
+        }\n\
+        if (typeof global === \"object\" && global && global.global === global) {\n\
+            global.globalThis = global;\n\
+        }\n\
+    }\n\
     // init debugInline\n\
     if (!globalThis.debugInline) {\n\
         let consoleError;\n\
@@ -50915,29 +50958,29 @@ instruction\n\
         isBrowser && typeof globalThis.importScripts === \"function\"\n\
     );\n\
     // init function\n\
+    function objectDeepCopyWithKeysSorted(obj) {\n\
+    /*\n\
+     * this function will recursively deep-copy <obj> with keys sorted\n\
+     */\n\
+        let sorted;\n\
+        if (typeof obj !== \"object\" || !obj) {\n\
+            return obj;\n\
+        }\n\
+        // recursively deep-copy list with child-keys sorted\n\
+        if (Array.isArray(obj)) {\n\
+            return obj.map(objectDeepCopyWithKeysSorted);\n\
+        }\n\
+        // recursively deep-copy obj with keys sorted\n\
+        sorted = {};\n\
+        Object.keys(obj).sort().forEach(function (key) {\n\
+            sorted[key] = objectDeepCopyWithKeysSorted(obj[key]);\n\
+        });\n\
+        return sorted;\n\
+    }\n\
     function assertJsonEqual(aa, bb) {\n\
     /*\n\
      * this function will assert JSON.stringify(<aa>) === JSON.stringify(<bb>)\n\
      */\n\
-        function objectDeepCopyWithKeysSorted(obj) {\n\
-        /*\n\
-         * this function will recursively deep-copy <obj> with keys sorted\n\
-         */\n\
-            let sorted;\n\
-            if (typeof obj !== \"object\" || !obj) {\n\
-                return obj;\n\
-            }\n\
-            // recursively deep-copy list with child-keys sorted\n\
-            if (Array.isArray(obj)) {\n\
-                return obj.map(objectDeepCopyWithKeysSorted);\n\
-            }\n\
-            // recursively deep-copy obj with keys sorted\n\
-            sorted = {};\n\
-            Object.keys(obj).sort().forEach(function (key) {\n\
-                sorted[key] = objectDeepCopyWithKeysSorted(obj[key]);\n\
-            });\n\
-            return sorted;\n\
-        }\n\
         aa = JSON.stringify(objectDeepCopyWithKeysSorted(aa));\n\
         bb = JSON.stringify(objectDeepCopyWithKeysSorted(bb));\n\
         if (aa !== bb) {\n\
@@ -51055,6 +51098,7 @@ instruction\n\
     local.isWebWorker = isWebWorker;\n\
     local.nop = nop;\n\
     local.objectAssignDefault = objectAssignDefault;\n\
+    local.objectDeepCopyWithKeysSorted = objectDeepCopyWithKeysSorted;\n\
     local.onErrorThrow = onErrorThrow;\n\
 }());\n\
 // assets.utility2.header.js - end\n\
@@ -51306,6 +51350,16 @@ pre {\\n\\\n\
 <div class=\"uiAnimateSpin\" style=\"animation: uiAnimateSpin 2s linear infinite; border: 5px solid #999; border-radius: 50%; border-top: 5px solid #7d7; display: none; height: 25px; vertical-align: middle; width: 25px;\"></div>\\n\\\n\
 <script>\\n\\\n\
 /* jslint utility2:true */\\n\\\n\
+// polyfill globalThis\\n\\\n\
+(function () {\\n\\\n\
+/*\\n\\\n\
+ * this function will polyfill globalThis\\n\\\n\
+ */\\n\\\n\
+    \"use strict\";\\n\\\n\
+    window.globalThis = window.globalThis || globalThis;\\n\\\n\
+}());\\n\\\n\
+\\n\\\n\
+\\n\\\n\
 // init domOnEventWindowOnloadTimeElapsed\\n\\\n\
 (function () {\\n\\\n\
 /*\\n\\\n\
@@ -51975,6 +52029,16 @@ pre {\n\
 <div class=\"uiAnimateSpin\" style=\"animation: uiAnimateSpin 2s linear infinite; border: 5px solid #999; border-radius: 50%; border-top: 5px solid #7d7; display: none; height: 25px; vertical-align: middle; width: 25px;\"></div>\n\
 <script>\n\
 /* jslint utility2:true */\n\
+// polyfill globalThis\n\
+(function () {\n\
+/*\n\
+ * this function will polyfill globalThis\n\
+ */\n\
+    \"use strict\";\n\
+    window.globalThis = window.globalThis || globalThis;\n\
+}());\n\
+\n\
+\n\
 // init domOnEventWindowOnloadTimeElapsed\n\
 (function () {\n\
 /*\n\
@@ -52462,7 +52526,7 @@ local.domOnEventInputChange({\n\
 local.assetsDict["/assets.utility2.lib.jslint.js"] = (
 "// usr/bin/env node\n\
 /*\n\
- * lib.jslint.js (2020.8.19)\n\
+ * lib.jslint.js (2020.10.27)\n\
  * https://github.com/kaizhu256/node-jslint-lite\n\
  * this zero-dependency package will provide browser-compatible versions of jslint (v2020.7.2) and csslint (v2018.2.25), with working web-demo\n\
  *\n\
@@ -52479,6 +52543,15 @@ local.assetsDict["/assets.utility2.lib.jslint.js"] = (
     let isBrowser;\n\
     let isWebWorker;\n\
     let local;\n\
+    // polyfill globalThis\n\
+    if (!(typeof globalThis === \"object\" && globalThis)) {\n\
+        if (typeof window === \"object\" && window && window.window === window) {\n\
+            window.globalThis = window;\n\
+        }\n\
+        if (typeof global === \"object\" && global && global.global === global) {\n\
+            global.globalThis = global;\n\
+        }\n\
+    }\n\
     // init debugInline\n\
     if (!globalThis.debugInline) {\n\
         let consoleError;\n\
@@ -52505,29 +52578,29 @@ local.assetsDict["/assets.utility2.lib.jslint.js"] = (
         isBrowser && typeof globalThis.importScripts === \"function\"\n\
     );\n\
     // init function\n\
+    function objectDeepCopyWithKeysSorted(obj) {\n\
+    /*\n\
+     * this function will recursively deep-copy <obj> with keys sorted\n\
+     */\n\
+        let sorted;\n\
+        if (typeof obj !== \"object\" || !obj) {\n\
+            return obj;\n\
+        }\n\
+        // recursively deep-copy list with child-keys sorted\n\
+        if (Array.isArray(obj)) {\n\
+            return obj.map(objectDeepCopyWithKeysSorted);\n\
+        }\n\
+        // recursively deep-copy obj with keys sorted\n\
+        sorted = {};\n\
+        Object.keys(obj).sort().forEach(function (key) {\n\
+            sorted[key] = objectDeepCopyWithKeysSorted(obj[key]);\n\
+        });\n\
+        return sorted;\n\
+    }\n\
     function assertJsonEqual(aa, bb) {\n\
     /*\n\
      * this function will assert JSON.stringify(<aa>) === JSON.stringify(<bb>)\n\
      */\n\
-        function objectDeepCopyWithKeysSorted(obj) {\n\
-        /*\n\
-         * this function will recursively deep-copy <obj> with keys sorted\n\
-         */\n\
-            let sorted;\n\
-            if (typeof obj !== \"object\" || !obj) {\n\
-                return obj;\n\
-            }\n\
-            // recursively deep-copy list with child-keys sorted\n\
-            if (Array.isArray(obj)) {\n\
-                return obj.map(objectDeepCopyWithKeysSorted);\n\
-            }\n\
-            // recursively deep-copy obj with keys sorted\n\
-            sorted = {};\n\
-            Object.keys(obj).sort().forEach(function (key) {\n\
-                sorted[key] = objectDeepCopyWithKeysSorted(obj[key]);\n\
-            });\n\
-            return sorted;\n\
-        }\n\
         aa = JSON.stringify(objectDeepCopyWithKeysSorted(aa));\n\
         bb = JSON.stringify(objectDeepCopyWithKeysSorted(bb));\n\
         if (aa !== bb) {\n\
@@ -52645,6 +52718,7 @@ local.assetsDict["/assets.utility2.lib.jslint.js"] = (
     local.isWebWorker = isWebWorker;\n\
     local.nop = nop;\n\
     local.objectAssignDefault = objectAssignDefault;\n\
+    local.objectDeepCopyWithKeysSorted = objectDeepCopyWithKeysSorted;\n\
     local.onErrorThrow = onErrorThrow;\n\
 }());\n\
 // assets.utility2.header.js - end\n\
@@ -52832,32 +52906,6 @@ local.cliRun = function (opt) {\n\
         return;\n\
     }\n\
     cliDict._default();\n\
-};\n\
-\n\
-local.objectDeepCopyWithKeysSorted = function (obj) {\n\
-/*\n\
- * this function will recursively deep-copy <obj> with keys sorted\n\
- */\n\
-    function objectDeepCopyWithKeysSorted(obj) {\n\
-    /*\n\
-     * this function will recursively deep-copy <obj> with keys sorted\n\
-     */\n\
-        let sorted;\n\
-        if (!(typeof obj === \"object\" && obj)) {\n\
-            return obj;\n\
-        }\n\
-        // recursively deep-copy list with child-keys sorted\n\
-        if (Array.isArray(obj)) {\n\
-            return obj.map(objectDeepCopyWithKeysSorted);\n\
-        }\n\
-        // recursively deep-copy obj with keys sorted\n\
-        sorted = {};\n\
-        Object.keys(obj).sort().forEach(function (key) {\n\
-            sorted[key] = objectDeepCopyWithKeysSorted(obj[key]);\n\
-        });\n\
-        return sorted;\n\
-    }\n\
-    return objectDeepCopyWithKeysSorted(obj);\n\
 };\n\
 }());\n\
 \n\
@@ -63612,16 +63660,16 @@ return CSSLint;\n\
 \n\
 \n\
 /*\n\
-repo https://github.com/douglascrockford/JSLint/tree/118167e967b4ebfc08759fdd1ab2d87f5a27cc37\n\
-committed 2020-07-02T15:21:03Z\n\
+repo https://github.com/douglascrockford/JSLint/tree/873a757ad7060e778a85b1bcd4a03d9e9f334a3b\n\
+committed 2020-10-24T03:28:10Z\n\
 */\n\
 \n\
 \n\
 /*\n\
-file https://github.com/douglascrockford/JSLint/blob/118167e967b4ebfc08759fdd1ab2d87f5a27cc37/jslint.js\n\
+file https://github.com/douglascrockford/JSLint/blob/873a757ad7060e778a85b1bcd4a03d9e9f334a3b/jslint.js\n\
 */\n\
 // jslint.js\n\
-// 2020-07-02\n\
+// 2020-10-21\n\
 // Copyright (c) 2015 Douglas Crockford  (www.JSLint.com)\n\
 \n\
 // Permission is hereby granted, free of charge, to any person obtaining a copy\n\
@@ -63716,7 +63764,7 @@ let lines_extra;\n\
     body, browser, c, calls, catch, charCodeAt, closer, closure, code, column,\n\
     concat, constant, context, convert, couch, create, d, dead, default, devel,\n\
     directive, directives, disrupt, dot, duplicate_a, edition, ellipsis, else,\n\
-    empty_block, escape_mega, eval, every, expected_a, expected_a_at_b_c,\n\
+    empty_block, eval, every, expected_a, expected_a_at_b_c,\n\
     expected_a_b, expected_a_b_from_c_d, expected_a_before_b,\n\
     expected_a_next_at_b, expected_digits_after_a, expected_four_digits,\n\
     expected_identifier_a, expected_line_break_a_b, expected_regexp_factor_a,\n\
@@ -63729,7 +63777,7 @@ let lines_extra;\n\
     margin, match, message, misplaced_a, misplaced_directive_a, missing_browser,\n\
     missing_m, module, naked_block, name, names, nested_comment, new, node,\n\
     not_label_a, nr, nud, number_isNaN, ok, open, opening, option,\n\
-    out_of_scope_a, parameters, parent, pop, property, push, quote,\n\
+    out_of_scope_a, parameters, parent, pop, property, push, quote, raw,\n\
     redefinition_a_b, replace, required_a_optional_b, reserved_a, role, search,\n\
     shebang, signature, single, slice, some, sort, split, startsWith, statement,\n\
     stop, subscript_a, switch, test, this, thru, toString, todo_comment,\n\
@@ -63740,7 +63788,7 @@ let lines_extra;\n\
     unexpected_expression_a, unexpected_label_a, unexpected_parens,\n\
     unexpected_space_a_b, unexpected_statement_a, unexpected_trailing_space,\n\
     unexpected_typeof_a, uninitialized_a, unreachable_a,\n\
-    unregistered_property_a, unsafe, unused_a, use_double, use_open, use_spaces,\n\
+    unregistered_property_a, unused_a, use_double, use_open, use_spaces,\n\
     used, value, var_loop, var_switch, variable, warning, warnings,\n\
     weird_condition_a, weird_expression_a, weird_loop, weird_relation_a, white,\n\
     wrap_condition, wrap_immediate, wrap_parameter, wrap_regexp, wrap_unary,\n\
@@ -63885,7 +63933,6 @@ const bundle = {\n\
     bad_set: \"A set function takes one parameter.\",\n\
     duplicate_a: \"Duplicate '{a}'.\",\n\
     empty_block: \"Empty block.\",\n\
-    escape_mega: \"Unexpected escapement in mega literal.\",\n\
     expected_a: \"Expected '{a}'.\",\n\
     expected_a_at_b_c: \"Expected '{a}' at column {b}, not column {c}.\",\n\
     expected_a_b: \"Expected '{a}' and instead saw '{b}'.\",\n\
@@ -63959,7 +64006,6 @@ const bundle = {\n\
     uninitialized_a: \"Uninitialized '{a}'.\",\n\
     unreachable_a: \"Unreachable '{a}'.\",\n\
     unregistered_property_a: \"Unregistered property name '{a}'.\",\n\
-    unsafe: \"Unsafe character '{a}'.\",\n\
     unused_a: \"Unused '{a}'.\",\n\
     use_double: \"Use double quotes, not single quotes.\",\n\
     use_open: (\n\
@@ -63986,40 +64032,102 @@ const bundle = {\n\
 \n\
 // Regular expression literals:\n\
 \n\
+function tag_regexp(strings) {\n\
+    return new RegExp(strings.raw[0].replace(/\\s/g, \"\"));\n\
+}\n\
+\n\
 // supplant {variables}\n\
 const rx_supplant = /\\{([^{}]*)\\}/g;\n\
 // carriage return, carriage return linefeed, or linefeed\n\
-const rx_crlf = /\\n|\\r\\n?/;\n\
-// unsafe characters that are silently deleted by one or more browsers\n\
-const rx_unsafe = /[\\u0000-\\u001f\\u007f-\\u009f\\u00ad\\u0600-\\u0604\\u070f\\u17b4\\u17b5\\u200c-\\u200f\\u2028-\\u202f\\u2060-\\u206f\\ufeff\\ufff0-\\uffff]/;\n\
+const rx_crlf = tag_regexp `\n\
+      \\n\n\
+    | \\r \\n?\n\
+`;\n\
 // identifier\n\
-const rx_identifier = /^([a-zA-Z_$][a-zA-Z0-9_$]*)$/;\n\
-const rx_module = /^[a-zA-Z0-9_$:.@\\-\\/]+$/;\n\
-const rx_bad_property = /^_|\\$|Sync\\$|_$/;\n\
+const rx_identifier = tag_regexp ` ^(\n\
+    [ a-z A-Z _ $ ]\n\
+    [ a-z A-Z 0-9 _ $ ]*\n\
+)$`;\n\
+const rx_module = tag_regexp ` ^ [ a-z A-Z 0-9 _ $ : . @ \\- \\/ ]+ $ `;\n\
+const rx_bad_property = tag_regexp `\n\
+    ^_\n\
+  | \\$\n\
+  | Sync $\n\
+  | _ $\n\
+`;\n\
 // star slash\n\
-const rx_star_slash = /\\*\\//;\n\
+const rx_star_slash = tag_regexp ` \\* \\/ `;\n\
 // slash star\n\
-const rx_slash_star = /\\/\\*/;\n\
+const rx_slash_star = tag_regexp ` \\/ \\* `;\n\
 // slash star or ending slash\n\
-const rx_slash_star_or_slash = /\\/\\*|\\/$/;\n\
+const rx_slash_star_or_slash = tag_regexp ` \\/ \\* | \\/ $ `;\n\
 // uncompleted work comment\n\
-const rx_todo = /\\b(?:todo|TO\\s?DO|HACK)\\b/;\n\
+const rx_todo = tag_regexp ` \\b (?:\n\
+    todo\n\
+  | TO \\s? DO\n\
+  | HACK\n\
+) \\b `;\n\
 // tab\n\
 const rx_tab = /\\t/g;\n\
 // directive\n\
-const rx_directive = /^(jslint|property|global)\\s+(.*)$/;\n\
-const rx_directive_part = /^([a-zA-Z$_][a-zA-Z0-9$_]*)(?::\\s*(true|false))?,?\\s*(.*)$/;\n\
-// token (sorry it is so long)\n\
+const rx_directive = tag_regexp ` ^ (\n\
+    jslint\n\
+  | property\n\
+  | global\n\
+) \\s+ ( .* ) $ `;\n\
+const rx_directive_part = tag_regexp ` ^ (\n\
+    [ a-z A-Z $ _ ] [ a-z A-Z 0-9 $ _ ]*\n\
+) (?:\n\
+    : \\s* ( true | false )\n\
+)? ,? \\s* ( .* ) $ `;\n\
+// token\n\
+const rx_token = tag_regexp ` ^ (\n\
+    (\\s+)\n\
+  | (\n\
+      [ a-z A-Z _ $ ]\n\
+      [ a-z A-Z 0-9 _ $ ]*\n\
+    )\n\
+  | [\n\
+      ( ) { } \\[ \\] , : ; ' \" ~ \\`\n\
+  ]\n\
+  | \\? [ ? . ]?\n\
+  | = (?:\n\
+        = =?\n\
+      | >\n\
+    )?\n\
+  | \\.+\n\
+  | \\* [ * \\/ = ]?\n\
+  | \\/ [ * \\/ ]?\n\
+  | \\+ [ = + ]?\n\
+  | - [ = \\- ]?\n\
+  | [ \\^ % ] =?\n\
+  | & [ & = ]?\n\
+  | \\| [ | = ]?\n\
+  | >{1,3} =?\n\
+  | < <? =?\n\
+  | ! (?:\n\
+        !\n\
+      | = =?\n\
+    )?\n\
+  | (\n\
+        0 n?\n\
+      | [ 1-9 ] [ 0-9 ]* n?\n\
+    )\n\
+) ( .* ) $ `;\n\
 // hack-jslint - bigint\n\
-const rx_token = /^((\\s+)|([a-zA-Z_$][a-zA-Z0-9_$]*)|[(){}\\[\\],:;'\"~`]|\\?\\.?|=(?:==?|>)?|\\.+|\\*[*\\/=]?|\\/[*\\/]?|\\+[=+]?|-[=\\-]?|[\\^%]=?|&[&=]?|\\|[|=]?|>{1,3}=?|<<?=?|!(?:!|==?)?|(0n?|[1-9][0-9]*n?))(.*)$/;\n\
-const rx_digits = /^([0-9]+)(.*)$/;\n\
-const rx_hexs = /^([0-9a-fA-F]+n?)(.*)$/;\n\
-const rx_octals = /^([0-7]+n?)(.*)$/;\n\
-const rx_bits = /^([01]+n?)(.*)$/;\n\
+const rx_digits = /^[0-9]*n?/;\n\
+const rx_hexs = /^[0-9A-F]*n?/i;\n\
+const rx_octals = /^[0-7]*n?/;\n\
+const rx_bits = /^[01]*n?/;\n\
 // mega\n\
 const rx_mega = /[`\\\\]|\\$\\{/;\n\
 // JSON number\n\
-const rx_JSON_number = /^-?\\d+(?:\\.\\d*)?(?:e[\\-+]?\\d+)?$/i;\n\
+const rx_JSON_number = tag_regexp ` ^\n\
+    -?\n\
+    (?: 0 | [ 1-9 ] \\d* )\n\
+    (?: \\. \\d* )?\n\
+    (?: [ e E ] [ \\- + ]? \\d+ )?\n\
+$ `;\n\
 // initial cap\n\
 const rx_cap = /^[A-Z]/;\n\
 \n\
@@ -64294,6 +64402,7 @@ function tokenize(source) {\n\
                 [].concat(\n\
                     allowed_option.browser,\n\
                     allowed_option.node,\n\
+                    \"global\",\n\
                     \"globalThis\"\n\
                 ).forEach(function (key) {\n\
                     declared_globals[key] = false;\n\
@@ -64316,15 +64425,6 @@ function tokenize(source) {\n\
                 }\n\
                 source_line = source_line.replace(rx_tab, \" \");\n\
             }\n\
-            at = source_line.search(rx_unsafe);\n\
-            if (at >= 0) {\n\
-                warn_at(\n\
-                    \"unsafe\",\n\
-                    line,\n\
-                    column + at,\n\
-                    \"U+\" + source_line.charCodeAt(at).toString(16)\n\
-                );\n\
-            }\n\
             if (!option.white && source_line.slice(-1) === \" \") {\n\
                 warn_at(\n\
                     \"unexpected_trailing_space\",\n\
@@ -64340,7 +64440,7 @@ function tokenize(source) {\n\
 // found with a regular expression. Regular expressions cannot correctly match\n\
 // regular expression literals, so we will match those the hard way. String\n\
 // literals and number literals can be matched by regular expressions, but they\n\
-// don't provide good warnings. The functions snip, next_char, prev_char,\n\
+// don't provide good warnings. The functions snip, next_char, back_char,\n\
 // some_digits, and escape help in the parsing of literals.\n\
 \n\
     function snip() {\n\
@@ -64398,24 +64498,16 @@ function tokenize(source) {\n\
     }\n\
 \n\
     function some_digits(rx, quiet) {\n\
-        const result = source_line.match(rx);\n\
-        if (result) {\n\
-            char = result[1];\n\
-            column += char.length;\n\
-            source_line = result[2];\n\
-            snippet += char;\n\
-        } else {\n\
-            char = \"\";\n\
-            if (!quiet) {\n\
-                warn_at(\n\
-                    \"expected_digits_after_a\",\n\
-                    line,\n\
-                    column,\n\
-                    snippet\n\
-                );\n\
-            }\n\
+        const digits = source_line.match(rx)[0];\n\
+        const length = digits.length;\n\
+        if (!quiet && length === 0) {\n\
+            warn_at(\"expected_digits_after_a\", line, column, snippet);\n\
         }\n\
-        return char.length;\n\
+        column += length;\n\
+        source_line = source_line.slice(length);\n\
+        snippet += digits;\n\
+        next_char();\n\
+        return length;\n\
     }\n\
 \n\
     function escape(extra) {\n\
@@ -64612,11 +64704,10 @@ function tokenize(source) {\n\
                 next_char();\n\
             } else if (char === \"{\") {\n\
                 if (some_digits(rx_digits, true) === 0) {\n\
-                    warn_at(\"expected_a\", line, column, \"0\");\n\
+                    warn_at(\"expected_a_before_b\", line, column, \"0\", \",\");\n\
                 }\n\
-                if (next_char() === \",\") {\n\
+                if (char === \",\") {\n\
                     some_digits(rx_digits, true);\n\
-                    next_char();\n\
                 }\n\
                 next_char(\"}\");\n\
             } else {\n\
@@ -64884,7 +64975,6 @@ function tokenize(source) {\n\
     function frack() {\n\
         if (char === \".\") {\n\
             some_digits(rx_digits);\n\
-            next_char();\n\
         }\n\
         if (char === \"E\" || char === \"e\") {\n\
             next_char();\n\
@@ -64892,7 +64982,6 @@ function tokenize(source) {\n\
                 back_char();\n\
             }\n\
             some_digits(rx_digits);\n\
-            next_char();\n\
         }\n\
     }\n\
 \n\
@@ -64903,13 +64992,10 @@ function tokenize(source) {\n\
                 frack();\n\
             } else if (char === \"b\") {\n\
                 some_digits(rx_bits);\n\
-                next_char();\n\
             } else if (char === \"o\") {\n\
                 some_digits(rx_octals);\n\
-                next_char();\n\
             } else if (char === \"x\") {\n\
                 some_digits(rx_hexs);\n\
-                next_char();\n\
             }\n\
         } else {\n\
             next_char();\n\
@@ -65061,16 +65147,19 @@ function tokenize(source) {\n\
                         : part()\n\
                     );\n\
                 }\n\
-\n\
-// if either ` or ${ was found, then the preceding joins the snippet to become\n\
-// a string token.\n\
-\n\
                 snippet += source_line.slice(0, at);\n\
                 column += at;\n\
                 source_line = source_line.slice(at);\n\
                 if (source_line[0] === \"\\\\\") {\n\
-                    stop_at(\"escape_mega\", line, at);\n\
+                    snippet += source_line.slice(0, 2);\n\
+                    source_line = source_line.slice(2);\n\
+                    column += 2;\n\
+                    return part();\n\
                 }\n\
+\n\
+// if either ` or ${ was found, then the preceding joins the snippet to become\n\
+// a string token.\n\
+\n\
                 make(\"(string)\", snippet).quote = \"`\";\n\
                 snippet = \"\";\n\
 \n\
@@ -66154,6 +66243,7 @@ assignment(\"<<=\");\n\
 assignment(\">>=\");\n\
 assignment(\">>>=\");\n\
 \n\
+infix(\"??\", 35);\n\
 infix(\"||\", 40);\n\
 infix(\"&&\", 50);\n\
 infix(\"|\", 70);\n\
@@ -68858,7 +68948,7 @@ local.jslint0 = Object.freeze(function (\n\
     });\n\
     return {\n\
         directives,\n\
-        edition: \"2020-07-02\",\n\
+        edition: \"2020-10-21\",\n\
         exports,\n\
         froms,\n\
         functions,\n\
@@ -69821,7 +69911,9 @@ local.jslintAndPrintDir = function (dir, opt, onError) {\n\
                     }\n\
                     // jslint file\n\
                     require(\"fs\").readFile(file, \"utf8\", function (err, data) {\n\
-                        local.onErrorThrow(err);\n\
+                        if (err) {\n\
+                            return;\n\
+                        }\n\
                         local.jslintAndPrint(data, file, opt);\n\
                         errCnt += local.jslintResult.errList.length;\n\
                         console.error(\n\
@@ -69917,6 +70009,15 @@ local.assetsDict["/assets.utility2.test.js"] = (
     let isBrowser;\n\
     let isWebWorker;\n\
     let local;\n\
+    // polyfill globalThis\n\
+    if (!(typeof globalThis === \"object\" && globalThis)) {\n\
+        if (typeof window === \"object\" && window && window.window === window) {\n\
+            window.globalThis = window;\n\
+        }\n\
+        if (typeof global === \"object\" && global && global.global === global) {\n\
+            global.globalThis = global;\n\
+        }\n\
+    }\n\
     // init debugInline\n\
     if (!globalThis.debugInline) {\n\
         let consoleError;\n\
@@ -69943,29 +70044,29 @@ local.assetsDict["/assets.utility2.test.js"] = (
         isBrowser && typeof globalThis.importScripts === \"function\"\n\
     );\n\
     // init function\n\
+    function objectDeepCopyWithKeysSorted(obj) {\n\
+    /*\n\
+     * this function will recursively deep-copy <obj> with keys sorted\n\
+     */\n\
+        let sorted;\n\
+        if (typeof obj !== \"object\" || !obj) {\n\
+            return obj;\n\
+        }\n\
+        // recursively deep-copy list with child-keys sorted\n\
+        if (Array.isArray(obj)) {\n\
+            return obj.map(objectDeepCopyWithKeysSorted);\n\
+        }\n\
+        // recursively deep-copy obj with keys sorted\n\
+        sorted = {};\n\
+        Object.keys(obj).sort().forEach(function (key) {\n\
+            sorted[key] = objectDeepCopyWithKeysSorted(obj[key]);\n\
+        });\n\
+        return sorted;\n\
+    }\n\
     function assertJsonEqual(aa, bb) {\n\
     /*\n\
      * this function will assert JSON.stringify(<aa>) === JSON.stringify(<bb>)\n\
      */\n\
-        function objectDeepCopyWithKeysSorted(obj) {\n\
-        /*\n\
-         * this function will recursively deep-copy <obj> with keys sorted\n\
-         */\n\
-            let sorted;\n\
-            if (typeof obj !== \"object\" || !obj) {\n\
-                return obj;\n\
-            }\n\
-            // recursively deep-copy list with child-keys sorted\n\
-            if (Array.isArray(obj)) {\n\
-                return obj.map(objectDeepCopyWithKeysSorted);\n\
-            }\n\
-            // recursively deep-copy obj with keys sorted\n\
-            sorted = {};\n\
-            Object.keys(obj).sort().forEach(function (key) {\n\
-                sorted[key] = objectDeepCopyWithKeysSorted(obj[key]);\n\
-            });\n\
-            return sorted;\n\
-        }\n\
         aa = JSON.stringify(objectDeepCopyWithKeysSorted(aa));\n\
         bb = JSON.stringify(objectDeepCopyWithKeysSorted(bb));\n\
         if (aa !== bb) {\n\
@@ -70083,6 +70184,7 @@ local.assetsDict["/assets.utility2.test.js"] = (
     local.isWebWorker = isWebWorker;\n\
     local.nop = nop;\n\
     local.objectAssignDefault = objectAssignDefault;\n\
+    local.objectDeepCopyWithKeysSorted = objectDeepCopyWithKeysSorted;\n\
     local.onErrorThrow = onErrorThrow;\n\
 }());\n\
 // assets.utility2.header.js - end\n\
@@ -70170,7 +70272,6 @@ local.testCase_ajax_default = function (opt, onError) {\n\
         list: [\n\
             \"\",\n\
             \"arraybuffer\",\n\
-            \"blob\",\n\
             \"text\"\n\
         ]\n\
     }, function (responseType, onParallel) {\n\
@@ -70181,19 +70282,12 @@ local.testCase_ajax_default = function (opt, onError) {\n\
                 responseType === \"arraybuffer\"\n\
                 // test POST buffer-data handling-behavior\n\
                 ? new TextEncoder().encode(local.stringHelloEmoji)\n\
-                : responseType === \"blob\"\n\
-                // test POST blob-data handling-behavior\n\
-                ? new local.Blob([\n\
-                    \"\",\n\
-                    new Uint8Array(0),\n\
-                    local.stringHelloEmoji\n\
-                ])\n\
                 // test POST string-data handling-behavior\n\
                 : local.stringHelloEmoji\n\
             ),\n\
             method: \"POST\",\n\
             // test nodejs-res handling-behavior\n\
-            responseType: responseType.replace(\"blob\", \"arraybuffer\"),\n\
+            responseType,\n\
             url: \"/test.body\"\n\
         }, function (err, xhr) {\n\
             onErrorThrow(err);\n\
@@ -70202,7 +70296,6 @@ local.testCase_ajax_default = function (opt, onError) {\n\
             // validate responseText\n\
             switch (responseType) {\n\
             case \"arraybuffer\":\n\
-            case \"blob\":\n\
                 assertJsonEqual(xhr.responseBuffer.byteLength, 11);\n\
                 assertJsonEqual(Array.from(xhr.responseBuffer), [\n\
                     0x68,\n\
@@ -70283,9 +70376,9 @@ local.testCase_ajax_default = function (opt, onError) {\n\
             {\n\
                 // test 404-not-found handling-behavior\n\
                 url: \"/test.err-404\"\n\
-            }, {\n\
-                // test 500-internal-server-error handling-behavior\n\
-                url: \"/test.err-500\"\n\
+            //!! }, {\n\
+                //!! // test 500-internal-server-error handling-behavior\n\
+                //!! url: \"/test.err-500\"\n\
             }, {\n\
                 // test undefined-status-code handling-behavior\n\
                 url: \"/test.err-undefined\"\n\
@@ -70451,59 +70544,6 @@ local.testCase_base64Xxx_default = function (opt, onError) {\n\
         opt.base64\n\
     );\n\
     onError(undefined, opt);\n\
-};\n\
-\n\
-local.testCase_blobRead_default = function (opt, onError) {\n\
-/*\n\
- * this function will test blobRead's default handling-behavior\n\
- */\n\
-    let onParallel;\n\
-    onParallel = local.onParallel(onError);\n\
-    onParallel.cnt += 1;\n\
-    // test data handling-behavior\n\
-    onParallel.cnt += 1;\n\
-    local.blobRead(new local.Blob([\n\
-        \"\",\n\
-        \"aa\",\n\
-        \"bb\",\n\
-        new Uint8Array(0),\n\
-        local.stringHelloEmoji\n\
-    ]), function (err, data) {\n\
-        onErrorThrow(err);\n\
-        // validate data\n\
-        assertJsonEqual(\n\
-            local.bufferToUtf8(data),\n\
-            \"aabbhello \\ud83d\\ude01\\n\"\n\
-        );\n\
-        onParallel(undefined, opt);\n\
-    });\n\
-    if (!local.isBrowser) {\n\
-        onParallel(undefined, opt);\n\
-        return;\n\
-    }\n\
-    // test err handling-behavior\n\
-    onParallel.cnt += 1;\n\
-    local.testMock([\n\
-        [\n\
-            FileReader.prototype, {\n\
-                readAsArrayBuffer: function () {\n\
-                    this.onabort({\n\
-                        type: \"abort\"\n\
-                    });\n\
-                    this.onerror({\n\
-                        type: \"error\"\n\
-                    });\n\
-                }\n\
-            }\n\
-        ]\n\
-    ], function (onError) {\n\
-        local.blobRead(undefined, function (err) {\n\
-            // handle err\n\
-            assertOrThrow(err, err);\n\
-        });\n\
-        onError(undefined, opt);\n\
-    }, onParallel);\n\
-    onParallel();\n\
 };\n\
 \n\
 local.testCase_bufferValidateAndCoerce_err = function (opt, onError) {\n\

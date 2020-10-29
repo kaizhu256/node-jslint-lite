@@ -1,9 +1,9 @@
-<svg height="1198" width="720" xmlns="http://www.w3.org/2000/svg">
-<rect height="1198" fill="#555" width="720"></rect>
+<svg height="1310" width="720" xmlns="http://www.w3.org/2000/svg">
+<rect height="1310" fill="#555" width="720"></rect>
 <text fill="#7f7" font-family="Courier New" font-size="12" xml:space="preserve">
 <tspan x="10" y="26"></tspan>
 
-<tspan x="10" y="42">\x1b[35m[MODE_BUILD=buildApidoc]\x1b[0m - 2020-10-29T22:40:56.311Z - npm-testing /home/travis/bu\</tspan>
+<tspan x="10" y="42">\x1b[35m[MODE_BUILD=buildApidoc]\x1b[0m - 2020-10-29T22:46:43.307Z - npm-testing /home/travis/bu\</tspan>
 <tspan x="10" y="58">ild/kaizhu256/node-jslint-lite</tspan>
 
 <tspan x="10" y="74"></tspan>
@@ -13,7 +13,7 @@
 <tspan x="10" y="106">buildApidoc - merged test-report from file /home/travis/build/kaizhu256/node-jslint-lite/.tmp/bu\</tspan>
 <tspan x="10" y="122">ild/test-report.json</tspan>
 
-<tspan x="10" y="138">&gt; http-server listening on port 33333</tspan>
+<tspan x="10" y="138">&gt; http-server listening on port 38133</tspan>
 
 <tspan x="10" y="154">apidocCreate - readExample /home/travis/build/kaizhu256/node-jslint-lite/package.json</tspan>
 
@@ -40,44 +40,44 @@
 
 <tspan x="10" y="346">apidocCreate - readExample /home/travis/build/kaizhu256/node-jslint-lite/.travis.yml</tspan>
 
-<tspan x="10" y="362">apidocCreate - readExample /home/travis/build/kaizhu256/node-jslint-lite/jslintAndPrintDir/test.\</tspan>
-<tspan x="10" y="378">conditional.js</tspan>
+<tspan x="10" y="362">jslint - 4ms - /home/travis/build/kaizhu256/node-jslint-lite/README.md</tspan>
+
+<tspan x="10" y="378">jslint - 5ms - /home/travis/build/kaizhu256/node-jslint-lite/npm_scripts.sh</tspan>
 
 <tspan x="10" y="394">apidocCreate - readExample /home/travis/build/kaizhu256/node-jslint-lite/jslintAndPrintDir/test.\</tspan>
-<tspan x="10" y="410">css</tspan>
+<tspan x="10" y="410">conditional.js</tspan>
 
 <tspan x="10" y="426">apidocCreate - readExample /home/travis/build/kaizhu256/node-jslint-lite/jslintAndPrintDir/test.\</tspan>
-<tspan x="10" y="442">html</tspan>
+<tspan x="10" y="442">css</tspan>
 
-<tspan x="10" y="458">apidocCreate - readExample /home/travis/build/kaizhu256/node-jslint-lite/jslintAndPrintDir/test.\</tspan>
-<tspan x="10" y="474">js</tspan>
+<tspan x="10" y="458">jslint - 13ms - /home/travis/build/kaizhu256/node-jslint-lite/package.json</tspan>
 
-<tspan x="10" y="490">apidocCreate - readExample /home/travis/build/kaizhu256/node-jslint-lite/jslintAndPrintDir/test.\</tspan>
-<tspan x="10" y="506">json</tspan>
+<tspan x="10" y="474">apidocCreate - readExample /home/travis/build/kaizhu256/node-jslint-lite/jslintAndPrintDir/test.\</tspan>
+<tspan x="10" y="490">html</tspan>
 
-<tspan x="10" y="522">apidocCreate - readExample /home/travis/build/kaizhu256/node-jslint-lite/jslintAndPrintDir/test.\</tspan>
-<tspan x="10" y="538">json.js</tspan>
+<tspan x="10" y="506">apidocCreate - readExample /home/travis/build/kaizhu256/node-jslint-lite/jslintAndPrintDir/test.\</tspan>
+<tspan x="10" y="522">js</tspan>
 
-<tspan x="10" y="554">apidocCreate - readExample /home/travis/build/kaizhu256/node-jslint-lite/jslintAndPrintDir/test.\</tspan>
-<tspan x="10" y="570">sh</tspan>
+<tspan x="10" y="538">apidocCreate - readExample /home/travis/build/kaizhu256/node-jslint-lite/jslintAndPrintDir/test.\</tspan>
+<tspan x="10" y="554">json</tspan>
 
-<tspan x="10" y="586">apidocCreate - requiring /home/travis/build/kaizhu256/node-jslint-lite ...</tspan>
+<tspan x="10" y="570">apidocCreate - readExample /home/travis/build/kaizhu256/node-jslint-lite/jslintAndPrintDir/test.\</tspan>
+<tspan x="10" y="586">json.js</tspan>
 
-<tspan x="10" y="602">apidocCreate - ... required /home/travis/build/kaizhu256/node-jslint-lite</tspan>
+<tspan x="10" y="602">apidocCreate - readExample /home/travis/build/kaizhu256/node-jslint-lite/jslintAndPrintDir/test.\</tspan>
+<tspan x="10" y="618">sh</tspan>
 
-<tspan x="10" y="618">jslint - 3ms - /home/travis/build/kaizhu256/node-jslint-lite/README.md</tspan>
+<tspan x="10" y="634">apidocCreate - requiring /home/travis/build/kaizhu256/node-jslint-lite ...</tspan>
 
-<tspan x="10" y="634">jslint - 3ms - /home/travis/build/kaizhu256/node-jslint-lite/npm_scripts.sh</tspan>
+<tspan x="10" y="650">apidocCreate - ... required /home/travis/build/kaizhu256/node-jslint-lite</tspan>
 
-<tspan x="10" y="650">jslint - 7ms - /home/travis/build/kaizhu256/node-jslint-lite/package.json</tspan>
+<tspan x="10" y="666">jslint - 69ms - /home/travis/build/kaizhu256/node-jslint-lite/test.js</tspan>
 
-<tspan x="10" y="666">jslint - 49ms - /home/travis/build/kaizhu256/node-jslint-lite/test.js</tspan>
-
-<tspan x="10" y="682">jslint - 240ms - /home/travis/build/kaizhu256/node-jslint-lite/lib.jslint.js</tspan>
+<tspan x="10" y="682">jslint - 261ms - /home/travis/build/kaizhu256/node-jslint-lite/lib.jslint.js</tspan>
 
 <tspan x="10" y="698">fsWriteFileWithMkdirp - /home/travis/build/kaizhu256/node-jslint-lite/.tmp/build/apidoc.html</tspan>
 
-<tspan x="10" y="714">testRunDefault - 475 ms - [node test-case 1 of 1 passed] - testCase_buildApidoc_default</tspan>
+<tspan x="10" y="714">testRunDefault - 513 ms - [node test-case 1 of 1 passed] - testCase_buildApidoc_default</tspan>
 
 <tspan x="10" y="730">fsWriteFileWithMkdirpSync - /home/travis/build/kaizhu256/node-jslint-lite/.tmp/build/test-report\</tspan>
 <tspan x="10" y="746">.json</tspan>
@@ -91,45 +91,58 @@
 
 <tspan x="10" y="826">-------------------------------------------------------</tspan>
 
-<tspan x="10" y="842">| test-report - buildApidoc - node - linux v15.0.1 - 2020-10-29T22:40:56.395Z</tspan>
+<tspan x="10" y="842">| test-report - buildApidoc - node - linux v15.0.1 - 2020-10-29T22:46:43.403Z</tspan>
 
-<tspan x="10" y="858">|     478 ms            0 failed        1 passed      |</tspan>
+<tspan x="10" y="858">|     514 ms            0 failed        1 passed      |</tspan>
 
 <tspan x="10" y="874">-------------------------------------------------------</tspan>
 
 <tspan x="10" y="890">| test-report - npmTest - browser - / - Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTM\</tspan>
-<tspan x="10" y="906">L, like Gecko) HeadlessChrome/86.0.4240.111 Safari/537.36 - 2020-10-29T22:40:50.976Z</tspan>
+<tspan x="10" y="906">L, like Gecko) HeadlessChrome/86.0.4240.111 Safari/537.36 - 2020-10-29T22:46:37.821Z</tspan>
 
-<tspan x="10" y="922">|     218 ms            0 failed        6 passed      |</tspan>
+<tspan x="10" y="922">|     230 ms            0 failed        6 passed      |</tspan>
 
 <tspan x="10" y="938">-------------------------------------------------------</tspan>
 
-<tspan x="10" y="954">| test-report - npmTest - node - linux v15.0.1 - 2020-10-29T22:40:46.434Z</tspan>
+<tspan x="10" y="954">| test-report - npmTest - node - linux v15.0.1 - 2020-10-29T22:46:33.103Z</tspan>
 
-<tspan x="10" y="970">|    7176 ms            0 failed        9 passed      |</tspan>
+<tspan x="10" y="970">|    7307 ms            0 failed        9 passed      |</tspan>
 
 <tspan x="10" y="986">-------------------------------------------------------</tspan>
 
-<tspan x="10" y="1002"></tspan>
+<tspan x="10" y="1002">| test-report - npmTestPublished - browser - / - Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537\</tspan>
+<tspan x="10" y="1018">.36 (KHTML, like Gecko) HeadlessChrome/86.0.4240.111 Safari/537.36 - 2020-10-29T22:45:56.636Z</tspan>
 
-<tspan x="10" y="1018">fsWriteFileWithMkdirpSync - /home/travis/build/kaizhu256/node-jslint-lite/.tmp/build/test-report\</tspan>
-<tspan x="10" y="1034">.html</tspan>
+<tspan x="10" y="1034">|     141 ms            0 failed        6 passed      |</tspan>
 
-<tspan x="10" y="1050">fsWriteFileWithMkdirpSync - /home/travis/build/kaizhu256/node-jslint-lite/.tmp/build/build.badge\</tspan>
-<tspan x="10" y="1066">.svg</tspan>
+<tspan x="10" y="1050">-------------------------------------------------------</tspan>
 
-<tspan x="10" y="1082">fsWriteFileWithMkdirpSync - /home/travis/build/kaizhu256/node-jslint-lite/.tmp/build/test-report\</tspan>
-<tspan x="10" y="1098">.badge.svg</tspan>
+<tspan x="10" y="1066">| test-report - npmTestPublished - node - linux v15.0.1 - 2020-10-29T22:45:51.323Z</tspan>
+
+<tspan x="10" y="1082">|    7225 ms            0 failed        9 passed      |</tspan>
+
+<tspan x="10" y="1098">-------------------------------------------------------</tspan>
 
 <tspan x="10" y="1114"></tspan>
 
-<tspan x="10" y="1130">buildApidoc - 0 failed tests</tspan>
+<tspan x="10" y="1130">fsWriteFileWithMkdirpSync - /home/travis/build/kaizhu256/node-jslint-lite/.tmp/build/test-report\</tspan>
+<tspan x="10" y="1146">.html</tspan>
 
-<tspan x="10" y="1146"></tspan>
+<tspan x="10" y="1162">fsWriteFileWithMkdirpSync - /home/travis/build/kaizhu256/node-jslint-lite/.tmp/build/build.badge\</tspan>
+<tspan x="10" y="1178">.svg</tspan>
 
-<tspan x="10" y="1162"></tspan>
+<tspan x="10" y="1194">fsWriteFileWithMkdirpSync - /home/travis/build/kaizhu256/node-jslint-lite/.tmp/build/test-report\</tspan>
+<tspan x="10" y="1210">.badge.svg</tspan>
 
-<tspan x="10" y="1178">\x1b[35m[MODE_BUILD=buildApidoc]\x1b[0m - 2020-10-29T22:40:57.154Z - EXIT_CODE - 0</tspan>
+<tspan x="10" y="1226"></tspan>
+
+<tspan x="10" y="1242">buildApidoc - 0 failed tests</tspan>
+
+<tspan x="10" y="1258"></tspan>
+
+<tspan x="10" y="1274"></tspan>
+
+<tspan x="10" y="1290">\x1b[35m[MODE_BUILD=buildApidoc]\x1b[0m - 2020-10-29T22:46:44.227Z - EXIT_CODE - 0</tspan>
 
 </text>
 </svg>
