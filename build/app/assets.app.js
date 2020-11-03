@@ -30006,8 +30006,8 @@ local.jslint0 = Object.freeze(function (
         // expected_a_before_b: "Expected '{a}' before '{b}'.",
         case "expected_a_before_b":
             bb = (
-                aa.slice(0, warning.column) + warning.a
-                + aa.slice(warning.column)
+                aa.slice(0, warning.column - 1) + warning.a
+                + aa.slice(warning.column - 1)
             );
             break;
         // expected_identifier_a:
@@ -46590,106 +46590,6 @@ local.ajax = function (opt, onError) {
     return xhr;
 };
 
-local.base64FromBuffer = function (buf) {
-/*
- * this function will convert Uint8Array <buf> to base64 str
- */
-    let ii;
-    let mod3;
-    let str;
-    let uint24;
-    let uint6ToB64;
-    // convert utf8 to Uint8Array
-    if (typeof buf === "string") {
-        buf = new TextEncoder().encode(buf);
-    }
-    buf = buf || [];
-    str = "";
-    uint24 = 0;
-    uint6ToB64 = function (uint6) {
-        return (
-            uint6 < 26
-            ? uint6 + 65
-            : uint6 < 52
-            ? uint6 + 71
-            : uint6 < 62
-            ? uint6 - 4
-            : uint6 === 62
-            ? 43
-            : 47
-        );
-    };
-    ii = 0;
-    while (ii < buf.length) {
-        mod3 = ii % 3;
-        uint24 |= buf[ii] << (16 >>> mod3 & 24);
-        if (mod3 === 2 || buf.length - ii === 1) {
-            str += String.fromCharCode(
-                uint6ToB64(uint24 >>> 18 & 63),
-                uint6ToB64(uint24 >>> 12 & 63),
-                uint6ToB64(uint24 >>> 6 & 63),
-                uint6ToB64(uint24 & 63)
-            );
-            uint24 = 0;
-        }
-        ii += 1;
-    }
-    return str.replace((
-        /A(?=A$|$)/gm
-    ), "");
-};
-
-local.base64ToBuffer = function (str) {
-/*
- * this function will convert base64 <str> to Uint8Array
- * https://gist.github.com/wang-bin/7332335
- */
-    let buf;
-    let byte;
-    let chr;
-    let ii;
-    let jj;
-    let map64;
-    let mod4;
-    str = str || "";
-    buf = new Uint8Array(str.length); // 3/4
-    byte = 0;
-    jj = 0;
-    map64 = (
-        !(str.indexOf("-") < 0 && str.indexOf("_") < 0)
-        // base64url
-        ? "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_"
-        // base64
-        : "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"
-    );
-    mod4 = 0;
-    ii = 0;
-    while (ii < str.length) {
-        chr = map64.indexOf(str[ii]);
-        if (chr !== -1) {
-            mod4 %= 4;
-            if (mod4 === 0) {
-                byte = chr;
-            } else {
-                byte = byte * 64 + chr;
-                buf[jj] = 255 & (byte >> ((-2 * (mod4 + 1)) & 6));
-                jj += 1;
-            }
-            mod4 += 1;
-        }
-        ii += 1;
-    }
-    // optimization - create resized-view of buf
-    return buf.slice(0, jj);
-};
-
-local.base64ToUtf8 = function (str) {
-/*
- * this function will convert base64 <str> to utf8 str
- */
-    return local.bufferValidateAndCoerce(local.base64ToBuffer(str), "string");
-};
-
 local.browserTest = function (opt, onError) {
 /*
  * this function will spawn google-puppeteer-process to test <opt>.url
@@ -47738,164 +47638,6 @@ local.corsForwardProxyHostIfNeeded = function (xhr) {
         && xhr.corsForwardProxyHost !== "disabled"
         && (xhr.corsForwardProxyHost || "https://h1-proxy1.herokuapp.com")
     );
-};
-
-/* istanbul ignore next */
-local.cryptoAesXxxCbcRawDecrypt = function (opt, onError) {
-/*
- * this function will aes-xxx-cbc decrypt with given <opt>
- * example use:
-    data = new Uint8Array([1,2,3]);
-    key = '0123456789abcdef0123456789abcdef';
-    mode = undefined;
-    local.cryptoAesXxxCbcRawEncrypt({
-        data,
-        key,
-        mode
-    }, function (err, data) {
-        console.assert(!err, err);
-        local.cryptoAesXxxCbcRawDecrypt({
-            data,
-            key,
-            mode
-        }, console.log);
-    });
- */
-    let cipher;
-    let crypto;
-    let data;
-    let ii;
-    let iv;
-    let key;
-    // init key
-    key = new Uint8Array(0.5 * opt.key.length);
-    ii = 0;
-    while (ii < key.byteLength) {
-        key[ii] = parseInt(opt.key.slice(2 * ii, 2 * ii + 2), 16);
-        ii += 2;
-    }
-    data = opt.data;
-    // base64
-    if (opt.mode === "base64") {
-        data = local.base64ToBuffer(data);
-    }
-    // normalize data
-    if (Object.prototype.toString.call(data) !== "[object Uint8Array]") {
-        data = new Uint8Array(data);
-    }
-    // init iv
-    iv = data.slice(0, 16);
-    // optimization - create resized-view of data
-    data = data.slice(16);
-    try {
-        crypto = require("crypto");
-    } catch (ignore) {
-        crypto = globalThis.crypto;
-        crypto.subtle.importKey("raw", key, {
-            name: "AES-CBC"
-        }, false, [
-            "decrypt"
-        ]).then(function (key) {
-            crypto.subtle.decrypt({
-                iv,
-                name: "AES-CBC"
-            }, key, data).then(function (data) {
-                onError(undefined, new Uint8Array(data));
-            }).catch(onError);
-        }).catch(onError);
-        return;
-    }
-    setTimeout(function () {
-        cipher = crypto.createDecipheriv(
-            "aes-" + (8 * key.byteLength) + "-cbc",
-            key,
-            iv
-        );
-        onError(undefined, Buffer.concat([
-            cipher.update(data), cipher.final()
-        ]));
-    });
-};
-
-/* istanbul ignore next */
-local.cryptoAesXxxCbcRawEncrypt = function (opt, onError) {
-/*
- * this function will aes-xxx-cbc encrypt with given <opt>
- * example use:
-    data = new Uint8Array([1,2,3]);
-    key = '0123456789abcdef0123456789abcdef';
-    mode = undefined;
-    local.cryptoAesXxxCbcRawEncrypt({
-        data,
-        key,
-        mode
-    }, function (err, data) {
-        console.assert(!err, err);
-        local.cryptoAesXxxCbcRawDecrypt({
-            data,
-            key,
-            mode
-        }, console.log);
-    });
- */
-    let cipher;
-    let crypto;
-    let data;
-    let ii;
-    let iv;
-    let key;
-    // init key
-    key = new Uint8Array(0.5 * opt.key.length);
-    ii = 0;
-    while (ii < key.byteLength) {
-        key[ii] = parseInt(opt.key.slice(2 * ii, 2 * ii + 2), 16);
-        ii += 2;
-    }
-    data = opt.data;
-    // init iv
-    iv = new Uint8Array((((data.byteLength) >> 4) << 4) + 32);
-    crypto = globalThis.crypto;
-    if (!local.isBrowser) {
-        setTimeout(function () {
-            crypto = require("crypto");
-            // init iv
-            iv.set(crypto.randomBytes(16));
-            cipher = crypto.createCipheriv(
-                "aes-" + (8 * key.byteLength) + "-cbc",
-                key,
-                iv.slice(0, 16)
-            );
-            data = cipher.update(data);
-            iv.set(data, 16);
-            iv.set(cipher.final(), 16 + data.byteLength);
-            if (opt.mode === "base64") {
-                iv = local.base64FromBuffer(iv);
-                iv += "\n";
-            }
-            onError(undefined, iv);
-        });
-        return;
-    }
-    // init iv
-    iv.set(crypto.getRandomValues(new Uint8Array(16)));
-    crypto.subtle.importKey("raw", key, {
-        name: "AES-CBC"
-    }, false, [
-        "encrypt"
-    ]).then(function (key) {
-        crypto.subtle.encrypt({
-            iv: iv.slice(0, 16),
-            name: "AES-CBC"
-        }, key, data).then(function (data) {
-            iv.set(new Uint8Array(data), 16);
-            // base64
-            if (opt.mode === "base64") {
-                iv = local.base64FromBuffer(iv);
-                iv += "\n";
-            }
-            onError(undefined, iv);
-        }).catch(onError);
-    }).catch(onError);
 };
 
 local.domFragmentRender = function (template, dict) {
@@ -50451,18 +50193,18 @@ local.testRunServer = function (opt) {
     }
     globalThis.utility2_onReadyBefore.cnt += 1;
     local.serverLocalReqHandler = function (req, res) {
-        let that;
-        that = {};
-        local.gotoNext(that, function (err) {
-            if (err || that.gotoState >= local.middlewareList.length) {
+        let opt2;
+        opt2 = {};
+        local.gotoNext(opt2, function (err) {
+            if (err || opt2.gotoState >= local.middlewareList.length) {
                 local.middlewareError(err, req, res);
                 return;
             }
             // recurse with next middleware in middlewareList
-            local.middlewareList[that.gotoState](req, res, that.gotoNext);
+            local.middlewareList[opt2.gotoState](req, res, opt2.gotoNext);
         });
-        that.gotoState = -1;
-        that.gotoNext();
+        opt2.gotoState = -1;
+        opt2.gotoNext();
     };
     globalThis.utility2_serverHttp1 = local.http.createServer(
         local.serverLocalReqHandler
@@ -69085,8 +68827,8 @@ local.jslint0 = Object.freeze(function (\n\
         // expected_a_before_b: \"Expected '{a}' before '{b}'.\",\n\
         case \"expected_a_before_b\":\n\
             bb = (\n\
-                aa.slice(0, warning.column) + warning.a\n\
-                + aa.slice(warning.column)\n\
+                aa.slice(0, warning.column - 1) + warning.a\n\
+                + aa.slice(warning.column - 1)\n\
             );\n\
             break;\n\
         // expected_identifier_a:\n\
@@ -70744,32 +70486,6 @@ local.testCase_assertXxx_default = function (opt, onError) {\n\
     onError(undefined, opt);\n\
 };\n\
 \n\
-local.testCase_base64Xxx_default = function (opt, onError) {\n\
-/*\n\
- * this function will test base64Xxx's default handling-behavior\n\
- */\n\
-    opt = {};\n\
-    opt.base64 = local.base64FromBuffer(\n\
-        local.stringCharsetAscii + local.stringHelloEmoji\n\
-    );\n\
-    // test null-case handling-behavior\n\
-    assertJsonEqual(local.base64FromBuffer(), \"\");\n\
-    assertJsonEqual(local.bufferToUtf8(local.base64ToBuffer()), \"\");\n\
-    assertJsonEqual(local.base64ToUtf8(), \"\");\n\
-    assertJsonEqual(local.base64FromBuffer(local.base64ToBuffer()), \"\");\n\
-    assertJsonEqual(local.base64FromBuffer(local.base64ToUtf8()), \"\");\n\
-    // test identity handling-behavior\n\
-    assertJsonEqual(\n\
-        local.base64FromBuffer(local.base64ToBuffer(opt.base64)),\n\
-        opt.base64\n\
-    );\n\
-    assertJsonEqual(\n\
-        local.base64FromBuffer(local.base64ToUtf8(opt.base64)),\n\
-        opt.base64\n\
-    );\n\
-    onError(undefined, opt);\n\
-};\n\
-\n\
 local.testCase_bufferValidateAndCoerce_err = function (opt, onError) {\n\
 /*\n\
  * this function will test bufferValidateAndCoerce's err handling-behavior\n\
@@ -70949,63 +70665,6 @@ local.testCase_corsForwardProxyHostIfNeeded_default = function (\n\
         url: \"https://example.com\"\n\
     }).indexOf(\".herokuapp.com\") >= 0);\n\
     onError(undefined, opt);\n\
-};\n\
-\n\
-/* istanbul ignore next */\n\
-local.testCase_cryptoAesXxxCbcRawXxx_default = function (opt, onError) {\n\
-/*\n\
- * this function will cryptoAesXxxCbcRawXxx's default handling-behavior\n\
- */\n\
-    if (!local.nop()) {\n\
-        onError(undefined, opt);\n\
-        return;\n\
-    }\n\
-    opt = {};\n\
-    local.gotoNext(opt, function (err, data) {\n\
-        switch (opt.gotoState) {\n\
-        case 1:\n\
-            // encrypt data\n\
-            opt.data = new TextEncoder().encode(\"aa\");\n\
-            opt.key = \"0123456789abcdef0123456789abcdef\";\n\
-            opt.mode = null;\n\
-            local.cryptoAesXxxCbcRawEncrypt(opt, opt.gotoNext);\n\
-            break;\n\
-        case 2:\n\
-            // decrypt data\n\
-            opt.data = data.buffer;\n\
-            local.cryptoAesXxxCbcRawDecrypt(opt, opt.gotoNext);\n\
-            break;\n\
-        case 3:\n\
-            // validate data\n\
-            assertJsonEqual(local.bufferToUtf8(data), \"aa\");\n\
-            opt.gotoNext();\n\
-            break;\n\
-        case 4:\n\
-            // encrypt data - base64\n\
-            opt.data = new TextEncoder().encode(\"aa\");\n\
-            opt.key = (\n\
-                \"0123456789abcdef0123456789abcdef\"\n\
-                + \"0123456789abcdef0123456789abcdef\"\n\
-            );\n\
-            opt.mode = \"base64\";\n\
-            local.cryptoAesXxxCbcRawEncrypt(opt, opt.gotoNext);\n\
-            break;\n\
-        case 5:\n\
-            // decrypt data - base64\n\
-            opt.data = data;\n\
-            local.cryptoAesXxxCbcRawDecrypt(opt, opt.gotoNext);\n\
-            break;\n\
-        case 6:\n\
-            // validate data\n\
-            assertJsonEqual(local.bufferToUtf8(data), \"aa\");\n\
-            opt.gotoNext();\n\
-            break;\n\
-        default:\n\
-            onError(err, opt);\n\
-        }\n\
-    });\n\
-    opt.gotoState = 0;\n\
-    opt.gotoNext();\n\
 };\n\
 \n\
 local.testCase_domFragmentRender_default = function (opt, onError) {\n\
@@ -88607,8 +88266,8 @@ local.jslint0 = Object.freeze(function (\n\
         // expected_a_before_b: \"Expected '{a}' before '{b}'.\",\n\
         case \"expected_a_before_b\":\n\
             bb = (\n\
-                aa.slice(0, warning.column) + warning.a\n\
-                + aa.slice(warning.column)\n\
+                aa.slice(0, warning.column - 1) + warning.a\n\
+                + aa.slice(warning.column - 1)\n\
             );\n\
             break;\n\
         // expected_identifier_a:\n\
@@ -106069,8 +105728,8 @@ local.jslint0 = Object.freeze(function (
         // expected_a_before_b: "Expected '{a}' before '{b}'.",
         case "expected_a_before_b":
             bb = (
-                aa.slice(0, warning.column) + warning.a
-                + aa.slice(warning.column)
+                aa.slice(0, warning.column - 1) + warning.a
+                + aa.slice(warning.column - 1)
             );
             break;
         // expected_identifier_a:
