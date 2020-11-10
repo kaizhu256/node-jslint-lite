@@ -20,15 +20,15 @@
 
 <tspan x="10" y="170">export npm_package_version='2020.11.3'</tspan>
 
-<tspan x="10" y="186">shBuildInit - wrote /home/travis/build/kaizhu256/node-jslint-lite/.tmp/README.build_ci.sh</tspan>
+<tspan x="10" y="186">shBuildInit - wrote /home/travis/build/kaizhu256/node-jslint-lite/.tmp/README.example.sh</tspan>
 
-<tspan x="10" y="202">shBuildInit - wrote /home/travis/build/kaizhu256/node-jslint-lite/.tmp/README.example.js</tspan>
+<tspan x="10" y="202">shBuildInit - wrote /home/travis/build/kaizhu256/node-jslint-lite/.tmp/README.build_ci.sh</tspan>
 
-<tspan x="10" y="218">shBuildInit - wrote /home/travis/build/kaizhu256/node-jslint-lite/.tmp/README.example.sh</tspan>
+<tspan x="10" y="218">shBuildInit - wrote /home/travis/build/kaizhu256/node-jslint-lite/.tmp/README.example.js</tspan>
 
 <tspan x="10" y="234"></tspan>
 
-<tspan x="10" y="250">\x1b[35m[MODE_BUILD=npmTest]\x1b[0m - 2020-11-10T20:37:43.256Z - npm-testing /home/travis/build/\</tspan>
+<tspan x="10" y="250">\x1b[35m[MODE_BUILD=npmTest]\x1b[0m - 2020-11-10T20:43:37.771Z - npm-testing /home/travis/build/\</tspan>
 <tspan x="10" y="266">kaizhu256/node-jslint-lite</tspan>
 
 <tspan x="10" y="282"></tspan>
@@ -48,111 +48,111 @@
 <tspan x="10" y="410">npmTest - merged test-report from file /home/travis/build/kaizhu256/node-jslint-lite/.tmp/build/\</tspan>
 <tspan x="10" y="426">test-report.json</tspan>
 
-<tspan x="10" y="442">jslint - 4ms - /home/travis/build/kaizhu256/node-jslint-lite/README.md</tspan>
+<tspan x="10" y="442">jslint - 3ms - /home/travis/build/kaizhu256/node-jslint-lite/README.md</tspan>
 
-<tspan x="10" y="458">jslint - 4ms - /home/travis/build/kaizhu256/node-jslint-lite/npm_scripts.sh</tspan>
+<tspan x="10" y="458">jslint - 6ms - /home/travis/build/kaizhu256/node-jslint-lite/npm_scripts.sh</tspan>
 
-<tspan x="10" y="474">jslint - 10ms - /home/travis/build/kaizhu256/node-jslint-lite/package.json</tspan>
+<tspan x="10" y="474">jslint - 14ms - /home/travis/build/kaizhu256/node-jslint-lite/package.json</tspan>
 
-<tspan x="10" y="490">jslint - 60ms - /home/travis/build/kaizhu256/node-jslint-lite/test.js</tspan>
+<tspan x="10" y="490">jslint - 57ms - /home/travis/build/kaizhu256/node-jslint-lite/test.js</tspan>
 
-<tspan x="10" y="506">jslint - 270ms - /home/travis/build/kaizhu256/node-jslint-lite/lib.jslint.js</tspan>
+<tspan x="10" y="506">jslint - 255ms - /home/travis/build/kaizhu256/node-jslint-lite/lib.jslint.js</tspan>
 
-<tspan x="10" y="522">http-server listening on port 34877</tspan>
+<tspan x="10" y="522">http-server listening on port 64858</tspan>
 
-<tspan x="10" y="538">testRunDefault - 1035 ms - [node test-case 1 of 9 passed] - testCase_jslint0_coverage</tspan>
+<tspan x="10" y="538">testRunDefault - 941 ms - [node test-case 1 of 9 passed] - testCase_jslint0_coverage</tspan>
 
-<tspan x="10" y="554">testRunDefault - 1116 ms - [node test-case 2 of 9 passed] - testCase_jslint0_err</tspan>
+<tspan x="10" y="554">testRunDefault - 1005 ms - [node test-case 2 of 9 passed] - testCase_jslint0_err</tspan>
 
-<tspan x="10" y="570">testRunDefault - 1120 ms - [node test-case 3 of 9 passed] - testCase_jslintAndPrint_coverage</tspan>
+<tspan x="10" y="570">testRunDefault - 1010 ms - [node test-case 3 of 9 passed] - testCase_jslintAndPrint_coverage</tspan>
 
-<tspan x="10" y="586">testRunDefault - 1160 ms - [node test-case 4 of 9 passed] - testCase_jslintAutofix_coverage</tspan>
+<tspan x="10" y="586">testRunDefault - 1045 ms - [node test-case 4 of 9 passed] - testCase_jslintAutofix_coverage</tspan>
 
-<tspan x="10" y="602">testRunDefault - 1161 ms - [node test-case 5 of 9 passed] - testCase_noop_default</tspan>
+<tspan x="10" y="602">testRunDefault - 1045 ms - [node test-case 5 of 9 passed] - testCase_noop_default</tspan>
 
-<tspan x="10" y="618">testRunDefault - 1197 ms - [node test-case 6 of 9 passed] - testCase_buildApidoc_default</tspan>
+<tspan x="10" y="618">testRunDefault - 1072 ms - [node test-case 6 of 9 passed] - testCase_buildApidoc_default</tspan>
 
-<tspan x="10" y="634">testRunDefault - 2346 ms - [node test-case 7 of 9 passed] - testCase_jslintAndPrintDir_coverage</tspan>
+<tspan x="10" y="634">testRunDefault - 2100 ms - [node test-case 7 of 9 passed] - testCase_jslintAndPrintDir_coverage</tspan>
 
 <tspan x="10" y="650"></tspan>
 
-<tspan x="10" y="666">DevTools listening on ws://127.0.0.1:45583/devtools/browser/5cd71fe2-5ace-4a11-b066-3ec71cefcac2</tspan>
+<tspan x="10" y="666">DevTools listening on ws://127.0.0.1:40409/devtools/browser/5c4b2c7a-d81e-457d-af02-733340bc51f8</tspan>
 
-<tspan x="10" y="682">[1110/203746.769145:ERROR:command_buffer_proxy_impl.cc(122)] ContextResult::kTransientFailure: F\</tspan>
+<tspan x="10" y="682">[1110/204341.035607:ERROR:command_buffer_proxy_impl.cc(122)] ContextResult::kTransientFailure: F\</tspan>
 <tspan x="10" y="698">ailed to send GpuChannelMsg_CreateCommandBuffer.</tspan>
 
-<tspan x="10" y="714">testRunDefault - 2365 ms - testCase pending - testCase_buildApp_default, testCase_webpage_defaul\</tspan>
+<tspan x="10" y="714">testRunDefault - 2126 ms - testCase pending - testCase_buildApp_default, testCase_webpage_defaul\</tspan>
 <tspan x="10" y="730">t ...</tspan>
 
-<tspan x="10" y="746">jslint - 5ms - /home/travis/build/kaizhu256/node-jslint-lite/.tmp/build/app/assets.example.html</tspan>
+<tspan x="10" y="746">jslint - 6ms - /home/travis/build/kaizhu256/node-jslint-lite/.tmp/build/app/assets.example.html</tspan>
 
-<tspan x="10" y="762">jslint - 19ms - /home/travis/build/kaizhu256/node-jslint-lite/.tmp/build/app/assets.example.js</tspan>
+<tspan x="10" y="762">jslint - 15ms - /home/travis/build/kaizhu256/node-jslint-lite/.tmp/build/app/assets.example.js</tspan>
 
-<tspan x="10" y="778">jslint - 22ms - /home/travis/build/kaizhu256/node-jslint-lite/.tmp/build/app/assets.jslint.css</tspan>
+<tspan x="10" y="778">jslint - 16ms - /home/travis/build/kaizhu256/node-jslint-lite/.tmp/build/app/assets.jslint.css</tspan>
 
-<tspan x="10" y="794">jslint - 30ms - /home/travis/build/kaizhu256/node-jslint-lite/.tmp/build/app/assets.jslint.html</tspan>
+<tspan x="10" y="794">jslint - 16ms - /home/travis/build/kaizhu256/node-jslint-lite/.tmp/build/app/assets.jslint.html</tspan>
 
-<tspan x="10" y="810">jslint - 33ms - /home/travis/build/kaizhu256/node-jslint-lite/.tmp/build/app/assets.test.js</tspan>
+<tspan x="10" y="810">jslint - 17ms - /home/travis/build/kaizhu256/node-jslint-lite/.tmp/build/app/assets.test.js</tspan>
 
-<tspan x="10" y="826">jslint - 39ms - /home/travis/build/kaizhu256/node-jslint-lite/.tmp/build/app/assets.utility2.htm\</tspan>
+<tspan x="10" y="826">jslint - 22ms - /home/travis/build/kaizhu256/node-jslint-lite/.tmp/build/app/assets.utility2.htm\</tspan>
 <tspan x="10" y="842">l</tspan>
 
-<tspan x="10" y="858">jslint - 40ms - /home/travis/build/kaizhu256/node-jslint-lite/.tmp/build/app/index.html</tspan>
+<tspan x="10" y="858">jslint - 21ms - /home/travis/build/kaizhu256/node-jslint-lite/.tmp/build/app/index.html</tspan>
 
-<tspan x="10" y="874">jslint - 41ms - /home/travis/build/kaizhu256/node-jslint-lite/.tmp/build/app/utility2.state.init\</tspan>
+<tspan x="10" y="874">jslint - 22ms - /home/travis/build/kaizhu256/node-jslint-lite/.tmp/build/app/utility2.state.init\</tspan>
 <tspan x="10" y="890">.js</tspan>
 
-<tspan x="10" y="906">jslint - 333ms - /home/travis/build/kaizhu256/node-jslint-lite/.tmp/build/app/assets.utility2.li\</tspan>
+<tspan x="10" y="906">jslint - 249ms - /home/travis/build/kaizhu256/node-jslint-lite/.tmp/build/app/assets.utility2.li\</tspan>
 <tspan x="10" y="922">b.jslint.js</tspan>
 
-<tspan x="10" y="938">jslint - 360ms - /home/travis/build/kaizhu256/node-jslint-lite/.tmp/build/app/assets.jslint.js</tspan>
+<tspan x="10" y="938">jslint - 268ms - /home/travis/build/kaizhu256/node-jslint-lite/.tmp/build/app/assets.jslint.js</tspan>
 
-<tspan x="10" y="954">&gt; [1110/203748.660730:INFO:CONSOLE(9)] "jslint inputCsslint1.css</tspan>
+<tspan x="10" y="954">&gt; http-server listening on port 40351</tspan>
 
-<tspan x="10" y="970">  1 warning - zero-units - Values of 0 shouldn't have units specified.</tspan>
+<tspan x="10" y="970">[1110/204342.874284:INFO:CONSOLE(9)] "jslint inputCsslint1.css</tspan>
 
-<tspan x="10" y="986">    You don't need to specify units when a value is 0. // line 6, column 13</tspan>
+<tspan x="10" y="986">  1 warning - zero-units - Values of 0 shouldn't have units specified.</tspan>
 
-<tspan x="10" y="1002">    margin: 0px;", source: http://127.0.0.1:34877/assets.example.js (9)</tspan>
+<tspan x="10" y="1002">    You don't need to specify units when a value is 0. // line 6, column 13</tspan>
 
-<tspan x="10" y="1018">[1110/203748.683597:INFO:CONSOLE(9)] "jslint inputJslint1.js</tspan>
+<tspan x="10" y="1018">    margin: 0px;", source: http://127.0.0.1:64858/assets.example.js (9)</tspan>
 
-<tspan x="10" y="1034">  1 Undeclared 'console'. // line 5, column 2</tspan>
+<tspan x="10" y="1034">[1110/204342.887878:INFO:CONSOLE(9)] "jslint inputJslint1.js</tspan>
 
-<tspan x="10" y="1050">    console.log(message);</tspan>
+<tspan x="10" y="1050">  1 Undeclared 'console'. // line 5, column 2</tspan>
 
-<tspan x="10" y="1066">  2 Undeclared 'console'. // line 6, column 2</tspan>
+<tspan x="10" y="1066">    console.log(message);</tspan>
 
-<tspan x="10" y="1082">    console.log(null);", source: http://127.0.0.1:34877/assets.example.js (9)</tspan>
+<tspan x="10" y="1082">  2 Undeclared 'console'. // line 6, column 2</tspan>
 
-<tspan x="10" y="1098">http-server listening on port 48609</tspan>
+<tspan x="10" y="1098">    console.log(null);", source: http://127.0.0.1:64858/assets.example.js (9)</tspan>
 
-<tspan x="10" y="1114">[1110/203748.750938:INFO:CONSOLE(9)] "testRunDefault - 33 ms - [browser test-case 1 of 6 passed]\</tspan>
-<tspan x="10" y="1130"> - testCase_jslint0_coverage", source: http://127.0.0.1:34877/assets.example.js (9)</tspan>
+<tspan x="10" y="1114">[1110/204342.932619:INFO:CONSOLE(9)] "testRunDefault - 28 ms - [browser test-case 1 of 6 passed]\</tspan>
+<tspan x="10" y="1130"> - testCase_jslint0_coverage", source: http://127.0.0.1:64858/assets.example.js (9)</tspan>
 
-<tspan x="10" y="1146">[1110/203748.868761:INFO:CONSOLE(9)] "testRunDefault - 151 ms - [browser test-case 2 of 6 passed\</tspan>
-<tspan x="10" y="1162">] - testCase_jslint0_err", source: http://127.0.0.1:34877/assets.example.js (9)</tspan>
+<tspan x="10" y="1146">[1110/204343.052964:INFO:CONSOLE(9)] "testRunDefault - 148 ms - [browser test-case 2 of 6 passed\</tspan>
+<tspan x="10" y="1162">] - testCase_jslint0_err", source: http://127.0.0.1:64858/assets.example.js (9)</tspan>
 
-<tspan x="10" y="1178">[1110/203748.876027:INFO:CONSOLE(9)] "testRunDefault - 158 ms - [browser test-case 3 of 6 passed\</tspan>
-<tspan x="10" y="1194">] - testCase_jslintAndPrintDir_coverage", source: http://127.0.0.1:34877/assets.example.js (9)</tspan>
+<tspan x="10" y="1178">[1110/204343.058795:INFO:CONSOLE(9)] "testRunDefault - 154 ms - [browser test-case 3 of 6 passed\</tspan>
+<tspan x="10" y="1194">] - testCase_jslintAndPrintDir_coverage", source: http://127.0.0.1:64858/assets.example.js (9)</tspan>
 
-<tspan x="10" y="1210">[1110/203748.883053:INFO:CONSOLE(9)] "testRunDefault - 165 ms - [browser test-case 4 of 6 passed\</tspan>
-<tspan x="10" y="1226">] - testCase_jslintAndPrint_coverage", source: http://127.0.0.1:34877/assets.example.js (9)</tspan>
+<tspan x="10" y="1210">[1110/204343.062549:INFO:CONSOLE(9)] "testRunDefault - 158 ms - [browser test-case 4 of 6 passed\</tspan>
+<tspan x="10" y="1226">] - testCase_jslintAndPrint_coverage", source: http://127.0.0.1:64858/assets.example.js (9)</tspan>
 
-<tspan x="10" y="1242">[1110/203748.907182:INFO:CONSOLE(9)] "testRunDefault - 189 ms - [browser test-case 5 of 6 passed\</tspan>
-<tspan x="10" y="1258">] - testCase_jslintAutofix_coverage", source: http://127.0.0.1:34877/assets.example.js (9)</tspan>
+<tspan x="10" y="1242">[1110/204343.079505:INFO:CONSOLE(9)] "testRunDefault - 175 ms - [browser test-case 5 of 6 passed\</tspan>
+<tspan x="10" y="1258">] - testCase_jslintAutofix_coverage", source: http://127.0.0.1:64858/assets.example.js (9)</tspan>
 
-<tspan x="10" y="1274">[1110/203748.913281:INFO:CONSOLE(9)] "testRunDefault - 195 ms - [browser test-case 6 of 6 passed\</tspan>
-<tspan x="10" y="1290">] - testCase_noop_default", source: http://127.0.0.1:34877/assets.example.js (9)</tspan>
+<tspan x="10" y="1274">[1110/204343.082561:INFO:CONSOLE(9)] "testRunDefault - 178 ms - [browser test-case 6 of 6 passed\</tspan>
+<tspan x="10" y="1290">] - testCase_noop_default", source: http://127.0.0.1:64858/assets.example.js (9)</tspan>
 
-<tspan x="10" y="1306">[1110/203748.927191:INFO:CONSOLE(9)] "domOnEventWindowOnloadTimeElapsed = 991", source: http://1\</tspan>
-<tspan x="10" y="1322">27.0.0.1:34877/assets.example.js (9)</tspan>
+<tspan x="10" y="1306">[1110/204343.102391:INFO:CONSOLE(9)] "domOnEventWindowOnloadTimeElapsed = 1031", source: http://\</tspan>
+<tspan x="10" y="1322">127.0.0.1:64858/assets.example.js (9)</tspan>
 
-<tspan x="10" y="1338">testRunDefault - 4015 ms - [node test-case 8 of 9 passed] - testCase_webpage_default</tspan>
+<tspan x="10" y="1338">testRunDefault - 3680 ms - [node test-case 8 of 9 passed] - testCase_webpage_default</tspan>
 
-<tspan x="10" y="1354">testRunDefault - 6368 ms - testCase pending - testCase_buildApp_default ...</tspan>
+<tspan x="10" y="1354">testRunDefault - 6129 ms - testCase pending - testCase_buildApp_default ...</tspan>
 
-<tspan x="10" y="1370">testRunDefault - 7153 ms - [node test-case 9 of 9 passed] - testCase_buildApp_default</tspan>
+<tspan x="10" y="1370">testRunDefault - 6897 ms - [node test-case 9 of 9 passed] - testCase_buildApp_default</tspan>
 
 <tspan x="10" y="1386">--------------|---------|---------|---------|---------|</tspan>
 
@@ -212,15 +212,15 @@
 <tspan x="10" y="1914">-------------------------------------------------------</tspan>
 
 <tspan x="10" y="1930">| test-report - npmTest - browser - / - Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTM\</tspan>
-<tspan x="10" y="1946">L, like Gecko) HeadlessChrome/86.0.4240.193 Safari/537.36 - 2020-11-10T20:37:48.083Z</tspan>
+<tspan x="10" y="1946">L, like Gecko) HeadlessChrome/86.0.4240.193 Safari/537.36 - 2020-11-10T20:43:42.214Z</tspan>
 
-<tspan x="10" y="1962">|     201 ms            0 failed        6 passed      |</tspan>
+<tspan x="10" y="1962">|     187 ms            0 failed        6 passed      |</tspan>
 
 <tspan x="10" y="1978">-------------------------------------------------------</tspan>
 
-<tspan x="10" y="1994">| test-report - npmTest - node - linux v15.1.0 - 2020-11-10T20:37:43.393Z</tspan>
+<tspan x="10" y="1994">| test-report - npmTest - node - linux v15.1.0 - 2020-11-10T20:43:37.894Z</tspan>
 
-<tspan x="10" y="2010">|    7154 ms            0 failed        9 passed      |</tspan>
+<tspan x="10" y="2010">|    6898 ms            0 failed        9 passed      |</tspan>
 
 <tspan x="10" y="2026">-------------------------------------------------------</tspan>
 
@@ -243,7 +243,7 @@
 
 <tspan x="10" y="2202"></tspan>
 
-<tspan x="10" y="2218">\x1b[35m[MODE_BUILD=npmTest]\x1b[0m - 2020-11-10T20:37:52.771Z - EXIT_CODE - 0</tspan>
+<tspan x="10" y="2218">\x1b[35m[MODE_BUILD=npmTest]\x1b[0m - 2020-11-10T20:43:46.916Z - EXIT_CODE - 0</tspan>
 
 </text>
 </svg>
