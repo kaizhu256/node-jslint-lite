@@ -302,7 +302,7 @@
         </td>
         <td>
             100%<br>
-            (145 / 145)
+            (134 / 134)
         </td>
         <td>
             100%<br>
@@ -314,7 +314,7 @@
         </td>
         <td>
             100%<br>
-            (145 / 145)
+            (134 / 134)
         </td>
     </tbody>
     </table>
@@ -1185,6 +1185,7 @@
 <a href="#l860" id="l860">860</a>
 <a href="#l861" id="l861">861</a>
 <a href="#l862" id="l862">862</a>
+<a href="#l863" id="l863">863</a>
 </td>
         <td class="line-coverage"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1361,17 +1362,18 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2</span>
-<span class="cline-any cline-yes">2</span>
-<span class="cline-any cline-yes">2</span>
-<span class="cline-any cline-yes">2</span>
-<span class="cline-any cline-yes">2</span>
-<span class="cline-any cline-yes">2</span>
-<span class="cline-any cline-yes">2</span>
-<span class="cline-any cline-yes">2</span>
-<span class="cline-any cline-yes">2</span>
-<span class="cline-any cline-yes">2</span>
-<span class="cline-any cline-yes">2</span>
-<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -2170,7 +2172,7 @@
      */
 <span class="cstat-skip" title="statement not covered">        return val;</span>
     }
-<span class="fstat-skip" title="function not covered">    function nop() {</span>
+<span class="fstat-skip" title="function not covered">    function noop() {</span>
     /*
      * this function will do nothing
      */
@@ -2224,19 +2226,20 @@
         });
     }
     // init local
-    local = {};
-    local.local = local;
+    local = {
+        assertJsonEqual,
+        assertOrThrow,
+        coalesce,
+        identity,
+        isBrowser,
+        isWebWorker,
+        local,
+        noop,
+        objectAssignDefault,
+        objectDeepCopyWithKeysSorted,
+        onErrorThrow
+    };
     globalThis.globalLocal = local;
-    local.assertJsonEqual = assertJsonEqual;
-    local.assertOrThrow = assertOrThrow;
-    local.coalesce = coalesce;
-    local.identity = identity;
-    local.isBrowser = isBrowser;
-    local.isWebWorker = isWebWorker;
-    local.nop = nop;
-    local.objectAssignDefault = objectAssignDefault;
-    local.objectDeepCopyWithKeysSorted = objectDeepCopyWithKeysSorted;
-    local.onErrorThrow = onErrorThrow;
 }());
 // assets.utility2.header.js - end
 
@@ -2840,8 +2843,8 @@ local.testCase_jslintAutofix_coverage = function (opt, onError) {
                 ? {}
                 : require("fs")
             ), {
-                unlinkSync: local.nop,
-                writeFileSync: local.nop
+                unlinkSync: local.noop,
+                writeFileSync: local.noop
             }
         ],
         [
@@ -2851,8 +2854,8 @@ local.testCase_jslintAutofix_coverage = function (opt, onError) {
                 : require("fs")
             ), {
                 existsSync: local.identity,
-                unlinkSync: local.nop,
-                writeFileSync: local.nop
+                unlinkSync: local.noop,
+                writeFileSync: local.noop
             }
         ]
     ], function (onError) {

@@ -93,7 +93,7 @@
 
             <a class="apidocElementLiA" href="#apidoc.elem.jslint-lite.cliRun">
             function <span class="apidocSignatureSpan">jslint-lite.</span>cliRun
-            <span class="apidocSignatureSpan">(opt)</span>
+            <span class="apidocSignatureSpan">({ rgxComment })</span>
             </a>
 
         </li>
@@ -145,8 +145,8 @@
 
         <li>
 
-            <a class="apidocElementLiA" href="#apidoc.elem.jslint-lite.nop">
-            function <span class="apidocSignatureSpan">jslint-lite.</span>nop
+            <a class="apidocElementLiA" href="#apidoc.elem.jslint-lite.noop">
+            function <span class="apidocSignatureSpan">jslint-lite.</span>noop
             <span class="apidocSignatureSpan">()</span>
             </a>
 
@@ -218,12 +218,6 @@
         <li>
 
             <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">jslint-lite.</span>jslintResult</span>
-
-        </li>
-
-        <li>
-
-            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">jslint-lite.</span>local</span>
 
         </li>
 
@@ -630,21 +624,21 @@ local.testCase_jslintAndPrint_coverage = function (opt, onError) {
     );
 }</pre></li>
     <li>example use<pre class="apidocCodePre">...
-        argList: local.coalesce(commandList[ii][1], &quot;&quot;).trim(),
-        command: [
-            key
-        ],
-        description: commandList[ii][2]
-    };
-} catch (ignore) {
-    local.<span class="apidocCodeKeywordSpan">assertOrThrow</span>(undefined, new Error(
-        &quot;cliRun - cannot parse comment in COMMAND &quot;
-        + key
-        + &quot;:\nnew RegExp(&quot;
-        + JSON.stringify(opt.rgxComment.source)
-        + &quot;).exec(&quot; + JSON.stringify(str).replace((
-            /\\\\/g
-        ), &quot;\u0000&quot;).replace((
+strDict[str] = strDict[str] || (ii + 2);
+ii = strDict[str];
+if (commandList[ii]) {
+    commandList[ii].command.push(key);
+    return;
+}
+commandList[ii] = rgxComment.exec(str);
+local.<span class="apidocCodeKeywordSpan">assertOrThrow</span>(commandList[ii], (
+    &quot;cliRun - cannot parse comment in COMMAND &quot;
+    + key
+    + &quot;:\nnew RegExp(&quot;
+    + JSON.stringify(rgxComment.source)
+    + &quot;).exec(&quot; + JSON.stringify(str).replace((
+        /\\\\/g
+    ), &quot;\u0000&quot;).replace((
 ...</pre></li>
     </ul>
 
@@ -653,13 +647,13 @@ local.testCase_jslintAndPrint_coverage = function (opt, onError) {
     <h2>
         <a href="#apidoc.elem.jslint-lite.cliRun" id="apidoc.elem.jslint-lite.cliRun">
         function <span class="apidocSignatureSpan">jslint-lite.</span>cliRun
-        <span class="apidocSignatureSpan">(opt)</span>
+        <span class="apidocSignatureSpan">({ rgxComment })</span>
         </a>
     </h2>
     <ul>
-    <li>description and source-code<pre class="apidocCodePre">cliRun = function (opt) {
+    <li>description and source-code<pre class="apidocCodePre">cliRun = function ({ rgxComment }) {
 <span class="apidocCodeCommentSpan">/*
- * this function will run cli with given &lt;opt&gt;
+ * this function will run cli
  */
 </span>    let cliDict;
     cliDict = local.cliDict;
@@ -699,10 +693,9 @@ local.testCase_jslintAndPrint_coverage = function (opt, onError) {
         file = __filename.replace((
             /.*\//
         ), &quot;&quot;);
-        opt = Object.assign({}, opt);
         packageJson = require(&quot;./package.json&quot;);
         // validate comment
-        opt.rgxComment = opt.rgxComment || (
+        rgxComment = rgxComment || (
             /\)\u0020\{\n(?:|\u0020{4})\/\*\n(?:\u0020|\u0020{5})\*((?:\u0020&lt;[^&gt;]*?&gt;|\u0020\.\.\.)*?)\n(?:\u0020|\u0020{5})\*\u0020
 (will\u0020.*?\S)\n(?:\u0020|\u0020{5})\*\/\n(?:\u0020{4}|\u0020{8})\S/
         );
@@ -721,30 +714,27 @@ local.testCase_jslintAndPrint_coverage = function (opt, onError) {
                 commandList[ii].command.push(key);
                 return;
             }
-            try {
-                commandList[ii] = opt.rgxComment.exec(str);
-                commandList[ii] = {
-                    argList: local.coalesce(commandList[ii][1], &quot;&quot;).trim(),
-                    command: [
-                        key
-                    ],
-                    description: commandList[ii][2]
-                };
-            } catch (ignore) {
-                local.assertOrThrow(undefined, new Error(
-                    &quot;cliRun - cannot parse comment in COMMAND &quot;
-                    + key
-                    + &quot;:\nnew RegExp(&quot;
-                    + JSON.stringify(opt.rgxComment.source)
-                    + &quot;).exec(&quot; + JSON.stringify(str).replace((
-                        /\\\\/g
-                    ), &quot;\u0000&quot;).replace((
-                        /\\n/g
-                    ), &quot;\\n\\\n&quot;).replace((
-                        /\u0000/g
-                    ), &quot;\\\\&quot;) + &quot;);&quot;
-                ));
-            }
+            commandList[ii] = rgxComment.exec(str);
+            local.assertOrThrow(commandList[ii], (
+                &quot;cliRun - cannot parse comment in COMMAND &quot;
+                + key
+                + &quot;:\nnew RegExp(&quot;
+                + JSON.stringify(rgxComment.source)
+                + &quot;).exec(&quot; + JSON.stringify(str).replace((
+                    /\\\\/g
+                ), &quot;\u0000&quot;).replace((
+                    /\\n/g
+                ), &quot;\\n\\\n&quot;).replace((
+                    /\u0000/g
+                ), &quot;\\\\&quot;) + &quot;);&quot;
+            ));
+            commandList[ii] = {
+                argList: local.coalesce(commandList[ii][1], &quot;&quot;).trim(),
+                command: [
+                    key
+                ],
+                description: commandList[ii][2]
+            };
         });
         str = &quot;&quot;;
         str += packageJson.name + &quot; (&quot; + packageJson.version + &quot;)\n\n&quot;;
@@ -770,7 +760,12 @@ local.testCase_jslintAndPrint_coverage = function (opt, onError) {
                 );
             }
             return (
-                elem.description + &quot;\n  &quot; + file...</pre></li>
+                elem.description + &quot;\n  &quot; + file
+                + &quot;  &quot; + elem.command.sort().join(&quot;|&quot;) + &quot;  &quot;
+                + elem.argList.join(&quot;  &quot;)
+            );
+        }).join(&quot;\n\n&quot;);
+        console.log(str);...</pre></li>
     <li>example use<pre class="apidocCodePre">n/a</pre></li>
     </ul>
 
@@ -800,12 +795,12 @@ local.testCase_jslintAndPrint_coverage = function (opt, onError) {
     return arg;
 }</pre></li>
     <li>example use<pre class="apidocCodePre">...
-if (commandList[ii]) {
-    commandList[ii].command.push(key);
-    return;
-}
-try {
-    commandList[ii] = opt.rgxComment.exec(str);
+        ), &quot;\u0000&quot;).replace((
+            /\\n/g
+        ), &quot;\\n\\\n&quot;).replace((
+            /\u0000/g
+        ), &quot;\\\\&quot;) + &quot;);&quot;
+    ));
     commandList[ii] = {
         argList: local.<span class="apidocCodeKeywordSpan">coalesce</span>(commandList[ii][1], &quot;&quot;).trim(),
         command: [
@@ -813,8 +808,8 @@ try {
         ],
         description: commandList[ii][2]
     };
-} catch (ignore) {
-    local.assertOrThrow(undefined, new Error(
+});
+str = &quot;&quot;;
 ...</pre></li>
     </ul>
 
@@ -1137,13 +1132,13 @@ Promise.all([
 
 
     <h2>
-        <a href="#apidoc.elem.jslint-lite.nop" id="apidoc.elem.jslint-lite.nop">
-        function <span class="apidocSignatureSpan">jslint-lite.</span>nop
+        <a href="#apidoc.elem.jslint-lite.noop" id="apidoc.elem.jslint-lite.noop">
+        function <span class="apidocSignatureSpan">jslint-lite.</span>noop
         <span class="apidocSignatureSpan">()</span>
         </a>
     </h2>
     <ul>
-    <li>description and source-code<pre class="apidocCodePre">function nop() {
+    <li>description and source-code<pre class="apidocCodePre">function noop() {
 <span class="apidocCodeCommentSpan">/*
  * this function will do nothing
  */
@@ -1258,8 +1253,6 @@ globalThis.domOnEventDelegateDict = local;
 }</pre></li>
     <li>example use<pre class="apidocCodePre">n/a</pre></li>
     </ul>
-
-
 
 
 

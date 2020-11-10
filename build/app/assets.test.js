@@ -118,7 +118,7 @@
      */
         return val;
     }
-    function nop() {
+    function noop() {
     /*
      * this function will do nothing
      */
@@ -172,19 +172,20 @@
         });
     }
     // init local
-    local = {};
-    local.local = local;
+    local = {
+        assertJsonEqual,
+        assertOrThrow,
+        coalesce,
+        identity,
+        isBrowser,
+        isWebWorker,
+        local,
+        noop,
+        objectAssignDefault,
+        objectDeepCopyWithKeysSorted,
+        onErrorThrow
+    };
     globalThis.globalLocal = local;
-    local.assertJsonEqual = assertJsonEqual;
-    local.assertOrThrow = assertOrThrow;
-    local.coalesce = coalesce;
-    local.identity = identity;
-    local.isBrowser = isBrowser;
-    local.isWebWorker = isWebWorker;
-    local.nop = nop;
-    local.objectAssignDefault = objectAssignDefault;
-    local.objectDeepCopyWithKeysSorted = objectDeepCopyWithKeysSorted;
-    local.onErrorThrow = onErrorThrow;
 }());
 // assets.utility2.header.js - end
 
@@ -788,8 +789,8 @@ local.testCase_jslintAutofix_coverage = function (opt, onError) {
                 ? {}
                 : require("fs")
             ), {
-                unlinkSync: local.nop,
-                writeFileSync: local.nop
+                unlinkSync: local.noop,
+                writeFileSync: local.noop
             }
         ],
         [
@@ -799,8 +800,8 @@ local.testCase_jslintAutofix_coverage = function (opt, onError) {
                 : require("fs")
             ), {
                 existsSync: local.identity,
-                unlinkSync: local.nop,
-                writeFileSync: local.nop
+                unlinkSync: local.noop,
+                writeFileSync: local.noop
             }
         ]
     ], function (onError) {
