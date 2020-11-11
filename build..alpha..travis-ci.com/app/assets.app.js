@@ -33781,7 +33781,7 @@ local.browserTest = function ({
     url
 }, onError) {
 /*
- * this function will spawn google-puppeteer-process to test <url>
+ * this function will spawn google-chrome-process to test <url>
  */
     let chromeClient;
     let fileScreenshot;
@@ -33835,6 +33835,9 @@ local.browserTest = function ({
         });
     }).then(function (data) {
         chromeClient = data;
+        return chromeClient.navigate({
+            url
+        });
     }).then(function () {
         promiseList = [];
         promiseList.push(chromeClient.screenshot({
@@ -34616,8 +34619,7 @@ local.chromeDevtoolsClientCreate = function ({
     modeMockProcessPlatform,
     modeSilent,
     processPlatform,
-    timeout,
-    url
+    timeout
 }) {
 /*
  * this function with create chrome-devtools-client from <chromeBin>
@@ -34661,7 +34663,9 @@ local.chromeDevtoolsClientCreate = function ({
                 }
             } catch (ignore) {}
             // rm -rf <chromeUserDataDir>
-            local.fsRmrfSync(chromeUserDataDir);
+            require("fs").rmdirSync(chromeUserDataDir, {
+                recursive: true
+            });
             // destroy <chromeClient>, <websocket>, <wsReader>
             chromeClient.destroy();
             try {
@@ -34698,10 +34702,10 @@ local.chromeDevtoolsClientCreate = function ({
         /*
          * this function will implement stream.Duplex.prototype._write
          */
+            // console.error("SEND \u25ba " + payload.slice(0, 256).toString());
             let header;
             let maskKey;
             let result;
-            // console.error("SEND \u25ba " + payload.slice(0, 256).toString());
             // init header
             header = Buffer.alloc(2 + 8 + 4);
             // init fin = true
@@ -34763,35 +34767,72 @@ local.chromeDevtoolsClientCreate = function ({
                 return result.value;
             });
         };
-        chromeClient.on("data", function (evt) {
+        chromeClient.on("data", function (payload) {
         /*
-         * this function will handle callback for <evt>
+         * this function will handle callback for <payload>
          * received from chrome-browser using chrome-devtools-protocol
          */
-            // console.error("\u25c0 RECV " + evt.slice(0, 256).toString());
+            // console.error("\u25c0 RECV " + payload.slice(0, 256).toString());
             let callback;
-            // init evt
-            evt = JSON.parse(evt);
-            local.assertOrThrow(!evt.method || (
+            let {
+                method,
+                id,
+                error,
+                params,
+                result
+            } = JSON.parse(payload);
+            local.assertOrThrow(!method || (
                 /^[A-Z]\w*?\.[a-z]\w*?$/
-            ).test(evt.method), new Error(
-                "chrome-devtools - invalid evt.method " + evt.method
+            ).test(method), new Error(
+                "chrome-devtools - invalid method " + method
             ));
             // init callback
-            callback = callbackDict[evt.id];
-            delete callbackDict[evt.id];
+            callback = callbackDict[id];
+            delete callbackDict[id];
             // callback.resolve
             if (callback) {
                 // preserve stack-trace
                 callback.err.message = "chrome-devtools - "
-                + JSON.stringify(evt.error);
-                local.assertOrThrow(!evt.error, callback.err);
-                callback.resolve(evt.result);
+                + JSON.stringify(error);
+                local.assertOrThrow(!error, callback.err);
+                callback.resolve(result);
                 return;
             }
-            local.assertOrThrow(!evt.error, "chrome-devtools - " + evt.error);
-            chromeClient.emit(evt.method, evt.params);
+            local.assertOrThrow(!error, "chrome-devtools - " + error);
+            chromeClient.emit(method, params);
         });
+        chromeClient.navigate = function ({
+            url
+        }) {
+        /*
+         * this function will navigate to webpage <url>
+         */
+            let chromeFrameId;
+            console.error("chrome-devtools - Page.navigate " + url);
+            chromeClient.rpc("Page.navigate", {
+                url
+            });
+            // wait for page to load
+            chromeClient.rpc("Page.getFrameTree").then(function ({
+                frameTree
+            }) {
+                chromeFrameId = frameTree.frame.id;
+            });
+            return new Promise(function (resolve) {
+                chromeClient.on("Page.lifecycleEvent", function onLoad({
+                    frameId,
+                    name
+                }) {
+                    if (frameId === chromeFrameId && name === "load") {
+                        chromeClient.removeListener(
+                            "Page.lifecycleEvent",
+                            onLoad
+                        );
+                        resolve();
+                    }
+                });
+            });
+        };
         chromeClient.rpc = function (method, params) {
         /*
          * this function will message-pass
@@ -35056,20 +35097,26 @@ Application data: y bytes
             require("os").tmpdir(),
             "puppeteer_dev_profile-"
         ));
+        chromeBin = chromeBin || (
+            processPlatform === "darwin"
+            ? "/Applications/Google Chrome.app/Contents/MacOS/"
+            + "Google Chrome"
+            : processPlatform === "win32"
+            ? "C:\\Program Files (x86)\\Google\\Chrome\\Application\\"
+            + "chrome.exe"
+            : "/usr/bin/google-chrome-stable"
+        );
+        console.error("chrome-devtools - spawn " + chromeBin);
         chromeProcess = require("child_process").spawn((
-            chromeBin || (
-                processPlatform === "darwin"
-                ? "/Applications/Google Chrome.app/Contents/MacOS/"
-                + "Google Chrome"
-                : processPlatform === "win32"
-                ? "C:\\Program Files (x86)\\Google\\Chrome\\Application\\"
-                + "chrome.exe"
-                : "/usr/bin/google-chrome-stable"
-            )
+            chromeBin
         ), [
             "--headless",
             "--incognito",
-            "--no-sandbox",
+            (
+                processPlatform === "linux"
+                ? "--no-sandbox"
+                : ""
+            ),
             "--remote-debugging-port=0",
             "--user-data-dir=" + chromeUserDataDir
         ], {
@@ -35125,6 +35172,9 @@ Application data: y bytes
      * this function will init <websocket>
      */
         let secWebsocketKey;
+        console.error(
+            "chrome-devtools - connect websocket " + websocketUrl
+        );
         secWebsocketKey = require("crypto").randomBytes(16).toString("base64");
         return new Promise(function (resolve) {
             require("http").get(Object.assign(require("url").parse(
@@ -35169,6 +35219,7 @@ Application data: y bytes
     /*
      * this function will init <chromeSessionId>
      */
+        console.error("chrome-devtools - Target.createTarget about:blank");
         return chromeClient.rpc("Target.createTarget", {
             url: "about:blank"
         }).then(function (data) {
@@ -35185,7 +35236,6 @@ Application data: y bytes
     /*
      * this function will navigate chrome to <url>
      */
-        let frameId;
         // init screensize
         chromeClient.rpc("Emulation.setDeviceMetricsOverride", {
             deviceScaleFactor: 1,
@@ -35203,27 +35253,6 @@ Application data: y bytes
             enabled: true
         });
         chromeClient.rpc("Performance.enable", undefined);
-        // navigate page to url
-        chromeClient.rpc("Page.navigate", {
-            url
-        });
-        // wait for page to load
-        chromeClient.rpc("Page.getFrameTree").then(function ({
-            frameTree
-        }) {
-            frameId = frameTree.frame.id;
-        });
-        return new Promise(function (resolve) {
-            chromeClient.on("Page.lifecycleEvent", function onLoad(evt) {
-                if (evt.frameId === frameId && evt.name === "load") {
-                    chromeClient.removeListener(
-                        "Page.lifecycleEvent",
-                        onLoad
-                    );
-                    resolve();
-                }
-            });
-        });
     }).then(function () {
     /*
      * this function will resolve <chromeClient>
