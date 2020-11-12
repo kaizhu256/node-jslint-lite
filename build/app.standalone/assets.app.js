@@ -76036,8 +76036,8 @@ local.jslint0 = Object.freeze(function (\n\
         // expected_a_before_b: \"Expected '{a}' before '{b}'.\",\n\
         case \"expected_a_before_b\":\n\
             bb = (\n\
-                aa.slice(0, warning.column) + warning.a\n\
-                + aa.slice(warning.column)\n\
+                aa.slice(0, warning.column - 1) + warning.a\n\
+                + aa.slice(warning.column - 1)\n\
             );\n\
             break;\n\
         // expected_identifier_a:\n\
@@ -93480,8 +93480,8 @@ local.jslint0 = Object.freeze(function (
         // expected_a_before_b: "Expected '{a}' before '{b}'.",
         case "expected_a_before_b":
             bb = (
-                aa.slice(0, warning.column) + warning.a
-                + aa.slice(warning.column)
+                aa.slice(0, warning.column - 1) + warning.a
+                + aa.slice(warning.column - 1)
             );
             break;
         // expected_identifier_a:
