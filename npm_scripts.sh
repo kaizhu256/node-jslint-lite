@@ -3,7 +3,8 @@
 
 shMain () {(set -e
 # this function will run the main program
-    printf "running command 'npm run $*' ...\n" 1>&2
+    local ARG1
+    printf "# start run command 'npm run $*'\n" 1>&2
     UTILITY2_BIN=utility2
     if [ -f lib.utility2.sh ]
     then
@@ -16,7 +17,7 @@ shMain () {(set -e
     # run command - default
     case "$ARG1" in
     build-ci)
-        "$UTILITY2_BIN" shReadmeTest build_ci.sh
+        "$UTILITY2_BIN" shReadmeEval build_ci.sh
         ;;
     eval)
         shift
@@ -49,14 +50,14 @@ shMain () {(set -e
         then
             export npm_config_mode_auto_restart=1
         fi
-        export PORT=$(utility2 shServerPortRandom)
+        export PORT=$($UTILITY2_BIN shServerPortRandom)
         "$UTILITY2_BIN" test test.js
         ;;
     utility2)
         "$@"
         ;;
     esac
-    printf "... finished running command 'npm run $*'\n" 1>&2
+    printf "# end run command 'npm run $*'\n" 1>&2
 )}
 
 # run command

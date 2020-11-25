@@ -118,7 +118,7 @@
      */
         return val;
     }
-    function nop() {
+    function noop() {
     /*
      * this function will do nothing
      */
@@ -172,19 +172,20 @@
         });
     }
     // init local
-    local = {};
-    local.local = local;
+    local = {
+        assertJsonEqual,
+        assertOrThrow,
+        coalesce,
+        identity,
+        isBrowser,
+        isWebWorker,
+        local,
+        noop,
+        objectAssignDefault,
+        objectDeepCopyWithKeysSorted,
+        onErrorThrow
+    };
     globalThis.globalLocal = local;
-    local.assertJsonEqual = assertJsonEqual;
-    local.assertOrThrow = assertOrThrow;
-    local.coalesce = coalesce;
-    local.identity = identity;
-    local.isBrowser = isBrowser;
-    local.isWebWorker = isWebWorker;
-    local.nop = nop;
-    local.objectAssignDefault = objectAssignDefault;
-    local.objectDeepCopyWithKeysSorted = objectDeepCopyWithKeysSorted;
-    local.onErrorThrow = onErrorThrow;
 }());
 // assets.utility2.header.js - end
 
@@ -736,14 +737,14 @@ local.testCase_jslintAndPrintDir_coverage = function (opt, onError) {
     Promise.all([
         new Promise(function (resolve) {
             local.jslintAndPrintDir(".", {
-                autofix: true,
-                conditional: true
+                modeAutofix: true,
+                modeConditional: true
             }, resolve);
         }),
         new Promise(function (resolve) {
             local.jslintAndPrintDir("jslintAndPrintDir", {
-                autofix: true,
-                conditional: true
+                modeAutofix: true,
+                modeConditional: true
             });
             local.eventListenerAdd((
                 "utility2.testRunMock.process.exit"
@@ -788,8 +789,8 @@ local.testCase_jslintAutofix_coverage = function (opt, onError) {
                 ? {}
                 : require("fs")
             ), {
-                unlinkSync: local.nop,
-                writeFileSync: local.nop
+                unlinkSync: local.noop,
+                writeFileSync: local.noop
             }
         ],
         [
@@ -799,18 +800,18 @@ local.testCase_jslintAutofix_coverage = function (opt, onError) {
                 : require("fs")
             ), {
                 existsSync: local.identity,
-                unlinkSync: local.nop,
-                writeFileSync: local.nop
+                unlinkSync: local.noop,
+                writeFileSync: local.noop
             }
         ]
     ], function (onError) {
         // test autofix-failed-expected_identifier_a handling-behavior
         local.jslintAndPrint("(function () {\nfunction () {}\n}());", "aa.js", {
-            autofix: true
+            modeAutofix: true
         });
         // test autofix-multi-pass handling-behavior
         local.jslintAndPrint("let aa;aa=1;", "aa.js", {
-            autofix: true
+            modeAutofix: true
         });
         local.jslintAndPrint((
             // autofix-js - unexpected_space_a_b
@@ -820,11 +821,11 @@ local.testCase_jslintAutofix_coverage = function (opt, onError) {
             + "     return 1;\n"
             + "}());\n"
         ), "aa.js", {
-            autofix: true
+            modeAutofix: true
         });
         // de-mux - false-positive rgx /_/
         local.jslintAndPrint("let aa;\n aa = {} / 2;", "aa.js", {
-            autofix: true
+            modeAutofix: true
         });
         local.jslintAndPrint((
             "(function () {\n"
@@ -853,7 +854,7 @@ local.testCase_jslintAutofix_coverage = function (opt, onError) {
             + "    return aa;\n"
             + "}());\n"
         ), "aa.js", {
-            autofix: true
+            modeAutofix: true
         });
         onError(undefined, opt);
     }, onError);

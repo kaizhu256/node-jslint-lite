@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /*
- * lib.jslint.js (2020.10.27)
+ * lib.jslint.js (2020.11.3)
  * https://github.com/kaizhu256/node-jslint-lite
  * this zero-dependency package will provide browser-compatible versions of jslint (v2020.7.2) and csslint (v2018.2.25), with working web-demo
  *
@@ -127,7 +127,7 @@
      */
         return val;
     }
-    function nop() {
+    function noop() {
     /*
      * this function will do nothing
      */
@@ -181,19 +181,20 @@
         });
     }
     // init local
-    local = {};
-    local.local = local;
+    local = {
+        assertJsonEqual,
+        assertOrThrow,
+        coalesce,
+        identity,
+        isBrowser,
+        isWebWorker,
+        local,
+        noop,
+        objectAssignDefault,
+        objectDeepCopyWithKeysSorted,
+        onErrorThrow
+    };
     globalThis.globalLocal = local;
-    local.assertJsonEqual = assertJsonEqual;
-    local.assertOrThrow = assertOrThrow;
-    local.coalesce = coalesce;
-    local.identity = identity;
-    local.isBrowser = isBrowser;
-    local.isWebWorker = isWebWorker;
-    local.nop = nop;
-    local.objectAssignDefault = objectAssignDefault;
-    local.objectDeepCopyWithKeysSorted = objectDeepCopyWithKeysSorted;
-    local.onErrorThrow = onErrorThrow;
 }());
 // assets.utility2.header.js - end
 
@@ -224,9 +225,11 @@ local.jslint = local;
 
 
 /* validateLineSortedReset */
-local.cliRun = function (opt) {
+local.cliRun = function ({
+    rgxComment
+}) {
 /*
- * this function will run cli with given <opt>
+ * this function will run cli
  */
     let cliDict;
     cliDict = local.cliDict;
@@ -266,10 +269,9 @@ local.cliRun = function (opt) {
         file = __filename.replace((
             /.*\//
         ), "");
-        opt = Object.assign({}, opt);
         packageJson = require("./package.json");
         // validate comment
-        opt.rgxComment = opt.rgxComment || (
+        rgxComment = rgxComment || (
             /\)\u0020\{\n(?:|\u0020{4})\/\*\n(?:\u0020|\u0020{5})\*((?:\u0020<[^>]*?>|\u0020\.\.\.)*?)\n(?:\u0020|\u0020{5})\*\u0020(will\u0020.*?\S)\n(?:\u0020|\u0020{5})\*\/\n(?:\u0020{4}|\u0020{8})\S/
         );
         strDict = {};
@@ -287,30 +289,27 @@ local.cliRun = function (opt) {
                 commandList[ii].command.push(key);
                 return;
             }
-            try {
-                commandList[ii] = opt.rgxComment.exec(str);
-                commandList[ii] = {
-                    argList: local.coalesce(commandList[ii][1], "").trim(),
-                    command: [
-                        key
-                    ],
-                    description: commandList[ii][2]
-                };
-            } catch (ignore) {
-                local.assertOrThrow(undefined, new Error(
-                    "cliRun - cannot parse comment in COMMAND "
-                    + key
-                    + ":\nnew RegExp("
-                    + JSON.stringify(opt.rgxComment.source)
-                    + ").exec(" + JSON.stringify(str).replace((
-                        /\\\\/g
-                    ), "\u0000").replace((
-                        /\\n/g
-                    ), "\\n\\\n").replace((
-                        /\u0000/g
-                    ), "\\\\") + ");"
-                ));
-            }
+            commandList[ii] = rgxComment.exec(str);
+            local.assertOrThrow(commandList[ii], (
+                "cliRun - cannot parse comment in COMMAND "
+                + key
+                + ":\nnew RegExp("
+                + JSON.stringify(rgxComment.source)
+                + ").exec(" + JSON.stringify(str).replace((
+                    /\\\\/g
+                ), "\u0000").replace((
+                    /\\n/g
+                ), "\\n\\\n").replace((
+                    /\u0000/g
+                ), "\\\\") + ");"
+            ));
+            commandList[ii] = {
+                argList: local.coalesce(commandList[ii][1], "").trim(),
+                command: [
+                    key
+                ],
+                description: commandList[ii][2]
+            };
         });
         str = "";
         str += packageJson.name + " (" + packageJson.version + ")\n\n";
@@ -11134,16 +11133,16 @@ return CSSLint;
 
 
 /*
-repo https://github.com/douglascrockford/JSLint/tree/873a757ad7060e778a85b1bcd4a03d9e9f334a3b
-committed 2020-10-24T03:28:10Z
+repo https://github.com/douglascrockford/JSLint/tree/bca8b225a376352899d634442802b241fee8b97b
+committed 2020-11-06T17:58:13Z
 */
 
 
 /*
-file https://github.com/douglascrockford/JSLint/blob/873a757ad7060e778a85b1bcd4a03d9e9f334a3b/jslint.js
+file https://github.com/douglascrockford/JSLint/blob/bca8b225a376352899d634442802b241fee8b97b/jslint.js
 */
 // jslint.js
-// 2020-10-21
+// 2020-11-06
 // Copyright (c) 2015 Douglas Crockford  (www.JSLint.com)
 
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -11826,7 +11825,7 @@ function tokenize(source) {
             && !regexp_seen
             // hack-jslint - ignore too_long url
             && !(
-                option.utility2
+                option.modeUtility2
                 && (
                     /^\s*?(?:\/\/(?:!!\u0020|\u0020https:\/\/)|(?:\S+?\u0020)?(?:https:\/\/|this\u0020.*?\u0020package\u0020will\u0020))/m
                 ).test(whole_line)
@@ -11872,7 +11871,7 @@ function tokenize(source) {
                 option.node = true;
                 option.nomen = true;
                 option.this = true;
-                option.utility2 = true;
+                option.modeUtility2 = true;
                 [].concat(
                     allowed_option.browser,
                     allowed_option.node,
@@ -15964,7 +15963,7 @@ function whitage() {
                         open = true;
                         // hack-jslint - conditional-margin
                         if (
-                            !option.utility2
+                            !option.modeUtility2
                             || lines[right.line].startsWith(" ")
                         ) {
                             margin += 4;
@@ -16095,21 +16094,6 @@ function whitage() {
                         || (left.id === ")" && right.id === "{")
                     ) {
                         one_space_only();
-                    } else if (
-                        left.id === "var"
-                        || left.id === "const"
-                        || left.id === "let"
-                    ) {
-                        push();
-                        closer = ";";
-                        free = false;
-                        open = left.open;
-                        if (open) {
-                            margin = margin + 4;
-                            at_margin(0);
-                        } else {
-                            one_space_only();
-                        }
                     } else if (
 
 // There is a space between left and right.
@@ -16297,7 +16281,7 @@ local.jslint0 = Object.freeze(function (
         }
         aa = lines_extra[warning.line].source;
         warning.a = warning.a || aa.trim();
-        switch (option.autofix && warning.code) {
+        switch (option.modeAutofix && warning.code) {
         // expected_a_at_b_c: "Expected '{a}' at column {b}, not column {c}.",
         case "expected_a_at_b_c":
             // autofix indent - increment
@@ -16335,8 +16319,8 @@ local.jslint0 = Object.freeze(function (
         // expected_a_before_b: "Expected '{a}' before '{b}'.",
         case "expected_a_before_b":
             bb = (
-                aa.slice(0, warning.column) + warning.a
-                + aa.slice(warning.column)
+                aa.slice(0, warning.column - 1) + warning.a
+                + aa.slice(warning.column - 1)
             );
             break;
         // expected_identifier_a:
@@ -16409,7 +16393,7 @@ local.jslint0 = Object.freeze(function (
     });
     // hack-jslint - debug warning
     warnings.some(function (warning) {
-        if (!option.utility2) {
+        if (!option.modeUtility2) {
             return true;
         }
         warning.option = Object.assign({}, option);
@@ -16422,7 +16406,7 @@ local.jslint0 = Object.freeze(function (
     });
     return {
         directives,
-        edition: "2020-10-21",
+        edition: "2020-11-06",
         exports,
         froms,
         functions,
@@ -16444,10 +16428,8 @@ local.jslint0 = Object.freeze(function (
         tree,
         // hack-jslint - sort by early_stop
         warnings: warnings.sort(function (a, b) {
-            return (
-                Boolean(a.early_stop) * -1
-                + Boolean(b.early_stop) * 1
-            ) || (a.line - b.line);
+            return Boolean(b.early_stop) - Boolean(a.early_stop)
+            || (a.line - b.line);
         }),
         // hack-jslint - autofix
         source_autofixed: lines_extra.map(function (element, ii) {
@@ -16525,9 +16507,9 @@ jslintAutofix = function (code, file, opt, {fileType, globalList, iiLine}) {
         // autofix-html - recurse <script>...</script>, <style>...</style>
         code = code.replace((
             /^(\/\*\u0020jslint\u0020utility2:true\u0020\*\/\n[\S\s]*?\n)(<\/(?:script|style)>)$/gm
-        ), function (ignore, match1, match2, ii) {
+        ), function (ignore, match1, footer, ii) {
             return jslintRecurse(code, file + (
-                match2.indexOf("style") >= 0
+                footer === "</style>"
                 ? ".<style>.css"
                 : ".<script>.js"
             ), opt, {
@@ -16535,7 +16517,7 @@ jslintAutofix = function (code, file, opt, {fileType, globalList, iiLine}) {
                 iiEnd: ii + match1.length,
                 iiLine,
                 iiStart: ii
-            }) + match2;
+            }) + footer;
         });
         break;
     case ".js":
@@ -16807,9 +16789,6 @@ jslintRecurse = function (code, file, opt, {
     let errMsg;
     let fileType;
     let globalList;
-    let modeAutofix;
-    let modeConditional;
-    let modeCoverage;
     let result;
     let tmp;
     // init opt
@@ -16824,9 +16803,6 @@ jslintRecurse = function (code, file, opt, {
         /\.\w+?$|$/m
     ).exec(file)[0];
     globalList = opt.globalList;
-    modeAutofix = opt.autofix;
-    modeConditional = opt.conditional;
-    modeCoverage = opt.coverage;
     result = {};
     // preserve lineno - save iiLine
     iiLine += stringGetLineAndCol(code, iiStart).line;
@@ -16878,13 +16854,13 @@ jslintRecurse = function (code, file, opt, {
     }
     // init mode-utility2
     tmp = tmp[fileType] && tmp[fileType].exec(code.slice(0, 4096));
-    opt.utility2 = Boolean((tmp && tmp[1]) || modeAutofix);
+    opt.modeUtility2 = Boolean((tmp && tmp[1]) || opt.modeAutofix);
     // if not modeConditional, then do not jslint
-    if ((modeConditional && !tmp) || modeCoverage) {
+    if (opt.modeConditional && !tmp) {
         return code;
     }
     // jslint - modeAutofix
-    if (modeAutofix) {
+    if (opt.modeAutofix) {
         code = jslintAutofix(code, file, opt, {
             fileType,
             globalList,
@@ -16909,6 +16885,12 @@ jslintRecurse = function (code, file, opt, {
         });
         break;
     case ".html":
+        jslintAutofix(code, file, opt, {
+            fileType,
+            globalList,
+            iiLine
+        });
+        break;
     case ".md":
     case ".sh":
         break;
@@ -16934,7 +16916,7 @@ jslintRecurse = function (code, file, opt, {
             return err;
         });
     }
-    if (opt.utility2) {
+    if (opt.modeUtility2) {
         jslintUtility2({
             code,
             errList,
@@ -16980,7 +16962,7 @@ jslintRecurse = function (code, file, opt, {
     // autofix-save
     if (
         !local.isBrowser
-        && modeAutofix
+        && opt.modeAutofix
         && !fileType0
         && !result.stop
         && code !== code0
@@ -17433,8 +17415,8 @@ local.cliDict._default = function () {
             require("fs").readFileSync(require("path").resolve(file), "utf8"),
             file,
             {
-                autofix: process.argv.indexOf("--autofix") >= 0,
-                conditional: process.argv.indexOf("--conditional") >= 0
+                modeAutofix: process.argv.indexOf("--autofix") >= 0,
+                modeConditional: process.argv.indexOf("--conditional") >= 0
             }
         );
     });
@@ -17448,14 +17430,14 @@ local.cliDict.dir = function () {
  * will jslint files in shallow <dir>
  */
     local.jslintAndPrintDir(process.argv[3], {
-        autofix: process.argv.indexOf("--autofix") >= 0,
-        conditional: process.argv.indexOf("--conditional") >= 0
+        modeAutofix: process.argv.indexOf("--autofix") >= 0,
+        modeConditional: process.argv.indexOf("--conditional") >= 0
     });
 };
 
 // run the cli
 if (module === require.main && !globalThis.utility2_rollup) {
-    local.cliRun();
+    local.cliRun({});
 }
 }());
 }());

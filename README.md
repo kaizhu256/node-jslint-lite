@@ -9,8 +9,6 @@ this zero-dependency package will provide browser-compatible versions of jslint 
 
 [![travis-ci.com build-status](https://api.travis-ci.com/kaizhu256/node-jslint-lite.svg)](https://travis-ci.com/kaizhu256/node-jslint-lite) [![coverage](https://kaizhu256.github.io/node-jslint-lite/build/coverage/coverage.badge.svg)](https://kaizhu256.github.io/node-jslint-lite/build/coverage/index.html)
 
-[![NPM](https://nodei.co/npm/jslint-lite.png?downloads=true)](https://www.npmjs.com/package/jslint-lite)
-
 [![build commit status](https://kaizhu256.github.io/node-jslint-lite/build/build.badge.svg)](https://travis-ci.com/kaizhu256/node-jslint-lite)
 
 | git-branch : | [master](https://github.com/kaizhu256/node-jslint-lite/tree/master) | [beta](https://github.com/kaizhu256/node-jslint-lite/tree/beta) | [alpha](https://github.com/kaizhu256/node-jslint-lite/tree/alpha)|
@@ -22,8 +20,6 @@ this zero-dependency package will provide browser-compatible versions of jslint 
 | build-artifacts : | [![build-artifacts](https://kaizhu256.github.io/node-jslint-lite/glyphicons_144_folder_open.png)](https://github.com/kaizhu256/node-jslint-lite/tree/gh-pages/build..master..travis-ci.com) | [![build-artifacts](https://kaizhu256.github.io/node-jslint-lite/glyphicons_144_folder_open.png)](https://github.com/kaizhu256/node-jslint-lite/tree/gh-pages/build..beta..travis-ci.com) | [![build-artifacts](https://kaizhu256.github.io/node-jslint-lite/glyphicons_144_folder_open.png)](https://github.com/kaizhu256/node-jslint-lite/tree/gh-pages/build..alpha..travis-ci.com)|
 
 [![npmPackageListing](https://kaizhu256.github.io/node-jslint-lite/build/screenshot.npmPackageListing.svg)](https://github.com/kaizhu256/node-jslint-lite)
-
-![npmPackageDependencyTree](https://kaizhu256.github.io/node-jslint-lite/build/screenshot.npmPackageDependencyTree.svg)
 
 
 # table of contents
@@ -51,11 +47,10 @@ this zero-dependency package will provide browser-compatible versions of jslint 
 #### cli help
 ![screenshot](https://kaizhu256.github.io/node-jslint-lite/build/screenshot.npmPackageCliHelp.svg)
 
-#### changelog 2020.10.27
-- jslint - update to v2020.10.21
-- jslint - add nullish-coalescing support
-- jslint - add optional-chaining support
-- jslint - require macro "!!jslint_utility2":true to conditionally-autofix .json file
+#### changelog 2020.11.3
+- jslint - add prefix "mode" in front of utility2-options
+- jslint - update to v2020.11.6
+- jslint - fix off-by-one column in autofix-expected_a_before_b
 - none
 
 #### todo
@@ -233,7 +228,7 @@ instruction
      */
         return val;
     }
-    function nop() {
+    function noop() {
     /*
      * this function will do nothing
      */
@@ -287,19 +282,20 @@ instruction
         });
     }
     // init local
-    local = {};
-    local.local = local;
+    local = {
+        assertJsonEqual,
+        assertOrThrow,
+        coalesce,
+        identity,
+        isBrowser,
+        isWebWorker,
+        local,
+        noop,
+        objectAssignDefault,
+        objectDeepCopyWithKeysSorted,
+        onErrorThrow
+    };
     globalThis.globalLocal = local;
-    local.assertJsonEqual = assertJsonEqual;
-    local.assertOrThrow = assertOrThrow;
-    local.coalesce = coalesce;
-    local.identity = identity;
-    local.isBrowser = isBrowser;
-    local.isWebWorker = isWebWorker;
-    local.nop = nop;
-    local.objectAssignDefault = objectAssignDefault;
-    local.objectDeepCopyWithKeysSorted = objectDeepCopyWithKeysSorted;
-    local.onErrorThrow = onErrorThrow;
 }());
 // assets.utility2.header.js - end
 
@@ -347,7 +343,7 @@ if (!local.isBrowser) {
                 : JSON.stringify(arg, undefined, 4)
             );
         }).join(" ").replace((
-            /\u001b\[\d*m/g
+            /\u001b\[\d+?m/g
         ), "") + "\n";
         // scroll textarea to bottom
         elem.scrollTop = elem.scrollHeight;
@@ -692,7 +688,7 @@ pre {\n\
         evt.targetOnEvent = evt.target.closest("[data-onevent]");\n\
         if (\n\
             !evt.targetOnEvent\n\
-            || evt.targetOnEvent.dataset.onevent === "domOnEventNop"\n\
+            || evt.targetOnEvent.dataset.onevent === "domOnEventNoop"\n\
             || evt.target.closest(".disabled,.readonly")\n\
         ) {\n\
             return;\n\
@@ -1057,16 +1053,16 @@ require("http").createServer(function (req, res) {
         "url": "https://github.com/kaizhu256/node-jslint-lite.git"
     },
     "scripts": {
-        "build-ci": "./npm_scripts.sh",
+        "build-ci": "sh npm_scripts.sh",
         "env": "env",
-        "eval": "./npm_scripts.sh",
-        "heroku-postbuild": "./npm_scripts.sh",
-        "postinstall": "./npm_scripts.sh",
-        "start": "./npm_scripts.sh",
-        "test": "./npm_scripts.sh",
-        "utility2": "./npm_scripts.sh"
+        "eval": "sh npm_scripts.sh",
+        "heroku-postbuild": "sh npm_scripts.sh",
+        "postinstall": "sh npm_scripts.sh",
+        "start": "sh npm_scripts.sh",
+        "test": "sh npm_scripts.sh",
+        "utility2": "sh npm_scripts.sh"
     },
-    "version": "2020.10.27"
+    "version": "2020.11.3"
 }
 ```
 
@@ -1086,12 +1082,12 @@ shBuildCiAfter () {(set -e
     # shDeployCustom
     shDeployGithub
     shDeployHeroku
-    shReadmeTest example.sh
+    shReadmeEval example.sh
 )}
 
 shBuildCiBefore () {(set -e
-    shNpmTestPublished
-    shReadmeTest example.js
+    #!! shNpmTestPublished
+    shReadmeEval example.js
 )}
 
 # run shBuildCi
