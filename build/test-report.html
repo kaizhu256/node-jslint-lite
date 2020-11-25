@@ -98,53 +98,50 @@ pre {
     padding: 0;
     width: 0;
 }
+</style>
+<style>
 /* jslint utility2:true */
-/*csslint
-*/
-.testReportDiv img {
+.test-report-div img {
     border: 1px solid #999;
     margin: 5px 0 5px 0;
     max-height: 256px;
     max-width: 512px;
 }
-.testReportDiv pre {
+.test-report-div pre {
     background: #fdd;
     border-top: 1px solid #999;
     margin-bottom: 0;
     padding: 10px;
 }
-.testReportDiv span {
+.test-report-div span {
     display: inline-block;
     width: 120px;
 }
-.testReportDiv table {
+.test-report-div table {
     border-top: 1px solid #999;
     text-align: left;
     width: 100%;
 }
-.testReportDiv table > tbody > tr:nth-child(odd) {
+.test-report-div table > tbody > tr:nth-child(odd) {
     background: #bfb;
 }
-.testReportDiv .displayNone {
-    display: none;
-}
-.testReportDiv .footer {
+.test-report-div .footer {
     text-align: center;
 }
-.testReportDiv .platform {
+.test-report-div .platform {
     background: #fff;
     border: 1px solid #999;
     margin-bottom: 20px;
     padding: 0 10px 10px 10px;
     text-align: left;
 }
-.testReportDiv .summary {
+.test-report-div .summary {
     background: #bfb;
 }
-.testReportDiv .testFailed {
+.test-report-div .test-failed {
     background: #f99;
 }
-.testReportDiv .testPending {
+.test-report-div .test-pending {
     background: #99f;
 }
 </style>
@@ -463,537 +460,244 @@ pre {
     );
 }());
 </script>
-<div class="testReportDiv">
+<div class="test-report-div">
 <h1>test-report for
-    <a
-        
-        href="https://github.com/kaizhu256/node-jslint-lite"
-        
-    >
-        jslint-lite (2020.11.3)
+    <a href="https://github.com/kaizhu256/node-jslint-lite">
+    jslint-lite (2020.11.3)
     </a>
 </h1>
+
 <div class="platform summary">
 <h2>summary</h2>
 <h4>
-    <span>version</span>-
-        2020.11.3<br>
-    <span>test date</span>- 2020-11-12T16:42:10.342Z<br>
-    <span>commit info</span>-
-        
-        d01e3b883ca55c2f03325ef6f09cce9a65586586 - <br>
-        
+    <span>version</span>- 2020.11.3<br>
+    <span>test-date</span>- 2020-11-25T04:43:39.116Z<br>
+    <span>commit-info</span>- 
+438420bcde6ac1ce76c360e25fdc92054caa0fc9 - <br>
 </h4>
 <table>
 <thead>
     <tr>
-        <th>total time-elapsed</th>
-        <th>total tests failed</th>
-        <th>total tests passed</th>
-        <th>total tests pending</th>
+    <th>total tests-failed</th>
+    <th>total tests-passed</th>
+    <th>total tests-pending</th>
     </tr>
 </thead>
-<tbody><tr>
-    <td>83786 ms</td>
+<tbody>
+    <tr>
     <td class="testPassed">0</td>
-    <td>40</td>
-    <td>0</td>
-</tr></tbody>
-</table>
-</div>
-
-<div class="platform">
-<h4>
-    1. buildApidoc - node - linux v15.2.0 - 2020-11-12T16:40:56.748Z<br>
-    
-    
-    <span>time-elapsed</span>- 75255 ms<br>
-    <span>tests failed</span>- 0<br>
-    <span>tests passed</span>- 1<br>
-    <span>tests pending</span>- 0<br>
-</h4>
-<table>
-<thead><tr>
-    <th>#</th>
-    <th>time-elapsed</th>
-    <th>status</th>
-    <th>test-case</th>
-</tr></thead>
-<tbody>
-
-<tr>
-    <td>1</td>
-    <td>4465 ms</td>
-    <td class="testPassed">passed</td>
-    <td>testCase_buildApp_default</td>
-</tr>
-
-</tbody>
-</table>
-<pre class="displayNone" tabIndex="0">
-
-</pre>
-</div>
-
-<div class="platform">
-<h4>
-    2. deployGithubTest - browser - /node-jslint-lite/build..alpha..travis-ci.com/app/ - Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/86.0.4240.198 Safari/537.36 - 2020-11-12T16:41:54.158Z<br>
-    
-    <a href="screenshot.deployGithubTest.browser.%252Fnode-jslint-lite%252Fbuild%252Fapp.png">
-        <img alt="screenshot.deployGithubTest.browser.%252Fnode-jslint-lite%252Fbuild%252Fapp.png" src="screenshot.deployGithubTest.browser.%252Fnode-jslint-lite%252Fbuild%252Fapp.png">
-    </a>
-    <br>
-    
-    
-    <span>time-elapsed</span>- 17913 ms<br>
-    <span>tests failed</span>- 0<br>
-    <span>tests passed</span>- 6<br>
-    <span>tests pending</span>- 0<br>
-</h4>
-<table>
-<thead><tr>
-    <th>#</th>
-    <th>time-elapsed</th>
-    <th>status</th>
-    <th>test-case</th>
-</tr></thead>
-<tbody>
-
-<tr>
-    <td>2</td>
-    <td>16 ms</td>
-    <td class="testPassed">passed</td>
-    <td>testCase_jslint0_coverage</td>
-</tr>
-
-<tr>
-    <td>3</td>
-    <td>59 ms</td>
-    <td class="testPassed">passed</td>
-    <td>testCase_jslint0_err</td>
-</tr>
-
-<tr>
-    <td>4</td>
-    <td>1 ms</td>
-    <td class="testPassed">passed</td>
-    <td>testCase_jslintAndPrintDir_coverage</td>
-</tr>
-
-<tr>
-    <td>5</td>
-    <td>15 ms</td>
-    <td class="testPassed">passed</td>
-    <td>testCase_jslintAndPrint_coverage</td>
-</tr>
-
-<tr>
-    <td>6</td>
-    <td>12 ms</td>
-    <td class="testPassed">passed</td>
-    <td>testCase_jslintAutofix_coverage</td>
-</tr>
-
-<tr>
-    <td>7</td>
-    <td>0 ms</td>
-    <td class="testPassed">passed</td>
-    <td>testCase_noop_default</td>
-</tr>
-
-</tbody>
-</table>
-<pre class="displayNone" tabIndex="0">
-
-</pre>
-</div>
-
-<div class="platform">
-<h4>
-    3. deployGithubTest - browser - /node-jslint-lite/build..alpha..travis-ci.com/app/ - Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/86.0.4240.198 Safari/537.36 - 2020-11-12T16:41:54.256Z<br>
-    
-    <a href="screenshot.deployGithubTest.browser.%252Fnode-jslint-lite%252Fbuild%252Fapp.png">
-        <img alt="screenshot.deployGithubTest.browser.%252Fnode-jslint-lite%252Fbuild%252Fapp.png" src="screenshot.deployGithubTest.browser.%252Fnode-jslint-lite%252Fbuild%252Fapp.png">
-    </a>
-    <br>
-    
-    
-    <span>time-elapsed</span>- 17830 ms<br>
-    <span>tests failed</span>- 0<br>
-    <span>tests passed</span>- 6<br>
-    <span>tests pending</span>- 0<br>
-</h4>
-<table>
-<thead><tr>
-    <th>#</th>
-    <th>time-elapsed</th>
-    <th>status</th>
-    <th>test-case</th>
-</tr></thead>
-<tbody>
-
-<tr>
-    <td>8</td>
-    <td>25 ms</td>
-    <td class="testPassed">passed</td>
-    <td>testCase_jslint0_coverage</td>
-</tr>
-
-<tr>
-    <td>9</td>
-    <td>83 ms</td>
-    <td class="testPassed">passed</td>
-    <td>testCase_jslint0_err</td>
-</tr>
-
-<tr>
-    <td>10</td>
-    <td>0 ms</td>
-    <td class="testPassed">passed</td>
-    <td>testCase_jslintAndPrintDir_coverage</td>
-</tr>
-
-<tr>
-    <td>11</td>
-    <td>7 ms</td>
-    <td class="testPassed">passed</td>
-    <td>testCase_jslintAndPrint_coverage</td>
-</tr>
-
-<tr>
-    <td>12</td>
-    <td>10 ms</td>
-    <td class="testPassed">passed</td>
-    <td>testCase_jslintAutofix_coverage</td>
-</tr>
-
-<tr>
-    <td>13</td>
-    <td>1 ms</td>
-    <td class="testPassed">passed</td>
-    <td>testCase_noop_default</td>
-</tr>
-
-</tbody>
-</table>
-<pre class="displayNone" tabIndex="0">
-
-</pre>
-</div>
-
-<div class="platform">
-<h4>
-    4. deployHerokuTest - browser - / - Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/86.0.4240.198 Safari/537.36 - 2020-11-12T16:42:11.518Z<br>
-    
-    <a href="screenshot.deployHerokuTest.browser.%252F.png">
-        <img alt="screenshot.deployHerokuTest.browser.%252F.png" src="screenshot.deployHerokuTest.browser.%252F.png">
-    </a>
-    <br>
-    
-    
-    <span>time-elapsed</span>- 435 ms<br>
-    <span>tests failed</span>- 0<br>
-    <span>tests passed</span>- 6<br>
-    <span>tests pending</span>- 0<br>
-</h4>
-<table>
-<thead><tr>
-    <th>#</th>
-    <th>time-elapsed</th>
-    <th>status</th>
-    <th>test-case</th>
-</tr></thead>
-<tbody>
-
-<tr>
-    <td>14</td>
-    <td>13 ms</td>
-    <td class="testPassed">passed</td>
-    <td>testCase_jslint0_coverage</td>
-</tr>
-
-<tr>
-    <td>15</td>
-    <td>23 ms</td>
-    <td class="testPassed">passed</td>
-    <td>testCase_jslint0_err</td>
-</tr>
-
-<tr>
-    <td>16</td>
-    <td>0 ms</td>
-    <td class="testPassed">passed</td>
-    <td>testCase_jslintAndPrintDir_coverage</td>
-</tr>
-
-<tr>
     <td>17</td>
-    <td>4 ms</td>
-    <td class="testPassed">passed</td>
-    <td>testCase_jslintAndPrint_coverage</td>
-</tr>
-
-<tr>
-    <td>18</td>
-    <td>12 ms</td>
-    <td class="testPassed">passed</td>
-    <td>testCase_jslintAutofix_coverage</td>
-</tr>
-
-<tr>
-    <td>19</td>
-    <td>0 ms</td>
-    <td class="testPassed">passed</td>
-    <td>testCase_nop_default</td>
-</tr>
-
+    <td>0</td>
+    </tr>
 </tbody>
 </table>
-<pre class="displayNone" tabIndex="0">
-
-</pre>
 </div>
 
 <div class="platform">
 <h4>
-    5. deployHerokuTest - browser - / - Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/86.0.4240.198 Safari/537.36 - 2020-11-12T16:42:11.577Z<br>
-    
-    <a href="screenshot.deployHerokuTest.browser.%252F.png">
-        <img alt="screenshot.deployHerokuTest.browser.%252F.png" src="screenshot.deployHerokuTest.browser.%252F.png">
-    </a>
-    <br>
-    
-    
-    <span>time-elapsed</span>- 448 ms<br>
-    <span>tests failed</span>- 0<br>
-    <span>tests passed</span>- 6<br>
-    <span>tests pending</span>- 0<br>
+1. buildApp - node - linux - v15.3.0<br>
+<span>test-date</span>- 2020-11-25T04:43:39.116Z<br>
+<span>time-elapsed</span>- 4413 ms<br>
+<span>tests-failed</span>- 0<br>
+<span>tests-passed</span>- 1<br>
+<span>tests-pending</span>- 0<br>
 </h4>
+
 <table>
 <thead><tr>
-    <th>#</th>
-    <th>time-elapsed</th>
-    <th>status</th>
-    <th>test-case</th>
+<th>#</th>
+<th>time-elapsed</th>
+<th>status</th>
+<th>test-case</th>
 </tr></thead>
 <tbody>
-
 <tr>
-    <td>20</td>
-    <td>13 ms</td>
-    <td class="testPassed">passed</td>
-    <td>testCase_jslint0_coverage</td>
+<td>1</td>
+<td>4412 ms</td>
+<td class="test-passed">passed</td>
+<td>testCase_buildApp_default</td>
 </tr>
-
-<tr>
-    <td>21</td>
-    <td>79 ms</td>
-    <td class="testPassed">passed</td>
-    <td>testCase_jslint0_err</td>
-</tr>
-
-<tr>
-    <td>22</td>
-    <td>1 ms</td>
-    <td class="testPassed">passed</td>
-    <td>testCase_jslintAndPrintDir_coverage</td>
-</tr>
-
-<tr>
-    <td>23</td>
-    <td>3 ms</td>
-    <td class="testPassed">passed</td>
-    <td>testCase_jslintAndPrint_coverage</td>
-</tr>
-
-<tr>
-    <td>24</td>
-    <td>16 ms</td>
-    <td class="testPassed">passed</td>
-    <td>testCase_jslintAutofix_coverage</td>
-</tr>
-
-<tr>
-    <td>25</td>
-    <td>0 ms</td>
-    <td class="testPassed">passed</td>
-    <td>testCase_nop_default</td>
-</tr>
-
 </tbody>
 </table>
-<pre class="displayNone" tabIndex="0">
 
-</pre>
 </div>
-
 <div class="platform">
 <h4>
-    6. npmTest - browser - / - Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/86.0.4240.198 Safari/537.36 - 2020-11-12T16:40:51.132Z<br>
-    
-    <a href="screenshot.npmTest.browser.%252F.png">
-        <img alt="screenshot.npmTest.browser.%252F.png" src="screenshot.npmTest.browser.%252F.png">
-    </a>
-    <br>
-    
-    
-    <span>time-elapsed</span>- 80399 ms<br>
-    <span>tests failed</span>- 0<br>
-    <span>tests passed</span>- 6<br>
-    <span>tests pending</span>- 0<br>
+2. buildApidoc - node - linux - v15.3.0<br>
+<span>test-date</span>- 2020-11-25T04:43:35.906Z<br>
+<span>time-elapsed</span>- 460 ms<br>
+<span>tests-failed</span>- 0<br>
+<span>tests-passed</span>- 1<br>
+<span>tests-pending</span>- 0<br>
 </h4>
+
 <table>
 <thead><tr>
-    <th>#</th>
-    <th>time-elapsed</th>
-    <th>status</th>
-    <th>test-case</th>
+<th>#</th>
+<th>time-elapsed</th>
+<th>status</th>
+<th>test-case</th>
 </tr></thead>
 <tbody>
-
 <tr>
-    <td>26</td>
-    <td>23 ms</td>
-    <td class="testPassed">passed</td>
-    <td>testCase_jslint0_coverage</td>
+<td>2</td>
+<td>458 ms</td>
+<td class="test-passed">passed</td>
+<td>testCase_buildApidoc_default</td>
 </tr>
-
-<tr>
-    <td>27</td>
-    <td>125 ms</td>
-    <td class="testPassed">passed</td>
-    <td>testCase_jslint0_err</td>
-</tr>
-
-<tr>
-    <td>28</td>
-    <td>0 ms</td>
-    <td class="testPassed">passed</td>
-    <td>testCase_jslintAndPrintDir_coverage</td>
-</tr>
-
-<tr>
-    <td>29</td>
-    <td>2 ms</td>
-    <td class="testPassed">passed</td>
-    <td>testCase_jslintAndPrint_coverage</td>
-</tr>
-
-<tr>
-    <td>30</td>
-    <td>23 ms</td>
-    <td class="testPassed">passed</td>
-    <td>testCase_jslintAutofix_coverage</td>
-</tr>
-
-<tr>
-    <td>31</td>
-    <td>0 ms</td>
-    <td class="testPassed">passed</td>
-    <td>testCase_noop_default</td>
-</tr>
-
 </tbody>
 </table>
-<pre class="displayNone" tabIndex="0">
 
-</pre>
 </div>
-
 <div class="platform">
 <h4>
-    7. npmTest - node - linux v15.2.0 - 2020-11-12T16:40:46.628Z<br>
-    
-    
-    <span>time-elapsed</span>- 83786 ms<br>
-    <span>tests failed</span>- 0<br>
-    <span>tests passed</span>- 9<br>
-    <span>tests pending</span>- 0<br>
+3. npmTest - browser - / - Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/87.0.4280.66 Safari/537.36<br>
+<a href="screenshot.npmTest.browser.%252F.png">
+<img
+alt="screenshot.npmTest.browser.%252F.png"
+src="screenshot.npmTest.browser.%252F.png"
+>
+</a>
+<br>
+<span>test-date</span>- 2020-11-25T04:43:30.485Z<br>
+<span>time-elapsed</span>- 170 ms<br>
+<span>tests-failed</span>- 0<br>
+<span>tests-passed</span>- 6<br>
+<span>tests-pending</span>- 0<br>
 </h4>
+
 <table>
 <thead><tr>
-    <th>#</th>
-    <th>time-elapsed</th>
-    <th>status</th>
-    <th>test-case</th>
+<th>#</th>
+<th>time-elapsed</th>
+<th>status</th>
+<th>test-case</th>
 </tr></thead>
 <tbody>
-
 <tr>
-    <td>32</td>
-    <td>1128 ms</td>
-    <td class="testPassed">passed</td>
-    <td>testCase_buildApidoc_default</td>
+<td>3</td>
+<td>20 ms</td>
+<td class="test-passed">passed</td>
+<td>testCase_jslint0_coverage</td>
 </tr>
-
 <tr>
-    <td>33</td>
-    <td>7081 ms</td>
-    <td class="testPassed">passed</td>
-    <td>testCase_buildApp_default</td>
+<td>4</td>
+<td>106 ms</td>
+<td class="test-passed">passed</td>
+<td>testCase_jslint0_err</td>
 </tr>
-
 <tr>
-    <td>34</td>
-    <td>963 ms</td>
-    <td class="testPassed">passed</td>
-    <td>testCase_jslint0_coverage</td>
+<td>5</td>
+<td>0 ms</td>
+<td class="test-passed">passed</td>
+<td>testCase_jslintAndPrintDir_coverage</td>
 </tr>
-
 <tr>
-    <td>35</td>
-    <td>73 ms</td>
-    <td class="testPassed">passed</td>
-    <td>testCase_jslint0_err</td>
+<td>6</td>
+<td>4 ms</td>
+<td class="test-passed">passed</td>
+<td>testCase_jslintAndPrint_coverage</td>
 </tr>
-
 <tr>
-    <td>36</td>
-    <td>1197 ms</td>
-    <td class="testPassed">passed</td>
-    <td>testCase_jslintAndPrintDir_coverage</td>
+<td>7</td>
+<td>17 ms</td>
+<td class="test-passed">passed</td>
+<td>testCase_jslintAutofix_coverage</td>
 </tr>
-
 <tr>
-    <td>37</td>
-    <td>3 ms</td>
-    <td class="testPassed">passed</td>
-    <td>testCase_jslintAndPrint_coverage</td>
+<td>8</td>
+<td>0 ms</td>
+<td class="test-passed">passed</td>
+<td>testCase_noop_default</td>
 </tr>
-
-<tr>
-    <td>38</td>
-    <td>40 ms</td>
-    <td class="testPassed">passed</td>
-    <td>testCase_jslintAutofix_coverage</td>
-</tr>
-
-<tr>
-    <td>39</td>
-    <td>0 ms</td>
-    <td class="testPassed">passed</td>
-    <td>testCase_noop_default</td>
-</tr>
-
-<tr>
-    <td>40</td>
-    <td>2748 ms</td>
-    <td class="testPassed">passed</td>
-    <td>testCase_webpage_default</td>
-</tr>
-
 </tbody>
 </table>
-<pre class="displayNone" tabIndex="0">
 
-</pre>
+</div>
+<div class="platform">
+<h4>
+4. npmTest - node - linux - v15.3.0<br>
+<span>test-date</span>- 2020-11-25T04:43:26.441Z<br>
+<span>time-elapsed</span>- 6829 ms<br>
+<span>tests-failed</span>- 0<br>
+<span>tests-passed</span>- 9<br>
+<span>tests-pending</span>- 0<br>
+</h4>
+
+<table>
+<thead><tr>
+<th>#</th>
+<th>time-elapsed</th>
+<th>status</th>
+<th>test-case</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>9</td>
+<td>1043 ms</td>
+<td class="test-passed">passed</td>
+<td>testCase_buildApidoc_default</td>
+</tr>
+<tr>
+<td>10</td>
+<td>6818 ms</td>
+<td class="test-passed">passed</td>
+<td>testCase_buildApp_default</td>
+</tr>
+<tr>
+<td>11</td>
+<td>890 ms</td>
+<td class="test-passed">passed</td>
+<td>testCase_jslint0_coverage</td>
+</tr>
+<tr>
+<td>12</td>
+<td>56 ms</td>
+<td class="test-passed">passed</td>
+<td>testCase_jslint0_err</td>
+</tr>
+<tr>
+<td>13</td>
+<td>1029 ms</td>
+<td class="test-passed">passed</td>
+<td>testCase_jslintAndPrintDir_coverage</td>
+</tr>
+<tr>
+<td>14</td>
+<td>3 ms</td>
+<td class="test-passed">passed</td>
+<td>testCase_jslintAndPrint_coverage</td>
+</tr>
+<tr>
+<td>15</td>
+<td>36 ms</td>
+<td class="test-passed">passed</td>
+<td>testCase_jslintAutofix_coverage</td>
+</tr>
+<tr>
+<td>16</td>
+<td>0 ms</td>
+<td class="test-passed">passed</td>
+<td>testCase_noop_default</td>
+</tr>
+<tr>
+<td>17</td>
+<td>2596 ms</td>
+<td class="test-passed">passed</td>
+<td>testCase_webpage_default</td>
+</tr>
+</tbody>
+</table>
+
 </div>
 
 <div class="footer">
-    [ this document was created with
-    <a href="https://github.com/kaizhu256/node-utility2" target="_blank">utility2</a>
-    ]
+[ this document was created with <a
+    href="https://github.com/kaizhu256/node-utility2"
+    target="_blank"
+>utility2</a> ]
 </div>
+
 </div>
 </body>
 </html>

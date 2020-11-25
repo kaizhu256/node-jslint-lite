@@ -1304,8 +1304,10 @@
 <a href="#l979" id="l979">979</a>
 <a href="#l980" id="l980">980</a>
 <a href="#l981" id="l981">981</a>
+<a href="#l982" id="l982">982</a>
 </td>
         <td class="line-coverage"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -2382,6 +2384,7 @@
 
 
 
+
 /*
 example.js
 
@@ -2632,7 +2635,7 @@ if (!local.isBrowser) {
                 : <span class="branch-1 cbranch-skip" title="branch not covered">JSON.stringify(arg, undefined, 4)</span>
             );
         }).join(" ").replace((
-            /\u001b\[\d*m/g
+            /\u001b\[\d+?m/g
         ), "") + "\n";
         // scroll textarea to bottom
         elem.scrollTop = elem.scrollHeight;

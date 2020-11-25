@@ -444,7 +444,7 @@ pre {
 /*global window*/
 (function () {
     "use strict";
-    var testCaseDict;
+    let testCaseDict;
     testCaseDict = {};
     testCaseDict.modeTest = 1;
 
@@ -453,32 +453,24 @@ pre {
     /*
      * this function will run a failed error demo
      */
-        // hack-jslint
-        window.utility2.noop(opt);
-        onError(new Error("this is a failed error demo"));
+        onError(new Error("this is a failed error demo"), opt);
     };
 
-    testCaseDict.testCase_passed_ajax_demo = function (opt, onError) {
+    testCaseDict.testCase_passed_http_fetch_demo = function (opt, onError) {
     /*
-     * this function will demo a passed ajax test
+     * this function will demo a passed http-fetch test
      */
-        var data;
-        opt = {url: "/"};
-        // test ajax-req for main-page "/"
-        window.utility2.ajax(opt, function (err, xhr) {
-            try {
-                // handle err
-                console.assert(!err, err);
-                // validate "200 ok" status
-                console.assert(xhr.statusCode === 200, xhr.statusCode);
-                // validate non-empty data
-                data = xhr.responseText;
-                console.assert(data && data.length > 0, data);
-                onError();
-            } catch (errCaught) {
-                onError(errCaught);
-            }
-        });
+        // fetch main-page "/"
+        window.fetch("/").then(function (res) {
+            // validate "200 ok" status
+            window.utility2.assertOrThrow(res.status === 200, res.status);
+            return res.text();
+        }).then(function (data) {
+            // validate non-empty data
+            window.utility2.assertOrThrow(data && data.length > 0, data);
+            onError(undefined, opt);
+        // handle err
+        }).catch(onError);
     };
 
     window.utility2.testRunDefault(testCaseDict);
@@ -510,8 +502,8 @@ local.domOnEventInputChange = function (evt) {
         local.jslintAndPrint(document.querySelector(
             "#inputTextarea1"
         ).value, "inputTextarea1.js", {
-            autofix: evt.target.id === "buttonJslintAutofix1",
-            conditional: evt.target.id !== "buttonJslintAutofix1"
+            modeAutofix: evt.target.id === "buttonJslintAutofix1",
+            modeConditional: evt.target.id !== "buttonJslintAutofix1"
         });
         if (local.jslint.jslintResult.autofix) {
             document.querySelector(
@@ -521,7 +513,7 @@ local.domOnEventInputChange = function (evt) {
         document.querySelector(
             "#outputJslintPre1"
         ).textContent = local.jslint.jslintResult.errMsg.replace((
-            /\\u001b\\[\\d*m/g
+            /\u001b\[\d*m/g
         ), "").trim();
         // try to cleanup __coverage__
         try {

@@ -990,9 +990,9 @@ cliDict._version = cliDict._version || function () {
         }
         aa = lines_extra[warning.line].source;
         warning.a = warning.a || aa.trim();
-        switch (option.autofix &amp;&amp; warning.code) {
+        switch (option.modeAutofix &amp;&amp; warning.code) {
         // expected_a_at_b_c: &quot;Expected &apos;{a}&apos; at column {b}, not column {c}.&quot;,
-        case &quot;expected_a_at_b_c&quo...</pre></li>
+        case &quot;expected_a_at_b_c...</pre></li>
     <li>example use<pre class="apidocCodePre">...
 (function () {
 local.testCase_jslint0_coverage = function (opt, onError) {
@@ -1119,13 +1119,13 @@ if (local.isBrowser) {
 Promise.all([
     new Promise(function (resolve) {
         local.<span class="apidocCodeKeywordSpan">jslintAndPrintDir</span>(&quot;.&quot;, {
-            autofix: true,
-            conditional: true
+            modeAutofix: true,
+            modeConditional: true
         }, resolve);
     }),
     new Promise(function (resolve) {
         local.jslintAndPrintDir(&quot;jslintAndPrintDir&quot;, {
-            autofix: true,
+            modeAutofix: true,
 ...</pre></li>
     </ul>
 
@@ -1186,7 +1186,7 @@ Promise.all([
 }</pre></li>
     <li>example use<pre class="apidocCodePre">...
         }).join(&quot; &quot;).replace((
-            /\u001b\[\d*m/g
+            /\u001b\[\d+?m/g
         ), &quot;&quot;) + &quot;\n&quot;;
         // scroll textarea to bottom
         elem.scrollTop = elem.scrollHeight;
@@ -2058,8 +2058,8 @@ var SyntaxUnit = require(&quot;../util/SyntaxUnit&quot;);
             require(&quot;fs&quot;).readFileSync(require(&quot;path&quot;).resolve(file), &quot;utf8&quot;),
             file,
             {
-                autofix: process.argv.indexOf(&quot;--autofix&quot;) &gt;= 0,
-                conditional: process.argv.indexOf(&quot;--conditional&quot;) &gt;= 0
+                modeAutofix: process.argv.indexOf(&quot;--autofix&quot;) &gt;= 0,
+                modeConditional: process.argv.indexOf(&quot;--conditional&quot;) &gt;= 0
             }
         );
     });
@@ -2100,8 +2100,8 @@ var SyntaxUnit = require(&quot;../util/SyntaxUnit&quot;);
  * will jslint files in shallow &lt;dir&gt;
  */
 </span>    local.jslintAndPrintDir(process.argv[3], {
-        autofix: process.argv.indexOf(&quot;--autofix&quot;) &gt;= 0,
-        conditional: process.argv.indexOf(&quot;--conditional&quot;) &gt;= 0
+        modeAutofix: process.argv.indexOf(&quot;--autofix&quot;) &gt;= 0,
+        modeConditional: process.argv.indexOf(&quot;--conditional&quot;) &gt;= 0
     });
 }</pre></li>
     <li>example use<pre class="apidocCodePre">n/a</pre></li>

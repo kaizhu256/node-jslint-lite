@@ -92,6 +92,7 @@
 
 
 
+
 /*
 example.js
 
@@ -342,7 +343,7 @@ if (!local.isBrowser) {
                 : JSON.stringify(arg, undefined, 4)
             );
         }).join(" ").replace((
-            /\u001b\[\d*m/g
+            /\u001b\[\d+?m/g
         ), "") + "\n";
         // scroll textarea to bottom
         elem.scrollTop = elem.scrollHeight;

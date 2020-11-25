@@ -2791,14 +2791,14 @@ local.testCase_jslintAndPrintDir_coverage = function (opt, onError) {
     Promise.all([
         new Promise(function (resolve) {
             local.jslintAndPrintDir(".", {
-                autofix: true,
-                conditional: true
+                modeAutofix: true,
+                modeConditional: true
             }, resolve);
         }),
         new Promise(function (resolve) {
             local.jslintAndPrintDir("jslintAndPrintDir", {
-                autofix: true,
-                conditional: true
+                modeAutofix: true,
+                modeConditional: true
             });
             local.eventListenerAdd((
                 "utility2.testRunMock.process.exit"
@@ -2861,11 +2861,11 @@ local.testCase_jslintAutofix_coverage = function (opt, onError) {
     ], function (onError) {
         // test autofix-failed-expected_identifier_a handling-behavior
         local.jslintAndPrint("(function () {\nfunction () {}\n}());", "aa.js", {
-            autofix: true
+            modeAutofix: true
         });
         // test autofix-multi-pass handling-behavior
         local.jslintAndPrint("let aa;aa=1;", "aa.js", {
-            autofix: true
+            modeAutofix: true
         });
         local.jslintAndPrint((
             // autofix-js - unexpected_space_a_b
@@ -2875,11 +2875,11 @@ local.testCase_jslintAutofix_coverage = function (opt, onError) {
             + "     return 1;\n"
             + "}());\n"
         ), "aa.js", {
-            autofix: true
+            modeAutofix: true
         });
         // de-mux - false-positive rgx /_/
         local.jslintAndPrint("let aa;\n aa = {} / 2;", "aa.js", {
-            autofix: true
+            modeAutofix: true
         });
         local.jslintAndPrint((
             "(function () {\n"
@@ -2908,7 +2908,7 @@ local.testCase_jslintAutofix_coverage = function (opt, onError) {
             + "    return aa;\n"
             + "}());\n"
         ), "aa.js", {
-            autofix: true
+            modeAutofix: true
         });
         onError(undefined, opt);
     }, onError);
